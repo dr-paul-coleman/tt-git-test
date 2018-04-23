@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Junction object between dispute content and dispute experiences.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>DateOfReference__c</fullName>
+        <description>Text field to store the field api name of the date to use as reference for the email notification send date.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Text field to store the field api name of the date to use as reference for the email notification send date.</inlineHelpText>
+        <label>Date of Reference</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DisputeContent__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the related Dispute Content (aka Success Tip) record for the assignment.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Lookup to the related Dispute Content (aka Success Tip) record for the assignment.</inlineHelpText>
+        <label>Dispute Content</label>
+        <referenceTo>DisputeContent__c</referenceTo>
+        <relationshipName>DisputeContentAssignments</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>DisputeExperience__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the related Dispute Experience record for the assignment.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Lookup to the related Dispute Experience record for the assignment.</inlineHelpText>
+        <label>Dispute Experience</label>
+        <referenceTo>DisputeExperience__c</referenceTo>
+        <relationshipName>DisputeContentAssignments</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>DisputeOfferCount__c</fullName>
+        <description>The threshold number of offers per dispute that will trigger the automatic tip.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The threshold number of offers per dispute that will trigger the automatic tip.</inlineHelpText>
+        <label>Dispute Offer Count</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DisputeOfferMessageCount__c</fullName>
+        <description>The threshold number of messages to trigger the auto tip based on the most recent offer.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The threshold number of messages to trigger the auto tip based on the most recent offer.</inlineHelpText>
+        <label>Dispute Offer Message Count</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DisputeOfferStatus__c</fullName>
+        <description>The status the offer must be in order to trigger the automatic tip.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The status the offer must be in order to trigger the automatic tip.</inlineHelpText>
+        <label>Dispute Offer Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>DisputeOfferStatus</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>DisputeStage__c</fullName>
+        <description>The stage the dispute must be in order for the automated message to be triggered.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The stage the dispute must be in order for the automated message to be triggered.</inlineHelpText>
+        <label>Dispute Stage</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>DisputeStage</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>DisputeStatus__c</fullName>
+        <description>The status the dispute should be in order to trigger the creation of the message record.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The status the dispute should be in order to trigger the creation of the message record.</inlineHelpText>
+        <label>Dispute Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>DisputeStatus</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Object__c</fullName>
+        <description>The object record that will trigger the automatic tip event.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The object record that will trigger the automatic tip event.</inlineHelpText>
+        <label>Object</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Dispute__c</fullName>
+                    <default>false</default>
+                    <label>Dispute__c</label>
+                </value>
+                <value>
+                    <fullName>DisputeOffer__c</fullName>
+                    <default>false</default>
+                    <label>DisputeOffer__c</label>
+                </value>
+                <value>
+                    <fullName>DisputeMessage__c</fullName>
+                    <default>false</default>
+                    <label>DisputeMessage__c</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>RuleNumber__c</fullName>
+        <description>Auto number to indicate the rule number; used in trigger for matching.</description>
+        <displayFormat>DCR-{0000}</displayFormat>
+        <externalId>false</externalId>
+        <inlineHelpText>Auto number to indicate the rule number; used in trigger for matching.</inlineHelpText>
+        <label>Rule Number</label>
+        <trackTrending>false</trackTrending>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>SharedWith__c</fullName>
+        <description>Displayed in related list views.</description>
+        <externalId>false</externalId>
+        <formula>TEXT(DisputeContent__r.ShareWith__c)</formula>
+        <inlineHelpText>The dispute party that the automated tip will be shared with.</inlineHelpText>
+        <label>Shared With</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Dispute Content Rule</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Dispute Content Rules</pluralLabel>
+    <recordTypes>
+        <fullName>ContentRule</fullName>
+        <active>true</active>
+        <description>Record type used to manage the rules for when content (e.g., message or tip) needs to be added to the dispute.</description>
+        <label>Content Rule</label>
+        <picklistValues>
+            <picklist>DisputeOfferStatus__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Countered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Expired</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Stopped</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Withdrawn</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>DisputeStage__c</picklist>
+            <values>
+                <fullName>Agreement made</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Changed resolution platform</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Expired</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Initiator confirmation needed</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Offer pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Responder first action needed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stopped</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Withdrawn</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>DisputeStatus__c</picklist>
+            <values>
+                <fullName>Awaiting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Under review</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Object__c</picklist>
+            <values>
+                <fullName>Dispute%5F%5Fc</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DisputeMessage%5F%5Fc</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DisputeOffer%5F%5Fc</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

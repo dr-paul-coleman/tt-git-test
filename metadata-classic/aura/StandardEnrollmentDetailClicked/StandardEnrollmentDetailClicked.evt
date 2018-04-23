@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event template">
+	<aura:attribute name="enrollmentId" type="String"/>
+	<aura:attribute name="enrollmentName" type="String"/>
+</aura:event>

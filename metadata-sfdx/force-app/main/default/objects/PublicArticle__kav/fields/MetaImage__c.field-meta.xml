@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MetaImage__c</fullName>
+    <description>Meta image for use in social media share cards.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Image to be shown on the card when the article is shared via social media.</inlineHelpText>
+    <label>Meta Image</label>
+    <required>false</required>
+    <type>File</type>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LiveText__Object_Id__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Id of the object related to this message</description>
+    <externalId>false</externalId>
+    <label>Object Id</label>
+    <length>20</length>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

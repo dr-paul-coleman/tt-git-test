@@ -1,0 +1,38 @@
+.THIS .tab-subtext {
+	line-height: initial;
+	text-transform: none;
+	font-size: .65rem;
+}
+
+.THIS .slds-icon-action-clone {
+	background-color: #fe8f60;
+}
+
+.THIS .slds-tabs--default__link {
+	overflow: visible;
+}
+
+.THIS .popover-container {
+	position: relative;
+	display: none;
+}
+
+.THIS .popover-container .slds-popover {
+	position: absolute;
+	bottom: 35px;
+	right: -75px;
+	width: initial;
+}
+
+.THIS .migrated-icon:hover + .popover-container {
+	display: inline-block;
+}
+
+.THIS.inactive-enrollment-tab .slds-tabs--default__item {
+	background-color: #faffbd;
+}
+
+.THIS .unsuccessful {
+	background-color: #c23934;
+	color: white;
+}

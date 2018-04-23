@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Completed</fullName>
+    <columns>NAME</columns>
+    <columns>IncompleteInfo__c</columns>
+    <columns>Duplicate__c</columns>
+    <columns>EnrollmentCreated__c</columns>
+    <columns>AccountName__c</columns>
+    <columns>UserId__c</columns>
+    <columns>CBSACode__c</columns>
+    <columns>CBSAName__c</columns>
+    <columns>BusinessName__c</columns>
+    <columns>Case__c</columns>
+    <columns>RequestCategory__c</columns>
+    <columns>RequestCategoryID__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>EnrollmentCreated__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Completed</label>
+</ListView>

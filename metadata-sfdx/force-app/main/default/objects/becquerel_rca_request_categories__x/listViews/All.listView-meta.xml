@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>ExternalId</columns>
+    <columns>rca_name__c</columns>
+    <columns>rca_archetype__c</columns>
+    <columns>rca_meta_type__c</columns>
+    <columns>rca_submeta_name__c</columns>
+    <columns>rca_request_category_id__c</columns>
+    <columns>rca_user_name_preferred__c</columns>
+    <columns>rca_active__c</columns>
+    <columns>rca_travel_types__c</columns>
+    <columns>rca_core_category__c</columns>
+    <columns>rca_credit_price__c</columns>
+    <columns>rca_flags__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

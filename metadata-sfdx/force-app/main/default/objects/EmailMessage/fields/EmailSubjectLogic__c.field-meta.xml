@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EmailSubjectLogic__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( FIND ("Reminder:", Subject) > 0, "Reminder Email",
+IF( FIND ("Follow-up from Thumbtack Support", Subject) > 0, "Support Email",
+IF( FIND ("sent you a message", Subject) > 0, "Sent You a Message",
+IF( FIND ("Thanks for writing.", Subject) > 0, "Thanks for Writing",
+IF( FIND ("Out of Office", Subject) > 0, "Out of Office",
+IF( FIND ("Thanks For Your Interest!", Subject) > 0, "Thanks For Your Interest!",
+IF( FIND ("ready to complete your project", Subject) > 0, "Ready to Complete Your Project",
+IF( FIND ("Rate your satisfaction", Subject) > 0, "Rate Your Satisfaction",
+IF( FIND ("Quick favor for ", Subject) > 0, "Quick Favor for",
+IF( FIND ("Have you hired a pro for your ", Subject) > 0, "Have You Hired a Pro for Your",
+"other"))))))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Email Subject Logic</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

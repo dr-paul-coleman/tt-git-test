@@ -1,0 +1,43 @@
+<apex:page standardController="Case" standardStylesheets="false"   >
+    <apex:includeScript value="/canvas/sdk/js/publisher.js"/>
+    <apex:includeScript value="/support/console/35.0/integration.js"/>
+    <apex:includeLightning />
+
+    <!--flow:interview name="QuickCase"></flow:interview-->
+
+    <div id="lightning">
+        <script>
+            $Lightning.use("c:QuickCaseApp", function(){
+                $Lightning.createComponent("c:QuickCase", {}, "lightning"
+                    , function(cmp){$A.eventService.addHandler({ "event": "c:QuickCaseEvent", "handler" : quickCaseEvenHandler });
+                });
+            });
+
+            function quickCaseEvenHandler(event)
+            {
+                var actionName = event.getParam('actionName');
+
+                if(actionName == 'CaseRedirect')
+                {
+                    var caseId = event.getParam('caseId');
+                    var caseNumber = event.getParam('caseNumber');
+
+                    if (sforce.console.isInConsole())
+                    {
+                        sforce.console.openPrimaryTab(null, '/' + caseId, true, caseNumber, function(sub_result){
+                            console.log(sub_result.id);
+                            if(false === sub_result.success) {
+                                console.warn("Failed to open primary tab");
+                                console.dir(sub_result);
+                            }
+                        }, name);
+                    }
+                    else
+                    {
+                        location.href = '/' + caseId;
+                    }
+                }
+            }
+        </script>
+    </div>
+</apex:page>

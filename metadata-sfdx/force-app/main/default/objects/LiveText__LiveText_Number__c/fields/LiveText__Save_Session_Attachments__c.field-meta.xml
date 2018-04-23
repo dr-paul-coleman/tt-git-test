@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LiveText__Save_Session_Attachments__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>Save the attachments that are sent or received during the message session to the session record.</inlineHelpText>
+    <label>Save Attachments</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

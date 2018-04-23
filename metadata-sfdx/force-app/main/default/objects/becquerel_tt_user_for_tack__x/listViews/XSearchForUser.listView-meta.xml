@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>XSearchForUser</fullName>
+    <columns>ExternalId</columns>
+    <columns>sav_business_name__c</columns>
+    <columns>usr_first_name__c</columns>
+    <columns>usr_last_name__c</columns>
+    <columns>usr_email__c</columns>
+    <columns>phn_phone_number__c</columns>
+    <columns>sav_notif_phn_phone_number__c</columns>
+    <columns>sav_phn_phone_number__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ExternalId</field>
+        <operation>equals</operation>
+        <value>25689578</value>
+    </filters>
+    <label>X - Search for User</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

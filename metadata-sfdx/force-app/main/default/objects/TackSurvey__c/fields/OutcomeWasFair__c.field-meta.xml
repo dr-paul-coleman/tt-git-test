@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OutcomeWasFair__c</fullName>
+    <description>Field to store the response to the MI Tack Survey question: The outcome was fair to all parties involved.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The outcome was fair to all parties involved.</inlineHelpText>
+    <label>Outcome was Fair</label>
+    <precision>10</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

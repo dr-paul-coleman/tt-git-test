@@ -1,0 +1,693 @@
+<!--****************************************************************************
+*                                                                              *
+*                                           ########                           *
+*                                            #####                             *
+*    Copyright (c) 2016 Thumbtack            ###                               *
+*       All rights reserved.                ###                                *
+*                                         #####                                *
+*                                      #########                               *
+*                                         #                                    *
+*                                        #                                     *
+*                                       #                                      *
+*                                      #                                       *
+*                                                                              *
+******************************************************************************** 
+-->
+<apex:page docType="html-5.0" showHeader="false" standardController="Case" extensions="CaseController" standardStylesheets="false" title="Transfer Case"><apex:includeScript value="https://code.jquery.com/jquery-2.1.4.min.js"/>
+<script>
+  var queueFilter = ["Noise","Engagement","BGC Identity Mismatch","Product Feedback","Pro Assistance","TSL Email","ProAssist Support", "Pro Services", "LiveText", "Auto Response", "Experiment Queue","Ask an Expert Pro Escalation", "Categorization"];
+  var userFilter = ["tack bot","Travis Oliver","Kristin Hasna","Heather Mitchell","Alex Brady","Grant Johnson","Drew Dayton","Allen Bishop","Adam Schultz","Marissa Minor","Meenakshi Pisupati","Jonny Bryant","Sarah Tran","Scott Purcell","Patrick Beck","Marco Almeida","Kevin Giltz","Deirdre Galluzzo","Kyle Thorup","Alyssa Wilson","Chas Doane","Gunnar Kuecks","Marco Zappacosta","Jonathan Swanson","Alexander Daniels","Katie Biber","wise.io Integration","System Integration", "User Provisioner","Paul Coleman","Ryan Garner-Carpenter",
+                    "Vickie Duong","Thomas Nourse","Alex Piacquad","Michael Costo","Dang Caacoy","Kristine Ann Pielago","Jeff Oviatt","Zapier Integration","MI Salesforce Integration","Salesforce System Integration","Okta User Provisioner"];
+</script>
+
+<apex:includeScript value="/support/console/36.0/integration.js"/>
+<apex:stylesheet value="{!URLFOR($Resource.extjs510107Zip, 'build/packages/ext-theme-crisp/build/resources/ext-theme-crisp-all_01.css')}"/>
+<apex:remoteObjects jsNamespace="rmo">
+    <apex:remoteObjectModel name="Case" fields="Id,OwnerId"/>
+    <apex:remoteObjectModel name="CaseUpdateHistory__c" fields="RecordTypeId,Case__c,CasePreviousOwner__c,CasePreviousOwnerTeam__c,CaseOwner__c,CaseOwnerTeam__c,CaseTransferPost__c"/>
+    <apex:remoteObjectModel name="RecordType" fields="Id,DeveloperName,SobjectType"/>
+</apex:remoteObjects>
+<style>
+    body, div, span, a, .x-panel-header-text-container-default, .x-column-header, .x-grid-cell, .x-form-item-label, .x-form-item, .x-form-field, .x-body, .x-btn-inner, .x-form-display-field, .x-form-display-field-default, .x-fieldset-header-default, .x-fieldset-header-text {
+        font-family: Arial,Helvetica,sans-serif !important;
+        font-size: 11.5px !important;
+    }
+    body {
+        margin: 5px;
+        padding: 5px;
+    }
+    .FlowPageBlockBtns .FlowNextBtn {color:#F27802;text-align:center;}
+    .FlowPageBlockBtns .FlowPreviousBtn {color:#F27802;text-align:center;}
+    .FlowText{font-face: Tahoma; text-align:left; }
+    .FlowRadio{font-face: Tahoma; text-align:left; }
+    .FlowDropdown{font-face: Tahoma; text-align:left; }
+    .FlowTextArea{font-face: Tahoma; text-align:left; }
+    .tt-back-button,.btn.FlowNextBtn,input.btn.FlowPreviousBtn{
+        background: none !important;
+        margin-right: 5px;
+        margin-left: 5px;
+        min-height: 35px;
+        font-weight: 300 !important;
+        color: white !important;
+        font-size: 11.5px !important;
+        min-width: 90px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        -ms-border-radius: 3px;
+        -o-border-radius: 3px;
+        border-radius: 3px;
+        padding: 3px 3px 3px 3px;
+        border-width: 1px;
+        border-style: solid;
+        background-color: #3892d3 !important;
+        border-color: #157fcc !important;
+    }
+    .tt-title-div{
+        font-size: 15.3px !important;
+        color: #F27802 !important;
+        margin: auto !important;
+        max-width: 150px;
+    }
+    .tt-back-div{
+        min-height: 35px;
+    }
+    #tt-finish-button{
+        padding-top: 4px;
+        padding-right: 3px;
+        padding-bottom: 4px;
+        padding-left: 3px;      
+        min-width: 80px;
+    }
+
+.x-column-header {
+    height: 20px;
+}
+.x-column-header-inner {
+  padding: 3px 5px 3px 5px;
+  text-overflow: ellipsis;
+}
+.x-grid-cell-inner {
+  position: relative;
+  text-overflow: ellipsis;
+  padding: 2px 5px 2px 7px;
+}
+.x-form-display-field {
+    font-size: 11.5px !important;
+}
+.x-fieldset-header-text {
+    font-size: 11.5px !important;
+}        
+.x-btn {
+    -webkit-border-radius: 3px !important;
+    -moz-border-radius: 3px !important;
+    -ms-border-radius: 3px !important;
+    -o-border-radius: 3px !important;
+    border-radius: 3px !important;
+    padding: 3px 3px 3px 3px !important;
+    border-style: solid !important;
+    background-image: none !important;
+    background-color: #3892D3 !important;
+    background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(0%,#4B9CD7),color-stop(50%,#3892D3),color-stop(51%,#358AC8),color-stop(100%,#3892D3)) !important;
+    background-image: -webkit-linear-gradient(top,#4B9CD7,#3892D3 50%,#358AC8 51%,#3892D3) !important;
+    background-image: -moz-linear-gradient(top,#4b9cd7,#3892d3 50%,#358ac8 51%,#3892d3) !important;
+    background-image: -o-linear-gradient(top,#4b9cd7,#3892d3 50%,#358ac8 51%,#3892d3) !important;
+    background-image: linear-gradient(top,#4b9cd7,#3892d3 50%,#358ac8 51%,#3892d3) !important;
+}
+.x-btn-inner{
+    color: white;
+}
+
+a {color:black;}      /* unvisited link */
+a:hover {color:darkblue;}  /* mouse over link */
+a:visited {color:black;}  /* visited link */
+a:active {color:darkblue;}  /* selected link */
+div#LoadingDiv,body{
+    color: black;
+    font-size: 15px;
+    line-height: 19px;
+    font-weight: 300;
+    font-family: helvetica,arial,verdana,sans-serif;
+    background: white;
+}
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+div#LoadingDiv {
+    margin-top: 100px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 400px;
+    min-height: 75px;
+    min-width: 400px;
+    text-align: center;
+}
+</style>
+
+<div id="ExtJSPanel"/>
+<div id="LoadingDiv">Loading...</div>
+<script src="{!URLFOR($Resource.extjs510107Zip,'build/ext-all.js')}"></script>
+<script type="text/javascript">
+    var _case = {Id: "{!Case.Id}"};
+    _case.OwnerId = "{!Case.OwnerId}";
+    _case.OwnerName = "{!Case.Owner.Name}";
+    _case.Team__c = "{!Case.Team__c}";
+    $j = jQuery.noConflict();
+
+    function refreshFeed() {
+        try{Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload :{feed:true}})}catch(e){};
+    }
+
+    $_errorHandler = function(err){
+        if(Ext.isReady) {
+            Ext.Msg.show({
+                title: "Call Processing Error",
+                msg: err + "<br/><br/>Please contact your system administrator for assistance with this error.",
+                buttons: Ext.Msg.OK,
+                icon: Ext.Msg.ERROR
+            });
+        } 
+        console.error(err);
+    }
+
+    Ext.define("TT.model.CaseModel",{extend:"Ext.data.Model",requires:["Ext.data.field.Boolean"],idProperty:"Id",fields:[{name:"Id"},{name:"Name"},{name:"Status"},{name:"ANI__c"},{name:"Category__c"},{name:"SubCategory__c"},{name:"OwnerId"},{name:"OwnerName"},{name:"CaseNumber"},{type:"boolean",name:"IsClosed"}]});
+    Ext.define("TT.model.UserModel",{extend:"Ext.data.Model",requires:["Ext.data.field.Boolean"],idProperty:"Id",fields:[{name:"Id"},{name:"Name"},{name:"Team__c"},{name:"UserType"},{type:"boolean",convert:function(e,t){return Ext.isString(e)?"true"===e:e},name:"IsActive"}]});
+    Ext.define("TT.store.UserStore",{extend:"Ext.data.Store",requires:["TT.model.UserModel","Ext.data.proxy.Memory"],constructor:function(e){var r=this;e=e||{},r.callParent([Ext.apply({storeId:"UserStore",model:"TT.model.UserModel",data:[],proxy:{type:"memory"}},e)])}});
+    Ext.define("TT.store.MentionStore",{extend:"Ext.data.Store",requires:["TT.model.UserModel","Ext.data.proxy.Memory"],constructor:function(e){var r=this;e=e||{},r.callParent([Ext.apply({storeId:"MentionStore",model:"TT.model.UserModel",data:[],proxy:{type:"memory"}},e)])}});
+    Ext.define("TT.model.QueueModel",{extend:"Ext.data.Model",requires:["Ext.data.field.Field"],idProperty:"Id",fields:[{name:"Id"},{mapping:"Queue.Name",name:"Name"},{name:"QueueId"},{name:"SobjectType"}]});
+    Ext.define("TT.store.QueueStore",{extend:"Ext.data.Store",requires:["TT.model.QueueModel","Ext.data.proxy.Memory"],constructor:function(e){var t=this;e=e||{},t.callParent([Ext.apply({storeId:"QueueStore",model:"TT.model.QueueModel",data:[],proxy:{type:"memory"}},e)])}});
+    Ext.define('TT.view.CaseEscalationViewModel', {extend: 'Ext.app.ViewModel',alias: 'viewmodel.caseescalation'});
+    Ext.define('TT.view.CaseTransferViewModel', {extend: 'Ext.app.ViewModel',alias: 'viewmodel.casetransfer'});
+    
+    Ext.define("TT.view.CaseTransfer", {
+        extend: "Ext.form.Panel",
+        alias: "widget.casetransfer",
+        requires: ["TT.view.CaseTransferViewModel", "Ext.toolbar.Toolbar", "Ext.form.field.Display", "Ext.form.field.Radio", "Ext.form.Label", "Ext.form.field.ComboBox", "Ext.view.BoundList", "Ext.form.field.TextArea", "Ext.button.Button", "Ext.grid.Panel", "Ext.grid.column.Column", "Ext.view.Table", "Ext.selection.RowModel"],
+        config: {
+            mentioning: !1
+        },
+        viewModel: {
+            type: "casetransfer"
+        },
+        id: "CaseTransfer",
+        itemId: "CaseTransfer",
+        layout: "absolute",
+        title: "",
+        defaultListenerScope: !0,
+        dockedItems: [{
+            xtype: "toolbar",
+            x: 76,
+            y: 23,
+            dock: "top",
+            padding: "2 0 0 10",
+            items: [{
+                xtype: "displayfield",
+                flex: 1,
+                itemId: "CurrentOwner",
+                width: 315,
+                fieldLabel: "Current Owner",
+                labelWidth: 90
+            }]
+        }],
+        items: [{
+            xtype: "radiofield",
+            x: 225,
+            y: 0,
+            itemId: "TeamRadio",
+            fieldLabel: "",
+            labelWidth: 80,
+            name: "EscalateTo",
+            boxLabel: "A Team (Queue)",
+            listeners: {
+                change: "onRadioChange"
+            }
+        },{
+            xtype: "radiofield",
+            x: 100,
+            y: 0,
+            itemId: "PersonRadio",
+            fieldLabel: "",
+            name: "EscalateTo",
+            boxLabel: "A Specific Person",
+            checked: !0,
+            listeners: {
+                change: "onRadioChange"
+            }
+        },{
+            xtype: "radiofield",
+            x: 340,
+            y: 0,
+            itemId: "EscalateRadio",
+            fieldLabel: "",
+            name: "EscalateTo",
+            boxLabel: "Escalation",
+            listeners: {
+                change: "onRadioChange"
+            }
+        }, {
+            xtype: "label",
+            x: 10,
+            y: 4,
+            style: "font-weight:700;",
+            text: "Transfer To:"
+        }, {
+            xtype: "combobox",
+            x: 100,
+            y: 30,
+            id: "TeamCombo",
+            itemId: "TeamCombo",
+            width: 300,
+            fieldLabel: "",
+            name: "TeamId",
+            allowBlank: !1,
+            allowOnlyWhitespace: !1,
+            disableKeyFilter: !0,
+            emptyText: "Select team...",
+            selectOnFocus: !0,
+            displayField: "Name",
+            forceSelection: !0,
+            queryMode: "local",
+            store: "QueueStore",
+            typeAhead: !0,
+            typeAheadDelay: 300,
+            valueField: "QueueId",
+            listeners: {
+                select: "onTeamComboSelect",
+                change: "onTeamComboChange",
+                expand: "onTeamComboExpand",
+                focus: "onTeamComboFocus"
+            },
+            listConfig: {
+                xtype: "boundlist",
+                maxHeight: 95,
+                itemSelector: "div"
+            }
+        }, {
+            xtype: "combobox",
+            x: 100,
+            y: 30,
+            id: "PersonCombo",
+            itemId: "PersonCombo",
+            width: 300,
+            fieldLabel: "",
+            name: "UserId",
+            allowBlank: !1,
+            allowOnlyWhitespace: !1,
+            disableKeyFilter: !0,
+            emptyText: "Select person...",
+            selectOnFocus: !0,
+            displayField: "Name",
+            forceSelection: !0,
+            queryMode: "local",
+            store: "UserStore",
+            typeAhead: !0,
+            typeAheadDelay: 300,
+            valueField: "Id",
+            listeners: {
+                select: "onPersonComboSelect",
+                change: "onPersonComboChange",
+                focus: "onPersonComboFocus",
+                expand: "onPersonComboExpand"
+            },
+            listConfig: {
+                xtype: "boundlist",
+                maxHeight: 95,
+                itemSelector: "div"
+            }
+        }, {
+            xtype: "combobox",
+            x: 15,
+            y: 60,
+            id: "EscalateCombo",
+            itemId: "EscalateCombo",
+            width: 385,
+            fieldLabel: "Type",
+            labelAlign: "right",
+            labelWidth: 80,
+            hidden:true,
+            allowBlank: !1,
+            allowOnlyWhitespace: !1,
+            disableKeyFilter: !0,
+            emptyText: "Select escalation type...",
+            selectOnFocus: !0,
+            forceSelection: !0,
+            queryMode: "local",
+            store: ["Callback","Live"],
+            value: "Live",
+            typeAhead: !0,
+            typeAheadDelay: 300,
+            listConfig: {
+                xtype: "boundlist",
+                maxHeight: 95,
+                itemSelector: "div"
+            }
+        },{
+            xtype: "textareafield",
+            x: 15,
+            y: 60,
+            height: 40,
+            id: "CommentField",
+            itemId: "CommentField",
+            maxHeight: 40,
+            width: 385,
+            fieldLabel: "Comment",
+            labelAlign: "right",
+            labelWidth: 80,
+            allowBlank: !1,
+            allowOnlyWhitespace: !1,
+            emptyText: "A comment is required...",
+            enableKeyEvents: !0,
+            listeners: {
+                keyup: "onCommentFieldKeyup"
+            }
+        },{
+            xtype: "button",
+            x: 325,
+            y: 130,
+            disabled: !0,
+            height: 35,
+            itemId: "SaveButton",
+            width: 70,
+            text: "Update",
+            listeners: {
+                click: "onSaveButtonClick"
+            }
+        }, {
+            xtype: "gridpanel",
+            x: 100,
+            y: 120,
+            frame: !0,
+            height: 60,
+            hidden: !0,
+            itemId: "MentionUsers",
+            ui: "default-framed",
+            width: 150,
+            title: "",
+            forceFit: !0,
+            hideHeaders: !0,
+            store: "MentionStore",
+            columns: [{
+                xtype: "gridcolumn",
+                dataIndex: "Name",
+                text: "String"
+            }],
+            selModel: {
+                selType: "rowmodel",
+                listeners: {
+                    selectionchange: "onRowModelSelectionChange"
+                }
+            }
+        }],
+        listeners: {
+            afterrender: "onCaseEscalationAfterRender"
+        },
+        
+        onRadioChange: function(e, t, n, o) {
+            if("TeamRadio"===e.getItemId() &&t){
+                e.up("panel").queryById("TeamCombo").setVisible(true);
+                e.up("panel").queryById("PersonCombo").setVisible(false);
+                e.up("panel").queryById("EscalateCombo").setVisible(false);
+                e.up("panel").queryById("SaveButton").setY(170);
+                e.up("panel").queryById("CommentField").setY(95);
+            } else if("TeamRadio"!==e.getItemId() &&t){
+                e.up("panel").queryById("TeamCombo").setVisible(false);
+                e.up("panel").queryById("PersonCombo").setVisible(true);
+                if("EscalateRadio"===e.getItemId() ){
+                    e.up("panel").queryById("EscalateCombo").setVisible(true);
+                    e.up("panel").queryById("SaveButton").setY(200);
+                    e.up("panel").queryById("CommentField").setY(125);
+                } else {
+                    e.up("panel").queryById("EscalateCombo").setVisible(false);
+                    e.up("panel").queryById("SaveButton").setY(170);
+                    e.up("panel").queryById("CommentField").setY(95);
+                }
+            }
+        },
+        onTeamComboSelect: function(e, t, n) {
+            t && Ext.String.startsWith(e.getValue(), "00G") ? ("marketplace integrity" === t.get("Name").toLowerCase() ? location.replace("/apex/MIDecisionTreeCaseTransferFlow?id=" + _case.Id + "&retURL=" + encodeURIComponent("/apex/CaseTransfer?id=" + _case.Id)) : ("proassist escalations" === t.get("Name").toLowerCase() ? location.replace("/apex/ProAssistDecisionTreeCaseTransferFlow?id=" + _case.Id + "&retURL=" + encodeURIComponent("/apex/CaseTransfer?id=" + _case.Id)) : e.up("panel").queryById("SaveButton").setDisabled(!1))) : e.up("panel").queryById("SaveButton").setDisabled(!0)
+        },
+        onTeamComboChange: function(e, t, n, o) {
+            Ext.getCmp("CaseTransfer").onTeamComboSelect(e, e.store.findRecord("Id", t, 0, !1, !0, !0), o)
+        },
+        onTeamComboExpand: function(e, t) {
+            e.store.clearFilter()
+        },
+        onTeamComboFocus: function(e, t, n) {
+            e.store.clearFilter()
+        },
+        onPersonComboSelect: function(e, t, n) {
+            t && Ext.String.startsWith(e.getValue(), "005") ? e.up("panel").queryById("SaveButton").setDisabled(!1) : e.up("panel").queryById("SaveButton").setDisabled(!0)
+        },
+        onPersonComboChange: function(e, t, n, o) {
+            Ext.getCmp("CaseTransfer").onPersonComboSelect(e, e.store.findRecord("Id", t, 0, !1, !0, !0), o)
+        },
+        onPersonComboFocus: function(e, t, n) {
+            e.store.clearFilter()
+        },
+        onPersonComboExpand: function(e, t) {
+            e.store.clearFilter()
+        },
+        onCommentFieldKeyup: function(e, t, n) {
+            Ext.defer(function(e, t) {
+                if (t.shiftKey && 50 === t.keyCode) {
+                    try {
+                        t.stopEvent()
+                    } catch (n) {}
+                    try {
+                        t.preventDefault()
+                    } catch (n) {}
+                    TTPanel.mentioning = !0, $MentionStore.clearFilter(), $MentionStore.filterBy(function() {
+                        return !1
+                    }), Ext.getCmp("CaseTransfer").queryById("MentionUsers").show()
+                } else if (t.ctrlKey && 32 === t.keyCode) {
+                    var o = e.getRawValue();
+                    o.indexOf("@")
+                } else if (27 === t.keyCode) Ext.getCmp("CaseTransfer").queryById("MentionUsers").hide(), TTPanel.mentioning = !1;
+                else if (TTPanel.mentioning) {
+                    var a = e.getRawValue(),
+                        r = /\B@[a-z0-9_\s]+/gi,
+                        i = a.match(r);
+                    if (i && i.length > 0) {
+                        var s = Ext.String.trim(i[i.length - 1]);
+                        Ext.isEmpty(s) || Ext.String.endsWith(s, "]") || -1 !== s.indexOf("]") || (s = s.substr(1).toLowerCase(), $MentionStore.clearFilter(), $MentionStore.filterBy(function(e) {
+                            return e.get("Name").toLowerCase().startsWith(s)
+                        }))
+                    } else -1 === a.indexOf("@") && (Ext.getCmp("CaseTransfer").queryById("MentionUsers").hide(), TTPanel.mentioning = !1, $MentionStore.filterBy(function() {
+                        return !1
+                    }))
+                }
+            }, 100, window, [e, t])
+        },
+        onSaveButtonClick: function(e, t, n) {
+            var o = e.up("panel"),
+                a = o.queryById("CommentField");
+            if (a.isValid()) {
+                o.setLoading("Saving..."), e.setDisabled(!0);
+                var r = o.form.getFieldValues(),
+                    i = r.TeamId || r.UserId,
+                    s = Ext.isEmpty(r.UserId) ? $QueueStore.findRecord("QueueId", r.TeamId) : $UserStore.findRecord("Id", r.UserId),
+                    l = s.get("Name");
+                Ext.isEmpty(TTPanel["case"].data.Id) || Ext.isEmpty(i) || (Ext.getCmp("CaseTransfer").doCaseUpdateHistory(s, a.getRawValue().trim(), function(e, t) {
+                    console.dir(e || t)
+                }), CaseController.postMsgWithMentions(TTPanel["case"].data.Id, a.getRawValue().trim(), function(e, t) {
+                    t.status ? (refreshFeed(), new rmo.Case({
+                        Id: TTPanel["case"].data.Id,
+                        OwnerId: i
+                    }).update(function(e, t) {
+                        return o.setLoading(!1), e ? $_errorHandler(e.message) : (TTPanel["case"].data.OwnerId = i, TTPanel["case"].data.OwnerName = l, o.queryById("CurrentOwner").setValue(TTPanel["case"].data.OwnerName), o.queryById("TeamCombo").setValue(null), o.queryById("TeamCombo").reset(), o.queryById("PersonCombo").setValue(null), o.queryById("PersonCombo").reset(), a.setValue(null), a.reset(), Ext.defer(function() {
+                            refreshFeed()
+                        }, 50), void(sforce.console.isInConsole() && sforce.console.getFocusedPrimaryTabId(function(e) {
+                            var t = e.id;
+                            sforce.console.refreshPrimaryTabById(t, !0, function() {
+                                sforce.console.getSubtabIds(t, function(e) {
+                                    if (!Ext.isEmpty(e.ids))
+                                        for (var t = 0; t < e.ids.length; t++) sforce.console.refreshSubtabById(e.ids[t], !1)
+                                })
+                            })
+                        })))
+                    })) : Ext.Msg.show({
+                        title: "Comment Post Error",
+                        message: t.message,
+                        buttons: Ext.Msg.OK,
+                        icon: Ext.Msg.ERROR,
+                        fn: function(e) {}
+                    })
+                }, {
+                    escape: !1
+                }))
+            } else Ext.isEmpty(a.getRawValue().trim()) && (o.setLoading(!1), Ext.Msg.show({
+                title: "Comment Required",
+                message: "An escalation comment is required.",
+                buttons: Ext.Msg.OK,
+                icon: Ext.Msg.WARNING,
+                fn: function(t) {
+                    e.up("panel").queryById("CommentField").focus(!0, 300)
+                }
+            }), Ext.defer(function() {
+                Ext.Msg.hide(), e.up("panel").queryById("CommentField").focus(!0, 300)
+            }, 3e3))
+        },
+        onCaseEscalationAfterRender: function(e, t) {
+            Ext.isEmpty(_case) || e.queryById("CurrentOwner").setValue(_case.OwnerName)
+        },
+        onRowModelSelectionChange: function(e, t, n) {
+            if (!Ext.isEmpty(t) && TTPanel.mentioning) {
+                var o = t[0].get("Name");
+                TTPanel.mentioning = !1;
+                var a = Ext.getCmp("CaseTransfer").queryById("MentionUsers");
+                a.hide(), a.store.filterBy(function() {
+                    return !1
+                });
+                var r = Ext.getCmp("CaseTransfer").queryById("CommentField"),
+                    i = r.getRawValue(),
+                    s = /\B@[a-z0-9_\s]+/gi,
+                    l = i.match(s);
+                if (l && l.length > 0) {
+                    var d = l[l.length - 1];
+                    d && (r.setRawValue(i.replace(d, "@[" + o + "]")), r.focus(!1, 300), Ext.defer(function(e) {
+                        e.focus(!1, 100)
+                    }, 1e3, window, [r]))
+                }
+            }
+        },
+        doCaseUpdateHistory: function(e, t, n) {
+            (new rmo.RecordType).retrieve({
+                where: {
+                    DeveloperName: {
+                        eq: "CaseTransferUpdate"
+                    },
+                    SobjectType: {
+                        eq: "CaseUpdateHistory__c"
+                    }
+                },
+                limit: 1
+            }, function(o, a) {
+                if (o) return $_errorHandler(o.message);
+                try {
+                    var r = {
+                        Case__c: _case.Id,
+                        CasePreviousOwner__c: _case.OwnerName,
+                        CasePreviousOwnerTeam__c: _case.Team__c,
+                        CaseOwner__c: e.get("Name"),
+                        CaseOwnerTeam__c: e.data.Team__c ? e.get("Team__c") : null,
+                        CaseTransferPost__c: t,
+                        EscalatedCase__c: TTPanel.queryById("EscalateRadio").getValue(),
+                        EscalatedCaseType__c: TTPanel.queryById("EscalateRadio").getValue()?TTPanel.queryById("EscalateCombo").getValue():null
+                    };
+                    a && 1 === a.length && (r.RecordTypeId = a[0].get("Id"));
+                    var i = new rmo.CaseUpdateHistory__c();
+                    i.create(r, function(t, o) {
+                        return t ? $_errorHandler(t.message) : (sforce.console.isInConsole() && refreshFeed(), _case.OwnerName = e.get("Name"), _case.OwnerId = e.data.Id || e.data.QueueId, _case.Team__c = e.data.Team__c ? e.get("Team__c") : null, void("function" == typeof n && Ext.defer(n, 50, window, [t, o])))
+                    })
+                } catch (s) {
+                    $_errorHandler(s)
+                }
+            })
+        }
+    });
+
+    Ext.define("TT.view.CaseEscalation",{extend:"Ext.panel.Panel",alias:"widget.caseescalation",requires:["TT.view.CaseEscalationViewModel","TT.view.CaseTransfer","Ext.form.Panel"],viewModel:{type:"caseescalation"},id:"CaseEscalation",itemId:"CaseEscalation",style:"width:100%;height:100%;",layout:"card",title:"",items:[{xtype:"casetransfer",height:304,width:438}]});
+
+    Ext.Loader.setConfig({enabled:true, disableCaching:false});
+    Ext.getWin().on("resize", function(event,el,opts) {
+        if(TTPanel) {
+            TTPanel.setHeight(Ext.Element.getViewportHeight());
+            TTPanel.setWidth(Ext.Element.getViewportWidth());
+        }
+    },window,{delay:100});
+
+    Ext.onReady( function(){
+        var main = function() {
+            Ext.tip.QuickTipManager.init();
+    
+            var doTTPanel = function(c) {
+                Ext.fly('LoadingDiv').hide();
+                $UserStore = Ext.create('TT.store.UserStore',{});
+                $MentionStore = Ext.create('TT.store.MentionStore',{});
+                $QueueStore = Ext.create('TT.store.QueueStore',{});
+                TTPanel = Ext.create('TT.view.CaseEscalation', {activeItem: 0, disabled: Ext.isEmpty(_case.Id), case: c, renderTo: 'ExtJSPanel'});
+                var expandCombo = function(ev,el) {
+                    var c = el? Ext.getCmp(el.id.split('-')[0]): null;
+                    if(c && Ext.isEmpty(c.getRawValue()) && !c.isExpanded) {
+                        c.expand();
+                        Ext.defer(function(cf){cf.focus(300);},300,window,[c]);
+                    }
+                };
+                TTPanel.queryById("TeamCombo").el.on("click",expandCombo);
+                TTPanel.queryById("PersonCombo").el.on("click",expandCombo);
+                Ext.fly('LoadingDiv').destroy();
+                Ext.getHead().insertHtml('beforeEnd', '<link id="extjscss2" rel="stylesheet" type="text/css"/>' );
+                Ext.fly("extjscss2").dom.href = "{!URLFOR($Resource.extjs510107Zip, 'build/packages/ext-theme-crisp/build/resources/ext-theme-crisp-all_02.css')}";
+                Ext.Loader.loadScript({url: '/js/functions.js',onError: function(){console.log('CaseEscalation functions.js error');}});
+                Ext.Loader.loadScript({url: '/canvas/sdk/js/publisher.js',onError: function(){console.log('CaseEscalation publisher.js error');}});
+
+                if( !Ext.isEmpty(_case.Id)) {
+                    Ext.defer(function(){
+                        CaseController.getAllCaseQueues(function(queues,event){
+                            if(event.status) {
+                                $QueueStore.loadRawData(queues);
+                                $QueueStore.sort("Name","ASC");
+                                for(var r=$QueueStore.count()-1; r>-1; r--) {
+                                    var record = $QueueStore.getAt(r);
+                                    if( Ext.Array.contains(queueFilter,record.get("Name")) ){
+                                        $QueueStore.remove(record);
+                                    }
+                                }
+                                $QueueStore.commitChanges();
+                            } else {
+                                return $_errorHandler(event.message);
+                            }
+                        },{ buffer: false, escape: false, timeout: 60000 });
+
+                        CaseController.getAllStandardUsers(function(users,event){
+                            if(event.status) {
+                                $MentionStore.loadRawData(users);
+                                $UserStore.loadRawData(users);
+                                $UserStore.sort("Name","ASC");
+                                for(var r=$UserStore.count()-1; r>-1; r--) {
+                                    var record = $UserStore.getAt(r);
+                                    if( Ext.Array.contains(userFilter,record.get("Name")) ){
+                                        $UserStore.remove(record);
+                                    }
+                                }
+                                $UserStore.commitChanges();
+                            } else {
+                                return $_errorHandler(event.message);
+                            }
+                        },{ buffer: false, escape: false, timeout: 60000 });
+                    },1);
+                }    
+            };
+
+            if(!Ext.isEmpty(_case.Id)) {
+                new rmo.Case().retrieve({where:{Id:{eq:_case.Id}},limit:1}, function(err,cases) {
+                    if(err) return $_errorHandler(err.message);
+                    _case = Ext.applyIf(_case, cases[0]._props);
+                    doTTPanel(new TT.model.CaseModel(_case));
+                });
+            } else {
+                 Ext.fly('LoadingDiv').setHtml("Case must be saved before using this tool. (No Case Id Found)");
+            }
+
+        };
+    
+        if( Ext.isEmpty(_case.Id) ) {
+            if(sforce && sforce.console && sforce.console.isInConsole()) {
+                sforce.console.getFocusedPrimaryTabObjectId( function(result){
+                    if ( !Ext.isEmpty(result.id) && Ext.String.startsWith(result.id,'500') ) {
+                        _case.Id = result.id;
+                        main();
+                    } else {
+                        console.error("Could not get context Case Id");
+                        return Ext.fly('LoadingDiv').destroy();
+                    }
+                });
+            } else {main();}                  
+        } else {main();}
+    }); 
+
+
+</script>
+<script asyc="true" src="{!URLFOR($Resource.extjs510107Zip, 'build/packages/ext-theme-crisp/build/ext-theme-crisp.js')}"/>
+</apex:page>

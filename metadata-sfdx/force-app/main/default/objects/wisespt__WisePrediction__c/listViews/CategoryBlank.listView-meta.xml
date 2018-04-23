@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CategoryBlank</fullName>
+    <columns>wisespt__WiseTagsCreatedAt__c</columns>
+    <columns>NAME</columns>
+    <columns>wisespt__CaseID__c</columns>
+    <columns>ParentCaseQueueName__c</columns>
+    <columns>ParentCaseSubject__c</columns>
+    <columns>ParentCaseStatus__c</columns>
+    <columns>wisethumbtack__WiseTag_Category__c</columns>
+    <columns>wisethumbtack__WiseTag_SubCategory__c</columns>
+    <columns>wisethumbtack__WiseTag_Category_confident__c</columns>
+    <columns>wisethumbtack__WiseTag_SubCategory_confident__c</columns>
+    <columns>wisethumbtack__WiseTag_Noise__c</columns>
+    <columns>wisethumbtack__WiseTag_Noise_confident__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>LAST_N_DAYS:30</value>
+    </filters>
+    <filters>
+        <field>wisethumbtack__WiseTag_Category__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>Category Blank</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SharedWith__c</fullName>
+    <description>Displayed in related list views.</description>
+    <externalId>false</externalId>
+    <formula>TEXT(DisputeContent__r.ShareWith__c)</formula>
+    <inlineHelpText>The dispute party that the automated tip will be shared with.</inlineHelpText>
+    <label>Shared With</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

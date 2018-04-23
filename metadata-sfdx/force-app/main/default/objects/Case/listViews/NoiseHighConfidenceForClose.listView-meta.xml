@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NoiseHighConfidenceForClose</fullName>
+    <booleanFilter>1 AND 2 AND 3 AND 4 AND (5 OR 6 )</booleanFilter>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>Summary__c</columns>
+    <columns>Category__c</columns>
+    <columns>SubCategory__c</columns>
+    <columns>WisePredictionProcessed__c</columns>
+    <columns>WisePredictionAccuracy__c</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.CustomerSupport</value>
+    </filters>
+    <filters>
+        <field>WisePredictionAccuracy__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>ContactEmailRouting__c</field>
+        <operation>notEqual</operation>
+        <value>Route to Spam</value>
+    </filters>
+    <filters>
+        <field>CASES.SUBJECT</field>
+        <operation>contains</operation>
+        <value>Automated,Automatic,Auto,Vacation,[Request received],Your email requires verific</value>
+    </filters>
+    <filters>
+        <field>CASES.SUBJECT</field>
+        <operation>contains</operation>
+        <value>Out of Office,out of office,We Received Your Response</value>
+    </filters>
+    <label>Noise (High Confidence for Closing)</label>
+    <queue>Noise</queue>
+    <sharedTo>
+        <role>SharedServicesUserTPH</role>
+        <role>SharedServicesUserTSL</role>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

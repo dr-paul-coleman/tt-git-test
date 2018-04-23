@@ -1,0 +1,136 @@
+<!--
+ /*******************************************************************************
+*                                                                              *
+*                                           ########                           *
+*                                            #####                             *
+*    Copyright (c) 2017 Thumbtack            ###                               *
+*       All rights reserved.                ###                                *
+*                                         #####                                *
+*                                      #########                               *
+*                                         #                                    *
+*                                        #                                     *
+*                                       #                                      *
+*                                      #                                       *
+*                                                                              *
+********************************************************************************
+Change List:
+
+Version      Date          Author            Description
+========+============+=================+================================================
+1.0      2017-08-18   Mendel Guillaume       Created
+========+============+=================+===============================================*/
+ -->
+
+<aura:component description="IncidentArbitration" controller="IncidentArbitrationController">
+    <aura:attribute name="incidentId" type="String" access="public" />
+
+    <aura:attribute name="arbitration" type="Arbitration__c" access="private"   default="{'sobjectType' : 'Arbitration__c'}"/>
+    <aura:attribute name="incident" type="MIIncident__c" access="private" default="{'sobjectType' : 'MIIncident__c'}"/>
+    <aura:attribute name="statuses" type="IncidentChargeCardManagerController.Option[]" access="private" />
+    <aura:attribute name="disputeChannels" type="IncidentChargeCardManagerController.Option[]" access="private"/>
+    <aura:attribute name="message" type="String" access="private" />
+    <aura:attribute name="messageType" type="String" access="private" default="success"/>
+    <aura:attribute name="disputeUrl" type="String" access="private" />
+    <aura:attribute name="showDateSubmittedMissing" type="Boolean" access="private" default="false" />
+    <aura:attribute name="showDisputeAmountMissing" type="Boolean" access="private" default="false" />
+
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+    <aura:registerEvent name="IncidentOpenAction" type="c:IncidentOpenAction" />
+    <aura:registerEvent name="refreshIncident" type="c:IncidentRefreshEvent" /> 
+
+    <div class="slds-grid" style="margin-bottom: 10px;">
+        <aura:if isTrue="{! v.arbitration.Id != null}" >
+                <div class="slds-size--1-of-2">
+                    <lightning:button variant="base" label="View Details" onclick="{!c.viewClick}" />
+                </div>
+                <div class="slds-size--1-of-2" style="padding-top: 5px;">
+                    <a href="{!v.disputeUrl}" target="_blank">FairClaims Dispute</a>
+                </div>
+            <!--aura:set attribute="else">
+                <a href="{!v.disputeUrl}" target="_blank">Submit New Dispute</a>
+            </aura:set-->
+        </aura:if>
+    </div>
+    <div class="slds-grid">
+        <div class="slds-size--1-of-2 grid-padding-right">
+            <div class="slds-form slds-form_stacked">
+                <lightning:input required="true" aura:id="disputeCode" name="disputeCode" type="text" label="Dispute Code" value="{!v.arbitration.dispute_code__c}" messageWhenValueMissing="This field is required" />
+                <div class="{! 'slds-form-element' + if(v.showDisputeAmountMissing, ' slds-has-error', '')}">
+                    <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Dispute Amount</label>
+                    <div class="slds-form-element__control">
+                        <ui:inputCurrency required="true" class="slds-input" value="{! v.arbitration.dispute_amount__c}" blur="{!c.onDisputeAmountBlur}"  />
+                        <aura:if isTrue="{!v.showDisputeAmountMissing}">
+                            <div class="slds-form-element__help">This field is required</div>
+                        </aura:if>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-size--1-of-2 grid-padding-left">
+            <div class="slds-form slds-form_stacked">
+                <lightning:select required="true" name="status" aura:id="status" label="Status" value="{!v.arbitration.Status__c}" messageWhenValueMissing="This field is required">
+                    <option text="" value="" />
+                    <aura:iteration items="{!v.statuses}" var="s">
+                        <option text="{!s.label}" value="{!s.value}" />
+                    </aura:iteration>
+                </lightning:select>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label">Hearing Date</label>
+                    <div class="slds-form-element__control">
+                        <ui:inputDate disabled="{!v.arbitration.Id == null}" displayDatePicker="true" class="slds-input" value="{! v.arbitration.hearing_date__c}"  />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slds-grid" style="margin-top: 5px;">
+        <div class="slds-size--1-of-2 grid-padding-right">
+            <div class="slds-form slds-form_stacked">
+                <lightning:select required="true" name="disputeChannels" aura:id="disputeChannels" label="Dispute Channels" value="{!v.arbitration.dispute_channels__c}" messageWhenValueMissing="This field is required">
+                    <option text="" value="" />
+                    <aura:iteration items="{!v.disputeChannels}" var="s">
+                        <option text="{!s.label}" value="{!s.value}" />
+                    </aura:iteration>
+                </lightning:select>
+            </div>
+        </div>
+        <div class="slds-size--1-of-2 grid-padding-left">
+            <div class="slds-form slds-form_stacked">
+                <div class="{! 'slds-form-element' + if(v.showDateSubmittedMissing, ' slds-has-error', '')}">
+                    <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Date Submitted</label>
+                    <div class="slds-form-element__control">
+                        <ui:inputDate required="true" aura:id="dateSubmitted" displayDatePicker="true" class="slds-input" value="{! v.arbitration.DateSubmitted__c}" blur="{!c.onDateSubmittedBlur}" />
+                        <aura:if isTrue="{!v.showDateSubmittedMissing}">
+                            <div class="slds-form-element__help">This field is required</div>
+                        </aura:if>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slds-grid" style="margin-top: 5px;">
+        <div class="slds-size--1-of-1 grid-padding-right">
+            <div class="slds-form slds-form_stacked">
+                <lightning:textarea disabled="{!v.arbitration.Id == null}" label="Arbitration Decision" name="arbitrationDecision" value="{!v.arbitration.arbitrator_decision__c}" />
+            </div>
+        </div>
+    </div>
+
+    <div class="slds-grid" style="margin-top: 5px;">
+        <div class="slds-size--1-of-1 grid-padding-right">
+            <div class="slds-form slds-form_stacked">
+                <lightning:textarea label="Description of Dispute" name="descriptionOfDispute" value="{!v.arbitration.brief_description_of_dispute__c}" />
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 5px;">
+        <lightning:button label="{! if(v.arbitration.Id == null, 'Save and Submit New Dispute', 'Save')}" name="Save" onclick="{!c.saveClick}" variant="brand"/>
+        <aura:if isTrue="{! v.message != null}">
+            <span class="{!'slds-text-color_' + v.messageType}">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!v.message}
+            </span>
+        </aura:if>
+    </div>
+</aura:component>

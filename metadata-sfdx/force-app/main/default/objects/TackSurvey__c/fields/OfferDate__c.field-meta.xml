@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OfferDate__c</fullName>
+    <description>Date/time of when the email alert was sent to the Contact offering the survey.</description>
+    <externalId>false</externalId>
+    <label>Offer Date</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

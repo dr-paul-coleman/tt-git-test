@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MIIncident__c</fullName>
+    <description>Master-detail to the MI Incident object.</description>
+    <externalId>false</externalId>
+    <label>MI Incident</label>
+    <referenceTo>MIIncident__c</referenceTo>
+    <relationshipLabel>MI Incident Update History</relationshipLabel>
+    <relationshipName>MI_Incident_Update_History</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

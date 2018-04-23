@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllClosedBugReports</fullName>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>Case__c</columns>
+    <columns>BugType_del__c</columns>
+    <columns>Bug__c</columns>
+    <columns>Assignee__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Closed</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>SupportProcess__c.BugReport</value>
+    </filters>
+    <label>BR - All Closed Bug Reports</label>
+    <sharedTo>
+        <role>SharedServicesUserTPH</role>
+        <role>SharedServicesUserTSL</role>
+    </sharedTo>
+</ListView>

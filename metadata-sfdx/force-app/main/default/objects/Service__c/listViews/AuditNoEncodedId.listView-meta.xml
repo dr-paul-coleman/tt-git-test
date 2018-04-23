@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AuditNoEncodedId</fullName>
+    <columns>usr_first_name__c</columns>
+    <columns>usr_last_name__c</columns>
+    <columns>NAME</columns>
+    <columns>EncodedServiceID__c</columns>
+    <columns>sav_available_service_id__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>EncodedServiceID__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>Audit: No Encoded Id</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>ProServicesManaging_User</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>SAM_Managing_User</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

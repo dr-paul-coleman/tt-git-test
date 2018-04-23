@@ -1,0 +1,103 @@
+<apex:page docType="html-5.0" showHeader="false" standardController="Case" sidebar="false">
+    <apex:includeScript value="/canvas/sdk/js/publisher.js"/>
+    <apex:includeScript value="/support/console/36.0/integration.js"/>
+    <script>
+        //gather context data from the standard controller active record (by ?Id=)
+        $case = {Id: "{!Case.Id}"};
+        $case.RecordType = {Id: "{!Case.RecordTypeId}",Name:"{!Case.RecordType.Name}",DeveloperName: "{!Case.RecordType.DeveloperName}"};
+        $case.ContactId = "{!Case.ContactId}";
+        $case.AccountId = "{!Case.AccountId}";
+        $case.ContactEmail = "{!Case.Contact.Email}";
+
+        doInitialAction = function() {
+            console.log('Do initial Action');
+            if("" !== $case.Id) {
+                if("" === $case.ContactId) {
+                    console.log('Contact Id Blank');
+                    //no ContactId assigned yet, put agent in the FindThumbtackUser action & assign a Thumbtack User/Customer
+                    try {
+                        //preload case escalation for performance
+                        Sfdc.canvas.publisher.publish({name : 'publisher.selectAction', payload :{actionName:"Case.FindUserNew"}});
+                        console.log('Case.FindUserNew');
+                    } finally {
+                        //timeouts insulate the console from timeout issues and make sure the action gets selected over any "last view"
+                        setTimeout( function(){
+                            Sfdc.canvas.publisher.publish({name : 'publisher.selectAction', payload :{actionName:"Case.FindUserNew"}});
+                        },100);
+                        setTimeout( function(){
+                            Sfdc.canvas.publisher.publish({name : 'publisher.selectAction', payload :{actionName:"Case.FindUserNew"}});
+                        },500);
+
+                        setTimeout( function(){
+                            Sfdc.canvas.publisher.publish({name : 'publisher.selectAction', payload :{actionName:"Case.FindUserNew"}});
+                        },1000);
+
+                    };
+                }
+                else {
+                    console.log('Contact Id Not Blank');
+                    try {
+                    
+                    //preload FindUser VF page for performance
+                        Sfdc.canvas.publisher.publish({name : 'publisher.selectAction', payload :{actionName:"Case.Categorization"}});
+                    } finally {
+                        setTimeout( function() {
+                            try {
+                                //preload case escalation for performance
+                                Sfdc.canvas.publisher.publish({name : 'publisher.selectAction', payload :{actionName:"Case.Categorization"}});
+                            } finally {
+                                setTimeout( function() {
+                                    if( $case.RecordType.DeveloperName === "MarketplaceIntegrity" || $case.RecordType.DeveloperName === "MarketplaceIntegrityRestricted") {
+                                        //select MI categorize action
+                                        try { Sfdc.canvas.publisher.publish({name : 'publisher.selectAction', payload :{actionName:"Case.MICategorizeStatus"}}); } catch (e){};
+                                        if("MarketplaceIntegrityRestricted"===$case.RecordType.DeveloperName){
+                                            resetPublisherEmailAddress($case.ContactEmail,"MICategorizeStatus");
+                                        }
+                                        setTimeout( function(){
+                                            Sfdc.canvas.publisher.publish({name : 'publisher.selectAction', payload :{actionName:"MICategorizeStatus"}});
+                                        },500);
+
+                                        setTimeout( function(){
+                                            Sfdc.canvas.publisher.publish({name : 'publisher.selectAction', payload :{actionName:"MICategorizeStatus"}});
+                                        },1000);
+                                        
+                                    } else {
+                                        //select catergorize action
+                                        try { Sfdc.canvas.publisher.publish({name : 'publisher.selectAction', payload :{actionName:"Case.CategorizeStatus"}}); } catch (e){};
+                                        setTimeout( function(){
+                                            Sfdc.canvas.publisher.publish({name : 'publisher.selectAction', payload :{actionName:"Case.CategorizeStatus"}});
+                                        },500);
+
+                                        setTimeout( function(){
+                                            Sfdc.canvas.publisher.publish({name : 'publisher.selectAction', payload :{actionName:"Case.CategorizeStatus"}});
+                                        },1000);
+                                    }
+
+                                },50);
+                            }
+                        },50);
+                    }
+                }
+            }
+
+        };
+
+    if(sforce.console.isInConsole()){
+        // pre-select specific VisualForce-based Case publisher actions 
+        // so they are preloaded for performance, or require fewer clicks
+        // for call agents
+        setTimeout( doInitialAction, 1000);
+    }
+    
+    
+    //set the To: email address of the Case.Email publisher action to contactEmail parm, 
+    //then set the publisher to the nextAction string parm (a Case Action name)
+    window.resetPublisherEmailAddress = function(contactEmail,nextAction) {
+        if(sforce.console.isInConsole()) {
+            Sfdc.canvas.publisher.publish({name : 'publisher.selectAction', payload :{actionName:"Case.Email"}});
+            Sfdc.canvas.publisher.publish({name:"publisher.setActionInputValues",payload:{actionName:"Case.Email",emailFields:{to:{value:contactEmail}}}});
+            Sfdc.canvas.publisher.publish({name : 'publisher.selectAction', payload :{actionName:"Case."+nextAction}});
+        }    
+    }
+    </script>
+</apex:page>

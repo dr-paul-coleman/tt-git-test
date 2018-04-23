@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllCategorizationSelections</fullName>
+    <columns>NAME</columns>
+    <columns>Case__c</columns>
+    <columns>Category__c</columns>
+    <columns>Subcategory__c</columns>
+    <columns>ProductUpdate__c</columns>
+    <columns>Feedback__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Categorization Selections</label>
+    <sharedTo>
+        <roleAndSubordinates>SharedServicesUserTPH</roleAndSubordinates>
+        <roleAndSubordinates>SharedServicesUserTSL</roleAndSubordinates>
+        <roleAndSubordinates>SpecialProjectsTSL</roleAndSubordinates>
+    </sharedTo>
+</ListView>

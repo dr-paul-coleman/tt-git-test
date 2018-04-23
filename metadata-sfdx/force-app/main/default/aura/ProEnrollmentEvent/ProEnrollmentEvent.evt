@@ -1,0 +1,9 @@
+<!--
+ - Created by SentientGrey on 2/6/18.
+ -->
+
+<aura:event type="APPLICATION" description="ProEnrollmentEvent">
+    <aura:attribute name="actionName" type="String" required="false" />
+    <aura:attribute name="url" type="String" required="false" />
+    <aura:attribute name="title" type="String" required="false" /> 
+</aura:event>

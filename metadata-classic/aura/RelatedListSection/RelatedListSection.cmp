@@ -1,0 +1,11 @@
+<aura:component controller="RelatedListController">
+	<aura:attribute name="recordId" type="String" access="public"/>
+	<aura:attribute name="sectionName" type="String" access="public"/>
+	<aura:attribute name="settings" type="RelatedListSetting[]" access="private"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	
+	<aura:iteration items="{!v.settings}" var="setting">
+		<c:RelatedList recordId="{!v.recordId}" setting="{!setting}"/>
+	</aura:iteration>
+</aura:component>

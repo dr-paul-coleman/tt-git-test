@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MyManagedAccounts</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>ACCOUNT.PHONE1</columns>
+    <columns>ACCOUNT.LAST_ACTIVITY</columns>
+    <columns>ACCOUNT.EMPLOYEES</columns>
+    <columns>ACCOUNT.TYPE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACCOUNT.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Account.ManagedAccount</value>
+    </filters>
+    <filters>
+        <field>LoggedinUserIsAccountManager__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>My Managed Accounts</label>
+</ListView>

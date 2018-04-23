@@ -1,0 +1,37 @@
+/*
+   Copyright (c) 2017 Thumbtack. All rights reserved.
+
+   Version      Date          Author            Description
+   ========+============+=================+================================================
+   1.0      2017-10-24   Mendel Guillaume       Created
+   ========+============+=================+===============================================
+*/
+.THIS .icon-button-container {cursor: pointer; display: inline-block; margin-right: 5px;}
+.THIS .icon-button-container img {width: 12px;}
+.THIS .icon-button-green-active svg{fill: #2eb82e !important;}
+.THIS .icon-button-green-inactive svg{fill: #d6f5d6 !important;}
+.THIS .icon-button-orange-active svg{fill: #ff9900 !important;}
+.THIS .icon-button-orange-inactive svg{fill: #ffebcc !important;}
+.THIS .icon-button-red-active svg{fill: #ff0000 !important;}
+.THIS .icon-button-red-inactive svg{fill: #ffcccc !important;}
+.THIS .icon-button-blue-active svg{fill: #0BBAE6 !important;}
+.THIS .icon-button-blue-inactive svg{fill: #b6eefc !important;}
+
+.THIS .icon-button-green-active {background-color: #2eb82e !important; border-radius: 10px;}
+.THIS .icon-button-green-inactive {background-color: #d6f5d6 !important; border-radius: 10px;}
+.THIS .icon-button-orange-active {background-color: #ff9900 !important; border-radius: 10px;}
+.THIS .icon-button-orange-inactive {background-color: #ffebcc !important; border-radius: 10px;}
+.THIS .icon-button-red-active {background-color: #ff0000 !important; border-radius: 10px;}
+.THIS .icon-button-red-inactive {background-color: #ffcccc !important; border-radius: 10px;}
+.THIS .icon-button-blue-active {background-color: #0BBAE6 !important; border-radius: 10px;}
+.THIS .icon-button-blue-inactive {background-color: #b6eefc !important; border-radius: 10px;}
+
+.THIS .item-col{vertical-align: middle; padding-bottom: 0.1rem !important; padding-top: 0.1rem !important; word-wrap: break-word !important; white-space: normal !important;}
+
+.THIS .span-remove{cursor: pointer; color: rgba(194, 57, 52, 0.95) !important; font-weight: bold !important;}
+
+.THIS .category-help-container .category-text-help{display: none;}
+.THIS .category-help-container:hover .category-text-help{display: block;}
+.THIS .textarea-size textarea {height: 120px;}
+.THIS .cell-select {padding-left: 20px !important;}
+.THIS .cell-select-child {padding-left: 40px !important;}

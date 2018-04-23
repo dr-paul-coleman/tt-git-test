@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>QS07ContactFeeCollected</fullName>
+    <columns>NAME</columns>
+    <columns>ProAccount__c</columns>
+    <columns>Customer__c</columns>
+    <columns>AdminLinkQuote__c</columns>
+    <columns>WarmContactFeeCollected__c</columns>
+    <columns>WarmContactFeeInvoiceDate__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Quote__c.QuotingServiceRecordType</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Contact Fee Collected</value>
+    </filters>
+    <label>QS 07: Contact Fee Collected</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>LabsManagingUser</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>ProServicesManaging_User</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

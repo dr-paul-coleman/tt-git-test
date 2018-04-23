@@ -1,0 +1,232 @@
+<!--
+ /*******************************************************************************
+*                                                                              *
+*                                           ########                           *
+*                                            #####                             *
+*    Copyright (c) 2017 Thumbtack            ###                               *
+*       All rights reserved.                ###                                *
+*                                         #####                                *
+*                                      #########                               *
+*                                         #                                    *
+*                                        #                                     *
+*                                       #                                      *
+*                                      #                                       *
+*                                                                              *
+********************************************************************************
+Change List:
+
+Version      Date          Author            Description
+========+============+=================+================================================
+1.0      2017-07-31   Mendel Guillaume       Created
+========+============+=================+===============================================*/
+ -->
+
+<aura:component description="FindUserResult" implements="flexipage:availableForRecordHome,force:hasRecordId" controller="FindUserController">
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+    <aura:attribute name="acctRecordTypes" type="FindUserController.Option[]" />
+    <aura:attribute name="results" type="FindUserController.FindUserResult[]" />
+    <aura:attribute name="showCreateAccount" type="Boolean" default="false" />
+    <aura:attribute name="showData" type="Boolean" default="true" />
+    <aura:attribute name="selectedContactId" type="Id" />
+    <aura:attribute name="selectedUserId" type="String" />
+    <aura:attribute name="selectedUser" type="becquerel_tt_user_for_tack__x" default="null" />
+    <aura:attribute name="selectedAcctRecType" type="String" />
+    <aura:attribute name="showSelectedContact" type="Boolean" default="false"/>
+    <aura:attribute name="selectedContact" type="Contact" default="null" />
+    <aura:attribute name="caseId" type="Id" />
+    <aura:attribute name="showSpinnerCreateAccount" type="Boolean" default="false" />
+    <aura:attribute name="showSpinnerConfirm" type="Boolean" default="false" />
+    <aura:attribute name="currentPage" type="Integer" />
+    <aura:attribute name="pagedResults" type="FindUserController.FindUserResult[]" />
+    <aura:attribute name="numberOfPages" type="Integer"  />
+    <aura:attribute name="pageSize" type="Integer" default="10" />
+    <aura:attribute name="showNewForm" type="Boolean" />
+    <aura:attribute name="showFind" type="Boolean" />
+    <aura:attribute name="error" type="String" />
+    <aura:attribute name="showSearchWarning" type="Boolean" />
+    <aura:attribute name="existingContact" type="Contact" />
+
+    <aura:registerEvent name="refreshCaseEvent" type="c:FindUserRefreshCaseEvent" />
+    <aura:registerEvent name="findUserEvent" type="c:FindUserEvent" />
+
+    <aura:if isTrue="{!v.showData}">
+        <aura:if isTrue="{!v.showSearchWarning}">
+            <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning" role="alert">
+                <span class="slds-assistive-text">warning</span>
+                <h2>Results are limited to 100 users.  Please enter additional search criteria for better results.</h2>
+            </div>
+        </aura:if>
+        <table  class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <thead>
+            <tr class="slds-text-title_caps">
+                <th></th>
+                <th>Account Name</th>
+                <th>Contact</th>
+                <th>User ID</th>
+                <th>Type</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>State</th>
+            </tr>
+            </thead>
+            <tbody>
+            <aura:iteration items="{!v.pagedResults}" var="r">
+                <tr class="{! r.isContact ? 'externalUserRow' : ''}">
+                    <td>
+                        <lightning:buttonIcon alternativeText="Select" iconName="{!r.isContact ? 'utility:open_folder' : 'utility:add'}" onclick="{!c.setRecordId}" variant="border-filled" title="Select" value="{!r.recordId}" size="x-small" />
+                        <!--<ui:inputRadio name="contacts" label="" text="{!r.recordId}" change="{!c.setRecordId}" />-->
+                    </td>
+                    <td>{!r.accountName}</td>
+                    <td>{!r.name}</td>
+                    <td>{!r.userId}</td>
+                    <td>{!r.recordType}</td>
+                    <td>{!r.email}</td>
+                    <td>{!r.phone}</td>
+                    <td>{!r.billingState}</td>
+                </tr>
+            </aura:iteration>
+            </tbody>
+        </table>
+        <div style="padding-top: 10px" class="slds-grid">
+            <div class="slds-col">
+                <lightning:button label="Add New" name="addNew" onclick="{!c.addNewClick}" variant="brand"/>
+            </div>
+            <div class="slds-col">
+                <lightning:button label="Previous" name="previousPage" disabled="{! v.currentPage == 1}" variant="brand" onclick="{!c.previousPageClick}" />
+                <lightning:button label="Next" name="nextPage" disabled="{! v.currentPage == v.numberOfPages}" variant="brand" onclick="{!c.nextPageClick}" />
+            </div>
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!v.showCreateAccount}">
+        <aura:if isTrue="{!v.existingContact == null}">
+            <div class="slds-text-heading_medium">Add new tack contact {! empty(v.caseId) ? '' : 'and update case'}</div>
+            <div class="slds-text-color--error">{!v.error}</div>
+            <div style="max-width: 500px" class="slds-form slds-form_horizontal">
+                <div class="slds-form-element">
+                    <span class="slds-form-element__label" >Account Name</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static" >{!v.selectedUser.usr_first_name__c + ' ' + v.selectedUser.usr_last_name__c}</span>
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <span class="slds-form-element__label" >User Email</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static" >{!v.selectedUser.usr_email__c}</span>
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <span class="slds-form-element__label" >User Id</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static" >{!v.selectedUser.usr_user_id__c}</span>
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <span class="slds-form-element__label" >User Type</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static" >{!v.selectedUser.user_type__c}</span>
+                    </div>
+                </div>
+                <!--lightning:select name="acctRecType" aura:id="acctRecType" label="Record Type" value="{!v.selectedAcctRecType}">
+                    <aura:iteration items="{!v.acctRecordTypes}" var="o">
+                        <option text="{!o.label}" value="{!o.value}" />
+                    </aura:iteration>
+                </lightning:select-->
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <lightning:button label="Cancel" name="Cancel" onclick="{!c.cancelCreateAccountClick}"/>
+                        <lightning:button label="Create Account" name="CreateAccount" onclick="{!c.createAccountClick}" variant="brand"/>
+                        <div class="slds-is-relative" style="display: inline-block; margin-left: 30px;">
+                            <aura:if isTrue="{!v.showSpinnerCreateAccount}">
+                                <lightning:spinner alternativeText="Loading" size="small" variant="brand" />
+                            </aura:if>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <aura:set attribute="else">
+                <div class="slds-text-heading_medium">Update account {! empty(v.caseId) ? '' : 'and case'}</div>
+                <div class="slds-text-color--error">{!v.error}</div>
+                <p style="margin: 5px 2px;">
+                    A similar contact was found in Tack for the same Thumbtack user.<br/>
+                    The following information will be updated. Do you wish to continue?
+                </p>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Tack</th>
+                            <th>Admin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td>{!v.existingContact.Name}</td>
+                            <td>{!v.selectedUser.usr_first_name__c + ' ' + v.selectedUser.usr_last_name__c}</td>
+                        </tr>
+                        <tr>
+                            <td>Account Name</td>
+                            <td>{!v.existingContact.Account.Name}</td>
+                            <td>{!v.selectedUser.sav_business_name__c}</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>{!v.existingContact.Email}</td>
+                            <td>{!v.selectedUser.usr_email__c}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="text-align: center; margin-top: 10px;">
+                    <lightning:button label="Cancel" name="Cancel" onclick="{!c.cancelCreateAccountClick}"/>
+                    <lightning:button label="Update Account" name="UpdateAccount" onclick="{!c.updateAccountClick}" variant="brand"/>
+                    <div class="slds-is-relative" style="display: inline-block; margin-left: 30px;">
+                        <aura:if isTrue="{!v.showSpinnerCreateAccount}">
+                            <lightning:spinner alternativeText="Loading" size="small" variant="brand" />
+                        </aura:if>
+                    </div>
+                </div>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+    <aura:if isTrue="{!v.showSelectedContact}">
+        <div class="slds-text-heading_medium">{! empty(v.caseId) ? 'Confirm selection' : 'Update case'}</div>
+        <div class="slds-text-color--error">{!v.error}</div>
+        <div style="max-width: 500px" class="slds-form slds-form_horizontal">
+            <div class="slds-form-element">
+                <span class="slds-form-element__label" >Account Name</span>
+                <div class="slds-form-element__control">
+                    <span class="slds-form-element__static" >{!v.selectedContact.Account.Name}</span>
+                </div>
+            </div>
+            <div class="slds-form-element">
+                <span class="slds-form-element__label" >Contact Name</span>
+                <div class="slds-form-element__control">
+                    <span class="slds-form-element__static" >{!v.selectedContact.Name}</span>
+                </div>
+            </div>
+            <div class="slds-form-element">
+                <span class="slds-form-element__label" >User Email</span>
+                <div class="slds-form-element__control">
+                    <span class="slds-form-element__static" >{!v.selectedContact.Email}</span>
+                </div>
+            </div>
+            <div class="slds-form-element">
+                <span class="slds-form-element__label" >User Id</span>
+                <div class="slds-form-element__control">
+                    <span class="slds-form-element__static" >{!v.selectedContact.usr_user_id__c}</span>
+                </div>
+            </div>
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <lightning:button label="Cancel" name="Cancel" onclick="{!c.cancelConfirmClick}"/>
+                    <lightning:button label="Confirm" name="Confirm" onclick="{!c.confirmClick}" variant="brand"/>
+                    <div class="slds-is-relative" style="display: inline-block; margin-left: 30px;">
+                        <aura:if isTrue="{!v.showSpinnerConfirm}">
+                            <lightning:spinner alternativeText="Loading" size="small" variant="brand" />
+                        </aura:if>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

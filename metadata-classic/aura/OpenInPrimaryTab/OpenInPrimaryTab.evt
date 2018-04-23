@@ -1,0 +1,27 @@
+<!--
+/*******************************************************************************
+*                                                                              *
+*                                           ########                           *
+*                                            #####                             *
+*    Copyright (c) 2017 Thumbtack            ###                               *
+*       All rights reserved.                ###                                *
+*                                         #####                                *
+*                                      #########                               *
+*                                         #                                    *
+*                                        #                                     *
+*                                       #                                      *
+*                                      #                                       *
+*                                                                              *
+********************************************************************************
+Change List:
+
+Version      Date          Author            Description
+========+============+=================+================================================
+1.0      2017-09-01   Mendel Guillaume       Created
+========+============+=================+===============================================*/
+ -->
+
+<aura:event type="APPLICATION" description="OpenInPrimaryTab">
+    <aura:attribute type="String" name="url" />
+    <aura:attribute type="String" name="name" />
+</aura:event>

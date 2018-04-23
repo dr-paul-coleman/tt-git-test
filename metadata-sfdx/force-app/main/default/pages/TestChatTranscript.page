@@ -1,0 +1,56 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false">
+    <apex:includeScript value="/soap/ajax/39.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/39.0/apex.js"/>
+    <apex:includeScript value="https://code.jquery.com/jquery-3.1.1.min.js"/>
+    <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/jsforce/1.7.0/jsforce.min.js" /> 
+    <div style="padding-bottom: 20px;"><span style="cursor: pointer;color: mediumblue;" onclick="openDevConsole()">Open Developer Console</span> to view Anonymous Apex execution logs (prior to running scripts).</div>
+    <apex:form >
+        <div><span>SELECT Id, CreatedDate, name FROM WorkforceSegment__c order by CreatedDate DESC</span></div><br/><br/>
+        <apex:commandButton value="Run Workforce Segment Test" onclick="runTest(); return false;"/><br/><br/>
+        <a id="wf-id" target="_blank" href="#"></a><br/>
+        <a id="wfxml-id"  target="_blank" href="#"></a>
+    </apex:form>
+    
+    <script type="text/javascript" >
+    sforce.connection.init( "{!$Api.session_id}", "/services/Soap/u/39.0" );
+    $soap = sforce.connection;
+    $apex = sforce.apex;
+    consoleUrl$= "{!$Api.Enterprise_Server_URL_390}";
+    
+    $jsf = new jsforce.Connection({ accessToken: sforce.connection.sessionId, "version":"39.0" }); 
+    $j = jQuery.noConflict();
+    
+    function runTest() {
+       openDevConsole();
+    }
+    
+    function createWFSegments() {
+        var workforceResult = sforce.apex.execute("ChatTranscriptBatchBySkill", "testWorkforceSegmentRecords", {});
+        console.dir(workforceResult);
+        if(workforceResult && workforceResult.length>0 && null!==workforceResult[0] && 0===workforceResult[0].indexOf("a0J")){
+          $j("#wf-id").text("New Workforce Summary Record").attr("href","/"+workforceResult);
+        } else {
+          $j("#wf-id").text("").attr("href","#");
+        }
+        //window.open(consoleUrl$.split("/services")[0] +"/"+workforceResult,'Workforce Segment','width=1024,height=768');
+        setTimeout(createXMLSegments,500);
+    }
+    
+    function createXMLSegments() {
+        var xmlResult = sforce.apex.execute("WorkforceSegmentRollupBatch", "testNiceXMLRecord", {});
+        console.dir(xmlResult);
+        if(xmlResult && xmlResult.length>0 && null!==xmlResult[0] && 0===xmlResult[0].indexOf("a0J")){
+          $j("#wfxml-id").text("New SF XML Record").attr("href","/"+xmlResult);
+        } else {
+          $j("#wfxml-id").text("").attr("href","#");
+        }
+        //window.open(consoleUrl$.split("/services")[0] + "/_ui/common/apex/debug/ApexCSIPage",'Force.com Developer Console','width=1024,height=768');
+    }
+    
+    function openDevConsole(cb) {
+        window.open(consoleUrl$.split("/services")[0] + "/_ui/common/apex/debug/ApexCSIPage",'Force.com Developer Console','width=1024,height=768');
+        setTimeout(createWFSegments,500);
+    }
+    
+    </script>
+</apex:page>

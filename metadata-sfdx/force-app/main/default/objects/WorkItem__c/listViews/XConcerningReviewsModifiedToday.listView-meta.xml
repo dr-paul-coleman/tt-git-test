@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>XConcerningReviewsModifiedToday</fullName>
+    <columns>OBJECT_ID</columns>
+    <columns>NAME</columns>
+    <columns>ReviewAudit__c</columns>
+    <columns>Outcome__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>ProAccount__c</columns>
+    <columns>rev_usr_user_id_reviewed__c</columns>
+    <columns>rev_review_time__c</columns>
+    <columns>rev_rating__c</columns>
+    <columns>rev_text__c</columns>
+    <columns>rev_private_feedback_to_thumbtack__c</columns>
+    <columns>rev_usr_user_id_reviewer__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>bid_bid_id__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>LAST_UPDATE</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>WorkItem__c.ConcerningReview</value>
+    </filters>
+    <label>X - Concerning Reviews Modified Today</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

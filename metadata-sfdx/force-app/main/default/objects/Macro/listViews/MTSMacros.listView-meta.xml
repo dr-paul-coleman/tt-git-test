@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MTSMacros</fullName>
+    <columns>Name</columns>
+    <columns>Type__c</columns>
+    <columns>Description</columns>
+    <columns>Owner</columns>
+    <columns>LastModifiedDate</columns>
+    <columns>LastModifiedBy</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Name</field>
+        <operation>startsWith</operation>
+        <value>MTS,MI -</value>
+    </filters>
+    <label>MTS Macros</label>
+    <sharedTo>
+        <group>ContentUser</group>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

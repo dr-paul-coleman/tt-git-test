@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LiveAgent</fullName>
+    <columns>Name</columns>
+    <columns>Description__c</columns>
+    <columns>Category</columns>
+    <columns>Message</columns>
+    <columns>Channel</columns>
+    <columns>CreatedDate</columns>
+    <columns>LastModifiedDate</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Channel</field>
+        <operation>equals</operation>
+        <value>Live Agent</value>
+    </filters>
+    <label>Live Agent</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>CustomerSuccessOrganization</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

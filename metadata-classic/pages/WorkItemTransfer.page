@@ -1,0 +1,48 @@
+<!--
+ - Created by SentientGrey on 10/3/17.
+ -->
+
+<apex:page id="WorkItemTransfer" showHeader="false" showChat="false" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false">
+    <html>
+        <head>
+            <apex:includeScript value="/canvas/sdk/js/publisher.js"/>
+            <apex:includeScript value="/support/console/35.0/integration.js"/>
+            <apex:includeLightning />
+        </head>
+        <body style="background-color: #eee;">
+            <div id="lightning" style="max-height: 400px; overflow-y: auto; ">
+                <script>
+                    $Lightning.use("c:WorkItemTransferApp",
+                    function(){
+                        $Lightning.createComponent("c:WorkItemTransfer", '', 'lightning',
+                                function(cmp){
+                                    $A.eventService.addHandler({ "event": "c:WorkItemOpenPrimaryTab", "handler" : openInNewTab });
+                                });
+                    });
+
+                    function openInNewTab(event)
+                    {
+                        var url = event.getParam('url');
+                        var name = event.getParam('name');
+
+                        if (sforce.console.isInConsole())
+                        {
+                            sforce.console.openPrimaryTab(null, url, true, name, function(sub_result)
+                            {
+                                console.log(sub_result.id);
+                                if(false === sub_result.success) {
+                                    console.warn("Failed to open primary tab");
+                                    console.dir(sub_result);
+                                }
+                            }, name);
+
+                        }
+                        else {
+                                location.href = url;
+                        }
+                    }
+                </script>
+            </div>
+        </body>
+    </html>
+</apex:page>

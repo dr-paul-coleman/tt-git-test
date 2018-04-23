@@ -1,0 +1,113 @@
+<aura:component controller="IncidentFileManagerController" implements="flexipage:availableForAllPageTypes" access="global">
+	<aura:attribute name="incidentId" type="String" access="public"/>
+	<aura:attribute name="attachments" type="LightningInnerClass[]" access="public"/>
+	<aura:attribute name="showSpinner" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="uploadPercentage" type="Decimal" default="0" access="private"/>
+	<aura:attribute name="showFileNameModal" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="showFileDeleteModal" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="tempFileName" type="String" access="private"/>
+	<aura:attribute name="tempAttachmentId" type="String" access="private"/>
+
+    <aura:attribute name="sessionId" type="String"/>
+    <aura:attribute name="cometd" type="Object"/>
+    <aura:attribute name="cometdSubscriptions" type="Object[]"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+	<aura:registerEvent name="CustomURLClicked" type="c:CustomURLClicked"/>
+
+	<ltng:require scripts="{!$Resource.jquery}" />
+    <ltng:require scripts="{!$Resource.cometd}" afterScriptsLoaded="{!c.onCometdLoaded}"/>
+
+	<div>
+		<div class="slds-p-bottom_medium slds-grid">
+			<div class="slds-size_1-of-2">
+				<input type="file" aura:id="file" class="slds-file-selector__input" />
+			</div>
+			<div class="slds-size_1-of-2 slds-text-align_right">
+				<lightning:button label="Save" onclick="{!c.saveFile}" variant="brand"/>
+			</div>
+		</div>
+		<aura:if isTrue="{!v.showSpinner}">
+			<!-- <lightning:spinner variant="brand"/> -->
+			<div class="slds-progress-bar slds-m-bottom_medium" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25" role="progressbar">
+				<span aura:id="progress-bar" class="slds-progress-bar__value" style="width: 0%;"></span>
+			</div>
+		</aura:if>
+		<aura:if isTrue="{!!empty(v.attachments)}">
+			<table data-reactroot="" class="slds-table slds-table_bordered slds-table_cell-buffer" style="table-layout: fixed;">
+				<thead>
+					<tr class="slds-text-title_caps">
+						<th scope="col">
+							<div class="slds-truncate" title="File Name">File Name</div>
+						</th>
+						<th scope="col">
+							<div class="slds-truncate" title="Created Date">Created Date</div>
+						</th>
+						<th scope="col" style="width: 3.25rem;">
+							<div class="slds-th__action">
+								<span class="slds-assistive-text">Actions</span>
+							</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<aura:iteration items="{!v.attachments}" var="attachment">
+						<tr draggable="true" data-attachment-id="{!attachment.fileId}" ondragstart="{!c.dragFile}">
+							<th scope="row" data-label="File Name">
+								<div class="slds-truncate" title="{!attachment.name}"><a href="{! (attachment.contentDocumentId == null ? '/servlet/servlet.FileDownload?file=' : '/') + attachment.fileId}" data-url="{!(attachment.contentDocumentId == null ? '/servlet/servlet.FileDownload?file=' : '/') + attachment.fileId}" onclick="{!c.previewFile}">{!attachment.name}</a></div>
+							</th>
+							<td data-label="Created Date">
+								<div class="slds-truncate"><ui:outputDateTime value="{!attachment.createdDate}" format="MMM d, YYYY"/></div>
+							</td>
+							<td role="gridcell" style="width: 3.25rem;">
+                                <aura:if isTrue="{!attachment.contentDocumentId == null}">
+                                    <lightning:buttonMenu iconName="utility:down" iconSize="x-small" class="slds-button__icon_hint" onselect="{!c.handleFileActionSelect}">
+                                        <lightning:menuItem label="Rename" value="{!'rename_' + attachment.fileId}" iconName="utility:edit"/>
+                                        <!--lightning:menuItem label="Delete" value="{!'delete_' + attachment.fielId}" iconName="utility:delete"/-->
+                                    </lightning:buttonMenu>
+                                </aura:if>
+							</td>
+						</tr>
+					</aura:iteration>
+				</tbody>
+			</table>
+		</aura:if>
+	</div>
+	<aura:if isTrue="{!v.showFileDeleteModal}">
+		<section role="dialog" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<header class="slds-modal__header">
+					<lightning:buttonIcon iconName="utility:close" variant="bare-inverse" class="slds-modal__close" size="large" onclick="{!c.cancelModal}"/>
+					<h2 class="slds-text-heading_medium slds-hyphenate">Confirm Delete</h2>
+				</header>
+				<div class="slds-modal__content slds-p-around_medium">
+					<p>Are you sure you want to delete this file?</p>
+				</div>
+				<footer class="slds-modal__footer">
+					<lightning:button label="Cancel" onclick="{!c.cancelModal}"/>
+					<lightning:button label="Delete" variant="brand" onclick="{!c.confirmDelete}"/>
+				</footer>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open"></div>
+	</aura:if>
+	<aura:if isTrue="{!v.showFileNameModal}">
+		<section role="dialog" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<header class="slds-modal__header">
+					<lightning:buttonIcon iconName="utility:close" variant="bare-inverse" class="slds-modal__close" size="large" onclick="{!c.cancelModal}"/>
+					<h2 class="slds-text-heading_medium slds-hyphenate">Rename File</h2>
+				</header>
+				<div class="slds-modal__content slds-p-around_medium">
+					<lightning:input type="text" label="File Name" value="{!v.tempFileName}"/>
+				</div>
+				<footer class="slds-modal__footer">
+					<lightning:button label="Cancel" onclick="{!c.cancelModal}"/>
+					<lightning:button label="Save" variant="brand" onclick="{!c.confirmRename}"/>
+				</footer>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open"></div>
+	</aura:if>
+</aura:component>

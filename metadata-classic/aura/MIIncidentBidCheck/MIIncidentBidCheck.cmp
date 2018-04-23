@@ -1,0 +1,419 @@
+<aura:component controller="MIIncidentBidCheckApexController" implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId">
+    <aura:attribute name="bidId" type="String" access="public"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="false" access="public"/>
+    <aura:attribute name="incidentFound" type="Boolean" default="false" access="public"/>
+    <aura:attribute name="continue" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="showSubmit" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="incident" type="MIIncident__c"/>
+    <aura:attribute name="case" type="Case"/>
+    <aura:attribute name="casId" type="String"/><!--this is passed in via the button-->
+    <aura:attribute name="origin" type="String[]" />
+    <aura:attribute name="priority" type="String[]" />
+    <aura:attribute name="proCase" type="Boolean" default="false" />
+    <aura:attribute name="custCase" type="Boolean" default="false"/>
+    <aura:attribute name="exists" type="Boolean" />
+    <aura:attribute name="originExists" type="Boolean" />
+    <aura:attribute name="finished" type="Boolean" />
+    <aura:attribute name="success" type="Boolean" />
+    <aura:attribute name="subValueComplete" type="Boolean" />
+    <aura:attribute name="error" type="Boolean" />
+    <aura:attribute name="incidentId" type="String"/>
+    <aura:attribute name="myURL" type="String" default="http://www.google.com"/>
+    <aura:attribute name="objInfo" type="string" default="contact" description="store object Info." />
+    <aura:attribute name="depnedentFieldMap" type="map" description="store controller(key)--> dependent(values) picklist value as a map." />
+    <aura:attribute name="isDependentDisable" type="boolean" default="true" description="use for, make disbale depandent field." />
+    <aura:registerEvent name="IncidentLinkClicked" type="c:IncidentLinkClicked" />
+
+    <aura:attribute name="currentStep" default="" type="String" />
+    <aura:attribute name="incidentType" default="Incident" type="String" />
+    <aura:attribute name="categories" type="IncidentChargeCardManagerController.Option[]" />
+    <aura:attribute name="subCategories" type="IncidentChargeCardManagerController.Option[]" />
+    <aura:attribute name="categoryMap" type="Map" />
+    <aura:attribute name="thumbtackUser" type="FindUserController.FindUserResult" />
+    <aura:attribute name="newEmail" type="String" />
+    <aura:attribute name="newFirstName" type="String" />
+    <aura:attribute name="newLastName" type="String" />
+    <aura:attribute name="userId" type="String" />
+    <aura:attribute name="userType" type="String" />
+    <aura:attribute name="proContact" type="Contact" default="{'sobjectType':'Contact', 'FirstName':'', 'LastName':'', 'usr_user_id__c': null}"/>
+    <aura:attribute name="custContact" type="Contact" default="{'sobjectType':'Contact', 'FirstName':'', 'LastName':'', 'usr_user_id__c': null}" />
+    <aura:attribute name="agentOrQueue" type="String" default="Queue" />
+    <aura:attribute name="queues" type="Group[]" />
+    <aura:attribute name="selectedQueueId" type="Id" />
+    <aura:attribute name="selectedUserId" type="Id" />
+    <aura:attribute name="message" type="String" />
+    <aura:attribute name="showDueDateError" type="Boolean" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:if isTrue="{!v.case.Incident__c != null}">
+        <header class="slds-modal__header">
+            <h2 class="slds-text-heading_medium">Linked Incident</h2>
+        </header>
+        <div class="slds-modal__content slds-p-around_medium" style="padding-bottom: 100px;" >
+            <ui:outputText value="{!'This case is already related to an Incident: ' + v.case.Incident__r.bid_id__c}" /> <br/>
+            <br/>
+            <lightning:button variant="brand" label="Go to the Incident" iconName="utility:link" iconPosition="left" onclick="{! c.caseIncidentLinkClicked }" />
+            <br/>
+        </div>
+        <aura:set attribute="else">
+            <header class="slds-modal__header">
+                <h2 class="slds-text-heading_medium slds-hyphenate">Create An Incident</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" style="padding-bottom: 2rem;">
+                <aura:if isTrue="{!v.showSpinner}">
+                        <div class="slds-spinner_container">
+                            <h2 class="slds-text-heading_large" style="color: rgb(21, 137, 238); position: absolute; top: 25%; left: 28%">Contacting The Mothership...</h2>
+                            <div class="slds-spinner slds-spinner--medium slds-spinner_brand" aria-hidden="false" role="alert">
+                                <div class="slds-spinner__dot-a" />
+                                <div class="slds-spinner__dot-b" />
+                            </div>
+                        </div>
+                </aura:if>
+
+                <aura:if isTrue="{!v.currentStep == 'incidentExists'}">
+                        <ui:outputText value="{!'It looks like there has already been an Incident created with the Bid Id: '+ v.incident.bid_id__c}" /><br/>
+                        <br/>
+                        <lightning:button variant="brand" label="Go to the MI Incident" iconName="utility:link" iconPosition="left" onclick="{! c.incidentLinkClicked }" />
+                        <br/>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{! c.clearForm }">Enter Different Bid Id</button>
+                    </footer>
+                </aura:if>
+
+                <aura:if isTrue="{!v.currentStep == 'createIncident'}">
+                    <h2 class="slds-text-heading_small">Incident Details</h2>
+                    <div class="slds-grid" style="margin: 5px 0px;">
+                        <div class="slds-size_1-of-2">
+                            <ui:inputRadio aura:id="irIncident1" name="irIncidentType" label="Incident" value="{!v.incidentType == 'Incident'}" class="slds-m-left--small" change="{!c.incidentTypeOnChange}" />
+                        </div>
+                        <div class="slds-size_1-of-2">
+                            <ui:inputRadio aura:id="irIncident2" name="irIncidentType" label="Good Samaritan Report" value="{!v.incidentType == 'Good Samaritan Report'}" class="slds-m-left--small" change="{!c.incidentTypeOnChange}" />
+                        </div>
+                    </div>
+                    <fieldset class="slds-form-element">
+                        <div  class="slds-grid" style="margin: 2px 0px;">
+                            <div class="slds-size_1-of-2" style="margin-right: 5px;">
+                                <lightning:select name="assignedTo" label="Assigned To" value="{!v.agentOrQueue}" >
+                                    <option value="Agent">Agent</option>
+                                    <option value="Queue">Queue</option>
+                                </lightning:select>
+                            </div>
+                            <div class="slds-size_1-of-2" style="margin-left: 5px;">
+                                <aura:if isTrue="{!v.agentOrQueue == 'Queue'}">
+                                    <lightning:select name="queueLst" label="&nbsp;" value="{!v.selectedQueueId}" >
+                                        <option value=""></option>
+                                        <aura:iteration items="{!v.queues}" var="q">
+                                            <option value="{!q.Id}" text="{!q.Name}"></option>
+                                        </aura:iteration>
+                                    </lightning:select>
+                                    <aura:set attribute="else">
+                                        <c:strike_lookup label="&nbsp;" object="User" searchField="Name" value="{!v.selectedUserId}" additionalSearchFields="UserRole.Name"
+                                                         placeholder="Select a user" iconName="standard:user" order="Name" subtitleField="UserRole.Name" limit="5"
+                                                         filter="IsActive = true AND UserRole.Name IN ('MI Managing User','MI Front Line User','Customer Success Organization')" />
+                                    </aura:set>
+                                </aura:if>
+
+                            </div>
+                        </div>
+                        <div class="slds-form-element__group">
+                            <aura:if isTrue="{!v.incidentType == 'Incident'}">
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size_1-of-1">
+                                        <label class="slds-form-element__label" for="bid"><abbr class="slds-required" title="required">*</abbr>Bid Id</label><br/>
+                                        <ui:inputNumber aura:id="bid"  class="slds-input" value="{!v.incident.bid_id__c}" required="true"/>
+                                    </div>
+                                </div>
+                                <div  class="slds-grid" style="margin: 2px 0px;">
+                                    <div class="slds-size_1-of-2" style="margin-right: 5px;">
+                                        <label class="slds-form-element__label" for="amountdisputed">Amount In Dispute</label><br/>
+                                        <ui:inputCurrency aura:id="amountdisputed" class="slds-input" value="{!v.incident.AmountInDispute__c}"/>
+                                    </div>
+                                    <div class="slds-size_1-of-2" style="margin-left: 5px;">
+                                        <label class="slds-form-element__label" for="amountpaid">Total Paid To Pro</label><br/>
+                                        <ui:inputCurrency aura:id="amountpaid" class="slds-input"  value="{!v.incident.TotalPaidToPro__c}"/>
+                                    </div>
+                                </div>
+                                <aura:set attribute="else">
+                                    <div class="slds-grid" style="margin: 2px 0px;">
+                                        <div class="slds-size_1-of-2" style="margin-right: 5px;">
+                                            <lightning:input name="txtUserId" aura:id="txtUserId" label="Thumbtack User ID" value="{!v.userId}" />
+                                        </div>
+                                        <div class="slds-size_1-of-2" style="margin-left: 5px;">
+                                            <lightning:select name="txtUserType" aura:id="txtUserType" label="User Type" value="{!v.userType}" >
+                                                <option text="Pro" value="Pro" />
+                                                <option text="Customer" value="Customer" />
+                                            </lightning:select>
+                                        </div>
+                                    </div>
+                                </aura:set>
+                            </aura:if>
+                            <div class="slds-grid" style="margin: 2px 0px;">
+                                <div class="slds-size_1-of-2" style="margin-right: 5px;">
+                                    <lightning:select name="category" aura:id="category" label="Category" value="{!v.incident.MICategory__c}" required="{!v.incidentType != 'Incident'}" onchange="{!c.onCategoryChange}" messageWhenValueMissing="Required field">
+                                        <option text="" value="" />
+                                        <aura:iteration items="{!v.categories}" var="s">
+                                            <option text="{!s.label}" value="{!s.value}" />
+                                        </aura:iteration>
+                                    </lightning:select>
+                                </div>
+                                <div class="slds-size_1-of-2" style="margin-left: 5px;">
+                                    <lightning:select name="subCat" aura:id="subCat" label="Subcategory" value="{!v.incident.MISubcategory__c}" disabled="{!v.subCategories == null || v.subCategories.length == 0}" required="{!v.incidentType != 'Incident' &amp;&amp; v.subCategories != null &amp;&amp; v.subCategories.length > 0}" messageWhenValueMissing="Required field" >
+                                        <option text="" value="" />
+                                        <aura:iteration items="{!v.subCategories}" var="s">
+                                            <option text="{!s.label}" value="{!s.value}" />
+                                        </aura:iteration>
+                                    </lightning:select>
+                                </div>
+                            </div>
+
+                            <div  class="slds-grid" style="margin: 2px 0px;">
+                                <div class="slds-size_1-of-2" style="margin-right: 5px;">
+                                    <lightning:select name="Priority" label="Priority" required="true" messageWhenValueMissing="Required field" value="{!v.incident.Priority__c}" >
+                                        <option value=""> - Select - </option>
+                                        <aura:iteration items="{!v.priority}" var="pri">
+                                            <option>{!pri}</option>
+                                        </aura:iteration>
+                                    </lightning:select>
+                                </div>
+                                <div class="slds-size_1-of-2" style="margin-left: 5px;">
+                                    <lightning:select name="Origin" label="Origin" required="true" messageWhenValueMissing="Required field" value="{!v.incident.Origin__c}" >
+                                        <aura:if isTrue="{!!v.originExists}"> <option value=""> - Select - </option></aura:if>
+                                        <aura:if isTrue="{!v.originExists}"> <option value="{!v.incident.Origin__c}">{!v.incident.Origin__c}</option></aura:if>
+                                        <aura:iteration items="{!v.origin}" var="orig">
+                                            <option>{!orig}</option>
+                                        </aura:iteration>
+                                    </lightning:select>
+                                </div>
+                            </div>
+
+                            <div  class="slds-grid" style="margin: 2px 0px;">
+                                <div class="slds-size_1-of-2" style="margin-right: 5px;">
+                                    <div class="{!if(v.showDueDateError, ' slds-has-error', '')}">
+                                        <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Date Reported</label>
+                                        <div class="slds-form-element__control"> <!-- onclick="{!c.toggleDatepicker}"-->
+                                            <!--input type="text" id="due-date-picker" class="slds-input" disabled="disabled" value="{!v.dueDate}"/-->
+                                            <ui:inputDate displayDatePicker="true" class="slds-input" value="{!v.incident.ReportedDate__c}"  />
+                                        </div>
+                                        <aura:if isTrue="{!v.showDueDateError}">
+                                            <div class="slds-form-element__help">This field is required</div>
+                                        </aura:if>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </aura:if>
+
+                <!-- Good Samaritan -->
+                <aura:if isTrue="{!v.currentStep == 'confirmUser'}">
+                    <h2 class="slds-text-heading_small">Confirm User</h2>
+                    <p class="slds-p-top_medium slds-p-bottom_medium">
+                        Based on the Thumbtack User ID provided we will create a good samaritan report for the following professional:
+                    </p>
+                    <div class="slds-grid">
+                        <div class="slds-size--1-of-3">
+                            Name
+                        </div>
+                        <div class="slds-size--2-of-3">
+                            {!v.thumbtackUser.name}
+                        </div>
+                    </div>
+                    <div class="slds-grid">
+                        <div class="slds-size--1-of-3">
+                            User Id
+                        </div>
+                        <div class="slds-size--2-of-3">
+                            {!v.thumbtackUser.userId}
+                        </div>
+                    </div>
+                    <div class="slds-grid">
+                        <div class="slds-size--1-of-3">
+                            Email
+                        </div>
+                        <div class="slds-size--2-of-3">
+                            {!v.thumbtackUser.email}
+                        </div>
+                    </div>
+                </aura:if>
+
+                <aura:if isTrue="{!v.currentStep == 'confirmNewUser'}">
+                    <h2 class="slds-text-heading_small">Add New User</h2>
+
+                    <div class="slds-form slds-form_horizontal">
+                        <lightning:input label="Email" aura:id="txtNewEmail" name="newEmail" type="email" required="true" value="{!v.newEmail}" messageWhenTypeMismatch="Invalid email format" messageWhenValueMissing="Required field" />
+                        <lightning:input label="First Name" aura:id="txtNewFirstName" name="newFirstName" required="true" value="{!v.newFirstName}" messageWhenValueMissing="Required field" />
+                        <lightning:input label="Last Name" aura:id="txtNewLastName" name="newLastName" required="true" value="{!v.newLastName}" messageWhenValueMissing="Required field" />
+                    </div>
+                </aura:if>
+                <!-- End Good Samaritan -->
+
+                <!-- Incident -->
+                <aura:if isTrue="{!v.currentStep == 'incidentFound' }">
+                    <h2 class="slds-text-heading_small">Confirmation Needed</h2>
+                    <ui:outputText value="{!'Based on the Bid Id provided&nbsp;('+ v.incident.bid_id__c + ') we will create an incident. Verify that these are the correct 2 parties for the incident. Please select the primary case for the reporting party.'}" /><br/>
+                    <br/><br/>
+                    <div class="slds-grid">
+                        <div class="slds-size--1-of-3">
+                            Customer
+                        </div>
+                        <div class="slds-size--2-of-3">
+                            {!v.incident.CustomerName__c}
+                        </div>
+                    </div>
+                    <div class="slds-grid">
+                        <div class="slds-size--1-of-3">
+                            Customer User Id
+                        </div>
+                        <div class="slds-size--2-of-3">
+                            {!v.incident.customer_id__c}
+                        </div>
+                    </div>
+                    <div class="slds-grid">
+                        <div class="slds-size--1-of-3">
+                            Customer's Primary Case
+                        </div>
+                        <div class="slds-size--2-of-3">
+                            <lightning:input type="radio" checked="{!v.custCase}" name="primaryCase" label="" />
+                        </div>
+                    </div>
+
+                    <div class="slds-grid slds-p-top_medium">
+                        <div class="slds-size--1-of-3">
+                            Pro
+                        </div>
+                        <div class="slds-size--2-of-3">
+                            {!v.incident.ProfessionalName__c}
+                        </div>
+                    </div>
+                    <div class="slds-grid">
+                        <div class="slds-size--1-of-3">
+                            Pro User Id
+                        </div>
+                        <div class="slds-size--2-of-3">
+                            {!v.incident.pro_user_id__c}
+                        </div>
+                    </div>
+                    <div class="slds-grid">
+                        <div class="slds-size--1-of-3">
+                            Pro's Primary Case
+                        </div>
+                        <div class="slds-size--2-of-3">
+                            <lightning:input type="radio" checked="{!v.proCase}" name="primaryCase" label="" />
+                        </div>
+                    </div>
+                </aura:if>
+
+                <aura:if isTrue="{!v.currentStep == 'createIncidentFromScratch'}">
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Additional Information Needed</h2>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <ui:outputText value="{!'Based on the Bid Id provided , we will need to gather more information: (Please select the appropriate box to indicate if this is the primary case for the pro or for the customer).'}" />
+                        <br/><br/>
+
+                        <div class="slds-form slds-form_horizontal">
+                            <lightning:input label="Customer User ID" aura:id="txtCustContactUserId" name="custContactUserId" required="true" value="{!v.custContact.usr_user_id__c}" pattern="^\d+$" messageWhenPatternMismatch="Invalid User ID format" messageWhenValueMissing="Required field" />
+                            <lightning:input label="Customer First Name" aura:id="txtCustContactFirstName" name="custContactFirstName" required="true" value="{!v.custContact.FirstName}" messageWhenValueMissing="Required field" />
+                            <lightning:input label="Customer Last Name" aura:id="txtCustContactLastName" name="custContactLastName" required="true" value="{!v.custContact.LastName}" messageWhenValueMissing="Required field" />
+                            <lightning:input type="radio" checked="{!v.custCase}" aura:id="custcheckbox" name="primaryCase" label="Customer's Primary Case" />
+                        </div>
+                        <div class="slds-form slds-form_horizontal slds-p-top_large">
+                            <lightning:input label="Pro User ID" aura:id="txtProContactUserId" name="proContactUserId" required="true" value="{!v.proContact.usr_user_id__c}" pattern="^\d+$" messageWhenPatternMismatch="Invalid User ID format" messageWhenValueMissing="Required field" />
+                            <lightning:input label="Pro First Name" aura:id="txtProContactFirstName" name="proContactFirstName" required="true" value="{!v.proContact.FirstName}" messageWhenValueMissing="Required field" />
+                            <lightning:input label="Pro Last Name" aura:id="txtProContactLastName" name="proContactLastName" required="true" value="{!v.proContact.LastName}" messageWhenValueMissing="Required field" />
+                            <lightning:input type="radio" checked="{!v.proCase}" aura:id="procheckbox" name="primaryCase" label="Pro's Primary Case" />
+                        </div>
+                    </div>
+                </aura:if>
+                <!-- End Incident -->
+
+                <aura:if isTrue="{!v.currentStep == 'incidentFactors'}">
+                    <h2 class="slds-text-heading_small">Incident Factors</h2>
+                    <c:IncidentFactors incidentId="{!v.incident.Id}"/>
+                </aura:if>
+
+                <aura:if isTrue="{!v.currentStep == 'finished'}">
+                    <h2 class="slds-text-heading_small">Incident successfully created</h2>
+                    <br/>
+                    <lightning:button variant="brand" label="Go to the Incident" iconName="utility:link" iconPosition="left" onclick="{! c.incidentLinkClicked }" />
+                    <br/>
+                </aura:if>
+
+            </div>
+            <footer class="slds-modal__footer">
+                <aura:if isTrue="{!v.currentStep == 'createIncident'}">
+                    <div class="slds-grid slds-text-align_left">
+                        <div class="slds-size--1-of-2">
+                            <button class="slds-button slds-button_neutral" onclick="{! c.clearForm }">Reset Form</button>
+                        </div>
+                        <div class="slds-size--1-of-2">
+                            <aura:if isTrue="{!!empty(v.incident.Origin__c) &amp;&amp; !empty(v.incident.Priority__c) &amp;&amp; v.incident.ReportedDate__c != null &amp;&amp;
+                                    ((v.incidentType != 'Incident' &amp;&amp; !empty(v.incident.MICategory__c) &amp;&amp; (v.subCategories == null || v.subCategories.length == 0 || !empty(v.incident.MISubcategory__c))) || (v.incidentType == 'Incident' &amp;&amp;  !empty(v.incident.bid_id__c)))}">
+                                <button class="slds-button slds-button_brand" onclick="{! c.continue1Click }">Continue</button>
+                            </aura:if>
+                        </div>
+                    </div>
+                </aura:if> 
+
+                <!-- Good Samaritan -->
+                <aura:if isTrue="{!v.currentStep == 'confirmUser'}">
+                    <div class="slds-text-align_center">
+                        <lightning:button variant="brand" label="Back" onclick="{! c.confirmUserBackClick}" />
+                        <lightning:button variant="brand" label="Verify and Create" onclick="{!c.confirmUserClick}" />
+                    </div>
+                </aura:if>
+
+                <aura:if isTrue="{!v.currentStep == 'confirmNewUser'}">
+                    <div class="slds-text-align_center">
+                        <lightning:button variant="brand" label="Back" onclick="{! c.confirmUserBackClick}" />
+                        <lightning:button variant="brand" label="Verify and Create" onclick="{!c.confirmNewUserClick}" />
+                    </div>
+                </aura:if>
+                <!-- End good Samaritan -->
+
+                <!-- Incident -->
+                <aura:if isTrue="{!v.currentStep == 'incidentFound'}">
+                    <div class="slds-text-align_center">
+                        <button class="slds-button slds-button_brand" onclick="{! c.backClick }">Back</button>
+                        <!--button class="slds-button slds-button_neutral" onclick="{! c.clearForm }">Reset Form</button-->
+                        <aura:if isTrue="{!or(v.custCase,v.proCase)}">
+                            <button class="slds-button slds-button_brand" onclick="{! c.verifyClick }">Verify and Create</button>
+                        </aura:if>
+                    </div>
+                </aura:if>
+
+                <aura:if isTrue="{!v.currentStep == 'createIncidentFromScratch'}">
+                    <div class="slds-grid slds-text-align_left">
+                        <div class="slds-size--1-of-3">
+                            <button class="slds-button slds-button_neutral" onclick="{! c.clearForm }">Reset Form</button>
+                        </div>
+                        <div class="slds-size--2-of-3">
+                            <button class="slds-button slds-button_brand" onclick="{! c.backClick }">Back</button>
+                            <aura:if isTrue="{! !empty(v.custContact.usr_user_id__c) &amp;&amp; !empty(v.custContact.FirstName) &amp;&amp;
+                                    !empty(v.custContact.LastName) &amp;&amp; !empty(v.proContact.usr_user_id__c) &amp;&amp;
+                                    !empty(v.proContact.FirstName) &amp;&amp; !empty(v.proContact.LastName) &amp;&amp;
+                                    (v.proCase || v.custCase) }">
+                                <button class="slds-button slds-button_brand" onclick="{! c.createNewClick }">Create</button>
+                            </aura:if>
+                        </div>
+                    </div>
+                </aura:if>
+                <!-- End Incident -->
+
+                <aura:if isTrue="{!v.currentStep == 'incidentFactors'}">
+                    <div class="slds-text-align_center">
+                        <button class="slds-button slds-button_brand" onclick="{! c.finish }">Finish</button>
+                    </div>
+                </aura:if>
+            </footer>
+        </aura:set>
+    </aura:if>
+
+    <div class="slds-form slds-form_compound" style="padding:25px;">
+        <aura:if isTrue="{!v.error}">
+            <h2 class="slds-text-heading_medium slds-hyphenate">There has been an error while processing this incident. Please contact your system administrator.</h2><br/>
+        </aura:if>
+        <aura:if isTrue="{!v.message != null}">
+            {!v.message}
+        </aura:if>
+    </div>
+</aura:component>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ContentRequestsNew</fullName>
+    <columns>NAME</columns>
+    <columns>TypeOfRequest__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>IsThisUrgent__c</columns>
+    <columns>IfUrgentPleaseExplainWhy__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>TackSupport__c.ContentRequest</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Closed,Canceled</value>
+    </filters>
+    <label>1. Content Request - New</label>
+    <queue>SupportContent</queue>
+    <sharedTo>
+        <group>ContentUser</group>
+        <role>SharedServicesUserTSL</role>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FeedbackAll</fullName>
+    <booleanFilter>1</booleanFilter>
+    <columns>NAME</columns>
+    <columns>FeedbackType__c</columns>
+    <columns>ProductFeedback__c</columns>
+    <columns>Case__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>THIS_QUARTER</value>
+    </filters>
+    <label>All Feedback - This Quarter</label>
+    <sharedTo>
+        <role>CSManagingUserTSL</role>
+        <role>CustomerSuccessOrganization</role>
+    </sharedTo>
+</ListView>

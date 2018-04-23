@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LiveText__All</fullName>
+    <columns>NAME</columns>
+    <columns>LiveText__Conversation_Header__c</columns>
+    <columns>LiveText__Originating_Number__c</columns>
+    <columns>LiveText__Source__c</columns>
+    <columns>LiveText__Initial_Message__c</columns>
+    <columns>LiveText__Message__c</columns>
+    <columns>LiveText__Sent_To_Customer__c</columns>
+    <columns>OWNER.FIRST_NAME</columns>
+    <columns>CreatedDateTime__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+    <sharedTo/>
+</ListView>

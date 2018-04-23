@@ -1,0 +1,6 @@
+<!--
+ - Created by pcoleman on 2/20/18.
+ -->
+
+<apex:page id="TestSC" standardController="Dispute__c">
+</apex:page>

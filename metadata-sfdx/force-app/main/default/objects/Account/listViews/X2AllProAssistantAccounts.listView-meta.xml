@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X2AllProAssistantAccounts</fullName>
+    <columns>ProAssistant__c</columns>
+    <columns>ThumbtackUserID__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>usr_email__c</columns>
+    <columns>ACCOUNT.PHONE1</columns>
+    <columns>usr_timezone__c</columns>
+    <columns>ProAssistantNotes__c</columns>
+    <columns>ProAssistantManagedBy__c</columns>
+    <columns>ProAssistantSubscriptionType__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACCOUNT.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Account.ThumbtackPro</value>
+    </filters>
+    <filters>
+        <field>ProAssistant__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>2. All Pro Assistant Accounts</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>LabsManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

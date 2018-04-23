@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ContentRule</fullName>
+    <active>true</active>
+    <description>Record type used to manage the rules for when content (e.g., message or tip) needs to be added to the dispute.</description>
+    <label>Content Rule</label>
+    <picklistValues>
+        <picklist>DisputeOfferStatus__c</picklist>
+        <values>
+            <fullName>Accepted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Countered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Stopped</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Withdrawn</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DisputeStage__c</picklist>
+        <values>
+            <fullName>Agreement made</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Changed resolution platform</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Initiator confirmation needed</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Offer pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Responder first action needed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stopped</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Withdrawn</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DisputeStatus__c</picklist>
+        <values>
+            <fullName>Awaiting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Under review</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Object__c</picklist>
+        <values>
+            <fullName>Dispute%5F%5Fc</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DisputeMessage%5F%5Fc</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DisputeOffer%5F%5Fc</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

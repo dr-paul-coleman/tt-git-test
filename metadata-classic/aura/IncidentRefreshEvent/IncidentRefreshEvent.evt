@@ -1,0 +1,7 @@
+<!--
+ - Created by SentientGrey on 10/3/17.
+ -->
+
+<aura:event type="APPLICATION" description="IncidentRefreshEvent" >
+    <aura:attribute type="String" name="name" />
+</aura:event>

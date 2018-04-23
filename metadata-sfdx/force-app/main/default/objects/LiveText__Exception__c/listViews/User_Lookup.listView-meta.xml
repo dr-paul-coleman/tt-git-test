@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>User_Lookup</fullName>
+    <columns>NAME</columns>
+    <columns>LiveText__AssociatedUser__c</columns>
+    <columns>LiveText__ErrorDescription__c</columns>
+    <columns>LiveText__ObjectId__c</columns>
+    <columns>LiveText__Priority__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>OWNER.ALIAS</field>
+        <operation>equals</operation>
+        <value>mtancang</value>
+    </filters>
+    <label>User Lookup</label>
+</ListView>

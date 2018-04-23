@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MTSCategories</fullName>
+    <columns>NAME</columns>
+    <columns>AvailableOnCase__c</columns>
+    <columns>AvailableOnEnrollment__c</columns>
+    <columns>CategoryType__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ExperienceType__c</field>
+        <operation>equals</operation>
+        <value>MTS</value>
+    </filters>
+    <label>MTS Categories</label>
+    <sharedTo>
+        <roleAndSubordinates>CustomerSuccessOrganization</roleAndSubordinates>
+    </sharedTo>
+</ListView>

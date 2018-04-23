@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AskAnExpertProOpenCases</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>Directly__Directly_Status__c</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.CLOSED_DATE</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.ORIGIN</field>
+        <operation>equals</operation>
+        <value>Directly Question</value>
+    </filters>
+    <filters>
+        <field>Directly__Directly_Status__c</field>
+        <operation>equals</operation>
+        <value>None,Open</value>
+    </filters>
+    <label>Ask an Expert Pro - Open Cases</label>
+    <sharedTo>
+        <role>CSManagingUserTSL</role>
+        <role>CustomerSuccessOrganization</role>
+    </sharedTo>
+</ListView>

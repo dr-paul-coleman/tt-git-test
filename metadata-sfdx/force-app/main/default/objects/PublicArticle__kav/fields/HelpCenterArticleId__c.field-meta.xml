@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HelpCenterArticleId__c</fullName>
+    <description>Open text field that will be populated by the Sys Admin to store the Public Article ID (parent, __ka); used in formula field to produce Help Center URL Link</description>
+    <externalId>false</externalId>
+    <label>Help Center Article Id</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

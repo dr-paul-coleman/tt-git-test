@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Subcategories</fullName>
+    <columns>NAME</columns>
+    <columns>AvailableOnCase__c</columns>
+    <columns>AvailableOnEnrollment__c</columns>
+    <columns>CategoryType__c</columns>
+    <columns>ParentCategory__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CategoryType__c</field>
+        <operation>equals</operation>
+        <value>Subcategory</value>
+    </filters>
+    <label>All Subcategories</label>
+</ListView>

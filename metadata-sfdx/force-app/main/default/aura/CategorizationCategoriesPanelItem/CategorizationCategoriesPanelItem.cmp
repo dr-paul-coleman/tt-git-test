@@ -1,0 +1,115 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+================================================
+  1.0      2017-10-23   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+-->
+
+<aura:component description="CategorizationCategoriesPanelItem">
+    <aura:attribute name="ct" type="CategorizationCategoriesPanelController.CategoryType" />
+    <aura:attribute name="showCategory" type="Boolean" default="false" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="currentCategoryId" type="String" default="null" />
+
+    <aura:registerEvent name="CategorizationEvent" type="c:CategorizationEvent" />
+    <aura:handler event="c:CategorizationEvent" action="{!c.handleCategorizationEvent}" />
+
+    <div class="category-type-container">
+        <div class="category-type-header" onclick="{!c.toggleCategory}">
+            <div class="slds-grid">
+                <div class="slds-size_1-of-2 slds-text-heading_small">
+                    {!v.ct.name}
+                </div>
+                <div class="slds-size_1-of-2 slds-text-align_right">
+                    <aura:if isTrue="{!v.showCategory}">
+                        <lightning:icon iconName="utility:dash" size="x-small" />
+                        <aura:set attribute="else">
+                            <lightning:icon iconName="utility:add" size="x-small"/>
+                        </aura:set>
+                    </aura:if>
+                </div>
+            </div>
+        </div>
+        <aura:if isTrue="{!v.showCategory}">
+            <div class="slds-grid">
+                <div class="slds-size_1-of-2" style="border-right: 1px solid #eee;">
+                    <aura:iteration items="{!v.ct.categories}" var="cat">
+                        <div class="{!'category-container' + if(v.currentCategoryId == cat.category.Id, ' active', ' inactive')}" data-value="{!cat.category.Id}" onclick="{!c.categoryClick}">
+                            <div class="slds-grid">
+                                <div class="slds-size_1-of-12 category-selected-bullet">
+                                    <aura:if isTrue="{!cat.subSelected}">
+                                        &bull;
+                                    </aura:if>
+                                </div>
+                                <div class="{!'slds-size_9-of-12' + if(cat.subSelected, ' category-selected', '')}">
+                                    {!cat.category.Name}
+                                </div>
+                                <div class="slds-size_2-of-12">
+                                    <aura:if isTrue="{!cat.category.Icon__c != null}">
+                                        <div>
+                                            <lightning:icon iconName="{!cat.category.Icon__c}" size="xx-small" />
+                                        </div>
+                                    </aura:if>
+                                    <aura:if isTrue="{!cat.category.HelpText__c != null}">
+                                        <div style="position: relative; display: inline-block;" class="category-help-container">
+                                            <div>
+                                                <lightning:icon iconName="utility:info" class="category-icon-help" size="xx-small"/>
+                                                <div class="slds-popover slds-popover_tooltip slds-nubbin_top category-text-help" role="tooltip" id="help" style="position: absolute; top: 26px; left: -93px; width: 200px;">
+                                                    <div class="slds-popover__body" >
+                                                            {!cat.category.HelpText__c}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </aura:if>
+                                </div>
+                            </div>
+                        </div>
+                    </aura:iteration>
+                </div>
+                <div class="slds-size_1-of-2" style="background-color: #fff; overflow: scroll; max-height: 450px;">
+                    <aura:iteration items="{!v.ct.categories}" var="cat">
+                        <div class="subcategories-container" style="{!'display: ' + if(v.currentCategoryId == cat.category.Id,'block','none')}">
+                            <aura:iteration items="{!cat.subCategories}" var="sc">
+                                <div class="subcategory-container" data-name="{!cat.category.Id}" data-value="{!sc.category.Id}" onclick="{!c.subCategoryClick}">
+                                    <div class="slds-grid">
+                                        <div class="slds-size_1-of-12 category-selected-bullet">
+                                            <aura:if isTrue="{!sc.selected}">
+                                                &bull;
+                                            </aura:if>
+                                        </div>
+                                        <div class="{!'slds-size_9-of-12' + if(sc.selected, ' category-selected', '')}">
+                                            {!sc.category.Name}
+                                        </div>
+                                        <div class="slds-size_2-of-12">
+                                            <aura:if isTrue="{!sc.category.Icon__c != null}">
+                                                <div>
+                                                    <lightning:icon iconName="{!sc.category.Icon__c}" size="xx-small" />
+                                                </div>
+                                            </aura:if>
+                                            <aura:if isTrue="{!and(sc.category.HelpText__c != null, sc.category.HelpText__c != '')}">
+                                                <div style="position: relative; display: inline-block;" class="category-help-container">
+                                                    <div>
+                                                        <lightning:icon iconName="utility:info" class="category-icon-help" size="xx-small" />
+                                                        <div class="slds-popover slds-popover_tooltip slds-nubbin_top category-text-help" role="tooltip" id="help" style="position: absolute; top: 26px; left: -93px; width: 200px;">
+                                                            <div class="slds-popover__body">
+                                                                {!sc.category.HelpText__c}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </aura:if>
+                                        </div>
+                                    </div>
+                                </div>
+                            </aura:iteration>
+                        </div>
+                    </aura:iteration>
+                </div>
+            </div>
+
+        </aura:if>
+    </div>
+</aura:component>

@@ -1,0 +1,62 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+===============================================
+  1.0      2017-11-22   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+ -->
+
+<aura:component description="QuickCase" controller="QuickCaseController">
+    <aura:attribute name="caseRecord" type="Case" default="{'sobjectType' : 'Case', 'SuppliedName' : '', 'SuppliedEmail' : '',  'Origin' : 'Email', 'Subject' : ''}" />
+    <aura:attribute name="message" type="String" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="origins" type="String[]" />
+    <aura:attribute name="description" type="String" />
+
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+
+    <aura:registerEvent name="QuickCaseEvent" type="c:QuickCaseEvent" />
+
+    <div style="">
+        <aura:if isTrue="{!v.showSpinner}">
+            <lightning:spinner aura:id="mySpinner" variant="brand" size="large"></lightning:spinner>
+        </aura:if>
+
+        <aura:if isTrue="{! !empty(v.message)}">
+            <div class="slds-notify_container">
+                <div class="slds-notify slds-notify_toast slds-theme_error" role="alert">
+                    <div class="slds-notify__content" style="width: 100%;">
+                        <div class="slds-grid">
+                            <div class="slds-size_5-of-6">
+                                <aura:unescapedHtml value="{!v.message}" />
+                            </div>
+                            <div class="slds-size_1-of-6 slds-text-align_right">
+                                <lightning:buttonIcon iconName="utility:close" alternativeText="Close" onclick="{!c.closeToastClick}" variant="bare-inverse" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+
+        <div class="slds-text-title_caps slds-m-around--medium">Quick Case</div>
+        <div class="slds-m-around--medium">
+            <aura:unescapedHtml value="{!v.description}" />
+        </div>
+        <div class="slds-form_horizontal slds-m-around--medium" style="max-width: 500px">
+            <lightning:input aura:id="fullName" name="fullName" label="Full Name" type="text" value="{!v.caseRecord.SuppliedName}" required="true" messageWhenValueMissing="Required Field." />
+            <lightning:input aura:id="email" name="email" label="Email Address" type="email" value="{!v.caseRecord.SuppliedEmail}" required="true" messageWhenValueMissing="Required Field." messageWhenTypeMismatch="Invalid format."/>
+            <lightning:input aura:id="subject" name="subject" label="Subject" type="text" value="{!v.caseRecord.Subject}" required="true" messageWhenValueMissing="Required Field."/>
+            <lightning:select aura:id="origin" name="origin" label="Case Origin" value="{!v.caseRecord.Origin}" required="true" messageWhenValueMissing="Required Field.">
+                <aura:iteration items="{!v.origins}" var="o">
+                    <option value="{!o}" label="{!o}" />
+                </aura:iteration>
+            </lightning:select>
+
+            <div class="slds-text-align_center" style="margin-top: 10px">
+                <lightning:button label="Submit" name="submit" onclick="{!c.submitClick}" variant="brand" />
+            </div>
+        </div>
+    </div>
+</aura:component>

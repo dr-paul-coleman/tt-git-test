@@ -1,0 +1,113 @@
+<!--
+ /*******************************************************************************
+*                                                                              *
+*                                           ########                           *
+*                                            #####                             *
+*    Copyright (c) 2017 Thumbtack            ###                               *
+*       All rights reserved.                ###                                *
+*                                         #####                                *
+*                                      #########                               *
+*                                         #                                    *
+*                                        #                                     *
+*                                       #                                      *
+*                                      #                                       *
+*                                                                              *
+********************************************************************************
+Change List:
+
+Version      Date          Author            Description
+========+============+=================+================================================
+1.0      2017-07-31   Mendel Guillaume       Created
+========+============+=================+===============================================*/
+ -->
+
+<aura:component description="FindUser" implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="FindUserController" >
+    <ltng:require styles="{!$Resource.SLDS231 + '/assets/styles/salesforce-lightning-design-system-ltng.css'}" />
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+    <aura:attribute name="acctRecordTypes" type="FindUserController.Option[]" />
+    <aura:attribute name="results" type="FindUserController.FindUserResult[]" />
+    <aura:attribute name="recordsFound" type="Boolean" default="false" />
+    <aura:attribute name="showError" type="Boolean" default="false" />
+    <aura:attribute name="showNewForm" type="Boolean" default="false" />
+    <aura:attribute name="selectedAcctRecType" type="String" />
+    <aura:attribute name="caseId" type="Id" />
+    <aura:attribute name="showSpinnerFind" type="Boolean" default="false" />
+    <aura:attribute name="showSpinnerCreateAccount" type="Boolean" default="false" />
+    <aura:attribute name="showData" type="Boolean" default="false" />
+    <aura:attribute name="currentPage" type="Integer" default="1" />
+    <aura:attribute name="pagedResults" type="FindUserController.FindUserResult[]" />
+    <aura:attribute name="numberOfPages" type="Integer" default="1" />
+    <aura:attribute name="showFind" type="Boolean" default="true" />
+    <aura:attribute name="searchText" type="String" />
+    <aura:attribute name="error" type="String" />
+    <aura:attribute name="showSearchWarning" type="Boolean" default="false" />
+
+    <aura:registerEvent name="refreshCaseEvent" type="c:FindUserRefreshCaseEvent" />
+    <aura:registerEvent name="findUserEvent" type="c:FindUserEvent" />
+
+    <div class="slds231">
+        <aura:if isTrue="{!v.showFind}">
+            <div class="slds-grid">
+                <div class="slds-col">
+                    <div style="" class="slds-form slds-form_horizontal" onkeyup="{!c.findEnter}">
+                        <lightning:input value="{!v.searchText}" class="hide-asterisk" type="text" name="searchText" aura:id="searchText" label="Search for a Thumbtack User" placeholder="Enter name, user ID, phone number, or email" required="true" messageWhenValueMissing="Required field" />
+                    </div>
+                </div>
+                <div style="padding-left: 20px;" class="slds-col">
+                    <lightning:button label="Find User" name="Find" onclick="{!c.findClick}" variant="brand" />
+                    <div class="slds-is-relative" style="display: inline-block; margin-left: 30px;">
+                        <aura:if isTrue="{!v.showSpinnerFind}">
+                            <lightning:spinner alternativeText="Loading" size="small" variant="brand" />
+                        </aura:if>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+
+        <div class="results-container slds-scrollable">
+            <aura:if isTrue="{! v.recordsFound }">
+                <c:FindUserResult results="{!v.results}" caseId="{!v.caseId}" showData="{!v.showData}" pagedResults="{!v.pagedResults}"
+                                  currentPage="{!v.currentPage}" numberOfPages="{!v.numberOfPages}" showNewForm="{!v.showNewForm}"
+                                  showFind="{!v.showFind}" showSearchWarning="{!v.showSearchWarning}" />
+            </aura:if>
+        </div>
+        <div>
+            <aura:if isTrue="{! v.showError }">
+                <div style="max-width: 500px" class="slds-form slds-form_horizontal">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label slds-text-color_error">No users found.</label>
+                        <div class="slds-form-element__control">
+                            <lightning:button label="Add New" name="newAccount" onclick="{!c.newAccountClick}" variant="brand"/>
+                        </div>
+                    </div>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.showNewForm}">
+                <div class="slds-text-heading_medium">Create new account {! empty(v.caseId) ? '' : 'and update case'}</div>
+                <div class="slds-text-color--error">{!v.error}</div>
+                <div style="max-width: 500px" class="slds-form slds-form_horizontal">
+                    <lightning:input type="text" name="first" aura:id="first" label="First Name" required="true" messageWhenValueMissing="Required field" />
+                    <lightning:input type="text" name="last" aura:id="last" label="Last Name" required="true" messageWhenValueMissing="Required field" />
+                    <lightning:input type="email" name="email" aura:id="email" label="Email Address" required="true" messageWhenValueMissing="Required field" />
+                    <lightning:input type="text" name="userId" aura:id="userId" label="User ID" messageWhenPatternMismatch="Must be a number" pattern="^\d+$" /> <!-- Input type number doesn't render as expected. -->
+                    <lightning:select name="acctRecType" aura:id="acctRecType" label="User Type" value="{!v.selectedAcctRecType}">
+                        <aura:iteration items="{!v.acctRecordTypes}" var="o">
+                            <option text="{!o.label}" value="{!o.value}" />
+                        </aura:iteration>
+                    </lightning:select>
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <lightning:button label="Cancel" name="Cancel" onclick="{!c.cancelCreateAccountClick}"/>
+                            <lightning:button label="Create &amp; Update" name="createAccount" onclick="{!c.createAccountClick}" variant="brand"/>
+                            <div class="slds-is-relative" style="display: inline-block; margin-left: 30px;">
+                                <aura:if isTrue="{!v.showSpinnerCreateAccount}">
+                                    <lightning:spinner alternativeText="Loading" size="small" variant="brand" />
+                                </aura:if>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aura:if>
+        </div>
+    </div>
+</aura:component>

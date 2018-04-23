@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TPHSharedServices_WorkItem</fullName>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>Type__c</columns>
+    <columns>Priority__c</columns>
+    <columns>Outcome__c</columns>
+    <columns>rev_usr_user_id_reviewed__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>WorkItem__c.ConcerningReview,WorkItem__c.StandardWorkItem</value>
+    </filters>
+    <label>00. All Work Items</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

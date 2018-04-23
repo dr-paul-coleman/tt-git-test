@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EnrollmentFSContacted</fullName>
+    <columns>NAME</columns>
+    <columns>rca_request_category_id__c</columns>
+    <columns>zip_cbsa_code__c</columns>
+    <columns>rca_name__c</columns>
+    <columns>zip_cbsa_name__c</columns>
+    <columns>enrollment_id__c</columns>
+    <columns>FunnelStep__c</columns>
+    <columns>Market__c</columns>
+    <columns>OutreachAttempts__c</columns>
+    <columns>outreach_type__c</columns>
+    <columns>top_pro__c</columns>
+    <columns>TimezoneFromAdmin__c</columns>
+    <columns>UnsuccessfulReason__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>FunnelStep__c</field>
+        <operation>equals</operation>
+        <value>Contacted</value>
+    </filters>
+    <filters>
+        <field>Email__c</field>
+        <operation>notContain</operation>
+        <value>@thumbtack.com</value>
+    </filters>
+    <label>3: Enrollment FS Contacted</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

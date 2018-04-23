@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>becquerel_lastmod__c</fullName>
+    <description>becquerel_lastmod</description>
+    <externalDeveloperName>becquerel_lastmod</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>becquerel_lastmod</label>
+    <required>false</required>
+    <type>DateTime</type>
+</CustomField>

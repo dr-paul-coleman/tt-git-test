@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SolutionCenterOffer</fullName>
+    <active>true</active>
+    <description>Record type used to manage the offers or counter offers as part of the dispute resolution process.</description>
+    <label>Solution Center Offer</label>
+    <picklistValues>
+        <picklist>InitiatingParty__c</picklist>
+        <values>
+            <fullName>Accept</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Counter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Initiate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>OfferStatus__c</picklist>
+        <values>
+            <fullName>Closed%2FAccepted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed%2FCountered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed%2FExpired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Open</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>RespondingPartyOffer_Status__c</picklist>
+        <values>
+            <fullName>Accept</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Counter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Initiate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type__c</picklist>
+        <values>
+            <fullName>Complete the work</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complete the work and refund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Suggest a different completion date</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

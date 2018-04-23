@@ -1,0 +1,45 @@
+/*******************************************************************************
+*                                                                              *
+*                                           ########                           *
+*                                            #####                             *
+*    Copyright (c) 2017 Thumbtack            ###                               *
+*       All rights reserved.                ###                                *
+*                                         #####                                *
+*                                      #########                               *
+*                                         #                                    *
+*                                        #                                     *
+*                                       #                                      *
+*                                      #                                       *
+*                                                                              *
+********************************************************************************
+Change List:
+
+Version      Date          Author            Description
+========+============+=================+================================================
+1.0      2017-08-21   Mendel Guillaume       Created
+========+============+=================+===============================================*/
+.THIS .item-label
+{
+ width: 40% !important;
+}
+
+.THIS .item-detail
+{
+ width: 60% !important;
+ word-wrap: break-word;
+}
+
+.THIS .icon-button-container {cursor: pointer;}
+.THIS .icon-orange {background-color: #f88962 !important;}
+
+@media (max-height: 700px)
+{
+    .THIS .modal-height {max-height: 375px;}
+}
+
+@media (min-height: 701px)
+{
+    .THIS .modal-height {min-height: 375px;}
+}
+
+.THIS .wrap-text{word-wrap: break-word;}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Quoted</fullName>
+    <columns>NAME</columns>
+    <columns>Customer__c</columns>
+    <columns>ProAccount__c</columns>
+    <columns>AdminLinkQuote__c</columns>
+    <columns>DayssinceLastStatusChange__c</columns>
+    <columns>LastCommunicationSubject__c</columns>
+    <columns>DaysSinceLastCommunication__c</columns>
+    <columns>LastCommunicationDate__c</columns>
+    <columns>Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Quote__c.ProAssistanceRecordType,Quote__c.QuotingServiceRecordType</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Quoted</value>
+    </filters>
+    <label>All Quoted</label>
+    <sharedTo>
+        <role>ProServicesManaging_User</role>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

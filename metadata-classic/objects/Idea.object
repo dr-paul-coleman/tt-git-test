@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <listViews>
+        <fullName>All_Ideas</fullName>
+        <columns>IDEA.TITLE</columns>
+        <columns>IDEA.CREATED_DATE</columns>
+        <columns>IDEA.CREATED_BY_NICKNAME</columns>
+        <columns>VOTE_STATS.WEIGHTED_SUM</columns>
+        <columns>IDEA.NUM_COMMENTS</columns>
+        <columns>IDEA.STATUS</columns>
+        <columns>IDEA.CATEGORIES</columns>
+        <columns>COMMUNITY.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>COMMUNITY.NAME</field>
+            <operation>equals</operation>
+            <value>Specialist Ideas</value>
+        </filters>
+        <label>901: All Ideas</label>
+        <sharedTo>
+            <role>SharedServicesUserTSL</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>ComingSoonAndNowAvailable</fullName>
+        <columns>IDEA.TITLE</columns>
+        <columns>IDEA.CATEGORIES</columns>
+        <columns>VOTE_STATS.WEIGHTED_SUM</columns>
+        <columns>IDEA.CREATED_BY_NICKNAME</columns>
+        <columns>IDEA.STATUS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>IDEA.STATUS</field>
+            <operation>equals</operation>
+            <value>Coming Soon,Now Available</value>
+        </filters>
+        <label>03 Coming Soon and Now Available</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>CustomerSuccessOrganization</roleAndSubordinatesInternal>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>ComingSoonIdeas</fullName>
+        <columns>IDEA.TITLE</columns>
+        <columns>IDEA.CREATED_DATE</columns>
+        <columns>IDEA.CREATED_BY_NICKNAME</columns>
+        <columns>VOTE_STATS.WEIGHTED_SUM</columns>
+        <columns>IDEA.NUM_COMMENTS</columns>
+        <columns>IDEA.STATUS</columns>
+        <columns>IDEA.CATEGORIES</columns>
+        <columns>COMMUNITY.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>IDEA.STATUS</field>
+            <operation>equals</operation>
+            <value>Coming Soon</value>
+        </filters>
+        <filters>
+            <field>COMMUNITY.NAME</field>
+            <operation>equals</operation>
+            <value>Specialist Ideas</value>
+        </filters>
+        <label>401: Coming Soon Ideas</label>
+        <sharedTo>
+            <role>SharedServicesUserTSL</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>DuplicateAndNotDoing</fullName>
+        <columns>IDEA.TITLE</columns>
+        <columns>IDEA.CREATED_DATE</columns>
+        <columns>IDEA.CREATED_BY_NICKNAME</columns>
+        <columns>VOTE_STATS.WEIGHTED_SUM</columns>
+        <columns>IDEA.NUM_COMMENTS</columns>
+        <columns>IDEA.STATUS</columns>
+        <columns>IDEA.CATEGORIES</columns>
+        <columns>COMMUNITY.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>IDEA.STATUS</field>
+            <operation>equals</operation>
+            <value>Not Doing,Duplicate</value>
+        </filters>
+        <label>601: Duplicate / Not Doing Ideas</label>
+        <sharedTo>
+            <role>SharedServicesUserTSL</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>MyIdeas</fullName>
+        <columns>IDEA.TITLE</columns>
+        <columns>IDEA.BODY</columns>
+        <columns>DateImplemented__c</columns>
+        <columns>IDEA.CREATED_BY_NICKNAME</columns>
+        <columns>IDEA.STATUS</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>VOTE.HAS_VOTED</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>01 My Ideas</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>CustomerSuccessOrganization</roleAndSubordinatesInternal>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>NewIdeas</fullName>
+        <columns>IDEA.TITLE</columns>
+        <columns>IDEA.CREATED_DATE</columns>
+        <columns>IDEA.CREATED_BY_NICKNAME</columns>
+        <columns>VOTE_STATS.WEIGHTED_SUM</columns>
+        <columns>IDEA.NUM_COMMENTS</columns>
+        <columns>IDEA.STATUS</columns>
+        <columns>IDEA.CATEGORIES</columns>
+        <columns>COMMUNITY.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>IDEA.STATUS</field>
+            <operation>equals</operation>
+            <value>New</value>
+        </filters>
+        <filters>
+            <field>COMMUNITY.NAME</field>
+            <operation>equals</operation>
+            <value>Specialist Ideas</value>
+        </filters>
+        <label>101: New Ideas</label>
+        <sharedTo>
+            <role>SharedServicesUserTSL</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>NowAvailableIdeas</fullName>
+        <columns>IDEA.TITLE</columns>
+        <columns>IDEA.CREATED_DATE</columns>
+        <columns>IDEA.CREATED_BY_NICKNAME</columns>
+        <columns>VOTE_STATS.WEIGHTED_SUM</columns>
+        <columns>IDEA.NUM_COMMENTS</columns>
+        <columns>IDEA.STATUS</columns>
+        <columns>IDEA.CATEGORIES</columns>
+        <columns>COMMUNITY.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>IDEA.STATUS</field>
+            <operation>equals</operation>
+            <value>Now Available</value>
+        </filters>
+        <filters>
+            <field>COMMUNITY.NAME</field>
+            <operation>equals</operation>
+            <value>Specialist Ideas</value>
+        </filters>
+        <label>501: Now Available Ideas</label>
+        <sharedTo>
+            <role>SharedServicesUserTSL</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>ReviewedIdeas</fullName>
+        <columns>IDEA.TITLE</columns>
+        <columns>IDEA.CREATED_DATE</columns>
+        <columns>IDEA.CREATED_BY_NICKNAME</columns>
+        <columns>VOTE_STATS.WEIGHTED_SUM</columns>
+        <columns>IDEA.NUM_COMMENTS</columns>
+        <columns>IDEA.STATUS</columns>
+        <columns>IDEA.CATEGORIES</columns>
+        <columns>COMMUNITY.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>IDEA.STATUS</field>
+            <operation>equals</operation>
+            <value>Reviewed</value>
+        </filters>
+        <filters>
+            <field>COMMUNITY.NAME</field>
+            <operation>equals</operation>
+            <value>Specialist Ideas</value>
+        </filters>
+        <label>301: Reviewed Ideas</label>
+        <sharedTo>
+            <role>SharedServicesUserTSL</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>UnderReviewIdeas</fullName>
+        <columns>IDEA.TITLE</columns>
+        <columns>IDEA.CREATED_DATE</columns>
+        <columns>IDEA.CREATED_BY_NICKNAME</columns>
+        <columns>VOTE_STATS.WEIGHTED_SUM</columns>
+        <columns>IDEA.NUM_COMMENTS</columns>
+        <columns>IDEA.STATUS</columns>
+        <columns>IDEA.CATEGORIES</columns>
+        <columns>COMMUNITY.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>IDEA.STATUS</field>
+            <operation>equals</operation>
+            <value>Under Review</value>
+        </filters>
+        <filters>
+            <field>COMMUNITY.NAME</field>
+            <operation>equals</operation>
+            <value>Specialist Ideas</value>
+        </filters>
+        <label>201: Under Review Ideas</label>
+        <sharedTo>
+            <role>SharedServicesUserTSL</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>X02NewandUnderReviewIdeas</fullName>
+        <columns>IDEA.CREATED_DATE</columns>
+        <columns>IDEA.TITLE</columns>
+        <columns>IDEA.CATEGORIES</columns>
+        <columns>IDEA.CREATED_BY_NICKNAME</columns>
+        <columns>VOTE_STATS.WEIGHTED_SUM</columns>
+        <columns>IDEA.NUM_COMMENTS</columns>
+        <columns>IDEA.STATUS</columns>
+        <columns>COMMUNITY.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>IDEA.STATUS</field>
+            <operation>equals</operation>
+            <value>New,Under Review</value>
+        </filters>
+        <label>02 New and Under Review Ideas</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>CustomerSuccessOrganization</roleAndSubordinatesInternal>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>tackenhancementideas</fullName>
+        <columns>IDEA.CREATED_DATE</columns>
+        <columns>IDEA.TITLE</columns>
+        <columns>IDEA.CREATED_BY_NICKNAME</columns>
+        <columns>VOTE_STATS.WEIGHTED_SUM</columns>
+        <columns>IDEA.NUM_COMMENTS</columns>
+        <columns>IDEA.STATUS</columns>
+        <columns>IDEA.CATEGORIES</columns>
+        <columns>COMMUNITY.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>COMMUNITY.NAME</field>
+            <operation>equals</operation>
+            <value>Specialist Ideas</value>
+        </filters>
+        <filters>
+            <field>IDEA.CATEGORIES</field>
+            <operation>includes</operation>
+            <value>tack</value>
+        </filters>
+        <filters>
+            <field>IDEA.STATUS</field>
+            <operation>equals</operation>
+            <value>New,Under Review,Reviewed,Coming Soon</value>
+        </filters>
+        <label>tack enhancement ideas: open</label>
+        <sharedTo>
+            <role>SharedServicesUserTSL</role>
+            <role>SystemLevelAccess</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>tackenhancementideasclosed</fullName>
+        <columns>IDEA.CREATED_DATE</columns>
+        <columns>IDEA.TITLE</columns>
+        <columns>IDEA.CREATED_BY_NICKNAME</columns>
+        <columns>VOTE_STATS.WEIGHTED_SUM</columns>
+        <columns>IDEA.NUM_COMMENTS</columns>
+        <columns>IDEA.STATUS</columns>
+        <columns>IDEA.CATEGORIES</columns>
+        <columns>COMMUNITY.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>COMMUNITY.NAME</field>
+            <operation>equals</operation>
+            <value>Specialist Ideas</value>
+        </filters>
+        <filters>
+            <field>IDEA.CATEGORIES</field>
+            <operation>includes</operation>
+            <value>tack</value>
+        </filters>
+        <filters>
+            <field>IDEA.STATUS</field>
+            <operation>notEqual</operation>
+            <value>New,Under Review,Reviewed,Coming Soon</value>
+        </filters>
+        <label>tack enhancement ideas: closed</label>
+        <sharedTo>
+            <role>SharedServicesUserTSL</role>
+            <role>SystemLevelAccess</role>
+        </sharedTo>
+    </listViews>
+</CustomObject>

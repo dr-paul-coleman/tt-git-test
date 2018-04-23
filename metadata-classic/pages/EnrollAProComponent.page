@@ -1,0 +1,30 @@
+<apex:page docType="html-5.0" showHeader="false" sidebar="false" standardStylesheets="false">
+	<apex:includeScript value="/support/console/35.0/integration.js"/>
+	<style type="text/css">
+		body {
+			background-color: white;
+		}
+	</style>
+	<script type="text/javascript">
+		var navToPro = function(event) {
+			var enrollmentId = event.getParam('enrollmentId');
+			if(sforce.console.isInConsole()) {
+				sforce.console.openPrimaryTab(undefined, "/"+enrollmentId, true, 'Enrollment', function(sub_result){
+					if(false === sub_result.success) {
+						console.warn("Open ProEnrollmentManager Sub tab failed");
+						console.dir(sub_result);
+					}
+				},enrollmentId);  
+			} else {
+				location.replace("/"+enrollmentId);
+			}
+		};
+		var manageNavToPro = function() {
+			$A.eventService.addHandler({
+				event: "c:ProAssigned",
+				handler: navToPro
+			});
+		};
+	</script>
+	<c:Lightning containerId="enrollAProComponent" appName="c:EnrollAPro_LO" componentName="c:EnrollAPro" jsMethods="manageNavToPro" />
+</apex:page>

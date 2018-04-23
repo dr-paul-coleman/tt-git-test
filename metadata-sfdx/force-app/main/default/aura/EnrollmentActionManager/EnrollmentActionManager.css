@@ -1,0 +1,62 @@
+.THIS .outreach-attempt-confirmation-message .slds-notify_container {
+	position: static;
+	text-align: left;
+}
+
+.THIS .outreach-container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	min-height: 250px;
+	overflow-x: hidden;
+}
+
+.THIS .outreach-attempt-details, .THIS .outreach-attempt-confirmation {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	right: 0;
+}
+
+.THIS .outreach-attempt-details {
+	left: 0;
+}
+
+.THIS .outreach-attempt-confirmation {
+	left: 110%;
+}
+
+.THIS .panel-container {
+    background: #f4f6f9;
+    padding: 1rem;
+    height: 440px;
+    max-height: 440px;
+    overflow-y: auto;
+}
+
+.THIS .mouse-pointer .slds-input[disabled] {
+	cursor: pointer;
+}
+
+.THIS .slds-dropdown-trigger .slds-dropdown.users-dropdown {
+	position: fixed;
+	top: initial;
+	left: 2.5rem;
+}
+
+.THIS .survey {
+	height: 230px;
+}
+
+.THIS .modal-survey {
+	height: 400px;
+}
+
+.THIS .pre-wrap {
+	white-space: pre-wrap;
+}
+
+.THIS .height-530px {
+	height: 530px;
+}

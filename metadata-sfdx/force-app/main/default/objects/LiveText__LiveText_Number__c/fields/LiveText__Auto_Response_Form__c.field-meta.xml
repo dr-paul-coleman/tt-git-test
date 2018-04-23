@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LiveText__Auto_Response_Form__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>This form is sent automatically when a LiveMessage session is received during business hours.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This form is sent automatically when a LiveMessage session is received during business hours.</inlineHelpText>
+    <label>Auto-Response Form</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>LiveText__Structured_Form__c.LiveText__Is_Static__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <filterItems>
+            <field>LiveText__Structured_Form__c.LiveText__Channel__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Id</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>LiveText__Structured_Form__c</referenceTo>
+    <relationshipLabel>LiveText Numbers</relationshipLabel>
+    <relationshipName>LiveText_Numbers</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

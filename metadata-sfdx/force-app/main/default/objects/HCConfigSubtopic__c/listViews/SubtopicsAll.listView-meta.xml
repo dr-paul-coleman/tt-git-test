@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SubtopicsAll</fullName>
+    <columns>NAME</columns>
+    <columns>Title__c</columns>
+    <columns>Status__c</columns>
+    <columns>NumberOfArticles__c</columns>
+    <columns>Version__c</columns>
+    <columns>AvailableForCustomers__c</columns>
+    <columns>AvailableForProfessionals__c</columns>
+    <columns>RECORDTYPE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HCConfigSubtopic__c.Subtopic</value>
+    </filters>
+    <label>03: Subtopics - All</label>
+    <sharedTo>
+        <group>ContentUser</group>
+    </sharedTo>
+</ListView>

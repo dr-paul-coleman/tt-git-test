@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CreatedinDecember</fullName>
+    <columns>wisespt__WiseTagsCreatedAt__c</columns>
+    <columns>NAME</columns>
+    <columns>ParentCaseProcessedByWise__c</columns>
+    <columns>ParentCaseQueueName__c</columns>
+    <columns>ParentCaseSubject__c</columns>
+    <columns>wisespt__CaseID__c</columns>
+    <columns>wisethumbtack__WiseTag_Tier__c</columns>
+    <columns>wisethumbtack__WiseTag_Tier_confident__c</columns>
+    <columns>wisethumbtack__WiseTag_Tier_score__c</columns>
+    <columns>wisethumbtack__WiseTag_Noise__c</columns>
+    <columns>wisethumbtack__WiseTag_Noise_confident__c</columns>
+    <columns>wisethumbtack__WiseTag_Noise_score__c</columns>
+    <columns>wisethumbtack__Wise_ParseJSON_Tag_Error__c</columns>
+    <columns>wisethumbtack__WiseTag_Category__c</columns>
+    <columns>wisethumbtack__WiseTag_SubCategory__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>wisespt__WiseTagsCreatedAt__c</field>
+        <operation>lessOrEqual</operation>
+        <value>12/31/2015 12:00 AM</value>
+    </filters>
+    <filters>
+        <field>wisespt__WiseTagsCreatedAt__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>12/1/2015 12:00 AM</value>
+    </filters>
+    <label>Created in December</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

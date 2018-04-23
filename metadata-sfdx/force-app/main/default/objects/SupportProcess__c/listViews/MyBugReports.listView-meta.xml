@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MyBugReports</fullName>
+    <columns>NAME</columns>
+    <columns>Case__c</columns>
+    <columns>BugType_del__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>Assignee__c</columns>
+    <columns>Bug__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>LoggedInuserIsReporter__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>SupportProcess__c.BugReport</value>
+    </filters>
+    <label>BR - My Bug Reports (All)</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>CustomerSuccessOrganization</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MIBlacklistHits</fullName>
+    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+    <columns>NAME</columns>
+    <columns>usr_user_id__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Email__c</columns>
+    <columns>pro_first_name__c</columns>
+    <columns>pro_last_name__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>ticketid__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>WorkItem__c.BlacklistedNumber</value>
+    </filters>
+    <filters>
+        <field>BlacklistedNumberKnownDuplicate__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Assigned,Completed</value>
+    </filters>
+    <label>MTS - Blacklist Hits</label>
+    <sharedTo>
+        <group>TPHMIAssistants</group>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

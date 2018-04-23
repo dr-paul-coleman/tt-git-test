@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>proassist_on__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>proassist_on</description>
+    <externalDeveloperName>proassist_on</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>proassist_on</label>
+    <type>Checkbox</type>
+</CustomField>

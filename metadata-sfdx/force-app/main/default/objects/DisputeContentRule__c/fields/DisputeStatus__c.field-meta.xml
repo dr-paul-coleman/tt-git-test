@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DisputeStatus__c</fullName>
+    <description>The status the dispute should be in order to trigger the creation of the message record.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The status the dispute should be in order to trigger the creation of the message record.</inlineHelpText>
+    <label>Dispute Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>DisputeStatus</valueSetName>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>wisespt__All</fullName>
+    <columns>NAME</columns>
+    <columns>wisespt__CaseID__c</columns>
+    <columns>wisethumbtack__WiseTag_Tier__c</columns>
+    <columns>wisethumbtack__WiseTag_Tier_confident__c</columns>
+    <columns>wisethumbtack__WiseTag_Noise__c</columns>
+    <columns>wisethumbtack__WiseTag_Noise_confident__c</columns>
+    <columns>wisethumbtack__WiseTag_Category__c</columns>
+    <columns>wisethumbtack__WiseTag_Category_confident__c</columns>
+    <columns>wisethumbtack__WiseTag_SubCategory__c</columns>
+    <columns>wisethumbtack__WiseTag_SubCategory_confident__c</columns>
+    <columns>wisethumbtack__Wise_ParseJSON_Tag_Error__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

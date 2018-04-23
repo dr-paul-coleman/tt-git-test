@@ -1,0 +1,8 @@
+<apex:page standardController="Case">
+     <apex:includeScript value="/support/console/41.0/integration.js"/>
+     <apex:includeScript value="https://code.jquery.com/jquery-2.1.4.min.js"/>
+     <apex:includeLightning />
+     <script type="text/javascript">
+        window.history.back();
+        </script>
+</apex:page>

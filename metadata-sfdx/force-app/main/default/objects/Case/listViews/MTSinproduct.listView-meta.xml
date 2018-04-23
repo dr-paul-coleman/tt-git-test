@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MTSinproduct</fullName>
+    <booleanFilter>(1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 10) OR (1 AND 8 AND 9)</booleanFilter>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>NAME</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.ORIGIN</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>TransferredtoMI__c</columns>
+    <columns>UPDATEDBY_USER.ALIAS</columns>
+    <columns>Incident__c</columns>
+    <columns>MIIncidentStatus__c</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>SubCategory__c</field>
+        <operation>notEqual</operation>
+        <value>Scam/Fake Request,Scam / fake</value>
+    </filters>
+    <filters>
+        <field>CASES.SUBJECT</field>
+        <operation>notContain</operation>
+        <value>[Checkr],BG:,BBB,Follow up from Thumbtack Support</value>
+    </filters>
+    <filters>
+        <field>MICasePrimaryCustomer__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>MISubcategory__c</field>
+        <operation>notEqual</operation>
+        <value>Scam/Fake Request,MBG Pilot,Collateral Damage</value>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>notEqual</operation>
+        <value>service@paypal.com</value>
+    </filters>
+    <filters>
+        <field>MICasePrimaryPro__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>MIIncidentEligiblity__c</field>
+        <operation>equals</operation>
+        <value>Not Eligible</value>
+    </filters>
+    <filters>
+        <field>MISubcategory__c</field>
+        <operation>equals</operation>
+        <value>Collateral Damage</value>
+    </filters>
+    <filters>
+        <field>CASES.ORIGIN</field>
+        <operation>equals</operation>
+        <value>In-Product</value>
+    </filters>
+    <label>MTS - In-Product</label>
+    <queue>MarketplaceIntegrity</queue>
+    <sharedTo>
+        <role>CustomerSuccessOrganization</role>
+        <role>SystemLevelAccess</role>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

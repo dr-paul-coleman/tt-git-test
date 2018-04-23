@@ -1,0 +1,7 @@
+<aura:event type="APPLICATION" description="Event template">
+	<aura:attribute name="enrollmentId" type="String"/>
+	<aura:attribute name="ruleName" type="String"/>
+	<aura:attribute name="ruleOutcome" type="String"/>
+	<aura:attribute name="oldRuleOutcome" type="String"/>
+	<aura:attribute name="completed" type="Boolean"/>
+</aura:event>

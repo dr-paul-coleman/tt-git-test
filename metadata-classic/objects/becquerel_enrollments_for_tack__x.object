@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <listViews>
+        <fullName>All</fullName>
+        <columns>ExternalId</columns>
+        <columns>business_name__c</columns>
+        <columns>email__c</columns>
+        <columns>enrollment_id__c</columns>
+        <columns>first_name__c</columns>
+        <columns>last_name__c</columns>
+        <columns>in_qs__c</columns>
+        <columns>outreach_group__c</columns>
+        <columns>outreach_type__c</columns>
+        <columns>phone__c</columns>
+        <columns>priority_from_analytics__c</columns>
+        <columns>rca_name__c</columns>
+        <columns>user_id__c</columns>
+        <columns>zip_cbsa_code__c</columns>
+        <columns>zip_cbsa_name__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+</CustomObject>

@@ -1,0 +1,176 @@
+<apex:page sidebar="false" showHeader="false">
+ <html>
+ <head>
+ <title>WFH Requirements</title>
+ <meta name="robots" content="noindex, follow"/>
+ <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0 maximum-scale=1.0" />
+ </head>
+ <style>
+body {
+  background-color: #f0f0f0;
+  font-family: 'Avenir';
+  color: #444;
+  font-size: 1em;
+}
+
+#centerColumn {
+  max-width: 800px;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 20px 40px;
+  margin: 0 auto;
+}
+
+.h1 {
+  font-size: 2.25rem;
+  font-weight: 600;
+}
+
+.h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+p.content {
+  margin-left: 15px;
+}
+
+p#q {
+  font-weight: 600;
+}
+
+b {
+  font-weight: 600;
+}
+
+a {
+  text-decoration: none;
+  color: #4092f1;
+  transition: color 0.5s ease;
+}
+
+a:hover, a:focus {
+  color: #70adf4;
+  text-decoration: none;
+}
+
+div#pingtest {
+  margin: 0 auto;
+  width: 150px;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.toggler {
+  margin: 0 auto;
+}
+
+.toggle {
+}
+
+label {
+  text-align: center;
+}
+
+label::before {
+  content:"+";
+  width: 20px;
+  height: 20px;
+  margin-right: 3px;
+  background: radial-gradient(ellipse at center, #CCC 50%, transparent 50%);
+}
+}
+
+label::hover {
+  cursor:pointer;
+  color: #666
+}
+
+#speedtest:checked ~ #sptestexpander {
+  height: 250px;
+}
+.toggle:checked ~ label::before {
+  content: "-";
+}
+
+.expand {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.5s;
+}
+ </style>
+ <body>
+<div id="centerColumn">
+  <p class="h1">Thumbtack WFH technical requirements</p>
+  <p class="h2">
+    Network Connection
+  </p>
+  <p class="content" id="q">
+    Must be hardwired.
+  </p>
+  <p class="content">
+    Your network connection must be <a href="https://techterms.com/definition/wired">hardwired</a> to your modem or router via ethernet. Thumbtack can provide you with the appropriate ethernet adapter for your laptop. <a href="https://techterms.com/definition/wi-fi">Wireless LAN (WiFi)</a>    connections result in compromised audio quality and reduced reliability that directly affects the experience of a caller and will not be permitted.
+  </p>
+  <p class="h2">
+    Bandwidth
+  </p>
+  <p class="content" id="q">
+    Must be at least 10Mbps down / 5Mbps up.
+  </p>
+  <p class="content">
+    Network <a href="https://techterms.com/definition/bandwidth">Bandwidth</a> is the rate at which data is transferred to and from your computer and another source on a network like the internet. Download speed refers to how fast data (like a caller's
+    voice) is received and upload speed refers to how fast data (like your voice) is sent.
+  </p>
+  <p class="content">
+    Higher speeds mean your system has an easier time performing a phone call in addition to your regular internet usage.
+  </p>
+ <!--   <iframe width="100%" height="650px" frameborder="0" src="http://tack.speedtestcustom.com"></iframe> -->
+  <p class="h2">
+    Latency
+  </p>
+  <p class="content" id="q">
+    Must be under 150ms.
+  </p>
+  <p class="content">
+    Network <a href="https://techterms.com/definition/latency">Latency</a> is a term that describes a delay that happens during a communication between two computers. In our case, that communication is between your laptop and our Contact Center (phone
+    system) software provider's server. Latency can be affected by things like the distance between the computers talking to eachother and the quality of your network connection.
+  </p>
+  <p class="content">
+    You can find out the relevant network latency by performing a ping test against the specific address of the server in question. A ping test with the Contact Center provider's server address prefilled is embedded below.
+  </p>
+  <div id="pingtest">
+    <p>Ping Test</p>
+    <form action="https://ipaddressguide.com/ping" method="post">
+      <p>
+        <input type="text" name="host" value="us8.five9.com"></input>
+        <input type="submit" value="Ping"></input>
+      </p>
+    </form>
+  </div>
+  <p class="h2">
+    Headset
+  </p>
+  <p class="content">
+    You must use your Thumbtack-issued USB headset. Analog devices like earbuds that connect to the headphone jack on your computer are <b>not</b> supported. Thumbtack-issued bluetooth headsets that use a USB base will work if only one bluetooth headset
+    is present in the building. Bluetooth headsets will also result in a little extra delay and lower audio quality.
+  </p>
+  <p class="content">
+    You should always use a headset. Using the built-in speakers or microphone on your laptop will result in extremely poor audio quality and problems like echoes and feedback.
+  </p>
+  <p class="h2">
+    Browser
+  </p>
+  <p class="content">
+    You should use the latest version of Google Chrome with the Five9 Softphone Extension installed.
+  </p>
+  <p class="h2">
+    Other activity on your network
+  </p>
+  <p class="content">
+    While you're working from home, do not stream video via services including but not limited to YouTube or Netflix from your laptop or any other devices sharing the network.
+  </p>
+</div>
+</body>
+ </html>
+</apex:page>

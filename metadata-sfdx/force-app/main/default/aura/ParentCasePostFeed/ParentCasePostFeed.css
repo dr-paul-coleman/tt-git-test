@@ -1,0 +1,6 @@
+/**
+ * Created by SentientGrey on 12/14/17.
+ */
+.THIS .slds-rich-text-editor.slds-form-element.slds-grid.slds-grid--vertical.slds-nowrap.slds-has-focus.lightningInputRichText{
+    max-height: 250px !important;
+}

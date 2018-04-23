@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>XDataCleanup</fullName>
+    <columns>NAME</columns>
+    <columns>ReviewAudit__c</columns>
+    <columns>Outcome__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>UPDATEDBY_USER.ALIAS</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>Priority__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Type__c</field>
+        <operation>equals</operation>
+        <value>Review Message</value>
+    </filters>
+    <label>X - Data Cleanup</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

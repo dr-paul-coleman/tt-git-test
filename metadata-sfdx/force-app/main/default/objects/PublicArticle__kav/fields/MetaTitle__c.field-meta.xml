@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MetaTitle__c</fullName>
+    <description>Used in the article's meta tags. Allows the title to be overridden on social media cards when the article is shared.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Overrides the article's title on the social media card when the article is shared.</inlineHelpText>
+    <label>Meta Title</label>
+    <length>60</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

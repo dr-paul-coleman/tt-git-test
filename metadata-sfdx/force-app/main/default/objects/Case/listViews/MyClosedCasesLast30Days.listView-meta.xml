@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MyClosedCasesLast30Days</fullName>
+    <booleanFilter>1 AND 2</booleanFilter>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CaseFlag__c</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>SubCategory__c</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>NAME</columns>
+    <columns>Incident__c</columns>
+    <columns>MIIncidentStatus__c</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.CLOSED_DATE</columns>
+    <columns>CASES.LAST_UPDATE</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>equals</operation>
+        <value>Closed</value>
+    </filters>
+    <filters>
+        <field>CASES.CLOSED_DATE</field>
+        <operation>equals</operation>
+        <value>LAST_N_DAYS:30</value>
+    </filters>
+    <label>My Closed Cases - Last 30 Days</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

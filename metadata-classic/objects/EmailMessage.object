@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>BccAddress</fullName>
+    </fields>
+    <fields>
+        <fullName>CaseSubCategory__c</fullName>
+        <description>This field is used to filter out Noise Case emails from being backed up by the Informatica Data Replication job.</description>
+        <externalId>false</externalId>
+        <formula>TEXT(Parent.SubCategory__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>This field is used to filter out Noise Case emails from being backed up by the Informatica Data Replication job.</inlineHelpText>
+        <label>Case Sub Category</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CcAddress</fullName>
+    </fields>
+    <fields>
+        <fullName>EmailSubjectLogic__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( FIND (&quot;Reminder:&quot;, Subject) &gt; 0, &quot;Reminder Email&quot;,
+IF( FIND (&quot;Follow-up from Thumbtack Support&quot;, Subject) &gt; 0, &quot;Support Email&quot;,
+IF( FIND (&quot;sent you a message&quot;, Subject) &gt; 0, &quot;Sent You a Message&quot;,
+IF( FIND (&quot;Thanks for writing.&quot;, Subject) &gt; 0, &quot;Thanks for Writing&quot;,
+IF( FIND (&quot;Out of Office&quot;, Subject) &gt; 0, &quot;Out of Office&quot;,
+IF( FIND (&quot;Thanks For Your Interest!&quot;, Subject) &gt; 0, &quot;Thanks For Your Interest!&quot;,
+IF( FIND (&quot;ready to complete your project&quot;, Subject) &gt; 0, &quot;Ready to Complete Your Project&quot;,
+IF( FIND (&quot;Rate your satisfaction&quot;, Subject) &gt; 0, &quot;Rate Your Satisfaction&quot;,
+IF( FIND (&quot;Quick favor for &quot;, Subject) &gt; 0, &quot;Quick Favor for&quot;,
+IF( FIND (&quot;Have you hired a pro for your &quot;, Subject) &gt; 0, &quot;Have You Hired a Pro for Your&quot;,
+&quot;other&quot;))))))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Email Subject Logic</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FromAddress</fullName>
+    </fields>
+    <fields>
+        <fullName>FromName</fullName>
+    </fields>
+    <fields>
+        <fullName>HasAttachment</fullName>
+    </fields>
+    <fields>
+        <fullName>Headers</fullName>
+    </fields>
+    <fields>
+        <fullName>HtmlBody</fullName>
+    </fields>
+    <fields>
+        <fullName>Incoming</fullName>
+    </fields>
+    <fields>
+        <fullName>IsExternallyVisible</fullName>
+    </fields>
+    <fields>
+        <fullName>MessageDate</fullName>
+    </fields>
+    <fields>
+        <fullName>MessageSize</fullName>
+    </fields>
+    <fields>
+        <fullName>ParentId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>RelatedToId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Status</fullName>
+    </fields>
+    <fields>
+        <fullName>Subject</fullName>
+    </fields>
+    <fields>
+        <fullName>TextBody</fullName>
+    </fields>
+    <fields>
+        <fullName>ToAddress</fullName>
+    </fields>
+    <fields>
+        <fullName>ValidatedFromAddress</fullName>
+    </fields>
+    <searchLayouts>
+        <customTabListAdditionalFields>Status</customTabListAdditionalFields>
+        <customTabListAdditionalFields>HasAttachment</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Address</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Subject</customTabListAdditionalFields>
+        <customTabListAdditionalFields>MessageDate</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Status</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>HasAttachment</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Address</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Subject</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>MessageDate</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Status</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>HasAttachment</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Address</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Subject</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>MessageDate</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>FromName</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ToAddress</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Subject</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>MessageDate</searchResultsAdditionalFields>
+    </searchLayouts>
+</CustomObject>

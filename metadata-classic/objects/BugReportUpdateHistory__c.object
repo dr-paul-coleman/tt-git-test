@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to store records associated with Bug Report historical updates (e.g., Status changes)</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>BugReportPreviousStatus__c</fullName>
+        <description>The previous status that the bug report was in prior to the status change.</description>
+        <externalId>false</externalId>
+        <label>Bug Report Previous Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>New</fullName>
+                    <default>false</default>
+                    <label>New</label>
+                </value>
+                <value>
+                    <fullName>Viewed</fullName>
+                    <default>false</default>
+                    <label>Viewed</label>
+                </value>
+                <value>
+                    <fullName>Pending Agent</fullName>
+                    <default>false</default>
+                    <label>Pending Agent</label>
+                </value>
+                <value>
+                    <fullName>Pending Bugs Team</fullName>
+                    <default>false</default>
+                    <label>Pending Bugs Team</label>
+                </value>
+                <value>
+                    <fullName>Pending Aztec</fullName>
+                    <default>false</default>
+                    <label>Pending Aztec</label>
+                </value>
+                <value>
+                    <fullName>Completed - Pending New Bug</fullName>
+                    <default>false</default>
+                    <label>Completed - Pending New Bug</label>
+                </value>
+                <value>
+                    <fullName>Closed</fullName>
+                    <default>false</default>
+                    <label>Closed</label>
+                </value>
+                <value>
+                    <fullName>Reopened</fullName>
+                    <default>false</default>
+                    <label>Reopened</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>BugReportStatus__c</fullName>
+        <description>A stamp of the Bug Report Status at the time the Bug Report Update History record was created.</description>
+        <externalId>false</externalId>
+        <label>Bug Report Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>New</fullName>
+                    <default>false</default>
+                    <label>New</label>
+                </value>
+                <value>
+                    <fullName>Viewed</fullName>
+                    <default>false</default>
+                    <label>Viewed</label>
+                </value>
+                <value>
+                    <fullName>Pending Agent</fullName>
+                    <default>false</default>
+                    <label>Pending Agent</label>
+                </value>
+                <value>
+                    <fullName>Pending Bugs Team</fullName>
+                    <default>false</default>
+                    <label>Pending Bugs Team</label>
+                </value>
+                <value>
+                    <fullName>Pending Aztec</fullName>
+                    <default>false</default>
+                    <label>Pending Aztec</label>
+                </value>
+                <value>
+                    <fullName>Completed - Pending New Bug</fullName>
+                    <default>false</default>
+                    <label>Completed - Pending New Bug</label>
+                </value>
+                <value>
+                    <fullName>Closed</fullName>
+                    <default>false</default>
+                    <label>Closed</label>
+                </value>
+                <value>
+                    <fullName>Reopened</fullName>
+                    <default>false</default>
+                    <label>Reopened</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>BugReport__c</fullName>
+        <description>Master-detail to the Bug Report object.</description>
+        <externalId>false</externalId>
+        <label>Bug Report</label>
+        <referenceTo>SupportProcess__c</referenceTo>
+        <relationshipLabel>Bug Report Update History</relationshipLabel>
+        <relationshipName>BugReportUpdateHistory</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>BugsAgent__c</fullName>
+        <description>The bugs agent at the time of the Bug Report Update History record being created.</description>
+        <externalId>false</externalId>
+        <label>Bugs Agent</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DurationHours__c</fullName>
+        <externalId>false</externalId>
+        <formula>(ToDate__c - FromDate__c)*24</formula>
+        <label>Duration (Hours)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DurationMinutes__c</fullName>
+        <description>The time, in minutes, that the bug report spent in the status.</description>
+        <externalId>false</externalId>
+        <formula>(ToDate__c - FromDate__c)*1440</formula>
+        <label>Duration (Minutes)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DurationSeconds__c</fullName>
+        <description>The amount of time spent in the given status</description>
+        <externalId>false</externalId>
+        <formula>(ToDate__c - FromDate__c)*86400</formula>
+        <label>Duration (Seconds)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FromDate__c</fullName>
+        <externalId>false</externalId>
+        <label>From Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>ToDate__c</fullName>
+        <externalId>false</externalId>
+        <label>To Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <label>Bug Report Update History</label>
+    <nameField>
+        <displayFormat>BRU-{00000}</displayFormat>
+        <label>Bug Report Update History Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Bug Report Update History</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>BugReportUpdateHistory</fullName>
+        <active>true</active>
+        <description>Record type used for Bug Report update history records.</description>
+        <label>Bug Report Update History</label>
+        <picklistValues>
+            <picklist>BugReportPreviousStatus__c</picklist>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed - Pending New Bug</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Agent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Aztec</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Bugs Team</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reopened</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Viewed</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>BugReportStatus__c</picklist>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed - Pending New Bug</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Agent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Aztec</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Bugs Team</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reopened</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Viewed</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

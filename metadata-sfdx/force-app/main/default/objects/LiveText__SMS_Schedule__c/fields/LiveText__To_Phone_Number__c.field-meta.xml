@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LiveText__To_Phone_Number__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The phone number to send the SMS to</description>
+    <externalId>false</externalId>
+    <label>To Phone Number</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Phone</type>
+</CustomField>

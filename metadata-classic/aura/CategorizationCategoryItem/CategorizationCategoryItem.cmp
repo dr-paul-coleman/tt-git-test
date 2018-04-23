@@ -1,0 +1,195 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+================================================
+  1.0      2017-10-23   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+-->
+
+<aura:component description="CategorizationCategoryItem">
+    <aura:attribute name="cw" type="CategorizationCategoriesListController.CategoryWrapper" />
+    <aura:attribute name="index" type="Integer" />
+    <aura:attribute name="forCategories" type="Boolean" default="true" />
+    <aura:attribute name="allowSubmit" type="Boolean" default="false" />
+    <aura:attribute name="showHelp" type="Boolean" default="false" />
+    <aura:attribute name="showTextarea" type="Boolean" default="false" />
+    <aura:attribute name="showSentiment" type="Boolean" default="true" />
+    <aura:attribute name="showModal" type="Boolean" default="false" />
+    <aura:attribute name="textCount" type="Integer" default="0" />
+    <aura:attribute name="showPrimary" type="Boolean" default="true" />
+    <aura:attribute name="showFeedbackToggle" type="Boolean" default="true" />
+    <aura:attribute name="showOrigin" type="Boolean" default="false" />
+    <aura:attribute name="origins" type="CategorizationCategoriesListController.Option[]" access="public" />
+    <aura:attribute name="isChild" type="Boolean" default="false" access="public" />
+
+    <aura:registerEvent name="CategorizationEvent" type="c:CategorizationEvent" />
+
+    <aura:handler event="c:CategorizationEvent" action="{!c.handleCategorizationEvent}" />
+    <aura:handler name="init" action="{!c.doInit}" value="this" />
+
+    <aura:if isTrue="{!v.forCategories}">
+        <tr style="{!if(v.cw.isActive, '', 'background-color: #ddd;') + if(v.cw.category.Deleted__c, ' display: none;', '')}">
+            <aura:if isTrue="{!v.showPrimary}">
+                <td class="cell-select item-col">
+                    <lightning:input type="radio" label="" name="primary" checked="{!v.cw.category.Primary__c}" onchange="{!c.onPrimaryChange}" />
+                </td>
+            </aura:if>
+            <td class="item-col">
+                <div class="slds-grid">
+                    {!v.cw.category.Category__c}
+                </div>
+            </td>
+            <td class="item-col">
+                {!v.cw.category.Subcategory__c}
+            </td>
+            <aura:if isTrue="{!v.showSentiment}">
+                <td class="item-col slds-text-align_center">
+                    <aura:if isTrue="{! v.cw.sentimentScale != null &amp;&amp; v.cw.sentimentScale != '0' &amp;&amp; v.cw.preventRecordCreation == false}">
+                        <span class="{!'icon-button-container icon-button-green-' + if(v.cw.category.Sentiment__c == 1, 'active', 'inactive')}" title="" data-value="1" onclick="{!c.sentimentClick}">
+                            <img src="{!$Resource.categorizationSVG + '/CategorizationSVG/positive.svg'}" />
+                        </span>
+                        <aura:if isTrue="{! v.cw.sentimentScale == '3' || v.cw.sentimentScale == '4'}">
+                            <span class="{!'icon-button-container icon-button-orange-' + if(v.cw.category.Sentiment__c == 2, 'active', 'inactive')}" title="" data-value="2" onclick="{!c.sentimentClick}">
+                                <img src="{!$Resource.categorizationSVG + '/CategorizationSVG/neutral.svg'}" />
+                            </span>
+                        </aura:if>
+                        <span class="{!'icon-button-container icon-button-red-' + if(v.cw.category.Sentiment__c == 3, 'active', 'inactive')}" title="" data-value="3" onclick="{!c.sentimentClick}">
+                            <img src="{!$Resource.categorizationSVG + '/CategorizationSVG/negative.svg'}" />
+                        </span>
+                        <aura:if isTrue="{! v.cw.sentimentScale == '4'}">
+                                <span class="{!'icon-button-container icon-button-blue-' + if(v.cw.category.Sentiment__c == 4, 'active', 'inactive')}" title="" data-value="4" onclick="{!c.sentimentClick}">
+                                     <img src="{!$Resource.categorizationSVG + '/CategorizationSVG/confused.svg'}" />
+                                </span>
+                        </aura:if>
+                    </aura:if>
+                </td>
+            </aura:if>
+            <td class="item-col">
+                <div class="slds-form-element__control slds-grow slds-input-has-icon slds-input-has-icon_right">
+                    <ui:inputText class="slds-input" label="" value="{!v.cw.category.Notes__c}" change="{!c.onTextChange}" maxlength="400" disabled="{!v.cw.preventRecordCreation}" placeholder="{!v.cw.catDefinition.Placeholder__c}" />
+                    <span onclick="{!c.onEditClick}" style="cursor: pointer;">
+                        <lightning:icon iconName="utility:share" alternativeText="" size="x-small" class="slds-input__icon slds-input__icon--right slds-icon-text-default" />
+                    </span>
+                </div>
+
+                <!--lightning:input type="text"  name="txtNotes" label=""  value="{!v.cw.category.Notes__c}" onchange="{!c.onTextChange}" maxlength="400" disabled="{!v.cw.preventRecordCreation}" placeholder="{!v.cw.catDefinition.Placeholder__c}" onfocus="{!c.onTextFocus}"  /-->
+
+                <aura:if isTrue="{!v.showModal}">
+                    <div>
+                        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container">
+                                <header class="slds-modal__header">
+                                    <h2 class="slds-text-heading_medium slds-hyphenate">{!v.cw.category.Category__c} - <small>{!v.cw.category.Subcategory__c}</small></h2>
+                                </header>
+                                <div class="slds-modal__content slds-p-around_medium" >
+                                    <!--ui:inputTextArea aura:id="notes" label="" value="{!v.cw.category.Notes__c}" change="{!c.onTextChange}" maxlength="400" rows="5" class="slds-input" /-->
+                                    <lightning:textarea name="notes" label="" value="{!v.cw.category.Notes__c}" onchange="{!c.onTextChange}" maxlength="400" class="textarea-size" />
+                                    <div class="slds-text-align_right slds-text-color_weak">{!v.textCount}/400</div>
+                                </div>
+                                <footer class="slds-modal__footer">
+                                    <button class="slds-button slds-button_brand" onclick="{!c.doneClick}">Done</button>
+                                </footer>
+                            </div>
+                        </section>
+                        <div class="slds-backdrop slds-backdrop_open"></div>
+                    </div>
+                </aura:if>
+
+            </td>
+            <aura:if isTrue="{!v.showFeedbackToggle}">
+                <td class="item-col">
+                    <lightning:input type="toggle" label="" name="feedback" checked="{!v.cw.category.Feedback__c}" messageToggleActive="" messageToggleInactive="" onchange="{!c.onChange}" disabled="{! v.cw.preventRecordCreation || empty(v.cw.category.Notes__c)}" />
+                </td>
+            </aura:if>
+            <aura:if isTrue="{!v.showOrigin}">
+                <td class="item-col">
+                    <lightning:select name="origin" aura:id="origin" label="" value="{!v.cw.category.Origin__c}" onchange="{!c.onChange}">
+                        <option text="" value="" />
+                        <aura:iteration items="{!v.origins}" var="s">
+                            <option text="{!s.label}" value="{!s.value}" />
+                        </aura:iteration>
+                    </lightning:select>
+                </td>
+            </aura:if>
+            <td class="item-col slds-text-align_center">
+                <span onclick="{!c.removeCategoryClick}" class="span-remove" data-name="{!v.cw.category.ParentDefinitionKey__c}" data-value="{!v.cw.category.DefinitionKey__c}" title="Remove">
+                    x
+                </span>
+            </td>
+        </tr>
+        <aura:set attribute="else">
+            <tr style="{!if(v.cw.isActive, '', 'background-color: #ddd;')}" >
+                <td class="{! 'cell-select' + if(v.isChild, '-child', '') + ' item-col'}">
+                   <lightning:input type="checkbox" label="" name="primary" checked="{!v.cw.selected}" onchange="{!c.onChange}" />
+                </td>
+                <td class="{! if(v.isChild, 'cell-select-child', '') + ' item-col'}">
+                    {!v.cw.catDefinition.Name}
+                    <aura:if isTrue="{!and(v.cw.tooltip != null, v.cw.tooltip != '')}">
+                        <div class="category-help-container" style="position: relative; display: inline-block; vertical-align: text-bottom;">
+                            &nbsp;<lightning:icon iconName="utility:info" class="category-icon-help" size="xx-small"/>
+                            <div class="slds-popover slds-popover_tooltip slds-nubbin_top category-text-help" role="tooltip" id="help" style="position: absolute; top: 30px; left: -89px; width: 200px;">
+                                <div class="slds-popover__body">
+                                    {!v.cw.tooltip}
+                                </div>
+                            </div>
+                        </div>
+                    </aura:if>
+                </td>
+                <aura:if isTrue="{!v.showSentiment}">
+                    <td class="item-col slds-text-align_center">
+                        <aura:if isTrue="{! and(v.cw.sentimentScale != null, v.cw.sentimentScale != '0')}">
+                            <span class="{!'icon-button-container icon-button-green-' + if(v.cw.category.Sentiment__c == 1, 'active', 'inactive')}" title="" data-value="1" onclick="{!c.sentimentClick}">
+                                 <img src="{!$Resource.categorizationSVG + '/CategorizationSVG/positive.svg'}" />
+                            </span>
+                            <aura:if isTrue="{! v.cw.sentimentScale == '3' || v.cw.sentimentScale == '4'}">
+                                <span class="{!'icon-button-container icon-button-orange-' + if(v.cw.category.Sentiment__c == 2, 'active', 'inactive')}" title="" data-value="2" onclick="{!c.sentimentClick}">
+                                     <img src="{!$Resource.categorizationSVG + '/CategorizationSVG/neutral.svg'}" />
+                                </span>
+                            </aura:if>
+                            <span class="{!'icon-button-container icon-button-red-' + if(v.cw.category.Sentiment__c == 3, 'active', 'inactive')}" title="" data-value="3" onclick="{!c.sentimentClick}">
+                                 <img src="{!$Resource.categorizationSVG + '/CategorizationSVG/negative.svg'}" />
+                            </span>
+                            <aura:if isTrue="{! v.cw.sentimentScale == '4'}">
+                                <span class="{!'icon-button-container icon-button-blue-' + if(v.cw.category.Sentiment__c == 4, 'active', 'inactive')}" title="" data-value="4" onclick="{!c.sentimentClick}">
+                                     <img src="{!$Resource.categorizationSVG + '/CategorizationSVG/confused.svg'}" />
+                                </span>
+                            </aura:if>
+                        </aura:if>
+                    </td>
+                </aura:if>
+                <td class="item-col">
+                    <div class="slds-form-element__control slds-grow slds-input-has-icon slds-input-has-icon_right">
+                        <ui:inputText class="slds-input" label="" value="{!v.cw.category.Notes__c}" change="{!c.onTextChange}" maxlength="400" placeholder="{!v.cw.catDefinition.Placeholder__c}" />
+                        <span onclick="{!c.onEditClick}" style="cursor: pointer;">
+                        <lightning:icon iconName="utility:share" alternativeText="" size="x-small" class="slds-input__icon slds-input__icon--right slds-icon-text-default" />
+                    </span>
+                    </div>
+
+                    <!--lightning:input type="text" name="txtNotes" label="" maxlength="400"  value="{!v.cw.category.Notes__c}" onchange="{!c.onTextChange}" placeholder="{!v.cw.catDefinition.Placeholder__c}" onfocus="{!c.onTextFocus}" /-->
+
+                    <aura:if isTrue="{!v.showModal}">
+                        <div>
+                            <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+                                <div class="slds-modal__container">
+                                    <header class="slds-modal__header">
+                                        <h2 class="slds-text-heading_medium slds-hyphenate">{!v.cw.category.ProductUpdate__c}</h2>
+                                    </header>
+                                    <div class="slds-modal__content slds-p-around_medium" >
+                                        <!--ui:inputTextArea aura:id="notes" label="" value="{!v.cw.category.Notes__c}" change="{!c.onTextChange}" maxlength="400" rows="5" class="slds-input" /-->
+                                        <lightning:textarea name="notes" label="" value="{!v.cw.category.Notes__c}" onchange="{!c.onTextChange}" maxlength="400" class="textarea-size" />
+                                        <div class="slds-text-align_right slds-text-color_weak">{!v.textCount}/400</div>
+                                    </div>
+                                    <footer class="slds-modal__footer">
+                                        <button class="slds-button slds-button_brand" onclick="{!c.doneClick}">Done</button>
+                                    </footer>
+                                </div>
+                            </section>
+                            <div class="slds-backdrop slds-backdrop_open"></div>
+                        </div>
+                    </aura:if>
+                </td>
+            </tr>
+        </aura:set>
+    </aura:if>
+</aura:component>

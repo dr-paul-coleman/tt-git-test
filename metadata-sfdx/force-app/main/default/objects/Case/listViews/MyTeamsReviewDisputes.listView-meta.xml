@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MyTeamsReviewDisputes</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CaseFlag__c</columns>
+    <columns>ReviewDisputeDecision__c</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>EscalatedDate__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.LiveChat,Case.CustomerSupport</value>
+    </filters>
+    <filters>
+        <field>IsMyTeam__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>ReviewDisputeDecision__c</field>
+        <operation>equals</operation>
+        <value>Awaiting decision,Removed Review,Edited Review</value>
+    </filters>
+    <filters>
+        <field>EscalatedDate__c</field>
+        <operation>equals</operation>
+        <value>LAST_N_DAYS:7</value>
+    </filters>
+    <label>My Team's Review Disputes</label>
+    <sharedTo>
+        <role>CSManagingUserTSL</role>
+        <role>CustomerSuccessOrganization</role>
+    </sharedTo>
+</ListView>

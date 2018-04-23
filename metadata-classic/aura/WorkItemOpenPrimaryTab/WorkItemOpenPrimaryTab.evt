@@ -1,0 +1,8 @@
+<!--
+ - Created by SentientGrey on 10/9/17.
+ -->
+
+<aura:event type="APPLICATION" description="WorkItemOpenPrimaryTab">
+    <aura:attribute type="String" name="url" />
+    <aura:attribute type="String" name="name" />
+</aura:event>

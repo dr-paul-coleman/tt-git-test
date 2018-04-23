@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AutoResponseQueueAuditReopened</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CaseFlag__c</columns>
+    <columns>CASES.RECORDTYPE</columns>
+    <columns>CASES.ORIGIN</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>AutoClosed__c</columns>
+    <columns>AutoResponseRule__c</columns>
+    <columns>AutoResponseRuleAppliedDate__c</columns>
+    <columns>WisePredictionAccuracy__c</columns>
+    <columns>Summary__c</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.CLOSED_DATE</columns>
+    <columns>DoNotSurvey__c</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.CustomerSupport</value>
+    </filters>
+    <label>Auto Response Queue Audit (Reopened)</label>
+    <queue>AutoResponse</queue>
+    <sharedTo>
+        <role>CustomerSuccessOrganization</role>
+        <role>SharedServicesUserTPH</role>
+        <role>SharedServicesUserTSL</role>
+        <role>SystemLevelAccess</role>
+        <roleAndSubordinatesInternal>CSManagingUserTPH</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

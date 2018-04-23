@@ -1,0 +1,15 @@
+/*
+   Copyright (c) 2017 Thumbtack. All rights reserved.
+
+   Version      Date          Author            Description
+   ========+============+=================+================================================
+   1.0      2017-10-25   Mendel Guillaume       Created
+   ========+============+=================+===============================================
+*/
+
+.THIS .search-container{position: relative;}
+.THIS .search-results-container{width: 100%; max-height: 200px; position: absolute; z-index: 7000; background-color: #fff;
+                                border: 1px solid rgb(217, 219, 221); border-radius: .25rem; padding: 5px;
+                                overflow: auto;}
+.THIS .search-results-item{padding: 5px 0px 5px 25px; cursor: pointer;}
+.THIS .search-results-item:hover{background-color: #fafafa;}

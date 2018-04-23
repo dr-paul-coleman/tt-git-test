@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>xx_ConcerningReviewCompleted</fullName>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>Type__c</columns>
+    <columns>ReviewAudit__c</columns>
+    <columns>Outcome__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>bid_bid_id__c</columns>
+    <columns>RequestId__c</columns>
+    <columns>usr_user_id__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>WorkItem__c.ConcerningReview</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Completed</value>
+    </filters>
+    <label>xx - Concerning Review - Completed</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

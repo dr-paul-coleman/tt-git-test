@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>IsActive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <fieldManageability>SubscriberControlled</fieldManageability>
+        <inlineHelpText>True: router is active and will be used to set fields as defined. 
+False: router is not active and the fields will not be set.</inlineHelpText>
+        <label>Is Active</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>OwnerId__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>SubscriberControlled</fieldManageability>
+        <label>OwnerId</label>
+        <length>18</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Priority__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>SubscriberControlled</fieldManageability>
+        <label>Priority</label>
+        <required>true</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Low</fullName>
+                    <default>true</default>
+                    <label>Low</label>
+                </value>
+                <value>
+                    <fullName>Medium</fullName>
+                    <default>false</default>
+                    <label>Medium</label>
+                </value>
+                <value>
+                    <fullName>High</fullName>
+                    <default>false</default>
+                    <label>High</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>RecordtypeId__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>SubscriberControlled</fieldManageability>
+        <label>RecordtypeId</label>
+        <length>18</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>SubscriberControlled</fieldManageability>
+        <label>Status</label>
+        <required>true</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>New</fullName>
+                    <default>true</default>
+                    <label>New</label>
+                </value>
+                <value>
+                    <fullName>Assigned</fullName>
+                    <default>false</default>
+                    <label>Assigned</label>
+                </value>
+                <value>
+                    <fullName>Completed</fullName>
+                    <default>false</default>
+                    <label>Completed</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>SubscriberControlled</fieldManageability>
+        <label>Type</label>
+        <required>true</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>BGC Identity Mismatch</fullName>
+                    <default>true</default>
+                    <label>BGC Identity Mismatch</label>
+                </value>
+                <value>
+                    <fullName>Banned Pro Re-entry</fullName>
+                    <default>false</default>
+                    <label>Banned Pro Re-entry</label>
+                </value>
+                <value>
+                    <fullName>Customer Contact Verification</fullName>
+                    <default>false</default>
+                    <label>Customer Contact Verification</label>
+                </value>
+                <value>
+                    <fullName>Customer Payment Review</fullName>
+                    <default>false</default>
+                    <label>Customer Payment Review</label>
+                </value>
+                <value>
+                    <fullName>Review Message</fullName>
+                    <default>false</default>
+                    <label>Review Message</label>
+                </value>
+                <value>
+                    <fullName>Messaging Verification</fullName>
+                    <default>false</default>
+                    <label>Messaging Verification</label>
+                </value>
+                <value>
+                    <fullName>Blacklisted Number</fullName>
+                    <default>false</default>
+                    <label>Blacklisted Number</label>
+                </value>
+                <value>
+                    <fullName>PA Request a call error</fullName>
+                    <default>false</default>
+                    <label>PA Request a call error</label>
+                </value>
+                <value>
+                    <fullName>Customer Contact Dispute</fullName>
+                    <default>false</default>
+                    <label>Customer Contact Dispute</label>
+                </value>
+                <value>
+                    <fullName>Low quality to remove</fullName>
+                    <default>false</default>
+                    <label>Low quality to remove</label>
+                </value>
+                <value>
+                    <fullName>Chargeback warning</fullName>
+                    <default>false</default>
+                    <label>Chargeback warning</label>
+                </value>
+                <value>
+                    <fullName>Chargeback removal</fullName>
+                    <default>false</default>
+                    <label>Chargeback removal</label>
+                </value>
+                <value>
+                    <fullName>Review Message for Spam</fullName>
+                    <default>false</default>
+                    <label>Review Message for Spam</label>
+                </value>
+                <value>
+                    <fullName>In Product Fraud Report</fullName>
+                    <default>false</default>
+                    <label>In Product Fraud Report</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Work Item Router</label>
+    <pluralLabel>Work Item Routers</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

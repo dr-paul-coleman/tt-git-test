@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Recently_Added</fullName>
+    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+    <columns>NAME</columns>
+    <columns>Type__c</columns>
+    <columns>LaunchDate__c</columns>
+    <columns>TargetGroup__c</columns>
+    <columns>Products__c</columns>
+    <columns>Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Published</value>
+    </filters>
+    <filters>
+        <field>PublishedDate__c</field>
+        <operation>equals</operation>
+        <value>LAST_N_DAYS:7</value>
+    </filters>
+    <filters>
+        <field>PublishedDate__c</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>Recently Added</label>
+</ListView>

@@ -1,0 +1,15 @@
+/**
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+===============================================
+  1.0      2017-11-21   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+ */
+
+.THIS .slds-form-element__static {padding-top: 0.15rem !important; padding-bottom: 0.15rem !important;}
+.THIS .radio-label {display: none;}
+.THIS .radio-container div {display: inline;}
+.THIS .bottom-bar, .THIS footer.slds-card__footer.flowruntimeContainer {background-color: #f4f6f9; padding: 9px; border-radius: 4px; border: 1px solid #d8dde6; position: absolute; width: 100%; bottom: 0px}
+.THIS .button-back-container {display: inline-block; position: absolute; bottom: 9px; left: 9px;}
+.THIS .strike-select-container .slds-form-element__control {width: 100%;}

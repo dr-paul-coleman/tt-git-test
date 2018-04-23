@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MyTeamsQAs</fullName>
+    <columns>CREATED_DATE</columns>
+    <columns>TotalScorePercentage__c</columns>
+    <columns>NAME</columns>
+    <columns>EvaluationType__c</columns>
+    <columns>Performedby__c</columns>
+    <columns>Agent__c</columns>
+    <columns>Case__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>IsMyTeam__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>My Team's QAs</label>
+    <sharedTo>
+        <role>CSManagingUserTPH</role>
+        <role>CSManagingUserTSL</role>
+        <role>CustomerSuccessOrganization</role>
+        <role>MIManagingUser</role>
+    </sharedTo>
+</ListView>

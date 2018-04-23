@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Object__c</fullName>
+    <description>The object record that will trigger the automatic tip event.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The object record that will trigger the automatic tip event.</inlineHelpText>
+    <label>Object</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Dispute__c</fullName>
+                <default>false</default>
+                <label>Dispute__c</label>
+            </value>
+            <value>
+                <fullName>DisputeOffer__c</fullName>
+                <default>false</default>
+                <label>DisputeOffer__c</label>
+            </value>
+            <value>
+                <fullName>DisputeMessage__c</fullName>
+                <default>false</default>
+                <label>DisputeMessage__c</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

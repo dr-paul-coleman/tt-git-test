@@ -1,0 +1,39 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+================================================
+  1.0      2017-10-26   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+-->
+
+<aura:component description="CategorizationCase" controller="CategorizationCaseController">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="caseRecord" type="Case" />
+    <aura:attribute name="statuses" type="CategorizationCaseController.Option[]" />
+    <aura:attribute name="allowSubmit" type="Boolean" default="false" />
+    <aura:attribute name="message" type="String" access="public" />
+    <aura:attribute name="messageType" type="String" access="private" default="success" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="primarySubcategory" type="String" default="" />
+    <aura:attribute name="primaryCategory" type="String" default="" />
+
+    <aura:registerEvent name="CategorizationEvent" type="c:CategorizationEvent" />
+    <aura:handler name="init" action="{!c.doInit}" value="this" />
+    <aura:handler event="c:CategorizationEvent" action="{!c.handleCategorizationEvent}" />
+
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner aura:id="mySpinner" variant="brand" size="large"></lightning:spinner>
+    </aura:if>
+
+    <div class="slds-grid">
+        <div class="slds-size_1-of-1">
+            <lightning:select name="statusSel" label="Case Status" required="false" value="{!v.caseRecord.Status}" onchange="{!c.onStatusChange}" >
+                <!--option value="">Select Case Status</option-->
+                <aura:iteration items="{!v.statuses}" var="s">
+                    <option value="{!s.value}" text="{!s.label}" />
+                </aura:iteration>
+            </lightning:select>
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SPTeamDirectlyLTCLast7Days</fullName>
+    <columns>NAME</columns>
+    <columns>LTCIcon__c</columns>
+    <columns>LikelihoodToUseTTAgain__c</columns>
+    <columns>LikelihoodToUseTTAgainComment__c</columns>
+    <columns>User__c</columns>
+    <columns>ReportingManager__c</columns>
+    <columns>OfferDate__c</columns>
+    <columns>OfferResponseDate__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>CSAT__c.DirectlyCSAT</value>
+    </filters>
+    <filters>
+        <field>LikelihoodToUseTTAgain__c</field>
+        <operation>equals</operation>
+        <value>5,4,3,2,1</value>
+    </filters>
+    <filters>
+        <field>OfferResponseDate__c</field>
+        <operation>equals</operation>
+        <value>LAST_N_DAYS:7</value>
+    </filters>
+    <filters>
+        <field>CSATOwnerName__c</field>
+        <operation>equals</operation>
+        <value>Randi Cottrell,Jessica Dalton,Conner Snyder</value>
+    </filters>
+    <label>SP Team Directly LTC - Last 7 Days</label>
+    <sharedTo>
+        <group>Special_Projects_Manager</group>
+    </sharedTo>
+</ListView>

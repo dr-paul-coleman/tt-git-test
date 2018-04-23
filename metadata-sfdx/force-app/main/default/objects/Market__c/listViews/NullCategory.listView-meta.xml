@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NullCategory</fullName>
+    <columns>NAME</columns>
+    <columns>RequestCategory__c</columns>
+    <columns>outreach_type__c</columns>
+    <columns>Deprioritized__c</columns>
+    <columns>EnrollAProEnabled__c</columns>
+    <columns>rca_name__c</columns>
+    <columns>zip_cbsa_name__c</columns>
+    <columns>rca_request_category_id__c</columns>
+    <columns>zip_cbsa_code__c</columns>
+    <columns>CatGeo__c</columns>
+    <columns>MarketID__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RequestCategory__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>NullCategory</label>
+</ListView>

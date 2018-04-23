@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>ThumbtackUser__c</columns>
+    <columns>Case__c</columns>
+    <columns>CaseCategory__c</columns>
+    <columns>CaseSubcategory__c</columns>
+    <columns>User__c</columns>
+    <columns>Account__c</columns>
+    <columns>Contact__c</columns>
+    <columns>CSATIcon__c</columns>
+    <columns>CSATResponse__c</columns>
+    <columns>CSATComments__c</columns>
+    <columns>Status__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>OfferDate__c</columns>
+    <columns>OfferResponseDate__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

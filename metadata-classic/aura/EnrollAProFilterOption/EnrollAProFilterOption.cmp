@@ -1,0 +1,16 @@
+<aura:component >
+	<aura:attribute name="option" type="Object" access="public"/>
+	<aura:attribute name="alwaysShow" type="Boolean" default="true" access="public"/>
+
+	<aura:registerEvent name="EAPFilterSelected" type="c:EAPFilterSelected"/>
+
+	<aura:if isTrue="{!or(v.alwaysShow, equals(v.option.hide, 'no'))}">
+		<li class="{!'slds-item' + if(equals(v.option.selected, 'yes'), ' slds-is-selected', '')}" role="presentation" onclick="{!c.toggleSelect}">
+			<span class="slds-lookup__item-action slds-lookup__item-action--label" role="option">
+				<lightning:icon iconName="utility:check" class="slds-icon--selected slds-m-right--x-small slds-shrink-none" size="x-small"/>
+				<span class="slds-truncate">{!v.option.label}</span>
+			</span>
+		</li>
+	</aura:if>
+	<span></span>
+</aura:component>

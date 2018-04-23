@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>41.0</apiVersion>
+    <availableInTouch>true</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Page to launch &apos;Find User&apos; tool for users to search for a user (with user id, email or full name), create or select their account, navigate to the account and submit feedback from their account</description>
+    <label>AccountFeedback</label>
+</ApexPage>

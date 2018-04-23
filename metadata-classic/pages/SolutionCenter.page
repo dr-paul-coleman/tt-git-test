@@ -1,0 +1,98 @@
+<apex:page docType="html-5.0"
+           title="Thumbtack Solution Center"
+           standardStylesheets="false"
+           showHeader="false"
+           sidebar="false"
+           cache="false"
+           expires="86400"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           controller="SolutionCenterController"
+           readOnly="true">
+    <apex:includeScript value="{!$Resource.cometd}"/>
+    <apex:includeScript value="{!$Resource.jquerysc}"/>
+    <apex:includeScript value="{!$Resource.jquery_cometd}"/>
+    <apex:includeScript value="{!$Resource.cometdReplayExtension}"/>
+    <apex:includeScript value="{!$Resource.cometdCustom}"/>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+            <meta name="theme-color" content="#f27802" />
+            <link rel="shortcut icon" href="{!URLFOR($Resource.SolutionCenterReact)}/favicon.ico" />
+            <apex:outputPanel layout="none" rendered="{!ISNULL($CurrentPage.parameters.ngrok)}">
+            <link rel="stylesheet" href="{!URLFOR($Resource.SolutionCenterReact)}/static/css/main.css" />
+            </apex:outputPanel>
+            <title>Thumbtack Solution Center</title>
+            <style id="frame-breaker">body { display:none !important; }</style>
+        </head>
+        <body>
+            <div id="root" />
+            
+            <script>
+                // Analytics
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');      
+            </script>
+
+            <script>
+                (function () {
+                    // Set environment variables
+                    window.$SF_USER = { Username: '{!$User.UserName}', UserType: '{!TEXT($User.UserType)}' };
+                    window.$CURRENT_USER_ID = '{!currentUserHash}';
+                    window.$ORG_ID = '{!$Organization.Id}'.substr(0, 15);
+                    window.$IS_PROD_ORG = (window.$ORG_ID.indexOf('00Di0000000dEJt') === 0);
+                    window.$DEBUG = !window.$IS_PROD_ORG;
+                    window.$ANALYTICS_ID = (window.$IS_PROD_ORG ? 'UA-6981433-1' : 'UA-70440942-2');
+                    
+                    // Analytics
+                    var cookieDomain = '';
+                    try {
+                        var regex = /(([^.\/]+\.[^.\/]{2,3}\.[^.\/]{2})|(([^.\/]+\.)[^.\/]{2,4}))(\/.*)?$/;
+                        cookieDomain = document.location.hostname.match(regex)[1].toLowerCase();
+                    } catch (er) {
+                        cookieDomain = 'none';
+                    }
+                    window.ga('create', window.$ANALYTICS_ID, cookieDomain);
+                                        
+                    // Frame-breaker script to prevent clickjacking
+                    var antiClickjack = window.document.getElementById('frame-breaker');
+                    if (window.self !== window.top) {
+                        var allowFrom = ['thumbtack.com', 'www.thumbtack.com'];
+                        var parser = window.document.createElement('a');
+                        parser.href = window.document.referrer;
+                        if (allowFrom.indexOf(parser.hostname) === -1) {
+                            window.top.location = window.self.location;
+                        } else {
+                            antiClickjack.parentNode.removeChild(antiClickjack);
+                        }
+                    } else {
+                        antiClickjack.parentNode.removeChild(antiClickjack);
+                    }
+                    
+                    // Streaming API
+                    var comitd = window.cometdCustom();
+                    
+                    comitd.cometdConnect(
+                        comitd.cometdURL('42.0'),
+                        '{!$Api.Session_ID}',
+                        '/event/SolutionCenterRefreshEvent__e',
+                        '-1',
+                        function (message) {
+                            window.solutionCenterMessageListener(message);
+                        }
+                    );
+
+                    window.onbeforeunload = function () {
+                        comitd.cometdDisconnect();
+                    };
+                })();
+            </script>
+
+            <script src="{!IF(($CurrentPage.parameters.ngrok != null), "https://978faaac.ngrok.io/static/js/bundle.js", URLFOR($Resource.SolutionCenterReact) + "/static/js/main.js")}">
+            </script>
+        </body>
+    </html>
+</apex:page>

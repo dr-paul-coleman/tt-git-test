@@ -1,0 +1,13 @@
+<aura:component controller="IncidentFactorController">
+	<aura:attribute name="incidentId" type="String" access="public"/>
+	<aura:attribute name="factors" type="List" access="private"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:handler name="change" value="{!v.incidentId}" action="{!c.handleIncidentIdChange}"/>
+
+    <aura:handler event="c:IncidentRefreshEvent" action="{!c.handleRefresh}" />
+	
+	<aura:iteration items="{!v.factors}" var="factor">
+		<c:IncidentFactor factor="{!factor}" incidentId="{!v.incidentId}"/> 
+	</aura:iteration>
+</aura:component>

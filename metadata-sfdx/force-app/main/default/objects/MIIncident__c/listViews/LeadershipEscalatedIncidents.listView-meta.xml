@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LeadershipEscalatedIncidents</fullName>
+    <columns>IncidentNumber__c</columns>
+    <columns>NAME</columns>
+    <columns>EscalationType__c</columns>
+    <columns>EscalationDate__c</columns>
+    <columns>MICategory__c</columns>
+    <columns>Status__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>CreatedDateTime__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Closed</value>
+    </filters>
+    <filters>
+        <field>EscalationDate__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>D1: Leadership Escalated Incidents</label>
+    <sharedTo>
+        <role>CustomerSuccessOrganization</role>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

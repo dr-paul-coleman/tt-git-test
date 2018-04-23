@@ -1,0 +1,69 @@
+<!--
+/*******************************************************************************
+*                                                                              *
+*                                           ########                           *
+*                                            #####                             *
+*    Copyright (c) 2017 Thumbtack            ###                               *
+*       All rights reserved.                ###                                *
+*                                         #####                                *
+*                                      #########                               *
+*                                         #                                    *
+*                                        #                                     *
+*                                       #                                      *
+*                                      #                                       *
+*                                                                              *
+********************************************************************************
+Change List:
+
+Version      Date          Author            Description
+========+============+=================+================================================
+1.0      2017-08-25   Mendel Guillaume       Created
+========+============+=================+===============================================*/
+ -->
+
+<aura:component description="IncidentSolutionCenter" controller="IncidentSectionsController">
+    <aura:attribute name="incidentId" type="String" access="public" />
+    <aura:attribute access="public" type="MIIncident__c" name="incident" default="{ 'sobjectType': 'MIIncident__c' }" />
+
+    <aura:attribute name="statuses" type="IncidentChargeCardManagerController.Option[]" access="private" />
+    <aura:attribute name="message" type="String" access="private" />
+    <aura:attribute name="messageType" type="String" access="private" default="success"/>
+
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+
+    <div class="slds-grid" style="margin-bottom: 10px;">
+        <aura:if isTrue="{! v.incident.ModriaCaseNumber__c != null}" >
+            <a href="{!'https://thumbtack.modria.com/#casedetails/' + v.incident.ModriaCaseNumber__c}" target="_blank">Modria Case Details</a>
+            <aura:set attribute="else">
+                <a href="https://thumbtack.modria.com/#intake" target="_blank">File a Case in Modria</a>
+            </aura:set>
+        </aura:if>
+    </div>
+    <div class="slds-grid">
+        <div class="slds-size--1-of-2 grid-padding-right">
+            <div class="slds-form slds-form_stacked">
+                <lightning:input name="modriaCaseNumber" label="Modria Case Number" value="{!v.incident.ModriaCaseNumber__c}" />
+            </div>
+        </div>
+        <div class="slds-size--1-of-2 grid-padding-left">
+            <div class="slds-form slds-form_stacked">
+                <lightning:select name="status" aura:id="status" label="Status" value="{!v.incident.ModriaStatus__c}">
+                    <option text="" value="" />
+                    <aura:iteration items="{!v.statuses}" var="s">
+                        <option text="{!s.label}" value="{!s.value}" />
+                    </aura:iteration>
+                </lightning:select>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 5px;">
+        <lightning:button label="Save" name="Save" onclick="{!c.saveClick}" variant="brand"/>
+        <aura:if isTrue="{! v.message != null}">
+            <span class="{!'slds-text-color_' + v.messageType}">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!v.message}
+            </span>
+        </aura:if>
+    </div>
+
+</aura:component>

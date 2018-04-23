@@ -1,0 +1,11 @@
+/*
+   Copyright (c) 2017 Thumbtack. All rights reserved.
+
+   Version      Date          Author            Description
+   ========+============+=================+================================================
+   1.0      2017-11-09   Mendel Guillaume       Created
+   ========+============+=================+===============================================
+*/
+.THIS .notify-custom{background-color: #fff !important; border: 3px solid #ccc;}
+.THIS .slds-text-color_success{color: green;}
+.THIS .bottom-bar {background-color: #f4f6f9; padding: 9px; border-radius: 4px; border: 1px solid #d8dde6; position: absolute; width: 100%; bottom: 0px}

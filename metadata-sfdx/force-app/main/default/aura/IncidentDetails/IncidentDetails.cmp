@@ -1,0 +1,73 @@
+<aura:component controller="IncidentDetailsController">
+	<aura:attribute name="incidentId" type="String" access="public"/>
+	<aura:attribute name="isOpen" type="Boolean" access="public"/>
+	<aura:attribute name="targetContactId" type="String" access="public"/>
+	<aura:attribute name="targetContactEmail" type="String" access="public"/>
+	<aura:attribute name="primaryCase" type="Case" access="public"/>
+	<aura:attribute name="phoneAllowed" type="Boolean" default="true" access="public"/>
+	<aura:attribute name="phoneTarget" type="String" access="public"/>
+	<aura:attribute name="emailComposerAllowed" type="Boolean" default="true" access="public"/>
+	<aura:attribute name="showEmailComposer" type="Boolean" default="false" access="public"/>
+	<aura:attribute name="showCloseIcon" type="Boolean" default="true" access="private"/>
+    <aura:attribute name="tabName" type="String" access="public" />
+
+	<aura:registerEvent name="CustomPhoneClicked" type="c:CustomPhoneClicked"/>
+
+    <aura:if isTrue="{!v.phoneAllowed}">
+		&nbsp;
+		<span class="icon-button-container slds-avatar slds-avatar_circle" onclick="{!c.call}" title="Call">
+			<lightning:icon iconName="standard:call" />
+		</span>
+    </aura:if>
+    <aura:if isTrue="{!v.emailComposerAllowed}">
+        &nbsp;
+		<span class="icon-button-container  slds-avatar slds-avatar_circle" onclick="{!c.writeEmail}" title="Email">
+			<lightning:icon iconName="standard:email" />
+		</span>
+    </aura:if>
+
+    <!--<aura:if isTrue="{!v.showEmailComposer}">
+        <section class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close" variant="bare-inverse" class="slds-modal__close" size="large" onclick="{!c.hideEmail}"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Email Composer</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" style="min-height: 375px;">
+                    <c:IncidentEmail targetContactId="{!v.targetContactId}" targetContactEmail="{!v.targetContactEmail}" primaryCase="{!v.primaryCase}"/>
+                </div>
+                <footer class="slds-modal__footer">
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+
+	<aura:if isTrue="{!v.showEmailComposer}">
+		<div class="slds-text-align_right slds-p-vertical_small">
+			<lightning:buttonIcon iconName="utility:close" variant="bare" size="large" onclick="{!c.hideEmail}"/>
+		</div>
+		<c:IncidentEmail targetContactId="{!v.targetContactId}" targetContactEmail="{!v.targetContactEmail}" primaryCase="{!v.primaryCase}"/>
+		<aura:set attribute="else">
+			<div class="slds-text-align_right slds-p-vertical_small slds-border_bottom">
+				<aura:if isTrue="{!v.phoneAllowed}">
+					<span class="call-button pointer" onclick="{!c.call}">
+						<lightning:icon iconName="action:call" />
+					</span>
+				</aura:if>
+				<aura:if isTrue="{!v.emailComposerAllowed}">
+					<span class="email-button slds-m-left_large pointer" onclick="{!c.writeEmail}">
+						<lightning:icon iconName="action:email" />
+					</span>
+				</aura:if>
+				<aura:if isTrue="{!v.isOpen}">
+					<span class="pointer" onclick="{!c.closeIncident}">
+						<lightning:icon iconName="action:update_status" size="small" alternativeText="Close incident"/>
+					</span>
+				</aura:if>
+			</div>
+			<c:IncidentFeed incidentId="{!v.incidentId}" contactId="{!v.targetContactId}" tabName="{!v.tabName}"/>
+		</aura:set>
+	</aura:if>
+	-->
+</aura:component>

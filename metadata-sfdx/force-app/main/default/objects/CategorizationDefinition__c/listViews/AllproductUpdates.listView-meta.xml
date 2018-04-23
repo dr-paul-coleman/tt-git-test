@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllproductUpdates</fullName>
+    <columns>NAME</columns>
+    <columns>SortOrder__c</columns>
+    <columns>ParentCategory__c</columns>
+    <columns>ActiveDate__c</columns>
+    <columns>ExperienceType__c</columns>
+    <columns>SentimentScale__c</columns>
+    <columns>AvailableOnAccount__c</columns>
+    <columns>Active__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>CategorizationDefinition__c.ProductUpdate</value>
+    </filters>
+    <label>All Product Updates</label>
+</ListView>

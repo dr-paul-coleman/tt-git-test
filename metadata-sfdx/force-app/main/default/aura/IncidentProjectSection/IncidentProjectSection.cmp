@@ -1,0 +1,163 @@
+<!--
+/*
+Copyright (c) [2015 -] 2017 Thumbtack. All rights reserved.               
+
+Version      Date          Author            Description
+========+============+=================+================================================
+1.0      2017-08-21   Mendel Guillaume       Created
+1.1      2017-10-08   Kristin Hasna          Added three new fields for display
+========+============+=================+===============================================*/
+ -->
+
+<aura:component description="IncidentProjectSection" controller="IncidentSectionsController">
+    <aura:attribute access="public" type="MIIncident__c" name="incident" default="{ 'sobjectType': 'MIIncident__c' }" />
+
+    <aura:attribute access="private" type="Boolean" name="showModal" default="false" />
+    <aura:attribute name="message" type="String" access="private" />
+    <aura:attribute name="messageType" type="String" access="private" default="success" />
+
+    <div class="incident-container slds-p-bottom_large">
+        <div class="slds-grid">
+            <div class="slds-size--1-of-2">
+                <div class="slds-text-heading_small">Project Details</div>
+            </div>
+            <div class="slds-size--1-of-2 slds-text-align_right">
+                <span class="icon-button-container" onclick="{!c.editClick}" title="Edit">
+                    <lightning:icon iconName="action:edit" alternativeText="Edit" size="x-small" />
+                </span>
+            </div>
+        </div>
+        <aura:if isTrue="{! v.message != null}">
+            <div class="slds-notify_container">
+                <div class="{!'slds-notify slds-notify_toast slds-theme_' + v.messageType}" role="alert">
+                    <span class="slds-assistive-text">{!v.messageType}</span>
+                    <div class="slds-notify__content" style="width: 100%;">
+                        <div class="slds-grid">
+                            <div class="slds-size_5-of-6">
+                                <h2 class="slds-text-heading_small ">{!v.message}</h2>
+                            </div>
+                            <div class="slds-size_1-of-6 slds-text-align_right">
+                                <lightning:buttonIcon iconName="utility:close" alternativeText="Close" onclick="{!c.closeToastClick}" variant="bare-inverse" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+        <div class="slds-m-top_small slds-grid slds-wrap">
+            <div class="slds-size--1-of-2" style="padding-right: 5px;">
+                <dl class="slds-list_horizontal slds-wrap">
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Bid ID">Bid ID:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.bid_id__c}">{!v.incident.bid_id__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Bid PKID">Bid PKID:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.ExternalQuoteData__r.bid_pk_id__c}"><a target="_blank" href="{!'https://www.thumbtack.com/admin/bids/bid?bid=' + v.incident.ExternalQuoteData__r.bid_pk_id__c}">{!v.incident.ExternalQuoteData__r.bid_pk_id__c}</a></dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Service ID">Service ID:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.service_id__c}"><a target="_blank" href="{!'https://www.thumbtack.com/admin/services/service?sav_available_service_id=' + v.incident.service_id__c}">{!v.incident.service_id__c}</a></dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Service PKID">Service PKID:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.ExternalQuoteData__r.service_pk_id__c}">{!v.incident.ExternalQuoteData__r.service_pk_id__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Request ID">Request ID:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.request_id__c}">{!v.incident.request_id__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Request PKID">Request PKID:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.ExternalQuoteData__r.request_pk_id__c}"><a target="_blank" href="{!'https:/www.thumbtack.com/admin/requests/request?req=' +v.incident.ExternalQuoteData__r.request_pk_id__c}">{!v.incident.ExternalQuoteData__r.request_pk_id__c}</a></dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Request Category">Request Category:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.request_category__c}">{!v.incident.request_category__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Request Date">Request Date:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.request_create_time__c}"><ui:outputDate value="{!v.incident.request_create_time__c}" format="MMM d, yyyy h:mm a"/></dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Request City">Request City:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.ExternalQuoteData__r.request_city__c}">{!v.incident.ExternalQuoteData__r.request_city__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Request State">Request State:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.ExternalQuoteData__r.request_state__c}">{!v.incident.ExternalQuoteData__r.request_state__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Request Zip">Request Zip:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.ExternalQuoteData__r.request_zip__c}">{!v.incident.ExternalQuoteData__r.request_zip__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Hired Date">Hired Date:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.ExternalQuoteData__r.hired_time__c}"><ui:outputDate value="{!v.incident.hired_time__c}" format="MMM d, yyyy" /></dd>
+                </dl>
+            </div>
+            <div class="slds-size--1-of-2" style="padding-left: 5px;">
+                <dl class="slds-list_horizontal slds-wrap">
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Amount in Dispute">Amount in Dispute:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.AmountInDispute__c}"> <lightning:formattedNumber value="{!v.incident.AmountInDispute__c}" style="currency" /></dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Total Paid to Pro">Total Paid to Pro:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.TotalPaidToPro__c}"> <lightning:formattedNumber value="{!v.incident.TotalPaidToPro__c}" style="currency" /></dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Amount Resolved by Pro">Amount Resolved by Pro:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.AmountResolvedbyPro__c}"> <lightning:formattedNumber value="{!v.incident.AmountResolvedbyPro__c}" style="currency" /></dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Amount Resolved by TT">Amount Resolved by TT:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.AmountResolvedbyTT__c}"> <lightning:formattedNumber value="{!v.incident.AmountResolvedbyTT__c}" style="currency" /></dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Amount Resolved by TT">Total Successful Charges:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.AmountResolvedbyTT__c}"> <lightning:formattedNumber value="{!v.incident.TotalSuccessfulChargeAmount__c}" style="currency" /></dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Amount Resolved by TT">Total # of Successful Charges:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.AmountResolvedbyTT__c}"> <lightning:formattedNumber value="{!v.incident.TotalNumberofSuccessfulCharges__c}" /></dd>    
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Date Damage Recognized">Date Damage Recognized:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.RecognizedDamageDate__c}"> <ui:outputDate value="{!v.incident.RecognizedDamageDate__c}" format="MMM d, yyyy" /></dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Reported">Reported:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.ReportedDate__c}"> <ui:outputDate value="{! v.incident.ReportedDate__c}" format="MMM d, yyyy" /></dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <aura:if isTrue="{!v.showModal}">
+        <section class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close" variant="bare-inverse" class="slds-modal__close" size="large" onclick="{!c.cancelClick}"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Edit Project Details</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium modal-height">
+                    <div class="slds-grid slds-grid_pull-padded-small">
+                        <div class="slds-size--1-of-2 slds-p-horizontal_small">
+                            <div class="slds-form_stacked">
+                                <lightning:input name="bidId" aura:id="bidId" label="Bid ID" value="{!v.incident.bid_id__c}" type="text" />
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label">Amount In Dispute</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputCurrency class="slds-input" value="{! v.incident.AmountInDispute__c}"  />
+                                    </div>
+                                </div>
+                                <div class="slds-form-element"> 
+                                    <label class="slds-form-element__label">Total Paid to Pro</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputCurrency class="slds-input" value="{! v.incident.TotalPaidToPro__c}"  />
+                                    </div>
+                                </div>
+                                <!--
+                                <lightning:input name="aid" aura:id="aid" label="Amount In Dispute" value="{!v.incident.AmountInDispute__c}" type="text" messageWhenPatternMismatch="Invalid amount" pattern="^\d+(\.\d{1,2})?$" />
+                                <lightning:input name="tptp" aura:id="tptp" label="Total Paid to Pro" value="{!v.incident.TotalPaidToPro__c}" type="text" messageWhenPatternMismatch="Invalid amount" pattern="^\d+(\.\d{1,2})?$" />
+                                -->
+                            </div>
+                        </div>
+                        <div class="slds-size--1-of-2 slds-p-horizontal_small">
+                            <div class="slds-form_stacked">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label">Amount Resolved by Pro</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputCurrency class="slds-input" value="{! v.incident.AmountResolvedbyPro__c}"  />
+                                    </div>
+                                </div>
+                                <!--
+                                <lightning:input name="arbp" aura:id="arbp" label="Amount Resolved by Pro" value="{!v.incident.AmountResolvedbyPro__c}" type="text" messageWhenPatternMismatch="Invalid amount" pattern="^\d+(\.\d{1,2})?$" />
+                                -->
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label">Date Damage Recognized</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputDate displayDatePicker="true" class="slds-input" value="{! v.incident.RecognizedDamageDate__c}"  />
+                                    </div>
+                                </div>
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label">Reported</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputDate displayDatePicker="true" class="slds-input" value="{! v.incident.ReportedDate__c}"  />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="Cancel" onclick="{!c.cancelClick}"/>
+                    <lightning:button label="Save" variant="brand" onclick="{!c.saveClick}" />
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

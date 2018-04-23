@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PricingCalculatorErrors</fullName>
+    <columns>QuotingServiceStatus__c</columns>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>StatusNotes__c</columns>
+    <columns>EmailToAddress__c</columns>
+    <columns>Service__c</columns>
+    <columns>SendQuoteLink__c</columns>
+    <columns>PricingCalculator__c</columns>
+    <columns>EmailRequestId__c</columns>
+    <columns>CreatedDateTime__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Request__c.ProAssistanceRequest</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Pricing Calculator Error</value>
+    </filters>
+    <label>07. Pricing Calculator Errors</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>ProServicesManaging_User</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>SAM_Managing_User</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

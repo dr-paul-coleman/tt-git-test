@@ -1,0 +1,13 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false">
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Not Found</title>
+</head>
+<body style="margin: 2rem; font-family: sans-serif; text-align: center;">
+	<a href="https://www.thumbtack.com"><img width="175" height="28" src="{!URLFOR($Resource.Thumbtack_LargeLogo)}" /></a>
+	<h1 style="margin-top: 2rem">Page Not Found</h1>
+	<p style="margin-bottom: 2rem">If you need help or have any questions, please visit our <a href="/">Help Center</a>.</p>
+</body>
+</html>
+</apex:page>

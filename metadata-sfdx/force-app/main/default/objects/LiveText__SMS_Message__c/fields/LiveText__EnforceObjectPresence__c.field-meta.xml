@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LiveText__EnforceObjectPresence__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If checked and the object specified by ObjectId is is deleted, the send will fail.</description>
+    <externalId>false</externalId>
+    <label>EnforceObjectPresence</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,158 @@
+<!--
+/*******************************************************************************
+*                                                                              *
+*                                           ########                           *
+*                                            #####                             *
+*    Copyright (c) 2017 Thumbtack            ###                               *
+*       All rights reserved.                ###                                *
+*                                         #####                                *
+*                                      #########                               *
+*                                         #                                    *
+*                                        #                                     *
+*                                       #                                      *
+*                                      #                                       *
+*                                                                              *
+********************************************************************************
+Change List:
+
+Version      Date          Author            Description
+========+============+=================+================================================
+1.0      2017-08-21   Mendel Guillaume       Created
+1.1      2017-10-08   Kristin Hasna          Added pkid and url code fields
+========+============+=================+===============================================*/
+ -->
+
+<aura:component description="IncidentCustomerSection" controller="IncidentSectionsController" implements="force:hasRecordId">
+    <aura:attribute access="public" type="MIIncident__c" name="incident" default="{ 'sobjectType': 'MIIncident__c' }" />
+    <aura:attribute name="primaryCase" type="Case" access="public"/>
+    <aura:attribute access="public" type="becquerel_mi_incident_project_data__x" name="incidentProjData" />
+
+    <aura:attribute access="private" type="Boolean" name="showModal" default="false" />
+    <aura:attribute name="message" type="String" access="private" />
+    <aura:attribute name="messageType" type="String" access="private" default="success"/>
+    <aura:attribute name="showEmailComposer" type="Boolean" default="false" access="private"/>
+
+    <aura:registerEvent name="IncidentOpenAction" type="c:IncidentOpenAction" />
+
+    <div class="incident-container slds-p-bottom_large">
+        <div class="slds-grid">
+            <div class="slds-size--1-of-2">
+                <div class="slds-text-heading_small">Customer Details</div>
+            </div>
+            <div class="slds-size--1-of-2 slds-text-align_right">
+                <span class="icon-button-container" onclick="{!c.editClick}" title="Edit">
+                    <lightning:icon iconName="action:edit" alternativeText="Edit" size="x-small" />
+                </span>
+                <c:IncidentDetails incidentId="{!v.incident.Id}" primaryCase="{!v.primaryCase}" phoneTarget="customer" tabName="Customer" showEmailComposer="{!v.showEmailComposer}"/>
+            </div>
+        </div>
+        <aura:if isTrue="{! v.message != null}">
+            <div class="slds-notify_container">
+                <div class="{!'slds-notify slds-notify_toast slds-theme_' + v.messageType}" role="alert">
+                    <span class="slds-assistive-text">{!v.messageType}</span>
+                    <div class="slds-notify__content" style="width: 100%;">
+                        <div class="slds-grid">
+                            <div class="slds-size_5-of-6">
+                                <h2 class="slds-text-heading_small ">{!v.message}</h2>
+                            </div>
+                            <div class="slds-size_1-of-6 slds-text-align_right">
+                                <lightning:buttonIcon iconName="utility:close" alternativeText="Close" onclick="{!c.closeToastClick}" variant="bare-inverse" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+        <div class="slds-m-top_small slds-grid slds-wrap">
+            <div class="slds-size--1-of-2" style="padding-right: 5px;">
+                <dl class="slds-list_horizontal slds-wrap">
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Account">Account:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.CustomerAccount__r.Name}"><span class="span-link" onclick="{!c.accountClick}">{!v.incident.CustomerAccount__r.Name}</span></dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Contact">Contact:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.CustomerContact__r.Name}"><span class="span-link" onclick="{!c.contactClick}">{!v.incident.CustomerContact__r.Name}</span></dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="User ID">User ID:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.customer_id__c}"><a target="_blank" href="{!'https://www.thumbtack.com/admin/users/user?usr_user_id=' + v.incident.customer_id__c}">{!v.incident.customer_id__c}</a></dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="User PKID">User PKID:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.ExternalQuoteData__r.customer_pk_id__c}">{!v.incident.ExternalQuoteData__r.customer_pk_id__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="URL Code">URL Code:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.ExternalQuoteData__r.customer_url_code__c}">{!v.incident.ExternalQuoteData__r.customer_url_code__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Incident Phone">Incident Phone:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.CustomerPhone__c}">{!v.incident.CustomerPhone__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Incident Email">Incident Email:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.CustomerEmail__c}">{!v.incident.CustomerEmail__c}</dd>
+                </dl>
+            </div>
+            <div class="slds-size--1-of-2" style="padding-left: 5px;">
+                <dl class="slds-list_horizontal slds-wrap">
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Lifetime Avg Review Rating">Lifetime Avg Review Rating:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.ExternalQuoteData__r.customer_lifetime_avg_review_rating__c}">{!v.incident.ExternalQuoteData__r.customer_lifetime_avg_review_rating__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Lifetime # Requests">Lifetime # Requests:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.ExternalQuoteData__r.customer_lifetime_number_requests__c}">{!v.incident.ExternalQuoteData__r.customer_lifetime_number_requests__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Lifetime # Reviews">Lifetime # Reviews:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.ExternalQuoteData__r.customer_lifetime_number_reviews__c}">{!v.incident.ExternalQuoteData__r.customer_lifetime_number_reviews__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Signup Date">Signup Date:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incident.ExternalQuoteData__r.customer_signup_date}">
+                        <ui:outputDate value="{!v.incident.ExternalQuoteData__r.customer_signup_date__c}" format="MMM d, yyyy" />
+                    </dd>
+                    <dt class="slds-item_label slds-text-color_weak item-label" title="Customer Disabled">Customer Disabled:</dt>
+                    <dd class="slds-item_detail item-detail" title="{!v.incidentProjData.customer_is_disabled__c}">
+                            {!v.incidentProjData.customer_is_disabled__c}
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <aura:if isTrue="{!v.showModal}">
+        <section class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close" variant="bare-inverse" class="slds-modal__close" size="large" onclick="{!c.cancelClick}"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Edit Customer Details</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium modal-height">
+                    <div class="slds-grid slds-grid_pull-padded-small">
+                        <div class="slds-size--1-of-2 slds-p-horizontal_small">
+                            <div class="slds-form_stacked">
+                                <c:strike_lookup label="Account" object="Account" searchField="Name" value="{!v.incident.CustomerAccount__c}"
+                                                 placeholder="Select an account" iconName="standard:account" order="Name" subtitleField="RecordType.Name" limit="5" />
+                                <c:strike_lookup label="Contact" object="Contact" searchField="Name" value="{!v.incident.CustomerContact__c}" additionalSearchFields="Account.Name"
+                                                 placeholder="Select a contact" iconName="standard:contact" order="Name" subtitleField="Account.Name" limit="5" />
+                                <lightning:input name="userId" aura:id="userId" label="User ID" value="{!v.incident.customer_id__c}" messageWhenPatternMismatch="Must be a number" pattern="^\d+$" />
+                            </div>
+                        </div>
+                        <div class="slds-size--1-of-2 slds-p-horizontal_small">
+                            <div class="slds-form_stacked">
+                                <lightning:input name="phone" label="Incident Phone" value="{!v.incident.CustomerPhone__c}"/>
+                                <lightning:input name="email" label="Incident Email" value="{!v.incident.CustomerEmail__c}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="Cancel" onclick="{!c.cancelClick}"/>
+                    <lightning:button label="Save" variant="brand" onclick="{!c.saveClick}" />
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    <aura:if isTrue="{!v.showEmailComposer}">
+        <div style="margin-bottom: 25px;">
+            <div class="slds-text-align_right slds-p-vertical_small">
+                <lightning:buttonIcon iconName="utility:close" variant="bare" size="large" onclick="{!c.hideEmail}"/>
+            </div>
+            <c:IncidentEmail targetContactId="{!v.incident.CustomerContact__c}" targetContactEmail="{!v.incident.CustomerContact__r.Email}" primaryCase="{!v.primaryCase}"/>
+        </div>
+    </aura:if>
+
+    <div class="slds-p-around_medium slds-border_bottom">
+        <c:Accordion title="Customer Success Guidance" isOpen="true">
+            <c:CustomerSuccessGuidanceList accountId="{!v.incident.CustomerAccount__c}" accountName="{!v.incident.CustomerAccount__r.Name}" />
+        </c:Accordion>
+    </div>
+    <div class="slds-p-around_medium slds-border_bottom">
+        <c:Accordion title="Previous Incidents" isOpen="true">
+            <c:IncidentPreviousList accountId="{!v.incident.CustomerAccount__c}" incidentId="{!v.incident.Id}" />
+        </c:Accordion>
+    </div>
+</aura:component>

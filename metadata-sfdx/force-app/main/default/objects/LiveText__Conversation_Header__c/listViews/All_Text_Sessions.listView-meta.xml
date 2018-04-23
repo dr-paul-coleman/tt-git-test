@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Text_Sessions</fullName>
+    <columns>NAME</columns>
+    <columns>LiveText__Originating_Number__c</columns>
+    <columns>LiveText__LiveText_Number__c</columns>
+    <columns>LiveText__Status__c</columns>
+    <columns>CreatedDateTime__c</columns>
+    <columns>LiveText__AcceptedBy__c</columns>
+    <columns>AcceptedDateTime__c</columns>
+    <columns>LastModifiedByName__c</columns>
+    <columns>LastModifiedDateTime__c</columns>
+    <columns>LiveText__ConversationType__c</columns>
+    <columns>LiveText__ConversationReopened__c</columns>
+    <columns>LiveText__Account__c</columns>
+    <columns>LiveText__Contact__c</columns>
+    <columns>LiveText__Case__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>LiveText__Status__c</field>
+        <operation>equals</operation>
+        <value>Active</value>
+    </filters>
+    <label>All Active Text Sessions</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>CustomerSuccessOrganization</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

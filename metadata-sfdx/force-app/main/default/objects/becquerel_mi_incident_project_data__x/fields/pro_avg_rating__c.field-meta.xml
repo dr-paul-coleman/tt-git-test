@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>pro_avg_rating__c</fullName>
+    <description>pro_avg_rating</description>
+    <externalDeveloperName>pro_avg_rating</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>pro_avg_rating</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>8</scale>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FeedbackLast30Days</fullName>
+    <columns>NAME</columns>
+    <columns>FeedbackType__c</columns>
+    <columns>ProductFeedback__c</columns>
+    <columns>Case__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>RECORDTYPE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>LAST_N_DAYS:30</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>ProductFeedback__c.CSFeedback</value>
+    </filters>
+    <label>Feedback - Last 30 Days</label>
+    <sharedTo>
+        <role>CSManagingUserTSL</role>
+        <role>CustomerSuccessOrganization</role>
+    </sharedTo>
+</ListView>

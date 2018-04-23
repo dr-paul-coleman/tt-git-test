@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CreatedToday</fullName>
+    <columns>CreatedDateTime__c</columns>
+    <columns>NAME</columns>
+    <columns>Service__c</columns>
+    <columns>StatusNotes__c</columns>
+    <columns>EncodedServiceID__c</columns>
+    <columns>SubscriptionType__c</columns>
+    <columns>Status__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>EmailFromAddress__c</columns>
+    <columns>EmailToAddress__c</columns>
+    <columns>ReqExternalID__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CreatedDateTime__c</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>X - Created Today</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

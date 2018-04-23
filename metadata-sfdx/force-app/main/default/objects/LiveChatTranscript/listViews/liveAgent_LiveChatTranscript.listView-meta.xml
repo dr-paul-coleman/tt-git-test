@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>liveAgent_LiveChatTranscript</fullName>
+    <columns>Name</columns>
+    <columns>LiveChatVisitor</columns>
+    <columns>StartTime</columns>
+    <columns>EndTime</columns>
+    <columns>Status</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status</field>
+        <operation>equals</operation>
+        <value>4</value>
+    </filters>
+    <label>Live Agent Queue</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

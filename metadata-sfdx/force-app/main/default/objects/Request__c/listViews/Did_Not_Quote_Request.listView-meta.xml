@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Did_Not_Quote_Request</fullName>
+    <columns>NAME</columns>
+    <filterScope>Queue</filterScope>
+    <label>Did Not Quote</label>
+    <queue>Did_Not_Quote</queue>
+    <sharedTo>
+        <roleAndSubordinatesInternal>ProServicesManaging_User</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>SAM_Managing_User</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

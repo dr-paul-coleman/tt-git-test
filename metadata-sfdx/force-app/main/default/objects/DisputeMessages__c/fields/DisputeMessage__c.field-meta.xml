@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DisputeMessage__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This is a hierarchical look up to the Dispute Message so that we can associate text messages to the corresponding file images.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This is a hierarchical look up to the Dispute Message so that we can associate text messages to the corresponding file images.</inlineHelpText>
+    <label>Dispute Message</label>
+    <referenceTo>DisputeMessages__c</referenceTo>
+    <relationshipLabel>Dispute Messages</relationshipLabel>
+    <relationshipName>DisputeMessages</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

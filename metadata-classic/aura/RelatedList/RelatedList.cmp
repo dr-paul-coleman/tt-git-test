@@ -1,0 +1,45 @@
+<aura:component controller="RelatedListController">
+	<aura:attribute name="recordId" type="String" access="public"/>
+	<aura:attribute name="referenceId" type="String" access="private"/>
+	<aura:attribute name="setting" type="RelatedListSetting" access="public"/>
+	<aura:attribute name="fields" type="List" access="private"/>
+	<aura:attribute name="fieldNames" type="String[]" access="private"/>
+	<aura:attribute name="records" type="List" access="private"/>
+	<aura:attribute name="pageNumber" type="Integer" default="0" access="private"/>
+	<aura:attribute name="displayShowMoreButton" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="showSpinner" type="Boolean" default="false" access="private"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	
+	<div class="slds-text-heading_large slds-m-vertical_medium slds-p-left_large">{!v.setting.tableName}</div>
+	<table class="slds-table slds-table_bordered slds-table_cell-buffer">
+		<thead>
+			<tr class="slds-text-title_caps">
+				<aura:iteration items="{!v.fields}" var="field">
+					<th scope="col">
+						<div class="slds-truncate" title="{!field.label}">{!field.label}</div>
+					</th>
+				</aura:iteration>
+			</tr>
+		</thead>
+		<tbody>
+			<aura:iteration items="{!v.records}" var="record">
+				<tr>
+					<aura:iteration items="{!v.fields}" var="field" indexVar="columnIndex">
+						<c:RelatedListCell record="{!record}" fieldLabel="{!field.label}" fieldName="{!field.name}" dataType="{!field.dataType}" columnIndex="{!columnIndex}"/>
+					</aura:iteration>
+				</tr>
+			</aura:iteration>
+		</tbody>
+	</table>
+	<aura:if isTrue="{!v.showSpinner}">
+		<div class="slds-is-relative spinner-container">
+			<lightning:spinner variant="brand"/>
+		</div>
+	</aura:if>
+	<aura:if isTrue="{!and(v.displayShowMoreButton, !v.showSpinner)}">
+		<div class="slds-text-align_center slds-m-vertical_small">
+			<lightning:button label="Show More" onclick="{!c.showMore}"/>
+		</div>
+	</aura:if>
+</aura:component>

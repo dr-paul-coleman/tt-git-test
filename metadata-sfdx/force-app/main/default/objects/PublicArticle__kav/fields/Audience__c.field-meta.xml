@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Audience__c</fullName>
+    <description>Picklist field to indicate the audience of the article, used for internal tracking purposes.</description>
+    <externalId>false</externalId>
+    <label>Audience</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Customer Facing</fullName>
+                <default>false</default>
+                <label>Customer Facing</label>
+            </value>
+            <value>
+                <fullName>Pro Facing</fullName>
+                <default>false</default>
+                <label>Pro Facing</label>
+            </value>
+            <value>
+                <fullName>Customer and Pro Facing</fullName>
+                <default>false</default>
+                <label>Customer and Pro Facing</label>
+            </value>
+            <value>
+                <fullName>Unsearchable</fullName>
+                <default>false</default>
+                <label>Unsearchable</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

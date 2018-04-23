@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CustomerSupportEmailQueue</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>NAME</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.ORIGIN</columns>
+    <columns>Category__c</columns>
+    <columns>SubCategory__c</columns>
+    <columns>OWNER_NAME</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.CustomerSupport</value>
+    </filters>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>Customer Support (Email)</label>
+    <queue>CustomerSupportEmail</queue>
+    <sharedTo>
+        <group>ContentUser</group>
+        <role>CSManagingUserTPH</role>
+        <role>CSManagingUserTSL</role>
+        <role>CustomerSuccessOrganization</role>
+        <role>MIManagingUser</role>
+        <role>SharedServicesUserTSL</role>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

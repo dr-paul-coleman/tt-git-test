@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event template">
+	<aura:attribute name="funnelStep" type="String"/>
+	<aura:attribute name="enrollmentId" type="String"/>
+</aura:event>

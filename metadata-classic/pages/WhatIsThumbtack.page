@@ -1,0 +1,52 @@
+<apex:page id="WhatIsThumbtack" docType="html-5.0"
+                                           title="What is Thumbtack"
+                                           standardStylesheets="false"
+                                           showHeader="false"
+                                           sidebar="false"
+                                           cache="false"
+                                           expires="86400"
+                                           applyHtmlTag="false"
+                                           applyBodyTag="false"
+                                           readOnly="true">
+
+    <!--[if IE 7 ]><html class="ie ie7 no-js" lang="en"><![endif]-->
+    <!--[if IE 8 ]><html class="ie ie8 no-js" lang="en"><![endif]-->
+    <!--[if IE 9 ]><html class="ie ie9 no-js" lang="en"><![endif]-->
+    <!--[if gt IE 9]><!-->
+    <html class="no-js" lang="en"><!--<![endif]-->
+        <head>
+            <!-- DEVELOPERS: The EVOLVE Team (evolveauthoring.com) - Daryl Hedley, Wesley Atkinson, Sal Ali, Matt Cleghorn, Brandon Karunakaran, Akram Ali, Malcolm Jukes -->
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+            <meta content="text/html;charset=utf-8" http-equiv="Content-Type"></meta>
+            <meta content="utf-8" http-equiv="encoding"></meta>
+            <meta name="format-detection" content="telephone=no"></meta>
+            <meta name="apple-mobile-web-app-capable" content="yes"></meta>
+            <title>What is Thumbtack</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"></meta>
+            <link href="{!URLFOR($Resource.WhatIsThumbtack)}/adapt/css/adapt-publish2.css" type="text/css" rel="stylesheet"></link>
+            <link href="{!URLFOR($Resource.WhatIsThumbtack)}/adapt/css/adapt-publish1.css" type="text/css" rel="stylesheet"></link>
+            <link href="{!URLFOR($Resource.WhatIsThumbtack)}/adapt/css/adapt.css" type="text/css" rel="stylesheet"></link>
+        </head>
+
+        <body>
+            <div id="wrapper">
+                <nav class="navigation-container">
+                </nav>
+                <div class="header-container-root">
+                </div>
+                <div class="content-container-root">
+                </div>
+                <div class="footer-container-root">
+                </div>
+            </div>
+            <div class="aria-live-assertive" aria-live="assertive">
+            </div>
+            <script src="{!URLFOR($Resource.WhatIsThumbtack)}/libraries/raphael.js" type="text/javascript" language="javascript"></script>
+            <script src="{!URLFOR($Resource.WhatIsThumbtack)}/libraries/modernizr.js" type="text/javascript" language="javascript"></script>
+            <script src="{!URLFOR($Resource.WhatIsThumbtack)}/libraries/pdfmake.js" type="text/javascript" language="javascript"></script>
+            <script src="{!URLFOR($Resource.WhatIsThumbtack)}/libraries/vfs_fonts.js" type="text/javascript" language="javascript"></script>
+            <script src="{!URLFOR($Resource.WhatIsThumbtack)}/adapt/js/scriptLoader.js" type="text/javascript" language="javascript"></script>
+        </body>
+    </html>
+
+</apex:page>

@@ -1,0 +1,8 @@
+<apex:page contentType="text/plain" showHeader="false" controller="HCSiteMapController"
+>https://help.thumbtack.com
+https://help.thumbtack.com/videos
+https://help.thumbtack.com/report-a-concern
+https://help.thumbtack.com/suggestions
+https://help.thumbtack.com/contact-thumbtack/channels
+{!SiteMap}
+</apex:page>

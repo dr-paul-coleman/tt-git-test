@@ -1,0 +1,337 @@
+<!--
+Copyright (c) [2015 -] 2017 Thumbtack. All rights reserved.                
+
+Version  Date         Author              Description
+========+============+===================+================================================
+1.0      2015-07-09   Travis Oliver       Created
+1.0      2015-09-25   Meena Pisupati      Removed 'ProAssist Support'; Added Header
+========+============+===================+===============================================
+-->
+
+<apex:page docType="html-5.0" showHeader="false" standardController="Case" extensions="CaseController" sidebar="false" standardStylesheets="false">
+<script>
+  var countsMap = [
+{div:"Row1",label:"Categorization:",soql:"SELECT count(id) total FROM case WHERE ownerid = '00Gi0000004GIHNEA4' and isclosed = false"},
+{div:"Row2",label:"Open Email Cases:",soql:"SELECT count(id) total FROM case WHERE isclosed = false and (Origin = 'Email' or Origin = 'Web')"},
+{div:"Row3",label:"Open Phone Cases:",soql:"SELECT count(id) total FROM case WHERE isclosed = false and (Origin = 'Engagement Outbound Call' or Origin = 'LiveOps Inbound Support Call'  or Origin = 'Inbound Phone' or Origin = 'Voicemail')"},
+{div:"Row4",label:"Open Chat Cases:",soql:"SELECT count(id) total FROM case WHERE Origin = 'Live Chat' and isclosed = false"},
+{div:"Row5",label:"Open MI Cases:",soql:"SELECT count(id) total FROM case WHERE Team__c = 'Marketplace Integrity' and isclosed = false"},
+{div:"Row6",label:"Closed Today:",soql:"SELECT count(id) total FROM case WHERE ClosedDate = LAST_N_DAYS:0  and isclosed = true"}
+
+  ];
+</script>
+
+    <apex:includeScript value="https://code.jquery.com/jquery-2.1.4.min.js"/>
+    <apex:includeScript value="/support/console/35.0/integration.js"/>
+    <apex:remoteObjects jsNamespace="rmo">
+        <apex:remoteObjectModel name="Case" fields="Id,OwnerId,TakeACaseUserId__c"/>
+        <apex:remoteObjectModel name="Group" fields="Id,Name,DeveloperName,Type"/>
+    </apex:remoteObjects>
+    <style>
+
+    body, div, span, a {
+        font-family: Arial,Helvetica,sans-serif !important;
+        font-size: 12px !important;
+    }
+    td {
+        vertical-align: middle;
+    }
+    td,th {
+        text-align: left;
+        padding-bottom: 2.5px;
+    }
+    td.btn {
+        width: 112px;
+    }
+    td.dashboard {
+        vertical-align: middle;
+    }
+
+    th.refBtn {
+        text-align: right !important;
+    }
+    button.refBtn {
+        font-size: xx-small !important;        
+    }
+
+    td.tierCount {
+        text-align: center;
+        width: 51px;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    td.rowCount {
+        text-align: center;
+        width: 0px;
+        font-size: 13.5px;
+        font-weight: 700;
+    }
+    td.rowLabel {
+        text-align: left;
+        font-size: 13.5px;
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+    td button.tierBtn {
+        width: 110px;
+        height: 28px;
+        color: #fff;
+        line-height: 22px;
+        -webkit-font-smoothing: antialiased;
+        font-size: 15px;
+        display: inline-block;
+        text-align: center;
+        cursor: pointer;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-transition-property: all;
+        -moz-transition-property: all;
+        -ms-transition-property: all;
+        -o-transition-property: all;
+        transition-property: all;
+        -webkit-transition-duration: .1s;
+        -moz-transition-duration: .1s;
+        -ms-transition-duration: .1s;
+        -o-transition-duration: .1s;
+        transition-duration: .1s;
+        -webkit-transition-delay: 0s;
+        -moz-transition-delay: 0s;
+        -ms-transition-delay: 0s;
+        -o-transition-delay: 0s;
+        transition-delay: 0s;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -moz-background-clip: padding;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+        margin-right: 5px;
+        border: 1px solid #1070de;
+        background-color: #2d87f0;
+        background: -webkit-gradient(linear, left top, left bottom, from(#4092f1), to(#1a7cee));
+        background: -webkit-linear-gradient(top, #4092f1, #1a7cee);
+        background: -moz-linear-gradient(top, #4092f1, #1a7cee);
+        background: -ms-linear-gradient(top, #4092f1, #1a7cee);
+        background: -o-linear-gradient(top, #4092f1, #1a7cee);
+        background: linear-gradient(top, #4092f1, #1a7cee);  
+    }
+    body{
+        color: black;
+        font-size: 15px;
+        line-height: 19px;
+        font-weight: 300;
+        font-family: helvetica,arial,verdana,sans-serif;
+        background: white;
+        margin: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    div#UIDiv{
+        padding-right: 10px;
+        padding-left: 10px;
+     }    
+</style>
+
+    <div id="UIDiv">
+        <div><table style="width:100%"><tr><th></th><th class="refBtn"><button id="RefreshButton" type="button" class="refBtn" title="Refresh Case Counts">refresh</button></th></tr></table></div>
+        <div id="AssignByTierDiv">
+            <table style="width:100%">
+                <tr>
+                    <td class='btn'><button id="CustomerSupport" type="button" class="tierBtn">Callbacks</button></td>
+                    <td id="CustomerSupportCountField" class='tierCount'>0</td>
+                    <td id="dashboard" rowspan="6">
+                        <table style="display:none;min-height:152px;width:100%;border:solid 1px lightgray;padding:2px;">
+                            <tr>
+                                <td id="Row1CountLabel" class='rowLabel'></td>
+                                <td id="Row1Count" class='rowCount'></td>
+                            </tr>
+                            <tr>
+                                <td id="Row2CountLabel" class='rowLabel'></td>
+                                <td id="Row2Count" class='rowCount'></td>
+                            </tr>
+                            <tr>
+                                <td id="Row3CountLabel" class='rowLabel'></td>
+                                <td id="Row3Count" class='rowCount'></td>
+                            </tr>
+                            <tr>
+                                <td id="Row4CountLabel" class='rowLabel'></td>
+                                <td id="Row4Count" class='rowCount'></td>
+                            </tr>
+                            <tr>
+                                <td id="Row5CountLabel" class='rowLabel'></td>
+                                <td id="Row5Count" class='rowCount'></td>
+                            </tr>
+                            <tr>
+                                <td id="Row6CountLabel" class='rowLabel'></td>
+                                <td id="Row6Count" class='rowCount'></td>
+                            </tr>
+                 
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='btn'><button id="CustomerSupportEmail" type="button" class="tierBtn">Emails</button></td>
+                    <td id="CustomerSupportEmailCountField" class='tierCount'>0</td>
+                </tr>
+
+                <tr>
+                    <td class='btn'><button id="EnterpriseQueue" type="button" class="tierBtn">Enterprise</button></td>
+                    <td id="EnterpriseQueueCountField" class='tierCount'>0</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        $j = jQuery.noConflict();
+        $refreshMillis = 60000;
+        var sessionId = "{!$Api.session_id}";
+        var $thisUser = "{!$User.Id}";
+        var $assignedUser = "{!$User.FirstName}"+":"+"{!$User.Lastname}"+":"+"{!$User.Id}";
+        var queueNameMap = {};
+        ellipsis = function(value, len, word) {
+            if (value && value.length > len) {
+                if (word) {
+                    var vs = value.substr(0, len - 2),
+                    index = Math.max(vs.lastIndexOf(' '), vs.lastIndexOf('.'), vs.lastIndexOf('!'), vs.lastIndexOf('?'));
+                    if (index !== -1 && index >= (len - 15)) {
+                        return vs.substr(0, index) + "...";
+                    }
+                }
+                return value.substr(0, len - 3) + "...";
+            }
+            return value;
+        };
+
+        errorHandler = function(err){
+            console.error(err);
+        };
+
+        reloadCounts = function() {
+            // if (typeof(nextRefresh) !== "undefined") {
+            //     clearTimeout(nextRefresh);
+            // }
+            $j(".tierCount").text(0);
+            CaseController.getEmailCaseCounts( function(r,event) {
+                if(event.status) {
+                    $j.each(r, function(i,caseCount){
+                        var devName = queueNameMap[caseCount.OwnerId];
+                        if(devName) {
+                            var field = $j('#'+devName+'CountField');
+                            if(field) {
+                                field.text(caseCount.CountOfCases);
+                            }
+                        }
+                        return true;
+                    });
+                } else {
+                    console.error(event);
+                }
+            });
+            for(var i=0; i<countsMap.length; i++) {
+                doCount(countsMap[i]);
+            }
+            //nextRefresh = setTimeout(reloadCounts,$refreshMillis);
+        };
+
+        doCount = function(c) {
+            $j("td#dashboard table").show();
+            CaseController.doSOQL(c.soql,function(r,e){
+                if(e.status){
+                    $j("#"+c.div+"CountLabel").html(c.label);
+                    $j("#"+c.div+"Count").text(r[0].total);                            
+                }else{
+                    console.error(e);                    
+                }
+            },{escape:false});
+        };
+
+        assignAndUpdateCase = function(caseRec,isCategory) {
+            //kill refresh while trying to update Case
+            // if (typeof(nextRefresh) !== "undefined") {
+            //     clearTimeout(nextRefresh);
+            // }
+
+            if(sforce.console.isInConsole()) {
+                sforce.console.openPrimaryTab(undefined, "/"+caseRec.Id, true, caseRec.CaseNumber, function(sub_result){
+                    if(false === sub_result.success) {
+                        console.warn("Open Case Sub tab failed");
+                        console.dir(sub_result);
+                    }
+                },caseRec.Id);  
+
+                //nextRefresh = setTimeout(reloadCounts,1);
+            } else {
+                location.replace("/"+caseRec.Id);
+            }
+            // new rmo.Case({Id:caseRec.Id,OwnerId:$thisUser,TakeACaseUserId__c:(isCategory?'':$assignedUser),TakeACaseByCategoryUserId__c:(isCategory?$assignedUser:'')}).update(function(err, results) {
+            //     if (err) return errorHandler(err.message);
+            //     if(sforce.console.isInConsole()) {
+            //         sforce.console.openPrimaryTab(undefined, "/"+caseRec.Id, true, caseRec.CaseNumber, function(sub_result){
+            //             if(false === sub_result.success) {
+            //                 console.warn("Open Case Sub tab failed");
+            //                 console.dir(sub_result);
+            //             }
+            //         },caseRec.Id);  
+
+            //         nextRefresh = setTimeout(reloadCounts,1);
+            //     } else {
+            //         location.replace("/"+caseRec.Id);
+            //     }
+            // });
+        };
+
+        doCaseAssignmentByTier = function(queueName) {
+            for( queueId in queueNameMap) {
+                if( queueNameMap[queueId] === queueName ) {
+                    CaseController.getOldestEmailCaseByQueueOwner(queueId, function(caseRec,e) {
+                        if(e.status && caseRec) {
+                            assignAndUpdateCase(caseRec,false);
+                        } else {
+                            reloadCounts();
+                        }
+                    });
+                    break;
+                }
+            }
+        };
+
+        $j(document).ready(function() {
+            new rmo.Group().retrieve({ where: { DeveloperName: {in:['CustomerSupport','CustomerSupportEmail','EnterpriseQueue']},Type: {eq:'Queue'} },limit: 10},  function(err, queues) { 
+                //,'ProAssistSupport'
+                if (err) return errorHandler(err.message);
+                if( $j.isArray(queues) ) {
+                    for(var q=0; q<queues.length;q++) {
+                        var queue = queues[q]._props;
+                        queueNameMap[queue.Id] = queue.DeveloperName;
+                    }
+                    reloadCounts();
+                }
+            });
+
+            $j('button.tierBtn').click( function(e){
+                if (typeof(nextRefresh) !== "undefined") {
+                    clearTimeout(nextRefresh);
+                }
+                setTimeout(doCaseAssignmentByTier,Math.floor((Math.random() * 1500) + 1),e.currentTarget.id);
+            });
+
+            $j('button.refBtn').click( function(e){
+                reloadCounts();
+            });
+
+        }); //document ready
+    </script>
+
+</apex:page>

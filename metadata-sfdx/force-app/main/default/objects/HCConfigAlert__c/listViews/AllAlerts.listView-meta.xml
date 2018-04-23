@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllAlerts</fullName>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>BannerMessage__c</columns>
+    <columns>PublishDateTime__c</columns>
+    <columns>UnpublishDateTime__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HCConfigAlert__c.AlertMessage</value>
+    </filters>
+    <label>00: All Alerts</label>
+    <sharedTo>
+        <group>ContentUser</group>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

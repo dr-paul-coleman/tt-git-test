@@ -1,0 +1,44 @@
+.THIS .nowrap {
+	white-space: nowrap;
+}
+
+.THIS .bold {
+	font-weight: bold;
+}
+
+.THIS.manager-container {
+	max-width: calc(100vw - 3.15rem);
+}
+
+.THIS #incidentContainer .slds-list_horizontal .slds-item_label{
+    width: 50%;
+}
+.THIS #incidentContainer .slds-list_horizontal .slds-item_detail{
+    width: 50%;
+}
+.THIS #proContainer .slds-list_horizontal .slds-item_label{
+    width: 50%;
+}
+.THIS #proContainer .slds-list_horizontal .slds-item_detail{
+    width: 50%;
+}
+.THIS #customerContainer .slds-list_horizontal .slds-item_label{
+    width: 50%;
+}
+.THIS #customerContainer .slds-list_horizontal .slds-item_detail{
+    width: 50%;
+}
+
+.THIS .slds-button-border-right button
+{
+    border-radius: 0 0.25rem 0.25rem 0 !important;
+    border-left-width: 0 !important;
+    color: #0070d2 !important;
+}
+
+.THIS .menu-highlight, .THIS .menu-highlight a
+{
+    background-color: #0070d2 !important;
+    color: #FFF !important;
+}
+/*.THIS ul.slds-tabs--default__nav li:nth-child(3) {background-color: #F0A86E;}*/

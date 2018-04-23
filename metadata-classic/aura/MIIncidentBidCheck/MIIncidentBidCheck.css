@@ -1,0 +1,4 @@
+.THIS .timePicker-openIcon.display, .THIS .datePicker-openIcon.display
+{
+    display: none !important;
+}

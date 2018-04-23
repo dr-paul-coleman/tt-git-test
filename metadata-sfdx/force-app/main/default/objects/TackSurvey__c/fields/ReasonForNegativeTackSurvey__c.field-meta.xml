@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReasonForNegativeTackSurvey__c</fullName>
+    <description>Picklist of values to indicate the reason for the negative feedback.</description>
+    <externalId>false</externalId>
+    <label>Reason for Negative Tack Survey</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Complaint about Pro/Customer</fullName>
+                <default>false</default>
+                <label>Complaint about Pro/Customer</label>
+            </value>
+            <value>
+                <fullName>Customer suggestions</fullName>
+                <default>false</default>
+                <label>Customer suggestions</label>
+            </value>
+            <value>
+                <fullName>Data advertised</fullName>
+                <default>false</default>
+                <label>Data advertised</label>
+            </value>
+            <value>
+                <fullName>Filtering/Sorting Quotes</fullName>
+                <default>false</default>
+                <label>Filtering/Sorting Quotes</label>
+            </value>
+            <value>
+                <fullName>Filtering/Sorting Requests</fullName>
+                <default>false</default>
+                <label>Filtering/Sorting Requests</label>
+            </value>
+            <value>
+                <fullName>Landing pages/spotlight</fullName>
+                <default>false</default>
+                <label>Landing pages/spotlight</label>
+            </value>
+            <value>
+                <fullName>Notifications</fullName>
+                <default>false</default>
+                <label>Notifications</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Payment Mentods</fullName>
+                <default>false</default>
+                <label>Payment Mentods</label>
+            </value>
+            <value>
+                <fullName>Phone Apps</fullName>
+                <default>false</default>
+                <label>Phone Apps</label>
+            </value>
+            <value>
+                <fullName>Polish - Grammar/Spelling/Layout</fullName>
+                <default>false</default>
+                <label>Polish - Grammar/Spelling/Layout</label>
+            </value>
+            <value>
+                <fullName>Positive Feedback</fullName>
+                <default>false</default>
+                <label>Positive Feedback</label>
+            </value>
+            <value>
+                <fullName>Pricing</fullName>
+                <default>false</default>
+                <label>Pricing</label>
+            </value>
+            <value>
+                <fullName>Profile</fullName>
+                <default>false</default>
+                <label>Profile</label>
+            </value>
+            <value>
+                <fullName>Profile credentials (background checks, licenses)</fullName>
+                <default>false</default>
+                <label>Profile credentials (background checks, licenses)</label>
+            </value>
+            <value>
+                <fullName>Profile Social Media links</fullName>
+                <default>false</default>
+                <label>Profile Social Media links</label>
+            </value>
+            <value>
+                <fullName>Pro wants feedback from customers</fullName>
+                <default>false</default>
+                <label>Pro wants feedback from customers</label>
+            </value>
+            <value>
+                <fullName>Quality of leads</fullName>
+                <default>false</default>
+                <label>Quality of leads</label>
+            </value>
+            <value>
+                <fullName>Quote Flow</fullName>
+                <default>false</default>
+                <label>Quote Flow</label>
+            </value>
+            <value>
+                <fullName>Refund/Credit dispute</fullName>
+                <default>false</default>
+                <label>Refund/Credit dispute</label>
+            </value>
+            <value>
+                <fullName>Requests</fullName>
+                <default>false</default>
+                <label>Requests</label>
+            </value>
+            <value>
+                <fullName>Reviews</fullName>
+                <default>false</default>
+                <label>Reviews</label>
+            </value>
+            <value>
+                <fullName>Site expansion</fullName>
+                <default>false</default>
+                <label>Site expansion</label>
+            </value>
+            <value>
+                <fullName>Suggested Questions</fullName>
+                <default>false</default>
+                <label>Suggested Questions</label>
+            </value>
+            <value>
+                <fullName>Support/Help Pages</fullName>
+                <default>false</default>
+                <label>Support/Help Pages</label>
+            </value>
+            <value>
+                <fullName>Thumbtack Specialist</fullName>
+                <default>false</default>
+                <label>Thumbtack Specialist</label>
+            </value>
+            <value>
+                <fullName>Travel Preferences</fullName>
+                <default>false</default>
+                <label>Travel Preferences</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

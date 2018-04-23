@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SetupCompletionType__c</fullName>
+    <externalId>false</externalId>
+    <label>Setup Completion Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>I completed it myself using the Thumbtack app/website</fullName>
+                <default>false</default>
+                <label>I completed it myself using the Thumbtack app/website</label>
+            </value>
+            <value>
+                <fullName>A Thumbtack Support Specialist waled me through the process on the phone</fullName>
+                <default>false</default>
+                <label>A Thumbtack Support Specialist waled me through the process on the phone</label>
+            </value>
+            <value>
+                <fullName>Both of the above</fullName>
+                <default>false</default>
+                <label>Both of the above</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

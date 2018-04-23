@@ -1,0 +1,177 @@
+<aura:component controller="EnrollmentActionController">
+	<aura:attribute name="enrollmentId" type="String" access="public"/>
+	<aura:attribute name="accountId" type="String" access="public"/>
+	<aura:attribute name="item" type="EnrollmentItem" access="public"/>
+	<aura:attribute name="enrollmentAction" type="EnrollmentAction__c" access="public"/>
+	<aura:attribute name="myUser" type="User" access="public"/>
+	<aura:attribute name="showModal" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="showDetails" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="outcome" type="String" access="private"/>
+	<aura:attribute name="detail" type="String" access="private"/>
+	<aura:attribute name="url" type="String" access="private"/>
+	<aura:attribute name="detailOptions" type="String[]" access="private"/>
+	<aura:attribute name="showCheck" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="showSubSteps" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="outreachType" type="String" access="public"/>
+	<aura:attribute name="showSurvey" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="proUserId" type="String" access="public"/>
+	<aura:attribute name="categoryId" type="String" access="public"/>
+	<aura:attribute name="enrollmentSavedURL" type="String" access="public"/>
+	<aura:attribute name="showUncheckModal" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="isActiveTab" type="Boolean" default="false" access="public"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:handler event="c:AccountPhoneClicked" action="{!c.handleAccountPhoneClicked}"/>
+
+	<aura:registerEvent name="EnrollmentActionModified" type="c:EnrollmentActionModified"/>
+	<aura:registerEvent name="CustomPhoneClicked" type="c:CustomPhoneClicked"/>
+
+	<ltng:require scripts="{!$Resource.jquery}" />
+
+	<div class="slds-panel__section slds-has-divider--bottom task-container" style="{!'background-color:' + v.item.color}">
+		<div class="slds-grid slds-grid--vertical-align-center">
+			<div class="slds-col slds-size--1-of-8">
+				<div class="slds-grid slds-grid--vertical-align-center">
+					<div class="slds-col slds-size--1-of-3">
+						<aura:if isTrue="{!or(!empty(v.item.subSteps), v.item.isCallbackRule)}">
+							<aura:if isTrue="{!v.showSubSteps}">
+								<lightning:buttonIcon iconName="utility:down" variant="bare" onclick="{!c.toggleSubSteps}"/>
+								<aura:set attribute="else">
+									<lightning:buttonIcon iconName="utility:right" variant="bare" onclick="{!c.toggleSubSteps}"/>
+								</aura:set>
+							</aura:if>
+						</aura:if>
+					</div>
+					<div class="slds-col slds-size--2-of-3">
+						<aura:if isTrue="{!!v.item.isAutomated}">
+							<aura:if isTrue="{!v.showCheck}">
+								<lightning:buttonIcon iconName="utility:check" class="checked-box-icon" onclick="{!c.confirmUncheck}"/>
+								<aura:set attribute="else">
+									<lightning:buttonIcon iconName="utility:check" class="empty-box-button" onclick="{!c.check}"/>
+								</aura:set>
+							</aura:if>
+						</aura:if>
+					</div>
+				</div>
+			</div>
+			<div class="slds-col slds-size--7-of-8 slds-grid">
+				<div class="slds-col slds-size--1-of-2">                              
+                        <p class="slds-text-heading--small" title="{!v.item.name}">                        
+						<aura:if isTrue="{! empty(v.item.link)}">
+							{!v.item.name}
+							<aura:set attribute="else">
+								<a href="{!v.item.link}" target="_blank" title="{!v.item.name}">{!v.item.name}</a>
+							</aura:set>
+						</aura:if>                        
+					</p>                    
+				</div>
+				<div class="slds-col slds-size--1-of-2 slds-text-align--right">
+					<aura:if isTrue="{!and(v.item.isURLRequired, !empty(v.url))}">
+						<a class="slds-text-align--right text-italic" href="{!v.url}" target="_blank">View the Price Sheet</a>
+						<aura:set attribute="else">
+							<p class="slds-truncate slds-text-body--regular slds-text-align--right text-italic outcome-text" title="{!v.outcome}">{!v.outcome}</p>
+						</aura:set>
+					</aura:if>
+					<aura:if isTrue="{!and(v.showCheck, empty(v.item.onlyRule))}">
+						<span class="slds-is-absolute">
+							<lightning:buttonIcon iconName="utility:edit" variant="border-filled" class="slds-m-left--small slds-hide slds-is-absolute task-edit-button" onclick="{!c.edit}"/>
+						</span>
+					</aura:if>
+				</div>
+			</div>
+		</div>
+		<div class="slds-hide" aura:id="subSteps">
+			<aura:if isTrue="{!!empty(v.item.subSteps)}">
+				<div class="sub-steps slds-text-color--weak">
+					{!v.item.subSteps}
+				</div>
+			</aura:if>
+			<aura:if isTrue="{!v.item.isCallbackRule}">
+				<div class="callback-details slds-list--horizontal slds-wrap">
+					<div class="slds-item--label slds-text-color--weak slds-truncate" title="Callback Date/Time">Callback Date/Time:</div>
+					<div class="slds-item--detail slds-truncate">{!v.item.callbackDateTimeString}</div>
+					<aura:if isTrue="{!!empty(v.item.callbackPhone)}">
+						<div class="slds-item--label slds-text-color--weak slds-truncate" title="Phone">Phone:</div>
+						<div class="slds-item--detail slds-truncate"><a href="javascript:void(0);" onclick="{!c.callCallbackPhone}">{!v.item.callbackPhone}</a></div>
+					</aura:if>
+					<div class="slds-item--label slds-text-color--weak slds-truncate" title="Origin">Origin:</div>
+					<div class="slds-item--detail slds-truncate">{!v.item.callbackOrigin}</div>
+					<aura:if isTrue="{!!empty(v.item.callbackScheduledBy)}">
+						<div class="slds-item--label slds-text-color--weak slds-truncate" title="Scheduled By">Scheduled By:</div>
+						<div class="slds-item--detail slds-truncate">{!v.item.callbackScheduledBy}</div>
+					</aura:if>
+				</div>
+			</aura:if>
+		</div>
+	</div>
+	<aura:if isTrue="{!v.showModal}">
+		<div role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<div class="slds-modal__header">
+					<lightning:buttonIcon iconName="utility:close" size="large" variant="bare" class="slds-modal__close slds-button--icon-inverse" onclick="{!c.cancel}"/>
+					<h2 id="header43" class="slds-text-heading--medium">{!v.item.name}</h2>
+				</div>
+				<div class="slds-modal__content slds-p-around--medium">
+					<div class="slds-form--stacked">
+						<aura:if isTrue="{!!empty(v.item.outcomes)}">
+							<lightning:select aura:id="outcomeSelect" label="Select the outcome:" value="{!v.outcome}" onchange="{!c.handleOutcomeChange}" required="true" messageWhenValueMissing="This field is required.">
+								<option value="">--None--</option>
+								<aura:iteration items="{!v.item.outcomes}" var="outcome">
+									<option>{!outcome}</option>
+								</aura:iteration>
+							</lightning:select>
+							<aura:if isTrue="{!v.showDetails}">
+								<lightning:select aura:id="detailSelect" label="Select the details of the outcome:" value="{!v.detail}" required="true" messageWhenValueMissing="This field is required." onchange="{!c.handleDetailChange}">
+									<option value="">--None--</option>
+									<aura:iteration items="{!v.detailOptions}" var="detailOption">
+										<option>{!detailOption}</option>
+									</aura:iteration>
+								</lightning:select>
+							</aura:if>
+						</aura:if>
+						<aura:if isTrue="{!v.item.isURLRequired}">
+							<lightning:input aura:id="urlInput" type="url" label="Pricing Calculator URL" value="{!v.url}" required="true"/>
+						</aura:if>
+						<aura:if isTrue="{!v.showSurvey}">
+							<aura:if isTrue="{!equals(v.outreachType, 'early_enrollment')}">
+								<iframe id="survey-frame" class="slds-size--1-of-1 slds-m-top--x-small survey" src="{!format($Label.c.GoogleFormProAssistUrl, v.proUserId, v.categoryId)}"/>
+							</aura:if>
+							<aura:if isTrue="{!equals(v.outreachType, 'product_enabled')}">
+								<iframe id="survey-frame" class="slds-size--1-of-1 slds-m-top--x-small survey" src="{!format($Label.c.GetFeedbackProAssistUrl, v.enrollmentId, v.accountId, v.myUser.FirstName + ' ' + v.myUser.LastName)}"/>
+							</aura:if>
+						</aura:if>
+					</div>
+				</div>
+				<div class="slds-modal__footer">
+					<lightning:button label="Cancel" variant="neutral" onclick="{!c.cancel}"/>
+					<aura:if isTrue="{!v.item.isURLRequired}">
+						<lightning:button label="Save URL only" variant="brand" onclick="{!c.saveLink}"/>
+						<lightning:button label="Save task" variant="brand" onclick="{!c.save}"/>
+						<aura:set attribute="else">
+							<lightning:button label="Save" variant="brand" onclick="{!c.save}"/>
+						</aura:set>
+					</aura:if>
+				</div>
+			</div>
+		</div>
+		<div class="slds-backdrop slds-backdrop--open"></div>
+	</aura:if>
+	<aura:if isTrue="{!v.showUncheckModal}">
+		<div role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<div class="slds-modal__header">
+					<lightning:buttonIcon iconName="utility:close" size="large" variant="bare" class="slds-modal__close slds-button--icon-inverse" onclick="{!c.cancelUncheckConfirm}"/>
+					<h2 id="header43" class="slds-text-heading--medium">Confirm uncheck</h2>
+				</div>
+				<div class="slds-modal__content slds-p-around--medium">
+					<p>Are you sure you wish to uncheck this box?</p>
+				</div>
+				<div class="slds-modal__footer">
+					<lightning:button label="Cancel" variant="neutral" onclick="{!c.cancelUncheckConfirm}"/>
+					<lightning:button label="Confirm" variant="brand" onclick="{!c.uncheck}"/>
+				</div>
+			</div>
+		</div>
+		<div class="slds-backdrop slds-backdrop--open"></div>
+	</aura:if>
+</aura:component>

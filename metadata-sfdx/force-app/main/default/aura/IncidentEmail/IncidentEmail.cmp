@@ -1,0 +1,12 @@
+<aura:component controller="IncidentDetailsController">
+	<aura:attribute name="targetContactId" type="String" access="public"/>
+	<aura:attribute name="targetContactEmail" type="String" access="public"/>
+	<aura:attribute name="primaryCase" type="Case" access="public"/>
+
+	<aura:registerEvent name="IncidentEmailSent" type="c:IncidentEmailSent" />
+	
+	<iframe aura:id="email-publisher" src="{!'/apex/EmailPublisher?caseId=' + v.primaryCase.Id}" class="email-composer-iframe"/>
+	<div aura:id="drop-zone" ondrop="{!c.handleDrop}" ondragover="{!c.allowDrop}" ondragleave="{!c.handleDragLeave}" class="attachment-drop-zone slds-align_absolute-center">
+		Drag attachments here
+	</div>
+</aura:component>

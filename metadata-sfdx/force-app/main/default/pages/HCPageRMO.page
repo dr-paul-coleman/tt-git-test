@@ -1,0 +1,220 @@
+<apex:page docType="html-5.0" 
+    title="Thumbtack Help Center" 
+    standardStylesheets="false" 
+    showHeader="false" 
+    sidebar="false" 
+    cache="false" 
+    expires="86400" 
+    controller="HCControllerRMO" 
+    applyHtmlTag="false" 
+    applyBodyTag="false" 
+    action="{!initialize}">
+    <apex:remoteObjects jsNamespace="HCModels">
+        <apex:remoteObjectModel name="Case" 
+          create="{!$RemoteAction.HCControllerRMO.caseCreate}"
+          fields="Id,CaseNumber,Subject,RecordTypeId,Priority,Category__c,CreatedDate,CreatedById,Description,IsClosed,Status,OwnerId,HelpCenterVisitLastArticle__c,HelpCenterVisitLastArticleId__c,HelpCenterVisitSubTopic__c,HelpCenterVisitTopic__c,LastModifiedById,SubCategory__c,Origin,OriginalQueue__c,SuppliedCompany,SuppliedEmail,SuppliedName,SuppliedPhone,Team__c"
+        />
+        <apex:remoteObjectModel name="CaseComment" />
+        <apex:remoteObjectModel name="CSAT__c"
+          jsShorthand="ArticleFeedback" 
+          fields="Id,Name,CSATResponse__c,CSATComments__c,KBArticleImprovementReason__c,KBArticleId__c,KBArticleVersionId__c,KBArticleTitle__c"
+        />
+        <apex:remoteObjectModel name="HCConfigExperience__c"
+          jsShorthand="Experience" 
+          fields="Id,Name,AvailableForProfessionals__c,Alert__c,AvailableForCustomers__c,DefaultExperience__c,Status__c"
+        />
+        <apex:remoteObjectModel name="HCConfigAlert__c"
+          jsShorthand="Alert" 
+          fields="Id,Name,BannerMessage__c,PublishDateTime__c,Status__c,UnpublishDateTime__c"
+        />
+        <apex:remoteObjectModel name="HCConfigChannelAssignment__c"
+          jsShorthand="Channels" 
+          fields="Id,Name,Channel__c,Experience__c,SortOrder__c,Subtopic__c,VisibleOnDesktop__c,VisibleOnMobile__c"
+        />
+        <apex:remoteObjectModel name="HCConfigChannel__c"
+          jsShorthand="Channel" 
+          fields="Id,Name,AssociatedForm__c,Badge__c,Unavailable__c,UnavailableMessage__c,Disclaimer__c,Icon__c,PhoneNumber__c,SocialMediaURL__c,ResponseTime__c,Status__c,Title__c,Type__c,AvailableOnDesktop__c,AvailableOnMobile__c,LinkURL__c"
+        />
+        <apex:remoteObjectModel name="HCConfigTopicAssignment__c"
+          jsShorthand="Topics" 
+          fields="Id,Name,Experience__c,SortOrder__c,Topic__c,VisibleForCustomers__c,VisibleForProfessionals__c"
+        />
+        <apex:remoteObjectModel name="HCConfigTopic__c"
+          jsShorthand="Topic" 
+          fields="Id,Name,Badge__c,Icon__c,Status__c,Title__c,AvailableForCustomers__c,AvailableForProfessionals__c"
+        />
+        <apex:remoteObjectModel name="HCConfigSubtopicAssignment__c"
+          jsShorthand="Subtopics" 
+          fields="Id,Name,SortOrder__c,Subtopic__c,Topic__c"
+        />
+        <apex:remoteObjectModel name="HCConfigSubtopic__c"
+          jsShorthand="Subtopic" 
+          fields="Id,Name,FirstArticleId__c,SecondArticleId__c,ThirdArticleId__c,FourthArticleID__c,FifthArticleId__c,SixthArticleId__c,SeventhArticleId__c,EighthArticleId__c,NinthArticleId__c,TenthArticleId__c,EleventhArticleId__c,TwelfthArticleId__c,ThirteenthArticleId__c,FourteenthArticleId__c,FifteenthArticleId__c,Status__c,Title__c,AvailableForCustomers__c,AvailableForProfessionals__c"
+        />
+        <apex:remoteObjectModel name="HCConfigResource__c"
+          jsShorthand="Resource" 
+          fields="Id,Name,AvailableForHeader__c,Badge__c,LinkText__c,Icon__c,URL__c,Status__c,Summary__c,Title__c"
+        />
+        <apex:remoteObjectModel name="HCConfigResourceAssignment__c"
+          jsShorthand="Resources" 
+          fields="Id,Name,Experience__c,Resource__c,SortOrder__c"
+        />
+        <apex:remoteObjectModel name="HCConfigResourceItem__c"
+          jsShorthand="ResourceItem" 
+          fields="Id,Name,ExternalId__c,Resource__c,SortOrder__c,Status__c"
+        />
+        <apex:remoteObjectModel name="HCConfigForm__c"
+          jsShorthand="Form" 
+          fields="Id,Name,ButtonText__c,Instructions__c,FormId__c,Meta__c,Status__c,SubmissionSuccessfulMessage__c,SubmissionUnsuccessfulMessage__c,Title__c"
+        />
+        <apex:remoteObjectModel name="HCConfigFormField__c"
+          jsShorthand="FormField" 
+          fields="Id,Name,CharacterLimit__c,DefaultValue__c,FieldHelpText__c,FieldMapping__c,FieldType__c,Form__c,IsRequired__c,Label__c,SortOrder__c,ValidationMessage__c"
+        />
+        <apex:remoteObjectModel name="PublicArticle__kav"
+          jsShorthand="Article" 
+          fields="Id,KnowledgeArticleId,Title,Summary,UrlName,PublishStatus,Audience__c,ContainsVideo__c,HelpCenterPublicContent__c,iPhonePublicContent__c,AndroidPublicContent__c,Language"
+        />
+        <apex:remoteObjectModel name="ProductFeedback__c" jsShorthand="Feedback" />
+        <apex:remoteObjectModel name="RecordType" fields="Id,Name" />
+    </apex:remoteObjects>
+    <html lang="en">
+        <head>
+            <!-- Google Tag Manager -->
+            <script>
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','GTM-PBK6P5J');
+            </script>
+            <!-- End Google Tag Manager -->
+            <!-- Signal Tag Manager -->
+            <script>
+                (function () {
+                    var tagjs = document.createElement("script");
+                    var s = document.getElementsByTagName("script")[0];
+                    tagjs.async = true;
+                    tagjs.src = "//s.btstatic.com/tag.js#site=GYp4tcM";
+                    s.parentNode.insertBefore(tagjs, s);
+                }());
+            </script>
+            <!-- End Signal Tag Manager -->
+            <script type="application/ld+json">
+                {
+                  "@context": "http://schema.org",
+                  "@type": "WebSite",
+                  "url": "https://help.thumbtack.com/",
+                  "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "https://help.thumbtack.com/search?q={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                  }
+                }
+            </script>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width,initial-scale=1" />
+            <meta name="description" content="{!metadesc}" />
+            <meta name="theme-color" content="#f27802" />
+            <meta property="og:title" content="{!metatitle}" />
+            <meta property="og:description" content="{!metadesc}" />
+            <meta property="og:image" content="https://help.thumbtack.com{!URLFOR($Resource.HelpCenterReactRMO)}/share.png" />
+            <meta property="og:url" content="{!IF((metacanonical != null), metacanonical, 'https://help.thumbtack.com')}" />
+            <meta property="og:type" content="website" />
+            <meta property="og:site_name" content="Thumbtack Help Center" />
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:site" content="@thumbtack" />
+            <meta property="fb:app_id" content="131357050011" />
+            <meta property="fb:admins" content="159298128452" />
+            <meta name="google-site-verification" content="MjSZ55xdWhvIx0sR_S1FVbyUUjpzIi3Mf4kBCPFWmxo" />
+            <title>{!metatitle}</title>
+            <link rel="shortcut icon" href="{!URLFOR($Resource.HelpCenterReactRMO)}/favicon.ico" />
+            <apex:outputPanel layout="none" rendered="{!ISNULL($CurrentPage.parameters.ngrok)}">
+                <link rel="stylesheet" href="{!URLFOR($Resource.HelpCenterReactRMO)}/static/css/main.css" />
+            </apex:outputPanel>
+            <apex:outputPanel layout="none" rendered="{!(metacanonical != null)}">
+                <link rel="canonical" href="{!metacanonical}" />
+            </apex:outputPanel>
+            <style id="frame-breaker">body { display:none !important; }</style>
+        </head>
+        <body>
+            <!-- Google Tag Manager -->
+            <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PBK6P5J" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        
+            <!-- Signal Tag Manager (noscript) -->
+            <noscript><iframe src="//s.thebrighttag.com/iframe?c=GYp4tcM" width="1" height="1" style="display:none;visibility:hidden"></iframe></noscript>
+            
+            <div id="root"></div>
+            
+            <script src="https://c.la2-c2cs-phx.salesforceliveagent.com/content/g/js/38.0/deployment.js"></script>
+                
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');      
+            </script>
+            
+            <script>
+                (function () {
+                    // Set environment variables
+                    window.$EXPERIENCE_ID = '{!JSENCODE($CurrentPage.parameters.exp)}';
+                    window.$DISPUTE_ID = '{!JSENCODE($CurrentPage.parameters.dispute)}';
+                    window.$SF_USER = {Username:"{!$User.UserName}",UserType:"{!TEXT($User.UserType)}"};
+                    window.$ORG_ID = '{!$Organization.Id}'.substr(0, 15);
+                    window.$IS_PROD_ORG = (window.$ORG_ID.indexOf('00Di0000000dEJt') === 0);
+                    window.$DEBUG = !window.$IS_PROD_ORG;
+                    window.$ASSET_URL = '{!URLFOR($Resource.HelpCenterReactRMO)}';
+                    window.$LIVE_AGENT_URL = (window.$IS_PROD_ORG ? 
+                                              'https://d.la4-c2-chi.salesforceliveagent.com/chat' :
+                                              'https://d.la1-c2cs-dfw.salesforceliveagent.com/chat');
+                    window.$LIVE_AGENT_BUTTON_ID = '57331000000RsAM';
+                    window.$LIVE_AGENT_DEPLOYMENT_ID = '57231000000RovG';
+                    window.$ANALYTICS_ID = window.$IS_PROD_ORG ? 'UA-6981433-1' : 'UA-70440942-2';
+                    window.$USER_AGENT = '{!useragent}';
+                    window.$IS_FRAME = (window.self !== window.top);
+                    
+                    // Analytics
+                    var cookieDomain = '';
+                    try {
+                        var regex = /(([^.\/]+\.[^.\/]{2,3}\.[^.\/]{2})|(([^.\/]+\.)[^.\/]{2,4}))(\/.*)?$/;
+                        cookieDomain = document.location.hostname.match(regex)[1].toLowerCase();
+                    } catch (er) {
+                        cookieDomain = 'none';
+                    }
+                    window.ga('create', window.$ANALYTICS_ID, cookieDomain);
+                    
+                    // Enable LiveAgent logging
+                    if (window.$DEBUG) {
+                        window.liveagent.enableLogging();
+                    }
+                    
+                    // Frame-breaker script to prevent clickjacking
+                    var antiClickjack = document.getElementById('frame-breaker');
+                    if (window.$IS_FRAME) {
+                        var allowFrom = [
+                            'thumbtack.com', 
+                            'www.thumbtack.com', 
+                            'help.thumbtack.com',
+                            'solcenter-thumbtack.cs91.force.com',
+                            'thumbtack.force.com',
+                            'staging-thumbtack.cs77.force.com',
+                            'localhost'
+                        ];
+                        var parser = document.createElement('a');
+                        parser.href = document.referrer;
+                        if (allowFrom.indexOf(parser.hostname) === -1) {
+                            window.top.location = window.self.location;
+                        } else {
+                            antiClickjack.parentNode.removeChild(antiClickjack);
+                        }
+                    } else {
+                        antiClickjack.parentNode.removeChild(antiClickjack);
+                    }
+                })();
+            </script>
+            
+            <script src="{!IF(($CurrentPage.parameters.ngrok != null), "https://b1a78c93.ngrok.io/static/js/bundle.js", URLFOR($Resource.HelpCenterReactRMO) + "/static/js/main.js")}"></script>
+        </body>
+    </html>
+</apex:page>

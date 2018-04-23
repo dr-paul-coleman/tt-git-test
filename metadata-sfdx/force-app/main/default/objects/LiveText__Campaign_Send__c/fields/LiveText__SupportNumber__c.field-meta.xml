@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LiveText__SupportNumber__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>The number to send messages from</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The number to send messages from</inlineHelpText>
+    <label>SupportNumber</label>
+    <referenceTo>LiveText__LiveText_Number__c</referenceTo>
+    <relationshipLabel>CampaignSends</relationshipLabel>
+    <relationshipName>CampaignSends</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

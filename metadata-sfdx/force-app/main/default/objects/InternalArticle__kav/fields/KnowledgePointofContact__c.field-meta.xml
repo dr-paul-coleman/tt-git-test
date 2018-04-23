@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KnowledgePointofContact__c</fullName>
+    <description>Open text area of the content manager to add in the person's name and department of who the subject matter expert is for the article text.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Please enter the name and department of the person who you are working with to compile the knowledge article.</inlineHelpText>
+    <label>Knowledge Point of Contact</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

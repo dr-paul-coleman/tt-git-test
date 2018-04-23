@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to store records related to status, ownership, and other property changes on an MI Incident.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>DurationHours__c</fullName>
+        <description>The amount of time (in hours) spent in the given status.</description>
+        <externalId>false</externalId>
+        <formula>(ToDate__c - FromDate__c)*24</formula>
+        <label>Duration (Hours)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DurationMinutes__c</fullName>
+        <description>The amount of time (in minutes) spent in the given status.</description>
+        <externalId>false</externalId>
+        <formula>(ToDate__c - FromDate__c)*1440</formula>
+        <label>Duration (Minutes)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DurationSeconds__c</fullName>
+        <description>The amount of time (in seconds) spent in the given status.</description>
+        <externalId>false</externalId>
+        <formula>(ToDate__c - FromDate__c)*86400</formula>
+        <label>Duration (Seconds)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FromDate__c</fullName>
+        <externalId>false</externalId>
+        <label>From Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>MIIncidentAgent__c</fullName>
+        <description>The MI Incident agent at the time of the MI Incident Update History record being created.</description>
+        <externalId>false</externalId>
+        <label>MI Incident Agent</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MIIncidentPreviousStatus__c</fullName>
+        <description>The previous status that the MI Incident was in prior to the status change.</description>
+        <externalId>false</externalId>
+        <label>MI Incident Previous Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>New</fullName>
+                    <default>false</default>
+                    <label>New</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Closed</fullName>
+                    <default>false</default>
+                    <label>Closed</label>
+                </value>
+                <value>
+                    <fullName>Updated</fullName>
+                    <default>false</default>
+                    <label>Updated</label>
+                </value>
+                <value>
+                    <fullName>Reopened</fullName>
+                    <default>false</default>
+                    <label>Reopened</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>MIIncidentStatus__c</fullName>
+        <description>A stamp of the MI Incident Status at the time the MI Incident Update History record was created.</description>
+        <externalId>false</externalId>
+        <label>MI Incident Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>New</fullName>
+                    <default>false</default>
+                    <label>New</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Closed</fullName>
+                    <default>false</default>
+                    <label>Closed</label>
+                </value>
+                <value>
+                    <fullName>Updated</fullName>
+                    <default>false</default>
+                    <label>Updated</label>
+                </value>
+                <value>
+                    <fullName>Reopened</fullName>
+                    <default>false</default>
+                    <label>Reopened</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>MIIncident__c</fullName>
+        <description>Master-detail to the MI Incident object.</description>
+        <externalId>false</externalId>
+        <label>MI Incident</label>
+        <referenceTo>MIIncident__c</referenceTo>
+        <relationshipLabel>MI Incident Update History</relationshipLabel>
+        <relationshipName>MI_Incident_Update_History</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>ToDate__c</fullName>
+        <externalId>false</externalId>
+        <label>To Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <label>MI Incident Update History</label>
+    <nameField>
+        <displayFormat>MIH-{000000}</displayFormat>
+        <label>MI Incident Update History Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>MI Incident Update History</pluralLabel>
+    <recordTypes>
+        <fullName>MIIncidentUpdateHistory</fullName>
+        <active>true</active>
+        <description>Record type used for MI Incident update history records.</description>
+        <label>MI Incident Update History</label>
+        <picklistValues>
+            <picklist>MIIncidentPreviousStatus__c</picklist>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reopened</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Updated</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>MIIncidentStatus__c</picklist>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reopened</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Updated</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

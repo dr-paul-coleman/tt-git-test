@@ -1,0 +1,243 @@
+<!--
+ - Copyright (c) 2017 Thumbtack. All rights reserved.
+
+   Version      Date          Author            Description
+   ========+============+=================+===============================================
+   1.0      2018-01-10   Mendel Guillaume       Created
+   ========+============+=================+===============================================
+ -->
+
+<aura:component description="Dispute" controller="DisputeController">
+    <aura:attribute name="currentStep" type="Integer" default="0" access="private"/>
+    <aura:attribute name="disputeRecord" type="Dispute__c" access="private"/>
+    <aura:attribute name="incidentRecord" type="MIIncident__c" access="private"/>
+    <aura:attribute name="incidentId" type="Id" />
+    <aura:attribute name="resolution" type="String" default="" access="private"/>
+    <aura:attribute name="showRefund" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="resolutions" type="String[]" access="private" />
+    <aura:attribute name="message" type="String" access="private" default="" />
+    <aura:attribute name="messageType" type="String" access="private" default="success" />
+    <aura:attribute name="experienceLabel" type="String" access="private" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="warningMessage" type="String" default="" access="private" />
+
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+    <aura:handler name="strike_evt_recordSelected" event="c:strike_evt" action="{!c.experienceSelected}"/>
+
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner variant="brand" />
+    </aura:if>
+
+    <aura:if isTrue="{! !empty(v.message)}">
+        <div class="slds-notify_container">
+            <div class="{!'slds-notify slds-notify_toast slds-theme_' + v.messageType}" role="alert">
+                <span class="slds-assistive-text">{!v.messageType}</span>
+                <div class="slds-notify__content" style="width: 100%;">
+                    <div class="slds-grid">
+                        <div class="slds-size_5-of-6">
+                            <h2 class="slds-text-heading_small "><ui:outputRichText value="{!v.message}" /></h2>
+                        </div>
+                        <div class="slds-size_1-of-6 slds-text-align_right">
+                            <lightning:buttonIcon iconName="utility:close" alternativeText="Close" onclick="{!c.closeToastClick}" variant="bare-inverse" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+
+    <div class="slds-text-heading_small slds-m-bottom_medium"><aura:if isTrue="{!v.currentStep != 4}">New</aura:if> Dispute Record</div>
+
+    <aura:if isTrue="{!v.currentStep == 1}">
+        <aura:if isTrue="{! !empty(v.warningMessage)}">
+            <div class="slds-text-color_error slds-text-heading_small">
+                <lightning:formattedRichText value="{!v.warningMessage}" />
+            </div>
+        </aura:if>
+        <div class="slds-form_stacked">
+            <c:strike_lookup label="Select the type of dispute experience" object="DisputeExperience__c" searchField="Name"
+                             value="{!v.disputeRecord.DisputeExperience__c}" placeholder="" iconName="standard:relationship"
+                             order="Name" subtitleField="" limit="5" filter="Status__c = 'Published'" required="true" valueLabel="{!v.experienceLabel}" />
+
+            <lightning:select name="initiatingParties" label="Who is the initiating party?" value="{!v.disputeRecord.InitiatorContact__c}" required="true">
+                <option value="" text="" />
+                <option text="{!'Customer - ' + v.incidentRecord.CustomerContact__r.Name}" value="{!v.incidentRecord.CustomerContact__c}" />
+                <option text="{!'Pro - ' + v.incidentRecord.ProContact__r.Name}" value="{!v.incidentRecord.ProContact__c}" />
+            </lightning:select>
+
+            <lightning:select name="resolutions" label="What is the desired resolution?" value="{!v.disputeRecord.PrePopulatedDesiredResolution__c}" onchange="{!c.resolutionChange}" required="true">
+                <option value="" text="" />
+                <aura:iteration var="r" items="{!v.resolutions}">
+                    <option value="{!r}" text="{!r}" />
+                </aura:iteration>
+            </lightning:select>
+
+            <aura:if isTrue="{!v.showRefund}">
+                <lightning:input name="amount" type="number" formatter="currency" step="0.01" label="What is the desired refund amount?" value="{!v.disputeRecord.PrePopulatedResolutionAmount__c}" required="true"/>
+            </aura:if>
+            <lightning:textarea label="Description of the dispute" name="description" value="{!v.disputeRecord.Description__c}" required="true" />
+            <lightning:input name="bidId" type="text" label="Bid ID" value="{!v.disputeRecord.bid_pk__c}" required="true"/>
+            <lightning:input name="reqCat" type="text" label="Request Category" value="{!v.disputeRecord.request_category__c}" required="true"/>
+            <lightning:input name="reqCity" type="text" label="Request City" value="{!v.disputeRecord.request_city__c}" required="true"/>
+            <lightning:input name="reqState" type="text" label="Request State" value="{!v.disputeRecord.request_state__c}" required="true"/>
+            <lightning:input name="reqZip" type="text" label="Request Zip" value="{!v.disputeRecord.request_zip__c}" required="true"/>
+        </div>
+        <div class="slds-text-align_right slds-m-top_medium">
+            <aura:if isTrue="{!!empty(v.disputeRecord.DisputeExperience__c) &amp;&amp; !empty(v.disputeRecord.InitiatorContact__c) &amp;&amp; !empty(v.disputeRecord.PrePopulatedDesiredResolution__c)
+                                &amp;&amp; (!v.showRefund || (v.showRefund &amp;&amp; !empty(v.disputeRecord.PrePopulatedResolutionAmount__c))) &amp;&amp; !empty(v.disputeRecord.Description__c)
+                                &amp;&amp; !empty(v.disputeRecord.bid_pk__c) &amp;&amp; !empty(v.disputeRecord.request_zip__c) &amp;&amp; !empty(v.disputeRecord.request_state__c)
+                                &amp;&amp; !empty(v.disputeRecord.request_city__c) &amp;&amp; !empty(v.disputeRecord.request_category__c) &amp;&amp; empty(v.warningMessage)}">
+                <lightning:button name="next1" label="Next" variant="brand" onclick="{!c.nextClick}" />
+            </aura:if>
+        </div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.currentStep == 2}">
+        <div class="slds-text-color_error slds-text-heading_small slds-m-bottom_medium">
+            Please confirm the below details of the dispute. Click "Back" to make any changes.
+        </div>
+        <div>
+            <div class="slds-grid slds-m-bottom_medium">
+                <div class="slds-size_1-of-2">
+                    <div class="slds-text-color_weak">
+                        Initiating Party
+                    </div>
+                    <div>
+                        {! if(v.disputeRecord.InitiatorContact__c == v.incidentRecord.CustomerContact__c, v.incidentRecord.CustomerContact__r.Name, v.incidentRecord.ProContact__r.Name)}
+                    </div>
+                </div>
+                <div class="slds-size_1-of-2">
+                    <div class="slds-text-color_weak">
+                        Responding Party
+                    </div>
+                    <div>
+                        {! if(v.disputeRecord.InitiatorContact__c != v.incidentRecord.CustomerContact__c, v.incidentRecord.CustomerContact__r.Name, v.incidentRecord.ProContact__r.Name)}
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-grid slds-m-bottom_medium">
+                <div class="slds-size_1-of-2 ">
+                    <div class="slds-text-color_weak">
+                        Experience
+                    </div>
+                    <div>
+                        {!v.experienceLabel}
+                    </div>
+                </div>
+                <div class="slds-size_1-of-2">
+                    <div class="slds-text-color_weak">
+                        Bid ID
+                    </div>
+                    <div>
+                        {!v.disputeRecord.bid_pk__c}
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-m-bottom_medium">
+                <div class="slds-text-color_weak">
+                    Job Type
+                </div>
+                <div>
+                    {!v.disputeRecord.request_category__c}
+                </div>
+            </div>
+
+            <div class="slds-m-bottom_medium">
+                <div class="slds-text-color_weak">
+                    Job Location
+                </div>
+                <div>
+                    {!v.disputeRecord.request_city__c},&nbsp;{!v.disputeRecord.request_state__c}&nbsp;{!v.disputeRecord.request_zip__c}
+                </div>
+            </div>
+
+            <div class="slds-m-bottom_medium">
+                <div class="slds-text-color_weak">
+                    Desired Resolution
+                </div>
+                <div>
+                    {!v.disputeRecord.PrePopulatedDesiredResolution__c}
+                </div>
+            </div>
+
+            <aura:if isTrue="{!v.showRefund}">
+                <div class="slds-m-bottom_medium">
+                    <div class="slds-text-color_weak">
+                        Desired Refund Amount
+                    </div>
+                    <div>
+                        <ui:outputCurrency value="{!v.disputeRecord.PrePopulatedResolutionAmount__c}"/>
+                    </div>
+                </div>
+            </aura:if>
+
+            <div class="slds-m-bottom_medium">
+                <div class="slds-text-color_weak">
+                    Description
+                </div>
+                <div>
+                    {!v.disputeRecord.Description__c}
+                </div>
+            </div>
+
+        </div>
+        <div class="slds-grid slds-m-top_medium">
+            <div class="slds-size_1-of-2" >
+                <lightning:button name="back1" label="Back" variant="neutral" onclick="{!c.backClick}" />
+            </div>
+            <div class="slds-size_1-of-2 slds-text-align_right" >
+                <lightning:button name="next2" label="Next" variant="brand" onclick="{!c.nextClick}" />
+            </div>
+        </div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.currentStep == 3}">
+        <div>
+            By pressing "Submit" you will create a new dispute and {!v.incidentRecord.CustomerContact__c == v.disputeRecord.InitiatorContact__c ? v.incidentRecord.CustomerContact__r.Name : v.incidentRecord.ProContact__r.Name}
+            will receive an email to login to the Solution Center to confirm their dispute details.
+        </div>
+        <div class="slds-m-top_medium slds-text-color_error slds-text-align_center">
+            Are you sure?
+        </div>
+        <div class="slds-grid slds-m-top_medium">
+            <div class="slds-size_1-of-2" >
+                <lightning:button name="back2" label="Back" variant="neutral" onclick="{!c.backClick}" />
+            </div>
+            <div class="slds-size_1-of-2 slds-text-align_right" >
+                <lightning:button name="submit" label="Submit" variant="brand" onclick="{!c.submitClick}" />
+            </div>
+        </div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.currentStep == 4}">
+        <div>
+            <lightning:button variant="base" label="View Details" onclick="{!c.viewClick}" />
+        </div>
+        <div>
+            <dl class="slds-list_horizontal slds-wrap">
+                <dt class="slds-item_label slds-text-color_weak item-label" title="Status">Status:</dt>
+                <dd class="slds-item_detail item-detail" title="{!v.disputeRecord.Status__c}">{!v.disputeRecord.Status__c}</dd>
+
+                <dt class="slds-item_label slds-text-color_weak item-label" title="Stage">Stage:</dt>
+                <dd class="slds-item_detail item-detail" title="{!v.disputeRecord.Stage__c}">{!v.disputeRecord.Stage__c}</dd>
+
+                <dt class="slds-item_label slds-text-color_weak item-label" title="Last Stage Change Date">Last Stage Change Date:</dt>
+                <dd class="slds-item_detail item-detail" title="{!v.disputeRecord.LastStageChangeDate__c}"><ui:outputDateTime value="{!v.disputeRecord.LastStageChangeDate__c}" format="MM-DD-YYYY hh:mm a" /></dd>
+
+                <dt class="slds-item_label slds-text-color_weak item-label" title="Solution Center Link">Solution Center Link:</dt>
+                <dd class="slds-item_detail item-detail" title="Solution Center Link"><a href="{!v.disputeRecord.SolutionCenterLink__c}" target="_blank">Customer and Pro Link</a></dd>
+
+                <dt class="slds-item_label slds-text-color_weak item-label" title="Overall Dispute Time (in Days)">Overall Dispute Time (in Days):</dt>
+                <dd class="slds-item_detail item-detail" title="{!v.disputeRecord.OverallDisputeTimeInDays__c}">{!v.disputeRecord.OverallDisputeTimeInDays__c}</dd>
+
+                <dt class="slds-item_label slds-text-color_weak item-label" title="Overall Message Count">Overall Message Count:</dt>
+                <dd class="slds-item_detail item-detail" title="{!v.disputeRecord.OverallMessageCount__c}">{!v.disputeRecord.OverallMessageCount__c}</dd>
+
+                <dt class="slds-item_label slds-text-color_weak item-label" title="Overall Offer Count">Overall Offer Count:</dt>
+                <dd class="slds-item_detail item-detail" title="{!v.disputeRecord.OverallOfferCount__c}">{!v.disputeRecord.OverallOfferCount__c}</dd>
+            </dl>
+        </div>
+    </aura:if>
+</aura:component>

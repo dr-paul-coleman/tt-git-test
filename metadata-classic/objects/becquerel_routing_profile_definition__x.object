@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <listViews>
+        <fullName>All</fullName>
+        <columns>name__c</columns>
+        <columns>usr_user_id__c</columns>
+        <columns>sav_available_service_id__c</columns>
+        <columns>sav_notif_phn_phone_number__c</columns>
+        <columns>sav_phn_phone_number__c</columns>
+        <columns>usr_email__c</columns>
+        <columns>usr_phn_phone_number__c</columns>
+        <columns>CustomerContact_c__c</columns>
+        <columns>Version_c__c</columns>
+        <columns>ExternalId</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+</CustomObject>

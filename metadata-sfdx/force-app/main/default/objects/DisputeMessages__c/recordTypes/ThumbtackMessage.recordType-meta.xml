@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ThumbtackMessage</fullName>
+    <active>true</active>
+    <description>Record type used to manage the messages sent to a pro or customer via email or push notification from Thumbtack.</description>
+    <label>Thumbtack Message</label>
+</RecordType>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Level0AllInstantMatchFeedback</fullName>
+    <columns>NAME</columns>
+    <columns>FeedbackType__c</columns>
+    <columns>FeedbackSuggestionLevel0__c</columns>
+    <columns>FeedbackSuggestionLevel1__c</columns>
+    <columns>FeedbackSuggestionDetails__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>FeedbackSuggestionLevel0__c</field>
+        <operation>equals</operation>
+        <value>Instant Match</value>
+    </filters>
+    <label>Level 0 - All Instant Match Feedback</label>
+    <sharedTo>
+        <role>SharedServicesUserTPH</role>
+        <role>SharedServicesUserTSL</role>
+        <roleAndSubordinatesInternal>CSManagingUserTPH</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>CSManagingUserTSL</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>LabsManagingUser</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>ProServicesManaging_User</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

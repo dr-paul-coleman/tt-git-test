@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LiveText__Message__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The message to be sent to all eligible campaign members</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The message to be sent to all eligible campaign members</inlineHelpText>
+    <label>Message</label>
+    <length>131072</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

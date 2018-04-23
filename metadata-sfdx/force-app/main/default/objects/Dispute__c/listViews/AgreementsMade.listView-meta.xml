@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AgreementsMade</fullName>
+    <columns>DisputeNumber__c</columns>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>OverallDisputeTimeInDays__c</columns>
+    <columns>OverallMessageCount__c</columns>
+    <columns>OverallOfferCount__c</columns>
+    <columns>PrePopulatedDesiredResolution__c</columns>
+    <columns>PrePopulatedResolutionAmount__c</columns>
+    <columns>FinalResolution__c</columns>
+    <columns>FinalResolutionAmount__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Dispute__c.SolutionCenterDispute</value>
+    </filters>
+    <filters>
+        <field>Stage__c</field>
+        <operation>equals</operation>
+        <value>Agreement made</value>
+    </filters>
+    <label>04. Agreements Made</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

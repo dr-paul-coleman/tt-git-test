@@ -1,0 +1,277 @@
+<aura:component controller="ProEnrollmentManagerController" implements="force:hasRecordId">
+    <aura:dependency resource="c:EnrollmentActionManager"/>
+    <aura:attribute name="recordId" type="String" access="public"/>
+    <aura:attribute name="accountId" type="String" access="public"/>
+    <aura:attribute name="recordId18" type="String" access="private"/>
+    <aura:attribute name="enrollments" type="Enrollment__c[]" access="private"/>
+    <aura:attribute name="attempts" type="EnrollmentAction__c[]" access="private"/>
+    <aura:attribute name="showEAPFilterModal" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="showEAPErrorModal" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="selectedEnrollmentId" type="String" access="private"/>
+    <aura:attribute name="selectedEnrollment" type="Enrollment__c" access="private"/>
+    <aura:attribute name="showFeedbackModal" type="Boolean" default="false" access="private"/>
+    <!--<aura:attribute name="showGoogleForm" type="Boolean" default="false" access="private"/> -->
+    <aura:attribute name="showGetFeedbackForm" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="showAssignModal" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="hasInactiveEnrollments" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="showInactiveEnrollments" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="feedShowEnrollmentOnly" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="myUser" type="User" access="private"/>
+    <aura:attribute name="showAssigntoProServices" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="isExpanded" type="Boolean" default="false" access="private"/>
+
+    <!-- Begin - Added by MP -->
+    <aura:attribute name="showAgentModal" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="agentSearchText" type="String" access="private"/>
+    <aura:attribute name="Agents" type="User[]" access="private"/>
+    <aura:attribute name="Agent" type="User" access="private"/>
+    <aura:attribute name="agentId" type="String" access="private"/>
+    <aura:attribute name="agentName" type="String" access="private"/>
+    <ltng:require scripts="{!join(',', $Resource.jquery, $Resource.underscore)}"/>
+    <!-- End - Added by MP -->
+
+    <aura:attribute name="categorizationAllowSubmit" type="Boolean" access="private" default="false" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="c:EnrollmentTabSelected" action="{!c.handleEnrollmentTabSelected}"/>
+    <aura:handler event="c:ProAssigned" action="{!c.handleProAssigned}"/>
+
+    <aura:registerEvent name="AccountUpdated" type="c:AccountUpdated"/>
+    <aura:registerEvent name="EnrollAProClicked" type="c:EnrollAProClicked"/>
+    <aura:registerEvent name="CategorizationEvent" type="c:CategorizationEvent" />
+
+    <div id="pem-container" class="slds-p-bottom--xx-large">
+        <c:ProHeader enrollmentId="{!v.recordId}">
+            <aura:set attribute="buttons">
+                <div class="slds-grid slds-wrap slds-grid--align-end">
+                    <!-- <div class="slds-col slds-size-/-1-of-3 slds-text-align-/-right">
+                        <button class="slds-button header-button" type="button">
+                            <lightning:icon iconName="standard:product_required" class="slds-button__icon slds-button__icon-/-left"/>
+                            New Enrollment
+                        </button>
+                    </div>
+                    <div class="slds-col slds-size-/-1-of-4 slds-text-align-/-right">
+                        <button class="slds-button header-button" type="button">
+                            <lightning:icon iconName="action:new_child_case" class="slds-button__icon slds-button__icon-/-left button-action-icon" size="small"/>
+                            Create Case
+                        </button>
+                    </div> -->
+                    <div class="slds-col slds-size--1-of-4 slds-text-align--right">
+                        <button class="slds-button header-button" type="button" onclick="{!c.showFeedbackModal}">
+                            <lightning:icon iconName="action:announcement" class="slds-button__icon slds-button__icon--left button-action-icon background-color-yellow" size="small"/>
+                            Feedback
+                        </button>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-grid slds-grid--align-end slds-p-top--small">
+                        <aura:if isTrue="{!v.hasInactiveEnrollments}">
+                            <aura:if isTrue="{!v.showInactiveEnrollments}">
+                                <lightning:button label="Hide Inactive Enrollments" variant="neutral" onclick="{!c.toggleInactiveEnrollments}"/>
+                                <aura:set attribute="else">
+                                    <lightning:button label="Show Inactive Enrollments" variant="neutral" onclick="{!c.toggleInactiveEnrollments}"/>
+                                </aura:set>
+                            </aura:if>
+                        </aura:if>
+                        <lightning:button label="Reassign Pro" variant="neutral" onclick="{!c.showAssignModal}"/>
+                        <lightning:button label="Enroll Next Pro" variant="brand" onclick="{!c.getNextPro}"/>
+                        <!-- <lightning:buttonGroup >
+							<lightning:button label="Enroll Next Pro" variant="brand" onclick="{!c.getNextPro}"/>
+							<lightning:buttonMenu iconName="utility:down" menuAlignment="right" class="slds-button-/-last brand-more-button" variant="border-inverse" onselect="{!c.handleEAPMenuSelected}">
+								<lightning:menuItem label="Select new filters" value="filters"/>
+							</lightning:buttonMenu>
+						</lightning:buttonGroup> -->
+                    </div>
+                </div>
+            </aura:set>
+        </c:ProHeader>
+
+        <div class="{! 'slds-section' + (v.isExpanded ? ' slds-is-open' : '')}">
+            <h3 class="slds-section__title">
+                <button aria-controls="insights-container" aria-expanded="{!v.isExpanded}" class="slds-button slds-section__title-action" onclick="{!c.toggleExpandableState}">
+                    <lightning:icon aura:id="articleOne" iconName="utility:switch" size="xx-small" alternativeText="switch"/>
+                    <span class="slds-truncate" title="Section Title">Account Insights</span>
+                </button>
+            </h3>
+            <div aria-hidden="{!!v.isExpanded}" class="slds-section__content" id="insights-container">
+                <c:TTUserForTack recordId="{!v.accountId}" />
+            </div>
+        </div>
+
+        <lightning:tabset selectedTabId="{!v.recordId18}">
+            <aura:iteration items="{!v.enrollments}" var="enrollment">
+                <span></span>
+                <aura:if isTrue="{!and(!empty(v.myUser), (enrollment.outreach_type__c == 'managed_account' || enrollment.outreach_type__c == 'lead_acquisition' || enrollment.outreach_type__c == 'pro_success' || enrollment.outreach_type__c == 'pro_engagement' || enrollment.outreach_type__c == 'pro_onboarding' || v.showInactiveEnrollments || and(enrollment.Market__r.EnrollAProEnabled__c, enrollment.Market__r.RequestCategory__r.EnrollAProEnabled__c)))}">
+                    <c:EnrollmentTab enrollment="{!enrollment}" myUser="{!v.myUser}"/>
+                </aura:if>
+                <span></span>
+            </aura:iteration>
+        </lightning:tabset>
+        <div class="feed-section slds-p-around--large slds-m-top--x-large slds-border--top">
+            <div class="slds-text-heading--medium slds-m-bottom--medium slds-text-align--center">Feed</div>
+            <fieldset class="slds-form-element slds-text-align--center">
+                <div class="slds-form-element__control">
+                    <div class="slds-radio--button-group">
+						<span class="slds-button slds-radio--button" onclick="{!c.toggleFeedShowEnrollmentOnlyFalse}">
+							<input type="radio" name="feed-filter" id="feed-filter-all" checked="checked"/>
+							<label class="slds-radio--button__label" for="feed-filter-all">
+								<span class="slds-radio--faux">All enrollments</span>
+							</label>
+						</span>
+                        <span class="slds-button slds-radio--button" onclick="{!c.toggleFeedShowEnrollmentOnlyTrue}">
+							<input type="radio" name="feed-filter" id="feed-filter-this"/>
+							<label class="slds-radio--button__label" for="feed-filter-this">
+								<span class="slds-radio--faux">This enrollment</span>
+							</label>
+						</span>
+                    </div>
+                </div>
+            </fieldset>
+            <lightning:tabset variant="scoped" class="slds-m-top--medium">
+                <lightning:tab label="Outreach Attempts">
+                    <c:OutreachAttemptFeed accountId="{!v.accountId}" enrollmentId="{!v.selectedEnrollmentId}" enrollmentOnly="{!v.feedShowEnrollmentOnly}"/>
+                </lightning:tab>
+                <lightning:tab label="Onboarding Steps">
+                    <c:OnboardingStepFeed accountId="{!v.accountId}" enrollmentId="{!v.selectedEnrollmentId}" enrollmentOnly="{!v.feedShowEnrollmentOnly}"/>
+                </lightning:tab>
+                <lightning:tab label="Event Logs">
+                    <c:EventLogFeed accountId="{!v.accountId}" enrollmentId="{!v.selectedEnrollmentId}" enrollmentOnly="{!v.feedShowEnrollmentOnly}"/>
+                </lightning:tab>
+                <lightning:tab label="Phone Calls">
+                    <c:CallFeed accountId="{!v.accountId}" enrollmentId="{!v.selectedEnrollmentId}" enrollmentOnly="{!v.feedShowEnrollmentOnly}"/>
+                </lightning:tab>
+            </lightning:tabset>
+        </div>
+        <aura:if isTrue="{!v.showEAPFilterModal}">
+            <div role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal--large">
+                <div class="slds-modal__container">
+                    <div class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close" variant="bare-inverse" class="slds-modal__close" size="large" onclick="{!c.cancelEAPFilterModal}"/>
+                        <h2 class="slds-text-heading--medium">Enroll a Pro</h2>
+                    </div>
+                    <div class="slds-modal__content">
+                        <c:EnrollAPro />
+                    </div>
+                </div>
+            </div>
+            <div class="slds-backdrop slds-backdrop--open"></div>
+        </aura:if>
+        <aura:if isTrue="{!v.showEAPErrorModal}">
+            <div role="alertdialog" class="slds-modal slds-fade-in-open slds-modal--prompt">
+                <div class="slds-modal__container">
+                    <div class="slds-modal__header slds-theme--error slds-theme--alert-texture">
+                        <lightning:buttonIcon iconName="utility:close" class="slds-modal__close" size="large" variant="bare-inverse" onclick="{!c.hideEAPErrorModal}"/>
+                        <h2 class="slds-text-heading--medium" id="prompt-heading-id">Enroll A Pro: Error</h2>
+                    </div>
+                    <div class="slds-modal__content slds-p-around--medium">
+                        <p>There are no more Enrollments based on your selected filters.</p>
+                    </div>
+                    <div class="slds-modal__footer slds-theme--default">
+                        <lightning:button variant="neutral" label="OK" onclick="{!c.hideEAPErrorModal}"/>
+                        <lightning:button variant="neutral" label="Select new filters" onclick="{!c.showEAPFilterModal}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-backdrop slds-backdrop--open"></div>
+        </aura:if>
+    </div>
+    <aura:if isTrue="{!v.showFeedbackModal}">
+        <div role="dialog" class="slds-modal slds-fade-in-open slds-modal--large">
+            <!-- Before deprecating EE google feedback form - class="{!'slds-modal slds-fade-in-open ' + if(or(v.showGoogleForm, v.showGetFeedbackForm), 'slds-modal- -large', '')}"-->
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close" size="large" variant="bare-inverse" onclick="{!c.closeFeedbackModal}" class="slds-modal__close"/>
+                    <h2 id="header43" class="slds-text-heading--medium">Feedback</h2>
+                </div>
+                <div class="slds-modal__content slds-p-around--medium">
+                    <!--<aura:if isTrue="{!!v.showGetFeedbackForm}">
+						"{!and(!v.showGoogleForm, !v.showGetFeedbackForm)}" <lightning:button label="Early Enrollment Feedback" variant="neutral" onclick="{!c.chooseGoogleForm}" class="slds-m-around- -large slds-p-around- -medium slds-text-heading- -small"/>
+						<lightning:button label="Product Feedback" variant="neutral" onclick="{!c.chooseGetFeedbackForm}" class="slds-m-around_large slds-p-around_medium slds-text-heading_small"/>
+						<aura:set attribute="else">
+							<aura:if isTrue="{!v.showGoogleForm}">
+								<iframe id="survey-frame" class="slds-size- -1-of-1 slds-m-vertical- -xx-small modal-survey" src="{!format($Label.c.GoogleFormProAssistUrl, v.selectedEnrollment.user_id__c, v.selectedEnrollment.rca_request_category_id__c)}"/>
+							</aura:if>
+							<aura:if isTrue="{!v.showGetFeedbackForm}">
+								<iframe id="survey-frame" class="slds-size_1-of-1 slds-m-vertical_x-small modal-survey" src="{!format($Label.c.GetFeedbackProAssistUrl, v.selectedEnrollment.Id, v.selectedEnrollment.Account__c, v.myUser.FirstName + ' ' + v.myUser.LastName)}"/>
+							</aura:if>
+
+						</aura:set>
+					</aura:if>
+					-->
+                    <div>
+                        <c:CategorizationContainer recordId="{!v.selectedEnrollment.Id}" showFooter="false" allowSubmit="{!v.categorizationAllowSubmit}" showFeedbackToggle="false" showOrigin="true" showPrimary="false"/>
+                    </div>
+                </div>
+                <div class="slds-modal__footer">
+                    <lightning:button label="Close" variant="neutral" onclick="{!c.closeFeedbackModal}"/>
+                    <lightning:button name="save" label="{!if(v.categorizationAllowSubmit, 'Save', 'Saved!')}" variant="brand" onclick="{!c.submitCategorizationClick}" disabled="{! !v.categorizationAllowSubmit}" />
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop--open"></div>
+    </aura:if>
+    <aura:if isTrue="{!v.showAssignModal}">
+        <div role="dialog" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close" size="large" variant="bare-inverse" onclick="{!c.closeAssignModal}" class="slds-modal__close"/>
+                    <aura:if isTrue="{!!v.showAgentModal}">
+                        <h2 id="header43" class="slds-text-heading--medium">Reassign Pro</h2>
+                    </aura:if>
+                    <aura:if isTrue="{!v.showAgentModal}">
+                        <h2 id="header" class="slds-text-heading--medium">Select an Agent</h2>
+                    </aura:if>
+                </div>
+                <div class="slds-modal__content slds-p-around--medium slds-text-align--center">
+                    <aura:if isTrue="{!!v.showAgentModal}">
+                        <lightning:button label="Assign to me" variant="neutral" onclick="{!c.assignProToMe}" class="slds-m-around--large slds-p-around--medium slds-text-heading--small"/>
+                        <aura:if isTrue="{!v.showAssigntoProServices}">
+                            <lightning:button label="Assign to Pro Services" variant="neutral" onclick="{!c.removeAssignee}" class="slds-m-around--large slds-p-around--medium slds-text-heading--small"/>
+                        </aura:if>
+                        <aura:if isTrue="{!!v.showAssigntoProServices}">
+                            <lightning:button label="Assign to Managed Accounts" variant="neutral" onclick="{!c.removeAssignee}" class="slds-m-around--large slds-p-around--medium slds-text-heading--small"/>
+                        </aura:if>
+                        <lightning:button label="Assign to an Agent" variant="neutral" onclick="{!c.showModal}" class="slds-m-around--large slds-p-around--medium slds-text-heading--small"/>
+                    </aura:if>
+                    <aura:if isTrue="{!v.showAgentModal}">
+                        <div class="slds-modal__container">
+                            <div>
+                                <h2 class="slds-text-heading--medium">Assign to an Agent</h2>
+                            </div>
+                            <div class="slds-picklist slds-dropdown-trigger slds-dropdown-trigger--click slds-is-open slds-m-top--x-small slds-m-left--large">
+                                <lightning:input type="search" name="searchbox" value="{!v.agentSearchText}" onchange="{!c.handleagentSearchTextChange}" aura:id="agentSearch"/>
+                                <aura:if isTrue="{!!empty(v.Agents)}">
+                                    <div class="slds-dropdown slds-dropdown--left slds-dropdown--length-5 users-dropdown" role="listbox">
+                                        <ul class="slds-dropdown__list" role="group">
+                                            <aura:iteration items="{!v.Agents}" var="user">
+                                                <li aura:id="{!user.Id}" role="presentation" data-value="{!user.Id}" data-name="{!user.Name}" onclick="{!c.selectAgent}">
+                                                    <span class="slds-lookup__item-action slds-lookup__item-action--label" role="option">
+                                                        <span class="slds-truncate">{!user.Name}</span>
+                                                    </span>
+                                                </li>
+                                            </aura:iteration>
+                                        </ul>
+                                    </div>
+                                </aura:if>
+                            </div>
+                            <aura:set attribute="else">
+									<span class="slds-pill slds-m-top--x-small slds-m-left--large slds-theme--shade slds-p-horizontal--x-small">
+										<span class="slds-pill__label" title="{!v.Agent.Name}">{!v.Agent.Name}</span>
+										<lightning:buttonIcon iconName="utility:close" variant="bare" class="slds-pill__remove" onclick="{!c.removeAgent}"/>
+									</span>
+                            </aura:set>
+                        </div>
+                    </aura:if>
+                </div>
+                <div class="slds-modal__footer">
+                    <aura:if isTrue="{!!v.showAgentModal}">
+                        <lightning:button label="Cancel" variant="neutral" onclick="{!c.closeAssignModal}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!v.showAgentModal}">
+                        <lightning:button label="Cancel" variant="neutral" onclick="{!c.cancelAgentModal}"/>
+                        <lightning:button label="Save" variant="brand" onclick="{!c.saveAgent}"/>
+                    </aura:if>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop--open"></div>
+    </aura:if>
+</aura:component>

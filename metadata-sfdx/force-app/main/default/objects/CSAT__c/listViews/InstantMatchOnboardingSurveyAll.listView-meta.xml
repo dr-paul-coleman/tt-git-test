@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>InstantMatchOnboardingSurveyAll</fullName>
+    <columns>NAME</columns>
+    <columns>PAOnboardingSetupSatisfaction__c</columns>
+    <columns>PAOnboardingEasy__c</columns>
+    <columns>PAOnboardingProgramConfidence__c</columns>
+    <columns>PAOnboardingReachability__c</columns>
+    <columns>PAOnboarding__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>CSAT__c.InstantMatchOnboardingSurvey</value>
+    </filters>
+    <label>Instant Match Onboarding Survey - All</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MessagesAndFilesLast30Days</fullName>
+    <columns>NAME</columns>
+    <columns>Dispute__c</columns>
+    <columns>DisputeOffer__c</columns>
+    <columns>ContactCreatedBy__c</columns>
+    <columns>ContactSharedWith__c</columns>
+    <columns>Message__c</columns>
+    <columns>RECORDTYPE</columns>
+    <columns>CreateDateTime__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>DisputeMessage__c.FileImage,DisputeMessage__c.Message</value>
+    </filters>
+    <filters>
+        <field>CreateDateTime__c</field>
+        <operation>equals</operation>
+        <value>LAST_N_DAYS:30</value>
+    </filters>
+    <label>01. Messages and Files Last 30 Days</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

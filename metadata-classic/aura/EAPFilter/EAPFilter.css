@@ -1,0 +1,72 @@
+.THIS .slds-dropdown__list.slds-has-dividers--top span:first-child + .slds-item{
+	border: none;
+}
+
+.THIS .slds-dropdown__list.slds-has-dividers--top .slds-item:first-child {
+	border: none;
+}
+
+.THIS .slds-picklist li.slds-is-selected .slds-icon--selected svg {
+    fill: rgb(0, 112, 210);
+    opacity: 1;
+}
+
+.THIS .outreach-type-picklist .slds-input, .THIS .category-picklist .slds-input {
+	border-top-right-radius: 0px;
+}
+
+.THIS .category-picklist .slds-input, .THIS .funnel-step-picklist .slds-input {
+	border-top-left-radius: 0px;
+}
+
+.THIS .outreach-type-picklist .slds-input, .THIS .category-picklist .slds-input, .THIS .funnel-step-picklist .slds-input {
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+	background-color: #e0e5ee;
+}
+
+.THIS .outreach-type-picklist .slds-dropdown, .THIS .category-picklist .slds-dropdown, .THIS .funnel-step-picklist .slds-dropdown {
+	margin-top: 0px;
+	min-width: 100%;
+	border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+	background-color: #f4f6f9;
+}
+.THIS .button-common {
+    display: block;
+    width: 50%;
+    margin-left: 70px;
+}
+
+.THIS .button-align-RC {    
+   margin-top: 20px;
+}
+
+.THIS .dropdownRC {
+    max-height: 260px;
+}
+
+.THIS .button-align-FS {    
+    margin-top: 20px;
+}
+
+.THIS .dropdownFS {
+    max-height: 260px;
+}
+
+.THIS .button-align-OT {
+    margin: 20px;
+}
+
+.THIS .button-align-OG {
+    margin-top: 20px;
+}
+
+.THIS .dropdownOG {
+    max-height: 260px;
+}
+
+.THIS .button-clearall {
+    margin-top: 20px;
+    margin-left: 10px;
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>QS08Inactive</fullName>
+    <columns>NAME</columns>
+    <columns>ProAccount__c</columns>
+    <columns>Customer__c</columns>
+    <columns>bid_sent_time__c</columns>
+    <columns>bid_last_message_time__c</columns>
+    <columns>bid_buyer_first_seen_time__c</columns>
+    <columns>AdminLinkRequest__c</columns>
+    <columns>WarmContactMade__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Quote__c.QuotingServiceRecordType</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Inactive</value>
+    </filters>
+    <label>QS 08: Inactive</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>LabsManagingUser</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>ProServicesManaging_User</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,19 @@
+<aura:component >
+	<aura:attribute name="title" type="String" access="public"/>
+	<aura:attribute name="isOpen" type="Boolean" default="false" access="public"/>
+
+	<ltng:require scripts="{!$Resource.jquery}" />
+
+	<div class="slds-grid slds-grid_vertical-align-center">
+		<aura:if isTrue="{!v.isOpen}">
+			<lightning:buttonIcon iconName="utility:dash" variant="bare" class="slds-m-right_small" onclick="{!c.toggleVisibility}"/>
+			<aura:set attribute="else">
+				<lightning:buttonIcon iconName="utility:add" variant="bare" class="slds-m-right_small" onclick="{!c.toggleVisibility}"/>
+			</aura:set>
+		</aura:if>
+		<span class="slds-text-heading_small pointer" onclick="{!c.toggleVisibility}">{!v.title}</span>
+	</div>
+	<div aura:id="accordion-body" class="{!(v.isOpen ? '' : 'slds-hide') + ' slds-p-vertical_small slds-p-left_small'}">
+		{!v.body}
+	</div>
+</aura:component>

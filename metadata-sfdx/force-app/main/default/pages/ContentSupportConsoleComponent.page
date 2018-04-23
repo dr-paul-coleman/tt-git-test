@@ -1,0 +1,58 @@
+<apex:page standardcontroller="TackSupport__c" showHeader="false" sidebar="false" standardStylesheets="false">
+<style>
+{
+background-color:#F4F6F9;
+div.left { text-align: left; }
+div.right { text-align: right;}
+}
+</style>
+
+<apex:pageBlock id="New">
+<apex:pageBlockSection rendered="{!IF(TackSupport__c.Status__c='New'||TackSupport__c.Status__c=''|| TackSupport__c.Status__c='Need More Info', true,false)}">
+<div style ="margin-left:11px;text-align:left">
+      <font face ="Tahoma" color="#59698D" size="3"> 
+      <h3>Tips for creating a rough draft:</h3>
+      <ul>
+       <li>Be specific.  For example, "Right now the article says 'X' but it should say 'Y' because of the recent product update."</li>
+       <li>Share your knowledge by writing exactly what you think the macro/knowledge article should say. If you already have content you've been using be sure to include it in the "Rough draft of content" section of your content request.</li>
+       <li>Include as much information as you can.  If you don't include enough information, we may have to reach out to you before we can get started.</li>
+      </ul>
+      <h3>Here's an example of a complete content request:</h3>
+      <p><b>Subject:</b> New macro for changing email notification settings</p>
+      <p><b>Type of content request:</b> New macro</p>
+      <p><b>Reason for request:</b> We don't have a macro explaining how to change a pro's email notification settings</p>
+      <p><b>Rough draft of content:</b><br></br></p>
+      <p>Hi ContactFirstName__c,</p>
+      <p>I understand you'd like to change your email notification settings. I'm happy to help you do that, so I've included steps you can follow below:</p>
+      <p>
+      1. Log in to your Thumbtack account.<br></br>
+      2. Click on your name and select Settings (upper right corner).<br></br>
+      3. Select Notifications.<br></br>
+      4. Use the sliders to turn on and turn off your Email notifications.<br></br>
+      </p>
+      <p>Feel free to reach out to us with any other questions or if you need additional help changing your notifications.  We're always here to help.</p>
+      <p>EmailSignatureForPros__c</p>
+      <p><b>Is this urgent?</b> Yes</p>
+      <p><b>If urgent, please explain why:</b> Since there is currently no macro this issue is being escalated to Tier 4.</p>
+
+     </font>  
+  </div>
+  
+  </apex:PageBlockSection>
+  </apex:PageBlock>
+  
+<apex:pageBlock id="Other">
+<apex:pageBlockSection rendered="{!IF(TackSupport__c.Status__c='In Progress' || TackSupport__c.Status__c='Completed' || TackSupport__c.Status__c='Canceled' || TackSupport__c.Status__c='Submitted', true,false)}">
+
+<div style ="margin-left:11px;text-align:left">
+      <font face ="Tahoma" color="#59698D" size="3"> 
+      <h3>Thank You</h3>
+      <p>Thanks for submitting your content request.</p>
+      <p>The current status of your request is <b> {!TackSupport__c.Status__c}.</b></p>
+      </font>
+   </div>
+</apex:pageBlockSection>
+</apex:pageBlock>
+
+
+</apex:page>

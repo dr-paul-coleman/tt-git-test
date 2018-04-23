@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MyTasksAllOpen</fullName>
+    <columns>IncidentNumber__c</columns>
+    <columns>NAME</columns>
+    <columns>NextFollowupDate__c</columns>
+    <columns>NextFollowupTask__c</columns>
+    <columns>Flag__c</columns>
+    <columns>MICategory__c</columns>
+    <columns>CustomerContact__c</columns>
+    <columns>ProContact__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>NextFollowupDate__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Closed</value>
+    </filters>
+    <label>B3: My Tasks - All Open</label>
+    <sharedTo>
+        <role>CustomerSuccessOrganization</role>
+        <role>SharedServicesUserTSL</role>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

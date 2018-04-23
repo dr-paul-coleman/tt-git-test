@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Level1AllNeedsLevel2</fullName>
+    <columns>NAME</columns>
+    <columns>FeedbackType__c</columns>
+    <columns>ProductFeedback__c</columns>
+    <columns>FeedbackSuggestionLevel2__c</columns>
+    <columns>TTServiceCategory__c</columns>
+    <columns>CreatedDateTime__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>ProductFeedback__c.CSFeedback,ProductFeedback__c.HelpCenterSuggestion</value>
+    </filters>
+    <filters>
+        <field>FeedbackSuggestionLevel2__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>THIS_QUARTER,LAST_QUARTER</value>
+    </filters>
+    <label>Level 1 - All (Needs Level 2)</label>
+    <sharedTo>
+        <role>SharedServicesUserTPH</role>
+        <role>SharedServicesUserTSL</role>
+        <roleAndSubordinatesInternal>CSManagingUserTPH</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>CSManagingUserTSL</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>LabsManagingUser</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>ProServicesManaging_User</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

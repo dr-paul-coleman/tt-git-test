@@ -1,0 +1,80 @@
+<apex:page docType="html-5.0" showHeader="false" sidebar="false" standardStylesheets="false" standardController="Case">
+    <script type="text/javascript">
+        var openIncident = function(event) {
+            var incidentId = event.getParam('incidentId');
+            if (sforce.console.isInConsole()) {
+                sforce.console.getEnclosingPrimaryTabId(function(parent) {
+                    sforce.console.openPrimaryTab(parent.id, '/' + incidentId, true, '{!Case.Incident__r.Name}', function(sub_result){
+                        console.log(sub_result.id);
+                        if(false === sub_result.success) {
+                            console.warn("Failed to open Incident");
+                            console.dir(sub_result);
+                        }
+                    });
+                });
+            } else {
+                location.href = '/' + incidentId;
+            }
+        };
+        var incidentClicked = function() {
+            $A.eventService.addHandler({
+                event: "c:IncidentLinkClicked",
+                handler: openIncident
+            });
+        };
+    </script>
+
+    <apex:includeScript value="/support/console/35.0/integration.js"/>
+
+    <style>
+		/* datepicker styles */
+		.slds-day
+		{
+         	font-size: 12px !important;
+          	height: 25px !important;
+          	width: 100% !important;
+          	line-height: 25px !important;
+	  	}
+
+	  	.uiDatePickerGrid .calGrid th
+	  	{
+			font-size: 12px !important;
+			padding: 5px !important;
+		}
+
+		.uiInputTimePicker--default .datepicker--time
+		{
+    		padding: .5rem 0 !important;
+    		font-size: 12px !important;
+		}
+
+		.uiInputTimePicker--default .datepicker--time__list > li
+		{
+		    margin: 0px !important;
+		    padding: 3px 15px 3px 0px !important;
+		    text-align: right !important;
+  		}
+
+		.uiInputTimePicker--default .dropdown
+		{
+			min-width: 120px !important;
+  		}
+
+  		.uiInputTimePicker--default .datepicker--time__list
+  		{
+			max-height: 8.5rem !important;
+		}
+
+		.dateBar .assistiveText
+        {
+            display: none !important;
+        }
+
+        .dateBar h2.monthYear
+        {
+            margin: 0 !important;
+        }
+	</style>
+
+    <c:Lightning jsonParams="{casId:'{!Case.Id}'}" includeSpinner="false" componentName="c:MIIncidentBidCheck" appName="c:MIIncidentBidCheckApp" containerId="MIIncidentBidCheck" jsMethods="incidentClicked"/>
+</apex:page>

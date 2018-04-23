@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PreviewInHelpCenter__c</fullName>
+    <description>Formula field to link a content manager to an article preview in the public help center.</description>
+    <externalId>false</externalId>
+    <formula>HYPERLINK("/apex/hcpagermo?preview="&amp;X18DigitID__c,"Open Preview Window", "_blank")</formula>
+    <label>Preview in Help Center</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>ExternalId</columns>
+    <columns>DisplayUrl</columns>
+    <columns>Id</columns>
+    <columns>Account__c</columns>
+    <columns>Create_Time__c</columns>
+    <columns>Email__c</columns>
+    <columns>Email_Account__c</columns>
+    <columns>Email_ID__c</columns>
+    <columns>Template__c</columns>
+    <columns>Template_Name__c</columns>
+    <columns>Thumbtack_User_ID__c</columns>
+    <columns>PARTITIONTIME__c</columns>
+    <columns>user_pk_id__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Create_Time__c</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>All</label>
+</ListView>

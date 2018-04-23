@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ArticleFeedbackToday</fullName>
+    <columns>NAME</columns>
+    <columns>KBArticleTitle__c</columns>
+    <columns>KBArticleVersionId__c</columns>
+    <columns>CSATResponse__c</columns>
+    <columns>KBArticleImprovementReason__c</columns>
+    <columns>CSATComments__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>CSAT__c.KBArticleCSAT</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>01. Article Feedback: Today</label>
+    <sharedTo>
+        <group>ContentUser</group>
+    </sharedTo>
+</ListView>

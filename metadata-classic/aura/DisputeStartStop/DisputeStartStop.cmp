@@ -1,0 +1,122 @@
+<!--
+ - Copyright (c) 2018 Thumbtack. All rights reserved.
+
+   Version      Date          Author            Description
+   ========+============+=================+===============================================
+   1.0      2018-01-29   Mendel Guillaume       Created
+   ========+============+=================+===============================================
+ -->
+
+<aura:component description="DisputeStartStop" controller="DisputeStartStopController" >
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="disputeRecord" type="Dispute__c" access="private" />
+    <aura:attribute name="message" type="String" access="private" default="" />
+    <aura:attribute name="messageType" type="String" access="private" default="success" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="showModal" type="Boolean" default="false" access="private" />
+    <aura:attribute name="showCloseModal" type="Boolean" default="false" access="private" />
+    <aura:attribute name="newStatus" type="String" default="" access="private" />
+    <aura:attribute name="newStage" type="String" default="" access="private" />
+    <aura:attribute name="statuses" type="LightningInnerClass[]" default="" access="private" />
+    <aura:attribute name="stages" type="LightningInnerClass[]" default="" access="private" />
+    <aura:attribute name="statusMap" type="Map" access="private" />
+
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+
+    <aura:registerEvent name="QuickTipEvent" type="c:QuickTipEvent" />
+
+    <div>
+        <aura:if isTrue="{!v.showSpinner &amp;&amp; !v.showModal}">
+            <lightning:spinner variant="brand" alternativeText="Saving..." />
+        </aura:if>
+
+        <aura:if isTrue="{! !empty(v.message)}">
+            <div class="slds-notify_container">
+                <div class="{!'slds-notify slds-notify_toast slds-theme_' + v.messageType}" role="alert">
+                    <span class="slds-assistive-text">{!v.messageType}</span>
+                    <div class="slds-notify__content" style="width: 100%;">
+                        <div class="slds-grid">
+                            <div class="slds-size_5-of-6">
+                                <h2 class="slds-text-heading_small "><ui:outputRichText value="{!v.message}" /></h2>
+                            </div>
+                            <div class="slds-size_1-of-6 slds-text-align_right">
+                                <lightning:buttonIcon iconName="utility:close" alternativeText="Close" onclick="{!c.closeToastClick}" variant="bare-inverse" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!v.disputeRecord.Status__c != 'Under review' &amp;&amp; v.disputeRecord.Status__c != 'Closed'}">
+            <lightning:button name="Stop" label="Stop Dispute" variant="destructive" onclick="{!c.stopClick}" class="button-margin" />
+        </aura:if>
+        <aura:if isTrue="{!v.disputeRecord.Status__c == 'Under review' || v.disputeRecord.Status__c == 'Closed'}">
+            <lightning:button name="Restart" label="Restart Dispute" variant="brand" onclick="{!c.openModalClick}" class="button-margin"  />
+        </aura:if>
+        <aura:if isTrue="{!v.disputeRecord.Status__c != 'Closed'}">
+            <lightning:button name="Close" label="Close Dispute" variant="destructive" onclick="{!c.openCloseModalClick}" class="button-margin" />
+        </aura:if>
+
+        <aura:if isTrue="{!v.showModal}">
+            <section class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <aura:if isTrue="{!v.showSpinner}">
+                        <lightning:spinner variant="brand" alternativeText="Saving..." />
+                    </aura:if>
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close" variant="bare-inverse" class="slds-modal__close" size="large" onclick="{!c.closeModalClick}"/>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Restart Dispute</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <div class="slds-form slds-form_horizontal">
+                            <lightning:select name="status" aura:id="status" label="Status" value="{!v.newStatus}" required="true" onchange="{!c.onStatusChange}" messageWhenValueMissing="Required field">
+                                <option text="" value="" />
+                                <aura:iteration items="{!v.statuses}" var="s">
+                                    <option text="{!s.label}" value="{!s.value}" />
+                                </aura:iteration>
+                            </lightning:select>
+                            <lightning:select name="stage" aura:id="stage" label="Stage" value="{!v.newStage}" required="{!v.stages != null &amp;&amp; v.stages.length > 0}" messageWhenValueMissing="Required field" >
+                                <option text="" value="" />
+                                <aura:iteration items="{!v.stages}" var="s">
+                                    <option text="{!s.label}" value="{!s.value}" />
+                                </aura:iteration>
+                            </lightning:select>
+                        </div>
+                    </div>
+
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="Cancel" onclick="{!c.closeModalClick}" class="button-margin" />
+                        <lightning:button label="Restart" variant="brand" onclick="{!c.restartClick}" class="button-margin" />
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </aura:if>
+
+        <aura:if isTrue="{!v.showCloseModal}">
+            <section class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <aura:if isTrue="{!v.showSpinner}">
+                        <lightning:spinner variant="brand" alternativeText="Closing..." />
+                    </aura:if>
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close" variant="bare-inverse" class="slds-modal__close" size="large" onclick="{!c.closeCloseModalClick}"/>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Close Dispute</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <div class="slds-p-around_large slds-text-align_center">
+                            Are you sure?
+                        </div>
+                    </div>
+
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="Cancel" onclick="{!c.closeCloseModalClick}" class="button-margin" />
+                        <lightning:button label="Close" variant="brand" onclick="{!c.closeClick}" class="button-margin" />
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </aura:if>
+    </div>
+</aura:component>

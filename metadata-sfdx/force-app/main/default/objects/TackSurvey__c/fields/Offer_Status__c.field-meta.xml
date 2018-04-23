@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Offer_Status__c</fullName>
+    <description>Picklist of values to indicate the status of the survey offering.</description>
+    <externalId>false</externalId>
+    <label>Offer Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Pending</fullName>
+                <color>#0B6FCE</color>
+                <default>false</default>
+                <label>Pending</label>
+            </value>
+            <value>
+                <fullName>Offered</fullName>
+                <color>#33CC00</color>
+                <default>false</default>
+                <label>Offered</label>
+            </value>
+            <value>
+                <fullName>Responded</fullName>
+                <color>#FF9900</color>
+                <default>false</default>
+                <label>Responded</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

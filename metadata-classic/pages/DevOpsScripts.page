@@ -1,0 +1,113 @@
+<apex:page showHeader="true" standardStylesheets="false" sidebar="false">
+    <apex:includeScript value="/soap/ajax/39.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/39.0/apex.js"/>
+    <apex:includeScript value="https://code.jquery.com/jquery-3.1.1.min.js"/>
+    <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/jsforce/1.7.0/jsforce.min.js" />
+    <apex:form Style="
+                      background-color: white;
+                      width: 920px;
+                      margin: 0 auto;
+                      overflow: hidden;
+                      margin-left: auto;
+                      margin-right: auto;
+                      align:center;
+                      position: relative;
+                      color: #323335;
+                      line-height: 200%;
+                      vertical-align: middle;
+                      padding:  13px;">
+        <apex:pageBlock rendered="True" mode="detail">
+            <div style="padding-bottom: 20px;"><span style="cursor: pointer;color: mediumblue;" onclick="openDevConsole()">Open Developer Console</span> to view Anonymous Apex execution logs (prior to running scripts).</div>
+            <apex:pageBlockSection columns="2" collapsible="true" title="Post Sandbox Refresh Scripts">
+                <apex:commandButton value="Reset Sys Admin Email" onclick="resetEmailAddresses(); return false;"/>
+                Resets Active Sys Admin email addresses
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2" collapsible="true" title="One-Off Scripts">
+                <apex:commandButton value="Sync All PK with Becky" onclick="syncBecky(); return false;"/>
+                Syncs all Accounts with NULL PK ids with Becky
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+
+    <script type="text/javascript" >
+        sforce.connection.init( "{!$Api.session_id}", "/services/Soap/u/39.0" );
+        $soap = sforce.connection;
+        $jsf = new jsforce.Connection({ accessToken: sforce.connection.sessionId, "version":"39.0" });
+        $j = jQuery.noConflict();
+
+        function openDevConsole() {
+            consoleUrl$= "{!$Api.Enterprise_Server_URL_390}";
+            window.open(consoleUrl$.split("/services")[0] + "/_ui/common/apex/debug/ApexCSIPage",'Force.com Developer Console','width=1024,height=768');
+        }
+
+        function resetEmailAddresses() {
+            if( "{!$Organization.Id}".indexOf("00Di0000000dEJt") == -1 ) {
+                var whereStr = " AND ( NOT UserName LIKE 'salesforcesystemintegration@%' ) AND  " +
+                                "( NOT UserName LIKE 'eee@%' ) AND  " +
+                                "( NOT UserName LIKE 'tsl-sysadmins@%' ) AND  " +
+                                "( NOT UserName LIKE 'jbryant@%' ) AND  " +
+                                "( NOT UserName LIKE 'mpisupati@%' ) AND  " +
+                                "( NOT UserName LIKE 'cynnthia@%' ) AND  " +
+                                "( NOT UserName LIKE 'rlgc@%' ) " +
+                                " LIMIT 100";
+                var apexScript =
+                        " for( User[] users: [SELECT Id, Username, Email, ProfileId FROM User WHERE  Profile.Name IN ('System Administrator') AND isActive = true AND Email LIKE '%=thumbtack.com@example.com' " + whereStr + " ]){ "+
+                            " System.debug(LoggingLevel.FINEST, 'SYS ADMINS RESULTSET: ' +JSON.serialize(users)); "+
+                            " for(User u: users)  "+
+                            " {" +
+                            "    u.Email = u.Email.split('\=thumbtack\.com\@example\.com')[0] + '@thumbtack.com'; "+
+                            " } " +
+                            " System.debug(LoggingLevel.FINEST, 'MODIFIED SYS ADMINS: ' +JSON.serialize(users)); " +
+                            " System.debug(LoggingLevel.FINEST, 'USER UPDATE RESULTS: ' + JSON.serialize( (Database.update(users,false)) )); " +
+                        " }";
+                console.log( apexScript );
+                $jsf.tooling.executeAnonymous(apexScript, function (err, res) {
+                    if (err) {
+                        alert("Script failed to execute. " + err.message || err);
+                        return console.error(err);
+                    } else {
+                        if( res.compiled && res.success ) {
+                            alert("Script complete. Compiled: " + res.compiled + ".  Succeeded: " + res.success);
+                        } else {
+                            alert("Script failed. " + res.compileProblem || res.exceptionMessage );
+                        }
+                    }
+
+                    console.log("compiled?: " + (res.compiled ? !0 : "false, " + res.compileProblem)); // compiled successfully
+                    console.log("executed?: " + (res.success ? "true" : "false: " + res.exceptionMessage)); // executed successfully
+                });
+            }
+        }
+
+        function syncBecky() {
+            var query = $jsf.query("SELECT Id FROM Account WHERE user_pk_id__c = NULL OR usr_user_id__c = NULL ")
+            .on("record", function(record) {
+                var apexScript = "new BeckyTTUserSyncQueueable([SELECT Id,usr_email__c,usr_user_id__c,user_pk_id__c FROM Account WHERE Id = '"+record.Id+"' LIMIT 2000]).execute(NULL);";
+                $jsf.tooling.executeAnonymous(apexScript, function (err, res) {
+                    if (err) {
+                        return console.error(err);
+                    }
+                });
+            })
+            .on("end", function() {
+                console.log("total in database : " + query.totalSize);
+                console.log("total fetched : " + query.totalFetched);
+            })
+            .on("error", function(err) {
+                console.error(err);
+            })
+            .run({ autoFetch : true, maxFetch : 40000000 }); // synonym of Query#execute();
+        }
+
+        function doAnonymousApex(apexScript) {
+            responder = function(err, res) {
+                if (err) { return console.error(err); }
+                console.log("compiled?: " + (res.compiled?!0:"false, " + res.compileProblem)); // compiled successfully
+                console.log("executed?: " + (res.success?"true":"false: " + res.exceptionMessage)); // executed successfully
+            }
+
+            $jsf.tooling.executeAnonymous(apexScript, responder);
+        }
+
+    </script>
+</apex:page>

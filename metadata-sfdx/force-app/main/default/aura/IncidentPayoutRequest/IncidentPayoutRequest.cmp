@@ -1,0 +1,47 @@
+<!--
+/*******************************************************************************
+*                                                                              *
+*                                           ########                           *
+*                                            #####                             *
+*    Copyright (c) 2017 Thumbtack            ###                               *
+*       All rights reserved.                ###                                *
+*                                         #####                                *
+*                                      #########                               *
+*                                         #                                    *
+*                                        #                                     *
+*                                       #                                      *
+*                                      #                                       *
+*                                                                              *
+********************************************************************************
+Change List:
+
+Version      Date          Author            Description
+========+============+=================+================================================
+1.0      2017-08-16   Mendel Guillaume       Created
+========+============+=================+===============================================*/
+ -->
+
+<aura:component description="IncidentPayoutRequest">
+    <aura:attribute name="payoutRequest" access="public" type="MIIncidentAction__c" />
+    <aura:registerEvent name="IncidentOpenAction" type="c:IncidentOpenAction" />
+
+    <div class="slds-grid slds-text-color_weak slds-text-body_small slds-m-top_medium">
+        <div class="slds-size_1-of-2">
+                {!v.payoutRequest.LastModifiedBy.Name}
+        </div>
+        <div class="slds-size_1-of-2 slds-text-align_right">
+            <ui:outputDate value="{!v.payoutRequest.LastModifiedDate}" format="MMM d, yyyy h:mm a"/>
+        </div>
+    </div>
+    <div class="slds-grid">
+        <div class="slds-size_4-of-12">
+            <lightning:button onclick="{!c.requestClick}" label="{!v.payoutRequest.Status__c}" variant="base" />
+        </div>
+        <div class="slds-size_5-of-12">
+            {!v.payoutRequest.Type__c}
+        </div>
+        <div class="slds-size_3-of-12 slds-text-align_right">
+            <ui:outputCurrency value="{!v.payoutRequest.Amount__c}" />
+        </div>
+    </div>
+</aura:component>

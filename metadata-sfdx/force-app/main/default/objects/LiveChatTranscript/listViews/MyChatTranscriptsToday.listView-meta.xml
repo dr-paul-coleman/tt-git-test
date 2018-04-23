@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MyChatTranscriptsToday</fullName>
+    <columns>Name</columns>
+    <columns>Status</columns>
+    <columns>Case</columns>
+    <columns>StartTime</columns>
+    <columns>EndTime</columns>
+    <columns>ChatDuration</columns>
+    <columns>Body</columns>
+    <columns>Owner</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>LoggedinUserisOwner__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>CreatedDate</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>My Chat Transcripts - Today</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>CustomerSuccessOrganization</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,104 @@
+<!--
+ - Copyright (c) 2017 Thumbtack. All rights reserved.
+
+   Version      Date          Author            Description
+   ========+============+=================+===============================================
+   1.0      2018-01-10   Mendel Guillaume       Created
+   ========+============+=================+===============================================
+ -->
+
+<aura:component description="QuickTip" implements="force:hasRecordId" controller="QuickTipController">
+    <aura:attribute name="recordId" type="String" access="public"/>
+    <aura:attribute name="disputeRecord" type="Dispute__c" access="private" />
+    <aura:attribute name="initiatorSelected" type="Boolean" default="false" access="private" />
+    <aura:attribute name="responderSelected" type="Boolean" default="false" access="private" />
+    <aura:attribute name="selectedTipId" type="Id" access="private" />
+    <aura:attribute name="successTips" type="QuickTipController.DisputeContentWrapper[]" access="private" />
+    <aura:attribute name="disputeMessageRecord" type="DisputeMessage__c" access="private" default="{'sobjectType' : 'DisputeMessage__c'}" />
+    <aura:attribute name="initiatorUserId" type="Id" access="private" />
+    <aura:attribute name="warningMessage" type="String" default="" access="private" />
+    <aura:attribute name="message" type="String" access="private" default="" />
+    <aura:attribute name="messageType" type="String" access="private" default="success" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" access="private"/>
+
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+    <aura:handler name="change" value="{!v.selectedTipId}" action="{!c.handleTipChange}"/>
+
+    <aura:registerEvent name="QuickTipEvent" type="c:QuickTipEvent" />
+
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner variant="brand" />
+    </aura:if>
+
+    <aura:if isTrue="{! !empty(v.message)}">
+        <div class="slds-notify_container">
+            <div class="{!'slds-notify slds-notify_toast slds-theme_' + v.messageType}" role="alert">
+                <span class="slds-assistive-text">{!v.messageType}</span>
+                <div class="slds-notify__content" style="width: 100%;">
+                    <div class="slds-grid">
+                        <div class="slds-size_5-of-6">
+                            <h2 class="slds-text-heading_small "><ui:outputRichText value="{!v.message}" /></h2>
+                        </div>
+                        <div class="slds-size_1-of-6 slds-text-align_right">
+                            <lightning:buttonIcon iconName="utility:close" alternativeText="Close" onclick="{!c.closeToastClick}" variant="bare-inverse" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+
+    <div class="slds-grid">
+        <div class="slds-size--1-of-2">
+            <aura:if isTrue="{! !empty(v.warningMessage)}">
+                <div class="slds-text-color_error slds-text-heading_small">
+                    <lightning:formattedRichText value="{!v.warningMessage}" />
+                </div>
+            </aura:if>
+        </div>
+        <div class="slds-size--1-of-2 slds-text-align_right">
+            <c:DisputeStartStop recordId="{!v.recordId}" />
+        </div>
+    </div>
+
+    <hr style="margin: 1rem 0;"/>
+
+    <div class="slds-form_stacked">
+        <label class="slds-form-element__label">
+            <abbr class="slds-required" title="required" >*</abbr>Who should this tip be for?
+        </label>
+        <lightning:input type="checkbox" name="cbInitiator" label="{!'Initiator - ' + v.disputeRecord.InitiatorContact__r.Name}" checked="{!v.initiatorSelected}" />
+        <lightning:input type="checkbox" name="cbResponder" label="{!'Responder - ' + v.disputeRecord.ResponderContact__r.Name}" checked="{!v.responderSelected}" />
+
+        <div class="slds-form-element">
+            <div class="strike-select-container">
+                <!--c:strike_lookup label="Select a Success Tip" object="DisputeContent__c" searchField="Name" value="{!v.selectedTipId}" additionalSearchFields=""
+                                 placeholder="" iconName="standard:account" order="Name" subtitleField="Type__c"  limit="5"
+                                 filter="Status__c = 'Published' AND Type__c IN ('Automated tip', 'Manual tip') AND RecordType.Name = 'Content Template'" /-->
+
+                <c:strike_select value="{!v.selectedTipId}" label="Select a Success Tip:" placeholder="" searchable="true" >
+                    <aura:iteration var="t" items="{!v.successTips}">
+                        <c:strike_option label="{! (t.record.Type__c == 'Automated tip' ? '&lt;span&gt;&#9889;&lt;/span&gt; ' : ' ') + t.record.Name + ' - &lt;span class=\'slds-text-color_weak\' &gt;' + t.template + '&lt;/span&gt;'}"
+                            value="{!t.record.Id}" />
+                    </aura:iteration>
+                </c:strike_select>
+            </div>
+        </div>
+
+        <lightning:textarea value="{! v.disputeMessageRecord.Message__c}" label="" />
+
+    </div>
+    <div style="margin-top: 10px; position: absolute; bottom: 0px; background-color: #f5f6f6; width: 100%; padding: 10px 20px; ">
+        <div class="slds-grid">
+            <div class="slds-size--3-of-4 button-container-primary">
+                <aura:unescapedHtml value="{!v.disputeRecord.InternalLinkInitiator__c}" />
+                <aura:unescapedHtml value="{!v.disputeRecord.InternalLinkResponder__c}" />
+            </div>
+            <div class="slds-size--1-of-4 slds-text-align_right">
+                <aura:if isTrue="{!!empty(v.disputeMessageRecord.Message__c) &amp;&amp; (v.initiatorSelected || v.responderSelected) &amp;&amp; empty(v.warningMessage)}">
+                    <lightning:button name="sendTip" label="Send Tip" variant="success" onclick="{!c.sendTipClick}" />
+                </aura:if>
+            </div>
+        </div>
+    </div>
+</aura:component>

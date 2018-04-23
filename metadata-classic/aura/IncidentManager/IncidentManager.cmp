@@ -1,0 +1,151 @@
+<aura:component controller="IncidentManagerController" implements="force:hasRecordId">
+	<aura:attribute name="recordId" type="String" access="public"/>
+	<aura:attribute name="incident" type="MIIncident__c" access="private"/>
+	<aura:attribute name="proCase" type="Case" access="private"/>
+	<aura:attribute name="customerCase" type="Case" access="private"/>
+	<aura:attribute name="showNotes" type="Boolean" default="true" access="private"/>
+	<aura:attribute name="view" type="String" default="Notes" access="private" />
+	<aura:attribute name="subCategories" type="IncidentChargeCardManagerController.Option[]" access="private" />
+	<aura:attribute name="incidentProjData" type="becquerel_mi_incident_project_data__x"  access="private"  />
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:handler event="c:IncidentRefreshEvent" action="{!c.handleRefresh}" />
+
+	<aura:registerEvent name="OpenInPrimaryTab" type="c:OpenInPrimaryTab" />
+
+	<div class="manager-container">
+		<div class="slds-page-header">
+			<div class="slds-grid">
+				<div class="slds-size--1-of-2 slds-media">
+					<div class="slds-media__figure">
+						<img style="width: 32px;" src="{!$Resource.MIShieldIcon}" alt="" />
+					</div>
+					<div class="slds-media__body slds-align-middle">
+						<span class="slds-text-heading_medium">{!v.incident.IncidentNumber__c}</span>&nbsp;&nbsp;
+						<span class="slds-page-header__title" title="{!v.incident.Name}">{!v.incident.Name}</span>
+					</div>
+				</div>
+				<div class="slds-size--1-of-2 slds-text-align_right">
+					Last Modified By:&nbsp;{!v.incident.LastModifiedBy.Name},&nbsp;<ui:outputDate value="{!v.incident.LastModifiedDate}" class="slds-truncate" format="MMM d, yyyy h:mm a"/>
+					<br/>
+					<a href="javascript:void(0);" onclick="{!c.openClassicMIView}">Record Detail View</a>
+				</div>
+			</div>
+		</div>
+		<div class="slds-grid">
+			<div class="slds-size_1-of-3">
+				<!-- notes section -->
+				<div class="slds-p-around_large slds-border_bottom">
+					<div class="slds-m-bottom_small">
+						<lightning:buttonGroup >
+							<lightning:button aura:id="btnNotes" label="Notes" onclick="{!c.toggleShowNotes}" variant="brand"/>
+							<lightning:button aura:id="btnTasks" label="Tasks" onclick="{!c.toggleShowActions}" />
+							<lightning:buttonMenu aura:id="btnMenu" iconName="utility:down" alternativeText="More" onselect="{!c.handleActionSelect}" class="slds-button-border-right" >
+								<lightning:menuItem aura:id="miCharge" label="Charge Card Request" value="ChargeCardRequests" />
+								<lightning:menuItem aura:id="miPayout" label="Payout Request" value="PayoutRequests" />
+								<lightning:menuItem aura:id="miEscalate" label="Leadership Escalation" value="Escalation" />
+							</lightning:buttonMenu>
+						</lightning:buttonGroup>
+					</div>
+					<aura:if isTrue="{!v.view == 'Notes'}">
+						<c:IncidentNotesManager incidentId="{!v.recordId}"/>
+					</aura:if>
+					<aura:if isTrue="{!v.view == 'Actions'}">
+						<c:IncidentActionManager incidentId="{!v.recordId}"/>
+					</aura:if>
+					<aura:if isTrue="{!v.view == 'ChargeCardRequests'}">
+						<c:IncidentChargeCardManager incidentId="{!v.recordId}" proAccountName="{!v.incident.ProAccount__r.Name}" />
+					</aura:if>
+					<aura:if isTrue="{!v.view == 'PayoutRequests'}">
+						<c:IncidentPayoutRequestManager incidentId="{!v.recordId}" custAccountName="{!v.incident.CustomerAccount__r.Name}" />
+					</aura:if>
+					<aura:if isTrue="{!v.view == 'Escalation'}">
+						<c:IncidentEscalation incidentId="{!v.recordId}" incident="{!v.incident}" />
+					</aura:if>
+				</div>
+				<!-- Arbitration -->
+				<div class="slds-p-around_large slds-border_bottom">
+					<c:Accordion title="Arbitration">
+						<c:IncidentArbitration incidentId="{!v.recordId}"/>
+					</c:Accordion>
+				</div>
+				<!-- Arbitration -->
+				<div class="slds-p-around_large slds-border_bottom">
+					<c:Accordion title="Cases">
+						<div class="slds-scrollable_x">
+							<c:IncidentCases incidentId="{!v.recordId}"/>
+						</div>
+					</c:Accordion>
+				</div>
+				<!-- file manager section -->
+				<div class="slds-p-around_large slds-border_bottom">
+					<c:Accordion title="File Manager">
+						<c:IncidentFileManager incidentId="{!v.recordId}"/>
+					</c:Accordion>
+				</div>
+				<!-- Guarantee section -->
+				<div class="slds-p-around_large slds-border_bottom">
+					<c:Accordion title="Guarantees">
+						<c:IncidentGuarantee incidentId="{!v.recordId}"/>
+					</c:Accordion>
+				</div>
+				<!-- risk factors section -->
+				<div class="slds-p-around_large slds-border_bottom">
+					<c:Accordion title="Incident Factors">
+						<c:IncidentFactors incidentId="{!v.recordId}"/>
+					</c:Accordion>
+				</div>
+
+				<div class="slds-p-around_large slds-border_bottom">
+					<c:Accordion title="Solution Center">
+						<c:Dispute incidentId="{!v.recordId}" />
+					</c:Accordion>
+				</div>
+
+			</div>
+			<div class="slds-size_2-of-3 slds-border_left">
+				<!-- tabs -->
+				<div class="slds-p-horizontal_large">
+					<lightning:tabset >
+						<lightning:tab label="MI Incident">
+							<c:IncidentDetailsSection incident="{!v.incident}" subCategories="{!v.subCategories}" />
+							<div class="slds-p-around_medium slds-border_bottom">
+								<c:Accordion title="Feed" isOpen="true">
+									<c:IncidentFeed incidentId="{!v.recordId}" incident="{!v.incident}" />
+								</c:Accordion>
+							</div>
+						</lightning:tab>
+						<lightning:tab label="Project" >
+							<c:IncidentProjectSection incident="{!v.incident}" />
+						</lightning:tab>
+						<lightning:tab label="Customer">
+							<aura:set attribute="label">
+								Customer - {!v.incident.CustomerContact__r.Name}
+							</aura:set>
+							<c:IncidentCustomerSection incident="{!v.incident}" primaryCase="{!v.customerCase}" incidentProjData="{!v.incidentProjData}"/>
+							<div class="slds-p-around_medium slds-border_bottom">
+								<c:Accordion title="Feed" isOpen="true">
+									<c:IncidentFeed incidentId="{!v.recordId}" contactId="{!v.incident.CustomerContact__c}" tabName="Customer" incident="{!v.incident}" />
+								</c:Accordion>
+							</div>
+						</lightning:tab>
+						<lightning:tab label="Pro">
+							<aura:set attribute="label">
+								Pro - {!v.incident.ProContact__r.Name}
+							</aura:set>
+							<c:IncidentProSection incident="{!v.incident}" primaryCase="{!v.proCase}" incidentProjData="{!v.incidentProjData}"/>
+							<div class="slds-p-around_medium slds-border_bottom">
+								<c:Accordion title="Feed" isOpen="true">
+									<c:IncidentFeed incidentId="{!v.recordId}" contactId="{!v.incident.ProContact__c}" tabName="Pro" incident="{!v.incident}" />
+								</c:Accordion>
+							</div>
+						</lightning:tab>
+						<lightning:tab label="Quick Case">
+							<c:IncidentQuickCaseSection incident="{!v.incident}" />
+						</lightning:tab>
+					</lightning:tabset>
+				</div>
+			</div>
+		</div>
+	</div>
+</aura:component>

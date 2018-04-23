@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TPHIBEXQAs</fullName>
+    <columns>CREATED_DATE</columns>
+    <columns>TotalScorePercentage__c</columns>
+    <columns>NAME</columns>
+    <columns>EvaluationType__c</columns>
+    <columns>Performedby__c</columns>
+    <columns>Agent__c</columns>
+    <columns>Case__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Team__c</field>
+        <operation>equals</operation>
+        <value>TPH IBEX</value>
+    </filters>
+    <label>TPH IBEX QAs</label>
+    <sharedTo>
+        <role>CSManagingUserTPH</role>
+        <role>SharedServicesUserTPH</role>
+    </sharedTo>
+</ListView>

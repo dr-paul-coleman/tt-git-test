@@ -1,0 +1,80 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+================================================
+  1.0      2017-10-24   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+-->
+
+<aura:component description="CategorizationCategoriesList" controller="CategorizationCategoriesListController">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="categories" type="CategorizationCategoriesListController.CategoryWrapper[]" />
+    <aura:attribute name="allowSubmit" type="Boolean" default="false" />
+    <aura:attribute name="message" type="String" access="public" />
+    <aura:attribute name="messageType" type="String" access="private" default="success" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="showSentiment" type="Boolean" default="true" />
+    <aura:attribute name="primarySubcategory" type="String" default="" />
+    <aura:attribute name="primaryCategory" type="String" default="" />
+    <aura:attribute name="showPrimary" type="Boolean" default="true" />
+    <aura:attribute name="showFeedbackToggle" type="Boolean" default="true" />
+    <aura:attribute name="showOrigin" type="Boolean" default="false" />
+    <aura:attribute name="origins" type="CategorizationCategoriesListController.Option[]" access="private" />
+
+    <aura:handler name="init" action="{!c.doInit}" value="this" />
+    <aura:handler event="c:CategorizationEvent" action="{!c.handleCategorizationEvent}" />
+
+    <aura:registerEvent name="CategorizationEvent" type="c:CategorizationEvent" />
+
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner aura:id="mySpinner" variant="brand" size="large"></lightning:spinner>
+    </aura:if>
+
+    <div style="max-height: 225px; overflow: auto;" >
+        <table class="slds-table slds-table_bordered" style="border: 2px solid #ccc; border-radius: 4px;">
+            <thead>
+                <tr>
+                    <aura:if isTrue="{!v.showPrimary}">
+                        <th scope="col" style="width: 10%;">
+                            Primary
+                        </th>
+                    </aura:if>
+                    <th scope="col" style="width: 13%;">
+                        Category
+                    </th>
+                    <th scope="col" style="width: 14%;">
+                        Subcategory
+                    </th>
+                    <aura:if isTrue="{!v.showSentiment}">
+                        <th scope="col" style="width: 10%;" class="slds-text-align_center">
+                            Sentiment
+                        </th>
+                    </aura:if>
+                    <th style="" scope="col" class="slds-text-align_center">
+                        Outcome/Feedback
+                    </th>
+                    <aura:if isTrue="{!v.showFeedbackToggle}">
+                        <th scope="col" style="width: 10%;">
+                            Product<br/>Feedback
+                        </th>
+                    </aura:if>
+                    <aura:if isTrue="{!v.showOrigin}">
+                        <th scope="col" style="width: 13%;">
+                            Origin
+                        </th>
+                    </aura:if>
+                    <th scope="col" style="width: 3%;">
+                        &nbsp;
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.categories}" var="cat" indexVar="index">
+                    <c:CategorizationCategoryItem cw="{!cat}" index="{!index}" allowSubmit="{!v.allowSubmit}" showSentiment="{!v.showSentiment}"
+                                  showPrimary="{!v.showPrimary}" showFeedbackToggle="{!v.showFeedbackToggle}" showOrigin="{!v.showOrigin}" origins="{!v.origins}" />
+                </aura:iteration>
+            </tbody>
+        </table>
+    </div>
+</aura:component>

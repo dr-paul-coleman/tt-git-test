@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BitlyRequiredForPKB</fullName>
+    <active>false</active>
+    <description>Require bit.ly before adding to PKB channel.</description>
+    <errorConditionFormula>ISBLANK(BitlyLink__c)&amp;&amp; 
+IsVisibleInPkb = True</errorConditionFormula>
+    <errorMessage>A bit.ly link is required before making this article visible in the public knowledge base.</errorMessage>
+</ValidationRule>

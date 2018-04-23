@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Enrollments_Sold_by_Me</fullName>
+    <columns>NAME</columns>
+    <columns>PriorityFromAnalytics__c</columns>
+    <columns>OutreachAttempts__c</columns>
+    <columns>enrollment_id__c</columns>
+    <columns>Account__c</columns>
+    <columns>FunnelStep__c</columns>
+    <columns>user_id__c</columns>
+    <columns>rca_name__c</columns>
+    <columns>zip_cbsa_name__c</columns>
+    <columns>Assignedto__c</columns>
+    <columns>AssignedtoDate__c</columns>
+    <columns>SoldBy__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>SoldbyMe__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Enrollments Sold by Me</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+        <roleAndSubordinatesInternal>SAM_Frontline_User</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>SAM_Managing_User</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

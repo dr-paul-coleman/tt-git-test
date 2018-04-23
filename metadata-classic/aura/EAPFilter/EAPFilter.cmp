@@ -1,0 +1,150 @@
+<aura:component controller="EAPFilterController">
+	<aura:attribute name="outreachTypeOptions" type="List" access="private"/>
+	<aura:attribute name="selectedOutreachTypes" type="List" access="private"/>
+	<aura:attribute name="outreachGroupOptions" type="List" access="private"/>
+	<aura:attribute name="selectedOutreachGroups" type="List" access="private"/>
+	<aura:attribute name="requestCategoryOptions" type="List" access="private"/>
+	<aura:attribute name="requestCategorySearchOptions" type="List" access="private"/>
+	<aura:attribute name="selectedCategories" type="List" access="private"/>
+	<aura:attribute name="funnelStepOptions" type="List" access="private"/>
+	<aura:attribute name="selectedFunnelSteps" type="List" access="private"/>
+	<aura:attribute name="requestCategorySearchText" type="String" access="private"/>
+	<aura:attribute name="showRequestCategorySearchOptions" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="shouldFilterFromUser" type="Boolean" default="true" access="private"/>
+	<aura:attribute name="numberOfListsPopulated" type="Integer" default="0" access="private"/>
+	<aura:attribute name="userFilter" type="Object" access="private"/>
+	<aura:attribute name="showCategorySpinner" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="buttonLabel" type="String" default="Save Changes" access="public"/>
+	<aura:attribute name="userIds" type="String[]" access="public"/>
+	<aura:attribute name="allowBlankUserIds" type="Boolean" default="true" access="public"/>
+	<!-- Added by MP - Begin -->
+    <aura:attribute name="unselectButton" type="String" default="Clear Column" access="public"/> 
+    <aura:attribute name="unselectAll" type="String" default="Clear all" access="public"/>
+   	<!-- Added by MP - End -->
+	<aura:attribute name="user" type="User" access="private" />
+
+    
+	<!-- Commented by MP - Notes on js component
+	<ltng:require scripts="{!join(',', $Resource.jquery, $Resource.underscore)}" afterScriptsLoaded="{!c.handleAfterScriptsLoaded}"/>
+ 	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/> -->
+     
+    <ltng:require scripts="{!join(',', $Resource.jquery, $Resource.underscore)}" afterScriptsLoaded="{!c.doInit}"/>
+    
+	<aura:handler name="change" value="{!v.userIds}" action="{!c.handleUserIdsChange}"/>
+	<aura:handler name="EAPFilterSelected" event="c:EAPFilterSelected" action="{!c.handleEAPFilterSelected}"/>
+
+	<aura:registerEvent name="EAPFilterSaved" type="c:EAPFilterSaved"/>
+
+	<div class="slds-grid">
+		<div class="slds-col">            
+			<div class="slds-picklist slds-is-open outreach-type-picklist slds-clearfix">
+                    <lightning:input label="Outreach Types" type="search"/>
+				<div class="slds-dropdown slds-dropdown--left slds-dropdown--length-10 slds-is-static" role="listbox">
+					<ul class="slds-dropdown__list slds-has-dividers--top" role="group">
+						<aura:iteration items="{!v.outreachTypeOptions}" var="option">
+							<span class="rerender-fix-span"></span>
+							<c:EnrollAProFilterOption option="{!option}"/>
+							<span></span>
+						</aura:iteration>
+					</ul>
+				</div>
+            </div>
+            <div class="button-common button-align-OT">
+                <lightning:button label="{!v.unselectButton}" onclick="{!c.unselectOT}"/>
+            </div>
+		</div>
+
+		<aura:if isTrue="{!v.user.Profile.Name != '*Account Manager'}">
+			<div class="slds-col">
+				<div class="slds-picklist slds-is-open category-picklist slds-clearfix">
+					<lightning:input label="Request Categories" type="search" value="{!v.requestCategorySearchText}" onchange="{!c.handleRequestCategorySearchTextChanged}"/>
+					<div aura:id="categoryDropdownBox" class="slds-dropdown slds-dropdown--left slds-dropdown--length-10 slds-is-static dropdownRC" role="listbox">
+						<aura:if isTrue="{!v.showRequestCategorySearchOptions}">
+							<ul class="slds-dropdown__list slds-has-dividers--top" role="group">
+								<aura:iteration items="{!v.selectedCategories}" var="option">
+									<span class="rerender-fix-span"></span>
+									<c:EnrollAProFilterOption option="{!option}"/>
+									<span></span>
+								</aura:iteration>
+								<aura:iteration items="{!v.requestCategorySearchOptions}" var="option">
+									<span class="rerender-fix-span"></span>
+									<c:EnrollAProFilterOption option="{!option}" alwaysShow="false"/>
+									<span></span>
+								</aura:iteration>
+							</ul>
+							<aura:set attribute="else">
+								<ul aura:id="categoryDropdownList" class="slds-dropdown__list slds-has-dividers--top" role="group">
+									<aura:iteration items="{!v.selectedCategories}" var="option">
+										<span class="rerender-fix-span"></span>
+										<c:EnrollAProFilterOption option="{!option}"/>
+										<span></span>
+									</aura:iteration>
+									<aura:iteration items="{!v.requestCategoryOptions}" var="option">
+										<span class="rerender-fix-span"></span>
+										<c:EnrollAProFilterOption option="{!option}" alwaysShow="false"/>
+										<span></span>
+									</aura:iteration>
+									<span class="rerender-fix-span"></span>
+									<aura:if isTrue="{!v.showCategorySpinner}">
+										<li class="slds-item slds-is-relative" role="presentation">
+											<span class="slds-lookup__item-action slds-lookup__item-action--label slds-p-top--x-large" role="option">
+												<lightning:spinner size="small" variant="brand"/>
+											</span>
+										</li>
+									</aura:if>
+									<span></span>
+								</ul>
+							</aura:set>
+						</aura:if>
+					</div>
+				</div>
+                <div class="button-common button-align-RC">
+                    <lightning:button label="{!v.unselectButton}" onclick="{!c.unselectRC}"/>
+                </div>
+			</div>
+		</aura:if>
+
+		<div class="slds-col">
+			<div class="slds-picklist slds-is-open funnel-step-picklist slds-clearfix">
+				<lightning:input label="Funnel Steps" type="search"/>
+				<div class="slds-dropdown slds-dropdown--left slds-dropdown--length-10 slds-is-static dropdownFS" role="listbox">
+					<ul class="slds-dropdown__list slds-has-dividers--top" role="group">
+						<aura:iteration items="{!v.funnelStepOptions}" var="option">
+							<span class="rerender-fix-span"></span>
+							<c:EnrollAProFilterOption option="{!option}"/>
+							<span></span>
+						</aura:iteration>
+					</ul>
+				</div>
+			</div>
+            <div class="button-common button-align-FS">
+                <lightning:button label="{!v.unselectButton}" onclick="{!c.unselectFS}"/>
+            </div>
+		</div>
+		<div class="slds-col">
+			<div class="slds-picklist slds-is-open outreach-type-picklist slds-clearfix">
+				<lightning:input label="Outreach Groups" type="search"/>
+				<div class="slds-dropdown slds-dropdown--left slds-dropdown--length-10 slds-is-static dropdownOG" role="listbox">
+					<ul class="slds-dropdown__list slds-has-dividers--top" role="group">
+						<aura:iteration items="{!v.outreachGroupOptions}" var="option">
+							<span class="rerender-fix-span"></span>
+							<c:EnrollAProFilterOption option="{!option}"/>
+							<span></span>
+						</aura:iteration>
+					</ul>
+				</div>
+			</div>
+ 			<div class="button-common button-align-OG">
+                <lightning:button label="{!v.unselectButton}" onclick="{!c.unselectOG}"/> 
+            </div>  
+		</div>
+		<div class="slds-col">
+            <div class="button-clearall">
+                <lightning:button label="{!v.buttonLabel}" class="slds-m-top--medium" onclick="{!c.saveChanges}"/>
+            </div>    
+            <div class="button-clearall">
+                <lightning:button label="{!v.unselectAll}" class="slds-m-top--medium" onclick="{!c.unselectAllFilters}"/>
+            </div>
+        </div>
+	</div>
+</aura:component>

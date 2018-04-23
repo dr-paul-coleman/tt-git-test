@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MyUntouchedIncidents</fullName>
+    <columns>IncidentNumber__c</columns>
+    <columns>NAME</columns>
+    <columns>MICategory__c</columns>
+    <columns>Priority__c</columns>
+    <columns>LastActionStatus__c</columns>
+    <columns>NextFollowupDate__c</columns>
+    <columns>NextFollowupTask__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Closed</value>
+    </filters>
+    <filters>
+        <field>LAST_UPDATE</field>
+        <operation>lessOrEqual</operation>
+        <value>N_DAYS_AGO:7</value>
+    </filters>
+    <label>B4: My Untouched Incidents</label>
+    <sharedTo>
+        <role>CustomerSuccessOrganization</role>
+        <role>SharedServicesUserTSL</role>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

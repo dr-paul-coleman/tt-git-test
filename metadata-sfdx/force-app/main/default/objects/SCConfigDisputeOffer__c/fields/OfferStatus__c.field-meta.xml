@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OfferStatus__c</fullName>
+    <externalId>false</externalId>
+    <label>Offer Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Open</fullName>
+                <default>true</default>
+                <label>Open</label>
+            </value>
+            <value>
+                <fullName>Closed/Countered</fullName>
+                <default>false</default>
+                <label>Closed/Countered</label>
+            </value>
+            <value>
+                <fullName>Closed/Accepted</fullName>
+                <default>false</default>
+                <label>Closed/Accepted</label>
+            </value>
+            <value>
+                <fullName>Closed/Expired</fullName>
+                <default>false</default>
+                <label>Closed/Expired</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

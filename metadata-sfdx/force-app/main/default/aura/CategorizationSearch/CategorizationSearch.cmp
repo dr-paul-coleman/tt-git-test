@@ -1,0 +1,55 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+================================================
+  1.0      2017-10-25   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+-->
+
+<aura:component description="CategorizationSearch" controller="CategorizationSearchController" >
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="searchValue" type="String" />
+    <aura:attribute name="categories" type="CategorizationDefinition__c[]" />
+    <aura:attribute name="showResults"  type="Boolean" default="false"/>
+    <aura:attribute name="showSearching" type="Boolean" default="false"/>
+    <aura:attribute name="showNoResults"  type="Boolean" default="false"/>
+
+    <aura:registerEvent name="CategorizationEvent" type="c:CategorizationEvent" />
+
+    <div>
+        <div class="search-container">
+            <lightning:input label="Search for Category or Subcategory" name="searchTxt" type="search"
+                             value="{!v.searchValue}" onchange="{!c.onSearchChange}" onfocus="{!c.onSearchFocus}" onblur="{!c.onSearchBlur}" />
+
+            <aura:if isTrue="{!v.showResults}">
+                <div class="search-results-container">
+                    <aura:if isTrue="{!v.showSearching}">
+                        <div>
+                            Searching...
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.showNoResults}">
+                        <div>
+                            No results...
+                        </div>
+                    </aura:if>
+                    <ul>
+                        <aura:iteration items="{!v.categories}" var="cat">
+                            <li class="search-results-item">
+                                <div data-value="{!cat.Key__c}" data-name="{!cat.ParentCategory__r.Key__c}" onclick="{!c.onItemClick}">
+                                    <div class="slds-text-heading_small">
+                                        {!cat.Name}
+                                    </div>
+                                    <div class="slds-text-body_small slds-text-color_weak">
+                                        {!cat.ParentCategory__r.Name}
+                                    </div>
+                                </div>
+                            </li>
+                        </aura:iteration>
+                    </ul>
+                </div>
+            </aura:if>
+        </div>
+    </div>
+</aura:component>

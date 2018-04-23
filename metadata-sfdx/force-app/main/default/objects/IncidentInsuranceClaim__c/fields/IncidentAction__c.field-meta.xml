@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IncidentAction__c</fullName>
+    <description>Lookup to the Incident Action that represents the guarantee review.</description>
+    <externalId>false</externalId>
+    <label>Incident Action</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>MIIncidentAction__c.RecordType.Name</field>
+            <operation>equals</operation>
+            <value>Guarantee</value>
+        </filterItems>
+        <isOptional>true</isOptional>
+    </lookupFilter>
+    <referenceTo>MIIncidentAction__c</referenceTo>
+    <relationshipName>IncidentInsuranceInvoices</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

@@ -1,0 +1,12 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+================================================
+  1.0      2017-12-06   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+-->
+
+<aura:event type="APPLICATION" description="ParentCasePostFeedEvent">
+    <aura:attribute name="action" type="String" />
+</aura:event>

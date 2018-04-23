@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BugReportPreviousStatus__c</fullName>
+    <description>The previous status that the bug report was in prior to the status change.</description>
+    <externalId>false</externalId>
+    <label>Bug Report Previous Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New</fullName>
+                <default>false</default>
+                <label>New</label>
+            </value>
+            <value>
+                <fullName>Viewed</fullName>
+                <default>false</default>
+                <label>Viewed</label>
+            </value>
+            <value>
+                <fullName>Pending Agent</fullName>
+                <default>false</default>
+                <label>Pending Agent</label>
+            </value>
+            <value>
+                <fullName>Pending Bugs Team</fullName>
+                <default>false</default>
+                <label>Pending Bugs Team</label>
+            </value>
+            <value>
+                <fullName>Pending Aztec</fullName>
+                <default>false</default>
+                <label>Pending Aztec</label>
+            </value>
+            <value>
+                <fullName>Completed - Pending New Bug</fullName>
+                <default>false</default>
+                <label>Completed - Pending New Bug</label>
+            </value>
+            <value>
+                <fullName>Closed</fullName>
+                <default>false</default>
+                <label>Closed</label>
+            </value>
+            <value>
+                <fullName>Reopened</fullName>
+                <default>false</default>
+                <label>Reopened</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

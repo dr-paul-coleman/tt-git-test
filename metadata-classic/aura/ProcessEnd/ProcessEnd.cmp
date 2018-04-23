@@ -1,0 +1,12 @@
+<aura:component >
+	<aura:attribute name="isComplete" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="endStep" type="String" access="public"/>
+	<aura:attribute name="currentStep" type="String" access="public"/>
+	<aura:attribute name="initialStep" type="String" access="private"/>
+	<aura:attribute name="alreadyCompleted" type="Boolean" default="false" access="private"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:handler name="change" value="{!v.currentStep}" action="{!c.handleStepChange}"/>
+
+	<lightning:icon iconName="utility:check" class="{!'slds-path__mark-complete slds-no-flex slds-m-horizontal--small slds-align-middle slds-p-around--x-small check ' + if(v.isComplete, 'check-complete', 'check-incomplete')}"/>
+</aura:component>

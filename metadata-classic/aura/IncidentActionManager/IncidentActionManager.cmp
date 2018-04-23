@@ -1,0 +1,54 @@
+<aura:component controller="IncidentActionController">
+	<aura:attribute name="incidentId" type="String" access="public"/>
+	<aura:attribute name="dueDate" type="String" access="private"/>
+	<aura:attribute name="dueDay" type="Integer" access="private"/>
+	<aura:attribute name="dueMonth" type="Integer" access="private"/>
+	<aura:attribute name="dueYear" type="Integer" access="private"/>
+	<aura:attribute name="showDatepicker" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="showDueDateError" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="notes" type="String" access="private"/>
+	<aura:attribute name="incidentActions" type="MIIncidentAction__c[]" access="private"/>
+	<aura:attribute name="statusFilter" type="String" default="Open" access="private"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:handler event="c:DateSelected" action="{!c.handleDateSelected}"/>
+	<aura:handler name="IncidentActionModified" event="c:IncidentActionModified" action="{!c.handleIncidentActionModified}"/>
+
+    <aura:registerEvent name="refreshIncident" type="c:IncidentRefreshEvent" /> 
+
+	<div class="slds-form_compound slds-m-top_small">
+		<div class="slds-form-element__group">
+			<div class="slds-form-element__row">
+				<div class="{!'slds-form-element slds-size_1-of-2' + if(v.showDueDateError, ' slds-has-error', '')}">
+					<label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Action Date</label>
+					<div class="slds-form-element__control"> <!-- onclick="{!c.toggleDatepicker}"-->
+						<!--input type="text" id="due-date-picker" class="slds-input" disabled="disabled" value="{!v.dueDate}"/-->
+                        <ui:inputDate displayDatePicker="true" class="slds-input" value="{!v.dueDate}"  />
+					</div>
+					<aura:if isTrue="{!v.showDueDateError}">
+						<div class="slds-form-element__help">This field is required</div>
+					</aura:if>
+					<!--aura:if isTrue="{!v.showDatepicker}">
+						<c:Datepicker month="{!v.dueMonth}" year="{!v.dueYear}" selectedMonth="{!v.dueMonth}" selectedDay="{!v.dueDay}" selectedYear="{!v.dueYear}"/>
+					</aura:if-->
+				</div>
+				<lightning:input type="text" label="Action Needed" value="{!v.notes}" class="slds-size_1-of-2"/>
+			</div>
+		</div>
+	</div>
+	<div class="slds-m-top_x-small slds-text-align_left">
+		<lightning:button label="Set Action" variant="brand" onclick="{!c.createAction}"/>
+	</div>
+	<div class="slds-m-top_medium">
+		<lightning:select value="{!v.statusFilter}" label="Status Filter" onchange="{!c.handleStatusFilterChange}">
+			<option value="">All</option>
+			<option value="Open">Open Actions</option>
+			<option value="Completed">Completed Actions</option>
+		</lightning:select>
+		<div id="action-list">
+			<aura:iteration items="{!v.incidentActions}" var="incidentAction">
+				<c:IncidentAction incidentAction="{!incidentAction}"/>
+			</aura:iteration>
+		</div>
+	</div>
+</aura:component>

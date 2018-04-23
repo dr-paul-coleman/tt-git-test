@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TackSurveyIcon__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(TackSurveyResponse__c, 
+"Good", IMAGE("https://thumbtack.my.salesforce.com/resource/1433431612000/CSATGood", "good", 20, 20) , 
+"Bad", IMAGE( "https://thumbtack.my.salesforce.com/resource/1433431629000/CSATBad","bad", 20, 20), 
+"1", IMAGE( "https://thumbtack.my.salesforce.com/resource/1438378558000/CSAT1","1", 20, 20), 
+"2", IMAGE( "https://thumbtack.my.salesforce.com/resource/1438378642000/CSAT2","2", 20, 20), 
+"3", IMAGE( "https://thumbtack.my.salesforce.com/resource/1438378691000/CSAT3","3", 20, 20), 
+"4", IMAGE( "https://thumbtack.my.salesforce.com/resource/1438378728000/CSAT4","4", 20, 20), 
+"5", IMAGE( "https://thumbtack.my.salesforce.com/resource/1438378776000/CSAT5","5", 20, 20), 
+"Yes", IMAGE("https://thumbtack.my.salesforce.com/resource/1438378558000/CSAT5", "Yes", 20, 20) , 
+"No", IMAGE( "https://thumbtack.my.salesforce.com/resource/1438378776000/CSAT1","No", 20, 20), 
+"")</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Tack Survey Icon</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

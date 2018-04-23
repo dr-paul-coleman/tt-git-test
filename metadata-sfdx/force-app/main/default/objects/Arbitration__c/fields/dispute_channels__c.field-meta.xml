@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>dispute_channels__c</fullName>
+    <externalId>false</externalId>
+    <label>Dispute Channels</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>arbitration_with_chat</fullName>
+                <default>false</default>
+                <label>arbitration_with_chat</label>
+            </value>
+            <value>
+                <fullName>chat_only</fullName>
+                <default>false</default>
+                <label>chat_only</label>
+            </value>
+            <value>
+                <fullName>arbitration_only</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>arbitration_only</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

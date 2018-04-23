@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>InstantMatchSignupSource__c</fullName>
+    <description>How did you first learn about Thumbtack Instant Match?</description>
+    <externalId>false</externalId>
+    <label>Instant Match Signup Source</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>An email from Thumbtack</fullName>
+                <default>false</default>
+                <label>An email from Thumbtack</label>
+            </value>
+            <value>
+                <fullName>A notification in the Thumbtack app or online</fullName>
+                <default>false</default>
+                <label>A notification in the Thumbtack app or online</label>
+            </value>
+            <value>
+                <fullName>A phone call from Thumbtack</fullName>
+                <default>false</default>
+                <label>A phone call from Thumbtack</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

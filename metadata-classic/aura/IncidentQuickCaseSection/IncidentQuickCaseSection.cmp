@@ -1,0 +1,76 @@
+<!--
+/*******************************************************************************
+*                                                                              *
+*                                           ########                           *
+*                                            #####                             *
+*    Copyright (c) 2017 Thumbtack            ###                               *
+*       All rights reserved.                ###                                *
+*                                         #####                                *
+*                                      #########                               *
+*                                         #                                    *
+*                                        #                                     *
+*                                       #                                      *
+*                                      #                                       *
+*                                                                              *
+********************************************************************************
+Change List:
+
+Version      Date          Author            Description
+========+============+=================+================================================
+1.0      2017-08-31   Mendel Guillaume       Created
+========+============+=================+===============================================*/
+ -->
+
+<aura:component description="IncidentQuickCaseSection" controller="IncidentSectionsController">
+    <aura:attribute access="public" type="MIIncident__c" name="incident" default="{ 'sobjectType': 'MIIncident__c' }" />
+    <aura:attribute name="quickCase" type="Case" access="public" default="{ 'sobjectType': 'Case' }" />
+
+    <aura:attribute name="message" type="String" access="public" />
+    <aura:attribute name="messageType" type="String" access="public" default="success" />
+    <aura:attribute name="showEmailComposer" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="buttonOptions" type="IncidentChargeCardManagerController.Option[]" />
+
+    <aura:registerEvent name="IncidentRefreshCasesEvent" type="c:IncidentRefreshCasesEvent" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="incident-container slds-p-bottom_large">
+        <div class="slds-grid">
+            <div class="slds-size--1-of-1">
+                <div class="slds-text-heading_small">Quick Case</div>
+            </div>
+        </div>
+        <aura:if isTrue="{! v.message != null}">
+            <div class="slds-notify_container">
+                <div class="{!'slds-notify slds-notify_toast slds-theme_' + v.messageType}" role="alert">
+                    <span class="slds-assistive-text">{!v.messageType}</span>
+                    <div class="slds-notify__content" style="width: 100%;">
+                        <div class="slds-grid">
+                            <div class="slds-size_5-of-6">
+                                <h2 class="slds-text-heading_small ">{!v.message}</h2>
+                            </div>
+                            <div class="slds-size_1-of-6 slds-text-align_right">
+                                <lightning:buttonIcon iconName="utility:close" alternativeText="Close" onclick="{!c.closeToastClick}" variant="bare-inverse" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+        <aura:if isTrue="{!v.showEmailComposer}">
+            <div class="slds-m-top_small">
+                <div class="slds-text-align_right slds-p-vertical_small">
+                    <lightning:buttonIcon iconName="utility:close" variant="bare" size="large" onclick="{!c.hideEmail}"/>
+                </div>
+                <c:IncidentEmail primaryCase="{!v.quickCase}"  />
+            </div>
+            <aura:set attribute="else">
+                <div class="slds-m-top_small">
+                    <aura:iteration items="{!v.buttonOptions}" var="bo">
+                        <lightning:button label="{!bo.label}" onclick="{!c.createCaseClick}" variant="brand" value="{!bo.value}" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </aura:iteration>
+                </div>
+            </aura:set>
+        </aura:if>
+    </div>
+</aura:component>

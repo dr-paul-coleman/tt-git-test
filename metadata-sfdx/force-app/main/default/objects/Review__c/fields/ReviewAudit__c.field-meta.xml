@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReviewAudit__c</fullName>
+    <externalId>false</externalId>
+    <label>Review Audit</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Warn and Flag</fullName>
+                <default>false</default>
+                <label>Warn and Flag</label>
+            </value>
+            <value>
+                <fullName>No Action Needed</fullName>
+                <default>false</default>
+                <label>No Action Needed</label>
+            </value>
+            <value>
+                <fullName>Immediate MI Action Needed</fullName>
+                <default>false</default>
+                <label>Immediate MI Action Needed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

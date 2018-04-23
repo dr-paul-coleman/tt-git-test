@@ -1,0 +1,159 @@
+<apex:page standardController="Case" showHeader="false" standardStylesheets="true" docType="html-5.0" sidebar="false" ><apex:includeScript value="https://code.jquery.com/jquery-2.1.4.min.js"/><apex:stylesheet value="{!URLFOR($Resource.extjs510107Zip, 'build/packages/ext-theme-crisp/build/resources/ext-theme-crisp-all_01.css')}"/>
+<style type="text/css">
+    body {
+        margin: 5px;
+        padding: 5px;
+    }
+    .FlowPageBlockBtns .FlowNextBtn {color:#F27802;text-align:center;}
+    .FlowPageBlockBtns .FlowPreviousBtn {color:#F27802;text-align:center;}
+    .FlowText{font-face: Tahoma; text-align:left; }
+    .FlowRadio{font-face: Tahoma; text-align:left; }
+    .FlowDropdown{font-face: Tahoma; text-align:left; }
+    .FlowTextArea{font-face: Tahoma; text-align:left; }
+    .tt-back-button,.btn.FlowNextBtn,input.btn.FlowPreviousBtn{
+        background: none !important;
+        margin-right: 5px;
+        margin-left: 5px;
+        min-height: 35px;
+        font-weight: 300 !important;
+        color: white !important;
+        font-size: 11.5px !important;
+        min-width: 90px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        -ms-border-radius: 3px;
+        -o-border-radius: 3px;
+        border-radius: 3px;
+        padding: 3px 5px 3px 5px;
+        border-width: 1px;
+        border-style: solid;
+        background-color: #3892d3 !important;
+        border-color: #157fcc !important;
+    }
+    .tt-title-div{
+        font-size: 15.3px !important;
+        color: #F27802 !important;
+        margin: auto !important;
+        max-width: 150px;
+    }
+    .tt-back-div{
+        min-height: 35px;
+    }
+    #tt-finish-button{
+        padding-top: 4px;
+        padding-right: 3px;
+        padding-bottom: 4px;
+        padding-left: 3px;      
+        min-width: 80px;
+    }
+    body,  .bPageBlock, body .bPageBlock .pbBody,.secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock{
+       background-color: white !important;
+    }  
+
+    body .bPageBlock .pbBody .labelCol, .bPageBlock .pbBody .interviewDisplayTextRow, body td  
+    { 
+       background-color: white ;    
+       font-size: 11.5px;
+       font-family: 'Arial';
+       font-color: #323232 
+       margin-left: 15px
+       }
+     
+
+    .bPageBlock .pbBody .interviewDisplayTextRow {
+       font-size: 11.5px ;
+       color:#323232 ;
+       font-family: 'Arial';
+       margin-left: 15px ;
+    } 
+    select, input
+    {
+       font-size: 11.5px ;
+       font-family: 'Arial' ;
+       padding-left: 1px;
+       margin-bottom: 1px;
+    }
+    div.caseBlock div.bPageBlock.brandSecondaryBrd.apexDefaultPageBlock.secondaryPalette, div.pbBottomButtons,td.interviewFormHeaderCell {
+        border: 1px solid white !important;
+    }
+    td.labelCol {
+        width: 20% !important;
+    }
+    table.detailList tr td.dataCol.last.col02 {
+        width: 100%;
+    }
+    table.detailList tr td.labelCol.last.empty {
+        width: 1px !important;
+    }
+    td.dataCol.col02 input[type=text],td.dataCol.col02 input[type=radio]{
+        min-width: 150px;
+        margin-bottom: 6.5px !important;
+        min-height: 18px;
+    }
+    div.requiredInput select{
+        min-height: 18px;
+        min-width: 206px;
+        margin-bottom: 6px !important;
+    }
+    .apexp .bPageBlock.apexDefaultPageBlock .pbBody {
+        margin: 7px 12px 1px !important;
+    }
+    body .bEditBlock .pbBottomButtons, body .apexp .bPageBlock.apexDefaultPageBlock .pbBottomButtons {
+        margin-top: 0px !important;
+    }
+</style>
+
+<div id="tt-flow-div">
+<div class="tt-back-div" style="display:none;"><button type="button" class="tt-back-button x-abs-layout-item x-btn-default-small x-btn-inner x-btn-inner-default-small" style="background:none;">&lt;&lt; Back to Transfer Case</button></div>
+
+<flow:interview name="MTSTransferFlow" buttonLocation="bottom">
+    <apex:param name="CaseId" value="{!case.id}"/>
+    <apex:param name="CaseOwnerId" value="{!case.owner.id}"/>
+    <apex:param name="PreviousCaseOwnerName" value="{!case.owner.name}"/>
+    <apex:param name="PreviousCaseOwnerTeam" value="{!case.Team__c}"/>
+</flow:interview>
+
+</div>
+
+<script>
+    var _case = {Id: "{!Case.Id}"};
+    _case.CaseNumber = "{!Case.CaseNumber}";
+
+    $j = jQuery.noConflict();
+    var retURL = decodeURIComponent("{!$CurrentPage.parameters.retURL}");
+    retURL += ((""===retURL)? "/apex/CaseTransfer?id={!Case.Id}":"")+"&ts="+new Date().getTime();
+    if(0!==retURL.length) {
+        $j(".tt-back-div").show();
+        $j(".tt-back-button").click(function(){
+            location.replace(retURL);
+        });
+    }
+
+    var checkForFinish = function(){
+        var selector = "input.btn[type=submit][value=Finish]";
+        if( 1===$j(selector).length ) {
+            var btn = $j(selector)[0];
+            var td = $j(btn).parent();
+            $j(btn).remove();
+            $j(td).html("<button id='tt-finish-button' type='button' class='btn FlowNextBtn'>Update</button>");
+            $j("#tt-finish-button").click(function(){
+                try{Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload :{feed:true}})}catch(e){};
+                $j(".tt-back-button").click();
+            });
+        } else {
+            setTimeout(function(){
+                checkForFinish();
+            },100);         
+        }       
+    }
+    setTimeout(function(){
+        checkForFinish();
+    },100);
+
+    Sfdc.onReady(function() {
+        checkForFinish();
+        try{Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload :{feed:true}})}catch(e){};
+    });             
+</script>
+<script src="/canvas/sdk/js/publisher.js"></script>
+</apex:page>

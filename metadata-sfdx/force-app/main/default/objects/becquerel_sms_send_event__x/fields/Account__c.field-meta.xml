@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account__c</fullName>
+    <externalDeveloperName>Thumbtack_User_ID</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Account</label>
+    <length>50</length>
+    <referenceTargetField>Account.usr_user_id__c</referenceTargetField>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>SMS Send Event</relationshipLabel>
+    <relationshipName>becquerel_sms_send_event</relationshipName>
+    <type>IndirectLookup</type>
+</CustomField>

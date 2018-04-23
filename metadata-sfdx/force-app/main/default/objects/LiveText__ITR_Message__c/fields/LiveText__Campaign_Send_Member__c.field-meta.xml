@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LiveText__Campaign_Send_Member__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Lookup to the Campaign Send Member.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Lookup to the Campaign Send Member.</inlineHelpText>
+    <label>Campaign Send Member</label>
+    <referenceTo>LiveText__Campaign_Send_Member__c</referenceTo>
+    <relationshipLabel>ITR Messages</relationshipLabel>
+    <relationshipName>ITR_Messages</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

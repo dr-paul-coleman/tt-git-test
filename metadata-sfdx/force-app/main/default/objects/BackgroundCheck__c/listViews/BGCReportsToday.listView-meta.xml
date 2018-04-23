@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BGCReportsToday</fullName>
+    <columns>NAME</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>CandidateId__c</columns>
+    <columns>CandidateName__c</columns>
+    <columns>Account__c</columns>
+    <columns>Contact__c</columns>
+    <columns>ReportId__c</columns>
+    <columns>BackgroundCheckComplete__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>AdverseItems__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>BackgroundCheck__c.Checkr</value>
+    </filters>
+    <filters>
+        <field>BackgroundCheckComplete__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>LAST_UPDATE</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>BGC - Reports Today</label>
+    <sharedTo>
+        <group>MarketplaceIntegrityRestricted</group>
+    </sharedTo>
+</ListView>

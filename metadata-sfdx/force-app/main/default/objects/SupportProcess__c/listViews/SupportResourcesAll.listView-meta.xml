@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SupportResourcesAll</fullName>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>SupportResourceType__c</columns>
+    <columns>DateObserved__c</columns>
+    <columns>Case__c</columns>
+    <columns>Assignee__c</columns>
+    <columns>ReportingAgent__c</columns>
+    <columns>InternalNotes__c</columns>
+    <columns>CreatedDateTime__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>SupportProcess__c.SupportResource</value>
+    </filters>
+    <label>SR - Support Resources - All</label>
+    <sharedTo>
+        <group>MasteryCertifiedSpecialist</group>
+        <role>LabsFrontLineUser</role>
+        <role>SharedServicesUserTPH</role>
+        <role>SharedServicesUserTSL</role>
+    </sharedTo>
+</ListView>

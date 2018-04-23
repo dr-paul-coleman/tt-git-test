@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hidden</fullName>
+    <columns>NAME</columns>
+    <columns>Title__c</columns>
+    <columns>Status__c</columns>
+    <columns>Type__c</columns>
+    <columns>Icon__c</columns>
+    <columns>PhoneNumber__c</columns>
+    <columns>AvailableOnDesktop__c</columns>
+    <columns>AvailableOnMobile__c</columns>
+    <columns>ResponseTime__c</columns>
+    <columns>Unavailable__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HCConfigChannel__c.ContactChannel</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Hidden</value>
+    </filters>
+    <label>05: Hidden</label>
+    <sharedTo>
+        <group>ContentUser</group>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

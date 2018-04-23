@@ -1,0 +1,52 @@
+<aura:component >
+	<aura:attribute name="enrollment" type="Enrollment__c" access="public"/>
+	<aura:attribute name="myUser" type="User" access="public"/>
+	<aura:attribute name="funnelStep" type="String" default="Ready" access="private"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:handler event="c:EnrollmentModified" action="{!c.handleEnrollmentModified}"/>
+
+	<aura:registerEvent name="EnrollmentTabSelected" type="c:EnrollmentTabSelected"/>
+	<span class="{!if(or(!v.enrollment.Market__r.EnrollAProEnabled__c, !v.enrollment.Market__r.RequestCategory__r.EnrollAProEnabled__c), 'inactive-enrollment-tab', '')}">
+		<lightning:tab id="{!v.enrollment.Id}" onactive="{!c.handleActiveTab}">
+			<aura:set attribute="label">
+				<div style="padding-bottom: 10px;">
+					<aura:if isTrue="{or(!v.enrollment.outreach_type__c != 'managed_account', !v.enrollment.outreach_type__c != 'pro_onboarding', !v.enrollment.outreach_type__c != 'lead_acquisition', !v.enrollment.outreach_type__c != 'pro_success', !v.enrollment.outreach_type__c != 'pro_engagement')}">
+						{!v.enrollment.Market__r.RequestCategory__r.outreach_type__c}
+						<aura:set attribute="else">
+							{!v.enrollment.outreach_type__c}
+						</aura:set>
+					</aura:if>
+					<span class="slds-col--bump-left slds-p-left--xx-small slds-p-right--none">
+						<aura:if isTrue="{!empty(v.enrollment.UnsuccessfulReason__c)}">
+							<span class="slds-badge">{!v.funnelStep}</span>
+							<aura:set attribute="else">
+								<span class="slds-badge unsuccessful">Unsuccessful</span>
+							</aura:set>
+						</aura:if>
+					</span>
+				</div>
+				<div class="slds-grid">
+					<aura:if isTrue="{!or(!v.enrollment.outreach_type__c != 'managed_account', !v.enrollment.outreach_type__c != 'lead_acquisition', !v.enrollment.outreach_type__c != 'pro_success', !v.enrollment.outreach_type__c != 'pro_engagement' )}">
+						<div class="slds-size--5-of-6">
+							<div class="tab-subtext slds-truncate">{!v.enrollment.Market__r.rca_name__c}</div>
+							<div class="tab-subtext slds-p-bottom--small slds-truncate">{!v.enrollment.Market__r.zip_cbsa_name__c}</div>
+						</div>
+					</aura:if>
+					<div class="slds-size--1-of-6">
+						<aura:if isTrue="{!!empty(v.enrollment.LeadMigratedFrom__c)}">
+							<lightning:icon iconName="action:clone" size="xx-small" class="slds-m-left--xx-small migrated-icon"/>
+							<div class="popover-container">
+								<div class="slds-popover slds-nubbin--bottom" role="dialog">
+									<div class="slds-popover__body slds-text-align--center">
+										<p>Migrated from lead</p>
+									</div>
+								</div>
+							</div>
+						</aura:if>
+					</div>
+				</div>
+			</aura:set>
+		</lightning:tab>
+	</span>
+</aura:component>

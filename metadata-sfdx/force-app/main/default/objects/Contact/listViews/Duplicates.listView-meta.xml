@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Duplicates</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CONTACT.EMAIL</columns>
+    <columns>CONTACT.RECORDTYPE</columns>
+    <columns>EmailRouting__c</columns>
+    <columns>LastNameIsEmailAddress__c</columns>
+    <columns>CONTACT.CREATED_DATE</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>CREATEDBY_USER.ALIAS</columns>
+    <columns>ContactOrigin__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CONTACT.EMAIL</field>
+        <operation>equals</operation>
+        <value>billondrums@yahoo.com</value>
+    </filters>
+    <label>Duplicates</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

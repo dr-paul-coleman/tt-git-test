@@ -1,0 +1,41 @@
+<aura:component >
+	<aura:attribute name="record" type="Object" access="public"/>
+	<aura:attribute name="fieldLabel" type="String" access="public"/>
+	<aura:attribute name="fieldName" type="String" access="public"/>
+	<aura:attribute name="dataType" type="String" access="public"/>
+	<aura:attribute name="columnIndex" type="Integer" access="public"/>
+	<aura:attribute name="fieldValue" type="Object" access="private"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+	<aura:if isTrue="{!equals(v.columnIndex, 0)}">
+		<th scope="row" data-label="{!v.fieldLabel}">
+			<aura:if isTrue="{!equals(v.dataType, 'datetime')}">
+				<div class="slds-truncate" title="{!v.fieldValue}"><ui:outputDateTime value="{!v.fieldValue}"/></div>
+				<aura:set attribute="else">
+					<aura:if isTrue="{!equals(v.dataType, 'date')}">
+						<div class="slds-truncate" title="{!v.fieldValue}"><ui:outputDate value="{!v.fieldValue}"/></div>
+						<aura:set attribute="else">
+							<div class="slds-truncate" title="{!v.fieldValue}">{!v.fieldValue}</div>
+						</aura:set>
+					</aura:if>
+				</aura:set>
+			</aura:if>
+		</th>
+		<aura:set attribute="else">
+			<td data-label="{!v.fieldLabel}">
+				<aura:if isTrue="{!equals(v.dataType, 'datetime')}">
+					<div class="slds-truncate" title="{!v.fieldValue}"><ui:outputDateTime value="{!v.fieldValue}"/></div>
+					<aura:set attribute="else">
+						<aura:if isTrue="{!equals(v.dataType, 'date')}">
+							<div class="slds-truncate" title="{!v.fieldValue}"><ui:outputDate value="{!v.fieldValue}"/></div>
+							<aura:set attribute="else">
+								<div class="slds-truncate" title="{!v.fieldValue}">{!v.fieldValue}</div>
+							</aura:set>
+						</aura:if>
+					</aura:set>
+				</aura:if>
+			</td>
+		</aura:set>
+	</aura:if>
+</aura:component>

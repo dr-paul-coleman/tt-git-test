@@ -1,0 +1,25 @@
+<apex:page standardcontroller="Dispute__c" showHeader="false" sidebar="false" standardStylesheets="false">
+<style>
+{
+background-color:#F4F6F9;
+div.left { text-align: left; }
+div.right { text-align: right;}
+}
+</style>
+
+<apex:pageBlock id="New">
+<apex:pageBlockSection >
+<div style ="margin-left:11px;text-align:left">
+      <font face ="Tahoma" color="#59698D" size="3"> 
+      <h3>Placeholder for a lightning component to quickly search for and add a pre-defined or manually created Thumbtack Tip to the dispute...</h3>
+      
+
+     </font>  
+  </div>
+  
+  </apex:PageBlockSection>
+  </apex:PageBlock>
+  
+
+
+</apex:page>

@@ -1,0 +1,185 @@
+<!--
+ /*******************************************************************************
+*                                                                              *
+*                                           ########                           *
+*                                            #####                             *
+*    Copyright (c) 2017 Thumbtack            ###                               *
+*       All rights reserved.                ###                                *
+*                                         #####                                *
+*                                      #########                               *
+*                                         #                                    *
+*                                        #                                     *
+*                                       #                                      *
+*                                      #                                       *
+*                                                                              *
+********************************************************************************
+Change List:
+
+Version      Date          Author            Description
+========+============+=================+================================================
+1.0      2017-08-28   Mendel Guillaume       Created
+========+============+=================+===============================================*/
+ -->
+
+<aura:component description="IncidentCases" controller="IncidentCasesController">
+    <aura:attribute name="incidentId" type="String" access="public" />
+    <aura:attribute name="records" type="Case[]" access="private" />
+    <aura:attribute name="showModal" type="Boolean" default="false" />
+    <aura:attribute name="editCase" type="Case" />
+    <aura:attribute name="agentOrQueue" type="String" default="Queue" />
+    <aura:attribute name="queues" type="Group[]" />
+    <aura:attribute name="selectedQueueId" type="Id" />
+    <aura:attribute name="selectedUserId" type="Id" />
+    <aura:attribute name="message" type="String" access="private" />
+    <aura:attribute name="messageType" type="String" access="private" default="success" />
+    <aura:attribute name="showDetachModal" type="Boolean" default="false" />
+
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+    <aura:handler event="c:IncidentRefreshCasesEvent" action="{!c.doInit}"/>
+
+    <aura:registerEvent name="IncidentOpenAction" type="c:IncidentOpenAction" />
+
+    <aura:if isTrue="{! v.message != null}">
+        <div class="slds-notify_container">
+            <div class="{!'slds-notify slds-notify_toast slds-theme_' + v.messageType}" role="alert">
+                <span class="slds-assistive-text">{!v.messageType}</span>
+                <div class="slds-notify__content" style="width: 100%;">
+                    <div class="slds-grid">
+                        <div class="slds-size_5-of-6">
+                            <h2 class="slds-text-heading_small ">{!v.message}</h2>
+                        </div>
+                        <div class="slds-size_1-of-6 slds-text-align_right">
+                            <lightning:buttonIcon iconName="utility:close" alternativeText="Close" onclick="{!c.closeToastClick}" variant="bare-inverse" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <thead>
+        <tr class="slds-text-title_caps">
+            <th>Actions</th>
+            <th scope="col">
+                Case Number
+            </th>
+            <th scope="col">
+                Account
+            </th>
+            <th scope="col">
+                Status
+            </th>
+            <th scope="col">
+                Owner
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <aura:iteration var="r" items="{!v.records}">
+            <tr>
+                <td>
+                    <span aura:id="{!r.Id}" class="span-icon-container" onclick="{!c.editClick}" data-name="{!r.CaseNumber}" data-value="{!r.Id}" title="Quick Edit">
+                        <lightning:icon iconName="utility:edit" alternativeText="Quick Edit" size="x-small" />
+                    </span>
+                    &nbsp;
+                    <span aura:id="{!r.Id}" class="span-icon-container span-detach" onclick="{!c.detachClick}" data-name="{!r.CaseNumber}" data-value="{!r.Id}" title="Detach Case">
+                        <lightning:icon iconName="utility:close" alternativeText="Detach" size="x-small" />
+                    </span>
+                </td>
+                <td>
+                    <span aura:id="{!r.Id}" class="span-link" onclick="{!c.viewClick}" data-name="{!r.CaseNumber}" data-value="{!r.Id}">{!r.CaseNumber}</span>
+                    <aura:if isTrue="{!r.MICasePrimaryCustomer__c}">
+                        &nbsp;<span class="slds-text-color_weak slds-text-body_small">(C)</span>
+                    </aura:if>
+                    <aura:if isTrue="{!r.MICasePrimaryPro__c}">
+                        &nbsp;<span class="slds-text-color_weak slds-text-body_small">(P)</span>
+                    </aura:if>
+                </td>
+                <td>
+                    {!r.Account.Name}
+                </td>
+                <td>
+                    {!r.Status}
+                </td>
+                <td>
+                    {!r.Owner.Name}
+                </td>
+            </tr>
+        </aura:iteration>
+        </tbody>
+    </table>
+
+    <aura:if isTrue="{!v.showModal}">
+        <section class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close" variant="bare-inverse" class="slds-modal__close" size="large" onclick="{!c.cancelClick}"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Quick Edit: Case Number {!v.editCase.CaseNumber}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_large modal-height">
+                    <div class="slds-grid slds-grid_pull-padded-small">
+                        <div class="slds-size_1-of-2" style="margin-right: 5px;">
+                            <lightning:select name="assignedTo" label="Assigned To" value="{!v.agentOrQueue}" >
+                                <option value="Agent">Agent</option>
+                                <option value="Queue">Queue</option>
+                            </lightning:select>
+                        </div>
+                        <div class="slds-size_1-of-2" style="margin-left: 5px;">
+                            <aura:if isTrue="{!v.agentOrQueue == 'Queue'}">
+                                <lightning:select name="queueLst" label="&nbsp;" value="{!v.selectedQueueId}" >
+                                    <option value=""></option>
+                                    <aura:iteration items="{!v.queues}" var="q">
+                                        <option value="{!q.Id}" text="{!q.Name}"></option>
+                                    </aura:iteration>
+                                </lightning:select>
+                                <aura:set attribute="else">
+                                    <c:strike_lookup label="&nbsp;" object="User" searchField="Name" value="{!v.selectedUserId}" additionalSearchFields="UserRole.Name"
+                                         placeholder="Select a user" iconName="standard:user" order="Name" subtitleField="UserRole.Name" limit="5"
+                                         filter="IsActive = true AND Profile.UserLicense.LicenseDefinitionKey = 'SFDC'" />
+                                </aura:set>
+                            </aura:if>
+
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-grid_pull-padded-small slds-p-top_small">
+                        <div class="slds-size--1-of-1">
+                            <div class="slds-form_stacked">
+                                <lightning:select name="priority" aura:id="Status" label="Status" value="{!v.editCase.Status}">
+                                    <option text="New" value="New" />
+                                    <option text="Pending Customer" value="Pending Customer" />
+                                    <option text="Pending Thumbtack" value="Pending Thumbtack" />
+                                    <option text="Closed" value="Closed" />
+                                </lightning:select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="Cancel" onclick="{!c.cancelClick}"/>
+                    <lightning:button label="Save" variant="brand" onclick="{!c.saveClick}" />
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.showDetachModal}">
+        <section class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close" variant="bare-inverse" class="slds-modal__close" size="large" onclick="{!c.cancelDetachClick}"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Detach: Case Number {!v.editCase.CaseNumber}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_large modal-height">
+                    Are you sure you want to detach Case Number {!v.editCase.CaseNumber} from this incident?
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="Cancel" onclick="{!c.cancelDetachClick}"/>
+                    <lightning:button label="Confirm" variant="brand" onclick="{!c.confirmClick}" />
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

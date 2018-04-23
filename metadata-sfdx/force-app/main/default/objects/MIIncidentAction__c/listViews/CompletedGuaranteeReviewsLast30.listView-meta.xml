@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CompletedGuaranteeReviewsLast30</fullName>
+    <columns>NAME</columns>
+    <columns>Type__c</columns>
+    <columns>Notes__c</columns>
+    <columns>MIIncidentNumber__c</columns>
+    <columns>MIIncident__c</columns>
+    <columns>Status__c</columns>
+    <columns>Amount__c</columns>
+    <columns>EligibilityFactors__c</columns>
+    <columns>PDGEligibility__c</columns>
+    <columns>AdjusterStatus__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>CREATEDBY_USER.ALIAS</columns>
+    <columns>CompletedBy__c</columns>
+    <columns>CompletedOn__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>MIIncidentAction__c.Guarantee</value>
+    </filters>
+    <filters>
+        <field>CompletedOn__c</field>
+        <operation>equals</operation>
+        <value>LAST_N_DAYS:30</value>
+    </filters>
+    <label>F3: Completed Guarantee Reviews-Last 30</label>
+    <sharedTo>
+        <role>CustomerSuccessOrganization</role>
+        <role>SystemLevelAccess</role>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AssignedApp__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <label>Assigned App</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Incident Manager</fullName>
+                <default>true</default>
+                <label>Incident Manager</label>
+            </value>
+            <value>
+                <fullName>Customer Support</fullName>
+                <default>false</default>
+                <label>Customer Support</label>
+            </value>
+            <value>
+                <fullName>WorkItem</fullName>
+                <default>false</default>
+                <label>WorkItem</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

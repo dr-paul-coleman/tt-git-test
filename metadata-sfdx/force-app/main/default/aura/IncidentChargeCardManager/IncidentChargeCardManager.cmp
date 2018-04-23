@@ -1,0 +1,81 @@
+<!--
+/*******************************************************************************
+*                                                                              *
+*                                           ########                           *
+*                                            #####                             *
+*    Copyright (c) 2017 Thumbtack            ###                               *
+*       All rights reserved.                ###                                *
+*                                         #####                                *
+*                                      #########                               *
+*                                         #                                    *
+*                                        #                                     *
+*                                       #                                      *
+*                                      #                                       *
+*                                                                              *
+********************************************************************************
+Change List:
+
+Version      Date          Author            Description
+========+============+=================+================================================
+1.0      2017-08-15   Mendel Guillaume       Created
+========+============+=================+===============================================*/
+ -->
+
+<aura:component description="IncidentChargeCardManager" controller="IncidentChargeCardManagerController">
+    <aura:attribute name="incidentId" type="Id" access="public" />
+    <aura:attribute name="proAccountName" type="String" access="public" />
+
+    <aura:attribute name="ccRequest" type="MIIncidentAction__c" access="private" default="{'sobjectType' : 'MIIncidentAction__c', 'Amount__c' : '', 'Last4ofCard__c' : '', 'Notes__c' : '', 'Status__c' : 'Open', 'TransactionID__c' : ''}" />
+    <aura:attribute name="statuses" type="IncidentChargeCardManagerController.Option[]" />
+    <aura:attribute name="allRequests" type="MIIncidentAction__c[]" access="private" />
+    <aura:attribute name="showMore" type="Boolean" access="private" />
+    <aura:attribute name="showMoreList" type="Boolean" access="private" />
+
+
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+
+    <div class="slds-grid">
+        <div class="slds-size_1-of-2">
+            <div class="slds-form slds-form_stacked" style="padding-right: 5px;">
+                <!--lightning:input name="transId" aura:id="transId" label="Transaction ID" type="text" value="{!v.ccRequest.TransactionID__c}" /-->
+                <lightning:input name="amount" aura:id="amount" label="Amount" type="text" value="{!v.ccRequest.Amount__c}" required="true" messageWhenPatternMismatch="Invalid amount" pattern="^\d+(\.\d{1,2})?$" messageWhenValueMissing="Required field" />
+            </div>
+        </div>
+        <div class="slds-size_1-of-2">
+            <div class="slds-form slds-form_stacked" style="padding-left: 5px;">
+                <!--lightning:input name="last4" aura:id="last4" label="Last 4 of Card" type="text" value="{!v.ccRequest.Last4ofCard__c}" required="true" messageWhenValueMissing="Required field" messageWhenPatternMismatch="Invalid input" pattern="^\d{4}"  /-->
+                <lightning:select name="status" aura:id="status" label="Status" value="{!v.ccRequest.Status__c}">
+                    <aura:iteration items="{!v.statuses}" var="s">
+                        <option text="{!s.label}" value="{!s.value}" />
+                    </aura:iteration>
+                </lightning:select>
+            </div>
+        </div>
+    </div>
+    <div class="slds-grid">
+        <div class="slds-size_1-of-1">
+            <div class="slds-form slds-form_stacked" style="margin-top: 0.5rem;">
+                <lightning:textarea name="notes" aura:id="notes" label="Notes" value="{!v.ccRequest.Notes__c}" />
+            </div>
+        </div>
+    </div>
+    <div class="slds-text-align_left" style="padding-top: 5px;">
+        <lightning:button label="Submit" variant="brand" onclick="{!c.submitClick}" />
+    </div>
+
+    <aura:iteration items="{!v.allRequests}" var="r" start="0" end="2">
+        <c:IncidentChargeCard ccRequest="{!r}" />
+    </aura:iteration>
+
+    <aura:if isTrue="{!v.showMoreList}">
+        <aura:iteration items="{!v.allRequests}" var="r" start="2">
+            <c:IncidentChargeCard ccRequest="{!r}" />
+        </aura:iteration>
+    </aura:if>
+
+    <aura:if isTrue="{! !empty(v.allRequests) &amp;&amp; v.allRequests.length > 2}">
+        <div class="slds-m-top_medium slds-text-align_left">
+            <lightning:button label="{!if(v.showMoreList, 'Show Less', 'Show More')}" variant="base" onclick="{!c.toggleMoreList}" />
+        </div>
+    </aura:if>
+</aura:component>

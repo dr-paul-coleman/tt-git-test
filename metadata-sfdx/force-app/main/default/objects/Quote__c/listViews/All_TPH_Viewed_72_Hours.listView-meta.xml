@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_TPH_Viewed_72_Hours</fullName>
+    <columns>QuotingServiceStatus__c</columns>
+    <columns>NAME</columns>
+    <columns>Customer__c</columns>
+    <columns>Service__c</columns>
+    <columns>AdminLinkQuote__c</columns>
+    <columns>DayssinceLastStatusChange__c</columns>
+    <columns>DaysuntilRequestedEvent__c</columns>
+    <columns>LastCommunicationDate__c</columns>
+    <columns>LastCommunicationSubject__c</columns>
+    <columns>Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Quote__c.QuotingServiceRecordType</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Viewed</value>
+    </filters>
+    <filters>
+        <field>LastCommunicationDate__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>LAST_N_DAYS:3</value>
+    </filters>
+    <label>All TPH Viewed 72 Hours</label>
+    <sharedTo>
+        <role>LabsFrontLineUser</role>
+        <role>LabsManagingUser</role>
+        <role>ProServicesFrontLineUser</role>
+        <role>ProServicesManaging_User</role>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

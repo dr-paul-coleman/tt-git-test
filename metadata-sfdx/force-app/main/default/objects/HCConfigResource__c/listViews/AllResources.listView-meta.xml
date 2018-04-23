@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllResources</fullName>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>Title__c</columns>
+    <columns>Icon__c</columns>
+    <columns>Summary__c</columns>
+    <columns>URL__c</columns>
+    <columns>LinkText__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HCConfigResource__c.ResourceCard</value>
+    </filters>
+    <label>01: All Resources</label>
+    <sharedTo>
+        <group>ContentUser</group>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

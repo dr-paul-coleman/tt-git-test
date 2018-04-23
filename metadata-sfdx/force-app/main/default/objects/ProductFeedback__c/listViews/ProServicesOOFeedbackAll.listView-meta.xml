@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProServicesOOFeedbackAll</fullName>
+    <columns>NAME</columns>
+    <columns>CommunicationType__c</columns>
+    <columns>ServiceCategory__c</columns>
+    <columns>Lead__c</columns>
+    <columns>OutreachProOutlook__c</columns>
+    <columns>PostProOutlook__c</columns>
+    <columns>SubmittingAgent__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>CreatedDateTime__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>ProductFeedback__c.ProServicesFeedback</value>
+    </filters>
+    <label>Pro Services O&amp;O Feedback - All</label>
+    <sharedTo>
+        <role>ProServicesManaging_User</role>
+        <roleAndSubordinatesInternal>SharedServicesUserTPH</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>SharedServicesUserTSL</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

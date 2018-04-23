@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Enrollment__c</columns>
+        <columns>Outcome__c</columns>
+        <columns>outreach_type__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>CreatedToday</fullName>
+        <columns>NAME</columns>
+        <columns>AccountName__c</columns>
+        <columns>CompletedBy__c</columns>
+        <columns>CompletedOn__c</columns>
+        <columns>Details__c</columns>
+        <columns>Outcome__c</columns>
+        <columns>OutreachDisposition__c</columns>
+        <columns>OutreachAttempts__c</columns>
+        <columns>OutreachContacted__c</columns>
+        <columns>OutreachGroup__c</columns>
+        <columns>outreach_type__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>TODAY</value>
+        </filters>
+        <label>x - Created Today</label>
+        <sharedTo>
+            <role>SystemLevelAccess</role>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Mass_Update</fullName>
+        <columns>CREATEDBY_USER</columns>
+        <columns>NAME</columns>
+        <columns>Enrollment__c</columns>
+        <columns>EventLogOldFieldValue__c</columns>
+        <columns>EventLogNewFieldValue__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Type__c</field>
+            <operation>equals</operation>
+            <value>Event Log</value>
+        </filters>
+        <filters>
+            <field>CompletedOn__c</field>
+            <operation>equals</operation>
+            <value>7/18/2017 12:00 AM</value>
+        </filters>
+        <filters>
+            <field>EventLogNewFieldValue__c</field>
+            <operation>equals</operation>
+            <value>Live on Instant Match</value>
+        </filters>
+        <label>*Mass Update</label>
+    </listViews>
+</CustomObject>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <recordTypes>
+        <fullName>DisputeExperience</fullName>
+        <active>true</active>
+        <description>Record type used to manage the solution center dispute default settings.</description>
+        <label>Dispute Experience</label>
+    </recordTypes>
+</CustomObject>

@@ -1,0 +1,21 @@
+<aura:component >
+	<aura:attribute name="message" type="String" default="Success" access="public"/>
+	<aura:attribute name="show" type="Boolean" default="false" access="public"/>
+
+	<aura:handler name="change" value="{!v.show}" action="{!c.handleShowChange}"/>
+
+	<aura:if isTrue="{!v.show}">
+		<div class="slds-notify_container">
+			<div class="slds-notify slds-notify--toast slds-theme--success" role="alert">
+				<span class="slds-assistive-text">Success</span>
+				<lightning:buttonIcon class="slds-notify__close slds-button--icon-inverse" size="large" iconName="utility:close" variant="bare" alternativeText="Close"/>
+				<div class="slds-notify__content slds-grid">
+					<lightning:icon iconName="utility:notification" class="slds-m-right--small slds-col slds-no-flex" size="small" variant="bare"/>
+					<div class="slds-col slds-align-middle">
+						<h2 class="slds-text-heading--small ">{!v.message}</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</aura:if>
+</aura:component>

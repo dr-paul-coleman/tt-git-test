@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom Object for Solution Center to capture &apos;Questions&apos;, &apos;Answers&apos;, from a Pro or Customer on an &apos;Offer&apos; related to a &apos;Dispute&apos;.  Also captures &apos;Success Tips&apos; sent to a pro or customer from Thumbtack and file images.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>ContactCreatedByFirstName__c</fullName>
+        <description>Contact Created By First Name</description>
+        <externalId>false</externalId>
+        <formula>ContactCreatedBy__r.FirstName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contact (Created By) First Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ContactCreatedByLastName__c</fullName>
+        <description>Contact Created by Last Name</description>
+        <externalId>false</externalId>
+        <formula>ContactCreatedBy__r.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contact (Created By) Last Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ContactCreatedBy__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The contact of the portal user who created the message record.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The contact of the portal user who created the message record.</inlineHelpText>
+        <label>Contact (Created By)</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Dispute Messages (Created By)</relationshipLabel>
+        <relationshipName>DisputeMessageCreatedBy</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ContactSharedWithFirstName__c</fullName>
+        <description>Contact Shared With First Name</description>
+        <externalId>false</externalId>
+        <formula>ContactSharedWith__r.FirstName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contact (Shared With) First Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ContactSharedWithLastName__c</fullName>
+        <description>Contact Shared with Last Name</description>
+        <externalId>false</externalId>
+        <formula>ContactSharedWith__r.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contact (Shared With) Last Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ContactSharedWith__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The contact of the portal user who the message should be shared with.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The contact of the portal user who the message should be shared with.</inlineHelpText>
+        <label>Contact (Shared with)</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Dispute Messages (Shared with)</relationshipLabel>
+        <relationshipName>DisputeMessagesSharedWith</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>DisputeMessage__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>This is a hierarchical look up to the Dispute Message so that we can associate text messages to the corresponding file images.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is a hierarchical look up to the Dispute Message so that we can associate text messages to the corresponding file images.</inlineHelpText>
+        <label>Dispute Message</label>
+        <referenceTo>DisputeMessages__c</referenceTo>
+        <relationshipLabel>Dispute Messages</relationshipLabel>
+        <relationshipName>DisputeMessages</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>DisputeOffer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The dispute offer for which the message was initiated or replied from.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The dispute offer for which the message was initiated or replied from.</inlineHelpText>
+        <label>Dispute Offer</label>
+        <referenceTo>DisputeOffer__c</referenceTo>
+        <relationshipLabel>Dispute Messages</relationshipLabel>
+        <relationshipName>DisputeMessages</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>DocumentType__c</fullName>
+        <description>The type of documentation uploaded as part of the file image (e.g., invoice, receipt, pic of damage).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The type of documentation uploaded as part of the file image (e.g., invoice, receipt, pic of damage).</inlineHelpText>
+        <label>Document Type</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Message__c</fullName>
+        <description>The body of the message.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The body of the message.</inlineHelpText>
+        <label>Message</label>
+        <length>5000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <label>Dispute Message</label>
+    <nameField>
+        <label>Record Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Dispute Messages</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Confidential</fullName>
+        <active>true</active>
+        <description>Record type used to manage highly sensitive dispute messages. Strict record sharing for this record type.</description>
+        <label>Confidential</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>FileImage</fullName>
+        <active>true</active>
+        <description>Record type used to manage the images uploaded by a pro or customer during the dispute resolution process.</description>
+        <label>File Image</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Message</fullName>
+        <active>true</active>
+        <description>Record type used to manage the messages between solution center parties.</description>
+        <label>Message</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>SuccessTip</fullName>
+        <active>true</active>
+        <description>Record type used to manage the tips displayed in the solution center from Thumbtack.</description>
+        <label>Success Tip</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>ThumbtackMessage</fullName>
+        <active>true</active>
+        <description>Record type used to manage the messages sent to a pro or customer via email or push notification from Thumbtack.</description>
+        <label>Thumbtack Message</label>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

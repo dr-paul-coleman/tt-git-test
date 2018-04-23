@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FullProAssistantPros</fullName>
+    <columns>NAME</columns>
+    <columns>ProAccount__c</columns>
+    <columns>ProAssistant__c</columns>
+    <columns>ProAssistantEmail__c</columns>
+    <columns>ProAssistantManagedBy__c</columns>
+    <columns>PricingCalculator__c</columns>
+    <columns>ProAssistInitialJobCommission__c</columns>
+    <columns>ProAssistRepeatJobCommission__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Service__c.Pro_Assistance_Service</value>
+    </filters>
+    <filters>
+        <field>ProAssistantSubscriptionType__c</field>
+        <operation>equals</operation>
+        <value>Full Pro Assistant</value>
+    </filters>
+    <label>02. Full Pro Assistant Pro's</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>ProServicesManaging_User</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>SAM_Managing_User</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

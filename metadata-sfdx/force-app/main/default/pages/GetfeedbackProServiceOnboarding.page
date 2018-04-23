@@ -1,0 +1,3 @@
+<apex:page standardController="lead">
+<apex:iframe width="100%" height="400" src="https://www.getfeedback.com/r/Cq42e9p1?LEADID={!Lead.Id}&ETYPE={!Lead.SubscriptionType__c}&CATGEO={!Lead.CatGeo__c}&SERVICECAT={!Lead.ServiceCategories__c}&USERNAME={!$User.FirstName} {!$User.LastName}"/>
+</apex:page>

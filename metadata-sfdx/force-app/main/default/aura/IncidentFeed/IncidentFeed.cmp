@@ -1,0 +1,66 @@
+<aura:component controller="IncidentDetailsController">
+	<aura:attribute name="incidentId" type="String" access="public"/>
+    <aura:attribute name="incident" type="MIIncident__c" access="public"/>
+	<aura:attribute name="contactId" type="String" access="public"/>
+	<aura:attribute name="feed" type="IncidentFeedItem[]" access="private"/>
+	<aura:attribute name="filter" type="String" default="all" access="private"/>
+	<aura:attribute name="tabName" type="String" access="public" />
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	
+	<div class="slds-text-align_left slds-p-vertical_small">
+		<fieldset data-reactroot="" class="slds-form-element">
+			<div class="slds-form-element__control">
+				<div class="slds-radio_button-group">
+					<span class="slds-button slds-radio_button" data-filter="all" onclick="{!c.selectFilter}">
+						<input type="radio" name="{!'filter-' + globalId}" id="{!'feed-filter-all-' + globalId}" value="on" checked="checked"/>
+						<label class="slds-radio_button__label" for="{!'feed-filter-all-' + globalId}">
+							<span class="slds-radio_faux">All</span>
+						</label>
+					</span>
+					<span class="slds-button slds-radio_button" data-filter="emails" onclick="{!c.selectFilter}">
+						<input type="radio" name="{!'filter-' + globalId}" id="{!'feed-filter-emails-' + globalId}" value="on"/>
+						<label class="slds-radio_button__label" for="{!'feed-filter-emails-' + globalId}">
+							<span class="slds-radio_faux">Emails</span>
+						</label>
+					</span>
+					<span class="slds-button slds-radio_button" data-filter="calls" onclick="{!c.selectFilter}">
+						<input type="radio" name="{!'filter-' + globalId}" id="{!'feed-filter-calls-' + globalId}" value="on"/>
+						<label class="slds-radio_button__label" for="{!'feed-filter-calls-' + globalId}">
+							<span class="slds-radio_faux">Calls</span>
+						</label>
+					</span>
+					<aura:if isTrue="{!v.tabName != 'Pro' &amp;&amp; v.tabName != 'Customer'}">
+						<span class="slds-button slds-radio_button" data-filter="actions" onclick="{!c.selectFilter}">
+							<input type="radio" name="{!'filter-' + globalId}" id="{!'feed-filter-actions-' + globalId}" value="on"/>
+							<label class="slds-radio_button__label" for="{!'feed-filter-actions-' + globalId}">
+								<span class="slds-radio_faux">Actions</span>
+							</label>
+						</span>
+                        <span class="slds-button slds-radio_button" data-filter="tasks" onclick="{!c.selectFilter}">
+							<input type="radio" name="{!'filter-' + globalId}" id="{!'feed-filter-tasks-' + globalId}" value="on"/>
+							<label class="slds-radio_button__label" for="{!'feed-filter-tasks-' + globalId}">
+								<span class="slds-radio_faux">Tasks</span>
+							</label>
+						</span>
+                        <span class="slds-button slds-radio_button" data-filter="notes" onclick="{!c.selectFilter}">
+							<input type="radio" name="{!'filter-' + globalId}" id="{!'feed-filter-notes-' + globalId}" value="on"/>
+							<label class="slds-radio_button__label" for="{!'feed-filter-notes-' + globalId}">
+								<span class="slds-radio_faux">Notes</span>
+							</label>
+						</span>
+					</aura:if>
+				</div>
+				<lightning:buttonIcon iconName="utility:refresh" onclick="{!c.refreshFeed}" class="slds-m-left_small"/>
+			</div>
+		</fieldset>
+	</div>
+	<div>
+		<aura:iteration items="{!v.feed}" var="feedItem">
+			<c:IncidentFeedItem feedItem="{!feedItem}" proAccountId="{!v.incident.ProAccount__c}" proContactId="{!v.incident.ProContact__c}" />
+		</aura:iteration>
+	</div>
+	<aura:if isTrue="{!empty(v.feed)}">
+		<div class="slds-text-heading_small slds-text-align_center slds-text-color_weak">The feed is empty.</div>
+	</aura:if>
+</aura:component>

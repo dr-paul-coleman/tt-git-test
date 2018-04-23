@@ -1,0 +1,80 @@
+<aura:component controller="ProFeedController">
+	<aura:attribute name="accountId" type="String" access="public"/>
+	<aura:attribute name="enrollmentId" type="String" access="public"/>
+	<aura:attribute name="feedItems" type="EnrollmentAction__c[]" access="private"/>
+	<aura:attribute name="enrollmentOnly" type="Boolean" default="false" access="public"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:handler name="change" value="{!v.enrollmentOnly}" action="{!c.handleEnrollmentOnlyChange}"/>
+	<aura:handler name="change" value="{!v.enrollmentId}" action="{!c.handleEnrollmentIdChange}"/>
+	<aura:handler event="c:ProFeedRefreshNeeded" action="{!c.handleProFeedRefreshNeeded}"/>
+
+	<table class="slds-table slds-table--bordered slds-table--cell-buffer slds-table--striped">
+		<thead>
+			<tr class="slds-text-title--caps">
+				<th scope="col">
+					<div class="slds-truncate" title="Category">Category</div>
+				</th>
+				<th scope="col">
+					<div class="slds-truncate" title="Geo">Geo</div>
+				</th>
+				<th scope="col">
+					<div class="slds-truncate" title="Who">Who</div>
+				</th>
+				<th scope="col">
+					<div class="slds-truncate" title="When">When</div>
+				</th>
+				<th scope="col">
+					<div class="slds-truncate" title="Object">Object</div>
+				</th>
+				<th scope="col">
+					<div class="slds-truncate" title="Field">Field</div>
+				</th>
+				<th scope="col">
+					<div class="slds-truncate" title="Old Value">Old Value</div>
+				</th>
+				<th scope="col">
+					<div class="slds-truncate" title="New Value">New Value</div>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<aura:iteration items="{!v.feedItems}" var="item">
+				<tr>
+					<td data-label="Category">
+						<div class="slds-truncate" title="{!item.Enrollment__r.Market__r.rca_name__c}">{!item.Enrollment__r.Market__r.rca_name__c}</div>
+					</td>
+					<td data-label="Geo">
+						<div class="slds-truncate" title="{!item.Enrollment__r.Market__r.zip_cbsa_name__c}">{!item.Enrollment__r.Market__r.zip_cbsa_name__c}</div>
+					</td>
+					<td data-label="Who">
+						<div class="slds-truncate" title="{!item.CompletedBy__r.Name}">{!item.CompletedBy__r.Name}</div>
+					</td>
+					<td data-label="When">
+						<ui:outputDate value="{!item.CompletedOn__c}" class="slds-truncate" format="EEE, MMM d, yyyy hh:mm a"/>
+					</td>
+					<td data-label="Object">
+						<div class="slds-truncate" title="{!item.EventLogObject__c}">
+							{!item.EventLogObject__c}
+						</div>
+					</td>
+					<td data-label="Field">
+						<div class="slds-truncate" title="{!item.EventLogField__c}">
+							{!item.EventLogField__c}
+						</div>
+					</td>
+					<td data-label="Old Value">
+						<div class="slds-truncate" title="{!item.EventLogOldFieldValue__c}">
+							{!item.EventLogOldFieldValue__c}
+						</div>
+					</td>
+					<td data-label="New Value">
+						<div class="slds-truncate" title="{!item.EventLogNewFieldValue__c}">
+							{!item.EventLogNewFieldValue__c}
+						</div>
+					</td>
+				</tr>
+			</aura:iteration>
+		</tbody>
+	</table>
+</aura:component>

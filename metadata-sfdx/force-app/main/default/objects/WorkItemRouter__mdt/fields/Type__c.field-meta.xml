@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <label>Type</label>
+    <required>true</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>BGC Identity Mismatch</fullName>
+                <default>true</default>
+                <label>BGC Identity Mismatch</label>
+            </value>
+            <value>
+                <fullName>Banned Pro Re-entry</fullName>
+                <default>false</default>
+                <label>Banned Pro Re-entry</label>
+            </value>
+            <value>
+                <fullName>Customer Contact Verification</fullName>
+                <default>false</default>
+                <label>Customer Contact Verification</label>
+            </value>
+            <value>
+                <fullName>Customer Payment Review</fullName>
+                <default>false</default>
+                <label>Customer Payment Review</label>
+            </value>
+            <value>
+                <fullName>Review Message</fullName>
+                <default>false</default>
+                <label>Review Message</label>
+            </value>
+            <value>
+                <fullName>Messaging Verification</fullName>
+                <default>false</default>
+                <label>Messaging Verification</label>
+            </value>
+            <value>
+                <fullName>Blacklisted Number</fullName>
+                <default>false</default>
+                <label>Blacklisted Number</label>
+            </value>
+            <value>
+                <fullName>PA Request a call error</fullName>
+                <default>false</default>
+                <label>PA Request a call error</label>
+            </value>
+            <value>
+                <fullName>Customer Contact Dispute</fullName>
+                <default>false</default>
+                <label>Customer Contact Dispute</label>
+            </value>
+            <value>
+                <fullName>Low quality to remove</fullName>
+                <default>false</default>
+                <label>Low quality to remove</label>
+            </value>
+            <value>
+                <fullName>Chargeback warning</fullName>
+                <default>false</default>
+                <label>Chargeback warning</label>
+            </value>
+            <value>
+                <fullName>Chargeback removal</fullName>
+                <default>false</default>
+                <label>Chargeback removal</label>
+            </value>
+            <value>
+                <fullName>Review Message for Spam</fullName>
+                <default>false</default>
+                <label>Review Message for Spam</label>
+            </value>
+            <value>
+                <fullName>In Product Fraud Report</fullName>
+                <default>false</default>
+                <label>In Product Fraud Report</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MarketplaceIntegrity_BackgroundCheck</fullName>
+    <columns>NAME</columns>
+    <columns>CandidateName__c</columns>
+    <columns>Account__c</columns>
+    <columns>Contact__c</columns>
+    <columns>CandidateId__c</columns>
+    <columns>BackgroundCheckComplete__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>BackgroundCheck__c.Checkr</value>
+    </filters>
+    <label>Marketplace Integrity</label>
+    <queue>MarketplaceIntegrity</queue>
+    <sharedTo>
+        <group>MarketplaceIntegrityRestricted</group>
+    </sharedTo>
+</ListView>

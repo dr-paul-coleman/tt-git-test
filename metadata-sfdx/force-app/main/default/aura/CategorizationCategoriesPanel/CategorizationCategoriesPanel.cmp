@@ -1,0 +1,22 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+================================================
+  1.0      2017-10-20   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+-->
+
+<aura:component description="CategorizationCategoriesPanel" controller="CategorizationCategoriesPanelController" >
+    <aura:attribute name="categoryTypes" type="CategorizationCategoriesPanelController.CategoryType[]" />
+    <aura:attribute name="recordId" type="String" />
+
+    <aura:handler name="init" action="{!c.doInit}" value="this" />
+    <aura:handler event="c:CategorizationEvent" action="{!c.handleCategorizationEvent}" />
+
+    <div style="border: solid 2px #aaa; -moz-border-radius: 5px; border-radius: 5px;">
+        <aura:iteration items="{!v.categoryTypes}" var="catType" indexVar="index">
+            <c:CategorizationCategoriesPanelItem ct="{!catType}" showCategory="{!catType.show}" recordId="{!v.recordId}" />
+        </aura:iteration>
+    </div>
+</aura:component>

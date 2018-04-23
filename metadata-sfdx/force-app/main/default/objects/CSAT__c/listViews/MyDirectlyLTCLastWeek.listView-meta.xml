@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MyDirectlyLTCLastWeek</fullName>
+    <columns>NAME</columns>
+    <columns>LTCIcon__c</columns>
+    <columns>LikelihoodToUseTTAgain__c</columns>
+    <columns>LikelihoodToUseTTAgainComment__c</columns>
+    <columns>User__c</columns>
+    <columns>ReportingManager__c</columns>
+    <columns>OfferDate__c</columns>
+    <columns>OfferResponseDate__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>CSAT__c.DirectlyCSAT</value>
+    </filters>
+    <filters>
+        <field>LikelihoodToUseTTAgain__c</field>
+        <operation>equals</operation>
+        <value>5,4,3,2,1</value>
+    </filters>
+    <filters>
+        <field>OfferResponseDateminusone__c</field>
+        <operation>equals</operation>
+        <value>LAST_WEEK</value>
+    </filters>
+    <label>My Directly LTC - Last Week</label>
+    <sharedTo>
+        <group>SpecialProjectsTeam</group>
+    </sharedTo>
+</ListView>

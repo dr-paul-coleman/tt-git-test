@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProductEnabled</fullName>
+    <columns>NAME</columns>
+    <columns>rca_active__c</columns>
+    <columns>rca_request_category_id__c</columns>
+    <columns>rca_core_category__c</columns>
+    <columns>outreach_type__c</columns>
+    <columns>EnrollAProEnabled__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>outreach_type__c</field>
+        <operation>equals</operation>
+        <value>product_enabled</value>
+    </filters>
+    <label>05 - Product Enabled</label>
+    <sharedTo>
+        <role>LabsFrontLineUser</role>
+        <role>LabsManagingUser</role>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

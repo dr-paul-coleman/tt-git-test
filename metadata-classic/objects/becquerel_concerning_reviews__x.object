@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <listViews>
+        <fullName>All</fullName>
+        <columns>rating__c</columns>
+        <columns>customer_first_name__c</columns>
+        <columns>customer_last_name__c</columns>
+        <columns>customer_user_id__c</columns>
+        <columns>pro_first_name__c</columns>
+        <columns>pro_last_name__c</columns>
+        <columns>pro_user_id__c</columns>
+        <columns>rca_name__c</columns>
+        <columns>review_time__c</columns>
+        <columns>bid_bid_id__c</columns>
+        <columns>review_id__c</columns>
+        <columns>ExternalId</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+</CustomObject>

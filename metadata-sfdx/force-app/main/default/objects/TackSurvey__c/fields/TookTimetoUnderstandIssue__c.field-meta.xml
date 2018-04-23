@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TookTimetoUnderstandIssue__c</fullName>
+    <description>Field used to store the response from the MI CSAT survey question: They took the time to understand my issue.</description>
+    <externalId>false</externalId>
+    <label>Took Time to Understand Issue</label>
+    <precision>10</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,6 @@
+<apex:page showHeader="false" showChat="false" sidebar="false">
+    <iframe width="600" height="515"
+        src="https://www.getfeedback.com/r/X6kfDvc3"
+        style="border:1px solid #e6e6e6" allowfullscreen="true">
+    </iframe>
+</apex:page>

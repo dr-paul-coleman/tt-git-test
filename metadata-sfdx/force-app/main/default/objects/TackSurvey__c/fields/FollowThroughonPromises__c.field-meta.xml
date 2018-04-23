@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FollowThroughonPromises__c</fullName>
+    <description>Field to store the response to the MI CSat survey question: They followed through on promises made.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>They followed through on promises made.</inlineHelpText>
+    <label>Follow Through on Promises</label>
+    <precision>10</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

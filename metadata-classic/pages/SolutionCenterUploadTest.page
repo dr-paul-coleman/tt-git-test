@@ -1,0 +1,138 @@
+<apex:page id="SolutionCenterUploadTest" controller="SolutionCenterUploadTestCtx" showHeader="false" sideBar="false">
+    <apex:includeScript value="{!$Resource.jquery}"/>
+
+    <div style = "padding:30px;">
+
+    <apex:includeScript loadOnReady="false" value="/soap/ajax/41.0/connection.js"/>
+
+
+    <script language="JavaScript">
+        $SF_USER = { Name: '{!$User.LastName}', Username: '{!$User.UserName}', UserType: '{!TEXT($User.UserType)}' };
+
+        sforce.connection.init( "{!$Api.session_id}", "/services/Soap/u/41.0" );
+        $s = sforce.connection;
+        msgId = "{!$CurrentPage.parameters.Id}";
+
+        $(document).ready(function()
+        {
+            if( "" === msgId || msgId.indexOf("a1T") === -1 )
+            {
+                alert( 'no Dispute Message query string parm found, e.g., ?id=a1T2F000000Ygso' );
+            } else {
+                $("#form1").show();
+            }
+        });
+
+        callback = {onSuccess: handleSuccess, onFailure: handleFailure};
+
+        function handleSuccess(results)
+        {
+            var fileInsertResult = results[0];
+            if (fileInsertResult.getBoolean("success")) {
+                var fileId = fileInsertResult.id;
+                alert( 'File uploaded. File Id: ' + fileId );
+                console.log('New ContentVersion record created:' + fileId);
+                $s.query("SELECT ContentDocumentId FROM ContentVersion WHERE Id = '" + fileId + "' LIMIT 1", function(result)
+                {
+                    var documentId = result.records.ContentDocumentId;
+                    var cdl = new sforce.SObject('ContentDocumentLink');
+                    cdl.ContentDocumentId = documentId;
+                    cdl.LinkedEntityId = msgId;
+                    cdl.ShareType = 'I'; // share with those who can see the record
+                    $s.create([cdl], function(r){
+                        console.dir(r[0]);
+                        if (r[0].getBoolean("success"))
+                        {
+                            alert( 'Dispute Message linked successfully.' );
+                        }
+                        else
+                        {
+                            alert( 'Dispute Message NOT linked to file.' );
+                        }
+                    });
+                });
+            }
+            else
+            {
+                console.log('Failed:' + results[i]);
+            }
+        }
+        function handleFailure(error)
+        {
+            alert(error);
+        }
+
+        function uploadContentVersion(filename, filecontent)
+        {
+            var contentVersion          = new sforce.SObject('ContentVersion');
+            contentVersion.pathOnClient = filename;
+            contentVersion.origin       = 'H';
+            contentVersion.VersionData  = filecontent; // can be a straight base64-encoded string
+            sforce.connection.create([contentVersion], callback);
+        }
+
+
+        function fileSelected() {
+            var file = document.getElementById('fileToUpload').files[0];
+            if (file) {
+                var fileSize = 0;
+                if (file.size > (36 * 1024 * 1024)) {
+                    alert('File too large, greater than 36MB');
+                    return;
+                }
+                if (file.size > 1024 * 1024)
+                    fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
+                else
+                    fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + 'KB';
+
+                document.getElementById('fileName').innerHTML = 'Name: ' + file.name;
+                document.getElementById('fileSize').innerHTML = 'Size: ' + fileSize;
+                document.getElementById('fileType').innerHTML = 'Type: ' + file.type;
+            }
+        }
+
+        function uploadFile() {
+            var file = document.getElementById('fileToUpload').files[0];
+            var reader = new FileReader();
+            reader.onload = loaded;
+            reader.onerror = errorHandler;
+            reader.readAsDataURL(file);
+        }
+
+        function loaded(evt) {
+            var filename = document.getElementById('fileToUpload').files[0].name;
+            var fileContent = String(evt.target.result);
+            fileContent = fileContent.substr(fileContent.indexOf(',') + 1);
+            uploadContentVersion(filename, fileContent);
+        }
+
+        function errorHandler(evt) {
+            if (evt.target.error.name == 'NotReadableError')
+            {
+                alert('File could not be read');
+            }
+            else
+            {
+                alert(evt.target.error);
+            }
+        }
+
+    </script>
+
+
+    <form id="form1" enctype="multipart/form-data" method="post" style="display: none">
+        <div class="row">
+            <label for="fileToUpload">Select a File to Upload</label><br />
+            <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
+        </div>
+        <div id="fileName"></div>
+        <div id="fileSize"></div>
+        <div id="fileType"></div>
+        <div class="row">
+            <input type="button" onclick="uploadFile()" value="Upload" />
+        </div>
+    </form>
+
+    </div>
+
+</apex:page>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PARequestacallerror</fullName>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Details__c</columns>
+    <columns>Phone__c</columns>
+    <columns>TimeZone__c</columns>
+    <columns>TimeWindow__c</columns>
+    <columns>DayofWeek__c</columns>
+    <columns>pro_email__c</columns>
+    <columns>usr_user_id__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>New,Assigned</value>
+    </filters>
+    <filters>
+        <field>Type__c</field>
+        <operation>equals</operation>
+        <value>PA Request a call error</value>
+    </filters>
+    <label>PA - Request a call from HC blank</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>ProServicesManaging_User</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>SAM_Managing_User</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

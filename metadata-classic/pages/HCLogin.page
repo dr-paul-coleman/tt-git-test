@@ -1,0 +1,9 @@
+<!--
+ - Created by pcoleman on 10/4/17.
+ -->
+
+<apex:page id="hclogin" showHeader="false" applyBodyTag="false" sideBar="false">
+    <script>
+        window.location.href = "/";
+    </script>
+</apex:page>

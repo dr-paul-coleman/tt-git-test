@@ -1,0 +1,42 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+===============================================
+  1.0      2017-02-16   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+ -->
+
+<aura:component description="LeadMarketInsights" controller="LeadMarketInsightsController">
+    <aura:attribute name="reportId" type="String" />
+    <aura:attribute name="reportData" type="LightningInnerClass" access="private" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="filters" type="String" default="" description="JSON key-value pairs" />
+
+    <aura:handler name="init" action="{!c.doInit}" value="this" />
+
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner aura:id="mySpinner" variant="brand" size="large" alternativeText="Loading Report"></lightning:spinner>
+    </aura:if>
+
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <thead>
+        <tr class="slds-text-title_caps">
+            <aura:iteration items="{!v.reportData.columns}" var="col">
+                <th scope="col">{!col.label}</th>
+            </aura:iteration>
+        </tr>
+        </thead>
+        <tbody>
+        <aura:iteration items="{!v.reportData.dataRows}" var="dr">
+            <tr>
+                <aura:iteration items="{!dr}" var="cell">
+                    <td>
+                        {!cell.value}
+                    </td>
+                </aura:iteration>
+            </tr>
+        </aura:iteration>
+        </tbody>
+    </table>
+</aura:component>

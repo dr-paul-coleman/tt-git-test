@@ -1,0 +1,134 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+===============================================
+  1.0      2017-11-21   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+ -->
+
+<aura:component description="CaseTransfer" controller="CaseTransferController">
+    <aura:attribute name="caseId" type="String" />
+    <aura:attribute name="caseRecord" type="Case" />
+    <aura:attribute name="selectedTeamId" type="String" />
+    <aura:attribute name="selectedUserId" type="String" />
+    <aura:attribute name="selectedEscalationUserId" type="String" />
+    <aura:attribute name="selectedEscalationType" type="String" default="Live" />
+    <aura:attribute name="assignmentType" type="String" default="Person" />
+    <aura:attribute name="comment" type="String" />
+    <aura:attribute name="message" type="String" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="showFlowMi" type="Boolean" default="false" />
+    <aura:attribute name="showFlowPae" type="Boolean" default="false" />
+    <aura:attribute name="miQueueId" type="String" default="00Gi0000004Fb9REAS" />
+    <aura:attribute name="paeQueueId" type="String" default="00G31000004NqcLEAS" />
+    <aura:attribute name="personRecords" type="User[]" />
+    <aura:attribute name="escalationRecords" type="User[]" />
+    <aura:attribute name="queueRecords" type="Group[]" />
+
+    <aura:handler name="init" action="{!c.doInit}" value="this" />
+
+    <aura:registerEvent name="CaseTransferEvent" type="c:CaseTransferEvent" />
+
+        <div style="{!'display: ' + if(v.showFlowMi || v.showFlowPae, 'block', 'none')}">
+            <div style="{!'display: ' + if(v.showFlowMi, 'block', 'none')}">
+                <lightning:flow aura:id="transferFlowMi" onstatuschange="{!c.handleStatusChange}"/>
+            </div>
+            <div style="{!'display: ' + if(v.showFlowPae, 'block', 'none')}">
+                <lightning:flow aura:id="transferFlowPae" onstatuschange="{!c.handleStatusChange}"/>
+            </div>
+            <div class="button-back-container">
+                <lightning:button name="back" label="Back to Case Transfer" variant="neutral" onclick="{!c.backClick}" />
+            </div>
+        </div>
+
+        <div style="{!'display: ' + if(v.showFlowMi || v.showFlowPae, 'none', 'block')}">
+            <aura:if isTrue="{!v.showSpinner}">
+                <lightning:spinner aura:id="mySpinner" variant="brand" size="large"></lightning:spinner>
+            </aura:if>
+
+            <aura:if isTrue="{! !empty(v.message)}">
+                <div class="slds-notify_container">
+                    <div class="slds-notify slds-notify_toast slds-theme_error" role="alert">
+                        <div class="slds-notify__content" style="width: 100%;">
+                            <div class="slds-grid">
+                                <div class="slds-size_5-of-6">
+                                    <aura:unescapedHtml value="{!v.message}" />
+                                </div>
+                                <div class="slds-size_1-of-6 slds-text-align_right">
+                                    <lightning:buttonIcon iconName="utility:close" alternativeText="Close" onclick="{!c.closeToastClick}" variant="bare-inverse" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aura:if>
+
+            <div style="max-width: 700px; min-height: 250px;" class="slds-form slds-form_horizontal">
+                <div class="slds-form-element">
+                    <span class="slds-form-element__label" >Current Owner</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static" >{!v.caseRecord.Owner.Name}</span>
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <span class="slds-form-element__label" >Transfer to</span>
+                    <div class="slds-form-element__control radio-container" style="padding-top: 2px;">
+                        <ui:inputRadio name="transferType" label="Person" value="true" change="{!c.transferChange}" labelClass="radio-label" class="" />&nbsp;A Specific Person&nbsp;&nbsp;
+                        <ui:inputRadio name="transferType" label="Queue" change="{!c.transferChange}" labelClass="radio-label" class="" />&nbsp;A Team (Queue)&nbsp;&nbsp;
+                        <ui:inputRadio name="transferType" label="Escalation" change="{!c.transferChange}" labelClass="radio-label" class="" />&nbsp;Escalation&nbsp;&nbsp;
+                        <ui:inputRadio name="transferType" label="Self" change="{!c.transferChange}" labelClass="radio-label" class="" />&nbsp;Assign to Me&nbsp;&nbsp;
+                    </div>
+                </div>
+
+                <div class="slds-form-element" style="{!'display: ' + if(v.assignmentType == 'Person', 'block', 'none')}">
+                    <span class="slds-form-element__label" >&nbsp;</span>
+                    <div class="slds-form-element__control strike-select-container">
+                        <c:strike_select value="{!v.selectedUserId}" label="" placeholder="Select person" searchable="true">
+                            <aura:iteration var="u" items="{!v.personRecords}">
+                                <c:strike_option label="{!u.Name}" value="{!u.Id}" />
+                            </aura:iteration>
+                        </c:strike_select>
+                    </div>
+                </div>
+
+                <div class="slds-form-element" style="{!'display: ' + if(v.assignmentType == 'Escalation', 'block', 'none')}">
+                    <span class="slds-form-element__label" ></span>
+                    <div class="slds-form-element__control strike-select-container">
+                        <c:strike_select value="{!v.selectedEscalationUserId}" label="" placeholder="Select person" searchable="true">
+                            <aura:iteration var="u" items="{!v.escalationRecords}">
+                                <c:strike_option label="{!u.Name}" value="{!u.Id}" />
+                            </aura:iteration>
+                        </c:strike_select>
+                    </div>
+                </div>
+                <div style="{!'margin: 0.5rem 0rem; display: ' + if(v.assignmentType == 'Escalation', 'block', 'none')}">
+                    <lightning:select name="type" label="Type" value="{!v.selectedEscalationType}" required="true" messageWhenValueMissing="Required field." >
+                        <option value="Callback" text="Callback"></option>
+                        <option value="Live" text="Live"></option>
+                    </lightning:select>
+                </div>
+
+               <div class="slds-form-element" style="{!'margin: 0.5rem 0rem; display: ' + if(v.assignmentType == 'Queue', 'block', 'none')}">
+                    <span class="slds-form-element__label" ></span>
+                    <div class="slds-form-element__control strike-select-container">
+                        <c:strike_select value="{!v.selectedTeamId}" label="" placeholder="Select team" searchable="true">
+                            <aura:iteration var="q" items="{!v.queueRecords}">
+                                <c:strike_option label="{!q.Name}" value="{!q.Id}" />
+                            </aura:iteration>
+                        </c:strike_select>
+                    </div>
+                </div>
+
+                <aura:if isTrue="{!v.assignmentType == 'Person' || v.assignmentType == 'Escalation' || v.assignmentType == 'Queue'}">
+                    <div style="{! 'margin: 0.5rem 0rem; display: ' + if(v.assignmentType == 'Queue' &amp;&amp; (v.selectedTeamId == v.miQueueId || v.selectedTeamId == v.paeQueueId), 'none', 'block')}">
+                        <lightning:textarea name="comment" label="Comment" required="true" messageWhenValueMissing="Required field." value="{!v.comment}" />
+                    </div>
+                </aura:if>
+            </div>
+            <div class="bottom-bar slds-text-align_right">
+                <lightning:button name="save" label="{! if(v.selectedTeamId == v.miQueueId || v.selectedTeamId == v.paeQueueId, 'Next', 'Update')}" variant="brand" onclick="{!c.updateClick}"
+                  disabled="{! (v.assignmentType == 'Person' &amp;&amp; (empty(v.selectedUserId) || empty(v.comment))) || (v.assignmentType == 'Queue' &amp;&amp; (empty(v.selectedTeamId) || (v.selectedTeamId != v.miQueueId &amp;&amp; v.selectedTeamId != v.paeQueueId &amp;&amp; empty(v.comment)))) || (v.assignmentType == 'Escalation' &amp;&amp; (empty(v.selectedEscalationUserId) || empty(v.comment) || empty(v.selectedEscalationType)))}" />
+            </div>
+        </div>
+</aura:component>

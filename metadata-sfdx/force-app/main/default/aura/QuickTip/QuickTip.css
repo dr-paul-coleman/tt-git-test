@@ -1,0 +1,37 @@
+/**
+ * Created by SentientGrey on 1/25/18.
+ */
+.THIS .strike-select-container .slds-form-element__control {width: 100%;}
+.THIS .slds-textarea {height: 200px;}
+.THIS .button-container-primary a {
+    position: relative;
+    display: inline-block;
+    padding: 0 1rem;
+    background: transparent;
+    background-clip: border-box;
+    border-radius: .25rem;
+    line-height: 1.875rem;
+    text-decoration: none;
+    -webkit-appearance: none;
+    white-space: normal;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    margin-left: .25rem;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid rgb(217, 219, 221);
+    -webkit-transition: border .15s linear;
+    transition: border .15s linear;
+    background-color: rgb(0, 112, 210);
+    border-color: rgb(0, 112, 210);
+    color: rgb(255, 255, 255);
+    margin-bottom: 10px;
+    margin-right: 2px;
+}
+
+.THIS .button-container-primary a:hover {background-color: rgb(0, 95, 178)}
+
+.THIS .slds-button--success {color: #fff;}

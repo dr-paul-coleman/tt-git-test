@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LiveText__LiveText_Number__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>LiveMessage number to send this message from</description>
+    <externalId>false</externalId>
+    <label>LiveMessage Number</label>
+    <referenceTo>LiveText__LiveText_Number__c</referenceTo>
+    <relationshipLabel>SMS Messages</relationshipLabel>
+    <relationshipName>SMS_Messages</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

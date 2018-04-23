@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AgentRecommendationsComment__c</fullName>
+    <description>[Agent Name] made recommendations for how I could be more successful on Thumbtack, comments.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>[Agent Name] made recommendations for how I could be more successful on Thumbtack, comments.</inlineHelpText>
+    <label>Agent Recommendations Comment</label>
+    <length>5000</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

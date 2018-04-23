@@ -1,0 +1,63 @@
+<apex:page showHeader="false" sidebar="false">
+    <apex:includeScript value="{!URLFOR($Resource.jquery, '')}"/>
+    <apex:slds />
+    <script type="text/javascript">
+        function showEmailSentSuccess() {
+            $('#email-publisher-notification_success').slideToggle({
+                complete: function() {
+                    setTimeout(function() {
+                        $('#email-publisher-notification_success').slideToggle();
+                    }, 3000);
+                }
+            });
+
+            parent.postMessage('Email Sent', '{!$CurrentPage.URL}');
+        }
+        function showEmailSentError() {
+            $('#email-publisher-notification_error').slideToggle({
+                complete: function() {
+                    setTimeout(function() {
+                        $('#email-publisher-notification_success').slideToggle();
+                    }, 3000);
+                }
+            });
+        }
+        window.addEventListener("message", function(event) {
+            // Handle message
+            var attachmentId = event.data;
+            if (attachmentId) {
+                var attachmentId = attachmentId.substring(0, 15);
+                var entityId = '{!$CurrentPage.parameters.caseId}';
+                entityId = entityId.substring(0, 15);
+                var tempEmailId = $('div[id^="attachmentContainer_"]').attr('id').replace('attachmentContainer_', '');
+                // this is a monkey fix
+                Sfdc.EmailAttachments.addAttachments(entityId, tempEmailId, [attachmentId], function(a, b) {
+                        Sfdc.EmailAttachments.refreshAttachments(entityId, tempEmailId);
+                        EntityAssociatedFileDialog.hideDialog()
+                    },
+                    function(a, b) {
+                        
+                    });
+            }
+        }, false);
+    </script>
+    <div id="email-publisher-notification_success" class="slds-notify_container slds-hide">
+        <div class="slds-notify slds-notify--toast slds-theme--success" role="alert">
+            <div class="slds-notify__content slds-grid">
+                <div class="slds-col slds-align-middle">
+                    <h2 class="slds-text-heading--small ">Your email was successfully sent.</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="email-publisher-notification_error" class="slds-notify_container slds-hide">
+        <div class="slds-notify slds-notify--toast slds-theme--error" role="alert">
+            <div class="slds-notify__content slds-grid">
+                <div class="slds-col slds-align-middle">
+                    <h2 class="slds-text-heading--small">There was an issue with sending your email. Please try again later.</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <apex:emailPublisher bccVisibility="editableWithLookup" ccVisibility="editableWithLookup" emailBodyFormat="textAndHTML" entityId="{!$CurrentPage.parameters.caseId}" toVisibility="editableWithLookup" onSubmitSuccess="showEmailSentSuccess()" onSubmitFailure="showEmailSentError()" autoCollapseBody="false" expandableHeader="false"/>
+</apex:page>

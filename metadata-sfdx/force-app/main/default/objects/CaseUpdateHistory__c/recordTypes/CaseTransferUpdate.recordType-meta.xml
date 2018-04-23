@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CaseTransferUpdate</fullName>
+    <active>true</active>
+    <description>Record type used to manage case transferring.</description>
+    <label>Case Transfer Update</label>
+    <picklistValues>
+        <picklist>CaseCategory__c</picklist>
+        <values>
+            <fullName>Account %2F Profile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Escalations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Getting Started</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Notifications</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing and Payments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quotes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requests</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reviews</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CaseOrigin__c</picklist>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Engagement Outbound Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Live Chat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LiveOps Inbound Support Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Voicemail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CasePreviousStatus__c</picklist>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Thumbtack</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CasePriority__c</picklist>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CaseRecordType__c</picklist>
+        <values>
+            <fullName>Customer Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketplace Integrity</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CaseStatus__c</picklist>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Thumbtack</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CaseSubcategory__c</picklist>
+        <values>
+            <fullName>Background Check</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Background Check %28Clear%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Background Check %28Not Clear%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bugs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Called for Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Called for Pro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Called for Specific Employee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Canceled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Change Status</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Connection Issues - Didn%27t Talk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Create</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delete Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delete Profile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Employment at TT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Engagement CSAT campaign</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Foreign Language</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Get Reviews</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Give Reviews</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Help Getting Started</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hire Status</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>How to Submit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Job Boards</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Landing Page</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>License</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Location or Travel Distance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Login and Password</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketplace Integrity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Media</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Message intended for Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Message intended for Pro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Messenger</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Multiple Profiles</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Quotes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Noise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-product Technical Help</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Enough Info</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Getting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Hearing Back %2F Not Hired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment Info</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment Method</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Points</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poor Quality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Press Inquiries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pro Mentor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Profile Link</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quote Form</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quote or Hire Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reactivate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Receiving</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refunds</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Request Types and Categories</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Research %2F Surveys</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Respond to Reviews</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam %2F Fake</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Spotlight Blogs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Subscribe %2F Unsubscribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Suggested Questions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Supervisor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TT Overview %2F How it works</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thumbtack Balance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trust and Safety</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Update</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Update Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Update Profile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>User Marked TT as Spam</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Voicemail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wrong Number</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>EscalatedCaseType__c</picklist>
+        <values>
+            <fullName>Callback</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Live</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

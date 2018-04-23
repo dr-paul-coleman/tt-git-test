@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DisputeOfferMessageCount__c</fullName>
+    <description>The threshold number of messages to trigger the auto tip based on the most recent offer.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The threshold number of messages to trigger the auto tip based on the most recent offer.</inlineHelpText>
+    <label>Dispute Offer Message Count</label>
+    <precision>10</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

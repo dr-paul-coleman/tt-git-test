@@ -1,0 +1,98 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+================================================
+  1.0      2017-10-23   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+-->
+ 
+<aura:component description="CategorizationContainer" implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="CategorizationContainerController">
+    <aura:attribute name="splitViewStatus" type="String" default="slds-is-open" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="allowSubmit" type="Boolean" default="false" />
+    <aura:attribute name="primarySubcategory" type="String" default="" />
+    <aura:attribute name="primaryCategory" type="String" default="" />
+
+    <aura:attribute name="caseMessage" type="String" default=""/>
+    <aura:attribute name="catMessage" type="String" default=""/>
+    <aura:attribute name="prodUpdateMessage" type="String" default=""/>
+
+    <aura:handler name="init" action="{!c.doInit}" value="this" />
+    <aura:registerEvent name="CategorizationEvent" type="c:CategorizationEvent" />
+    <aura:attribute name="showCaseComponent" type="Boolean" default="false" access="private" />
+    <aura:attribute name="showFooter" type="Boolean" default="true" access="public" />
+    <aura:attribute name="showPrimary" type="Boolean" default="true" />
+    <aura:attribute name="showFeedbackToggle" type="Boolean" default="true" />
+    <aura:attribute name="showOrigin" type="Boolean" default="false" />
+
+    <aura:if isTrue="{! v.caseMessage != '' || v.catMessage != '' || v.prodUpdateMessage != '' }">
+        <div class="slds-notify_container">
+            <div class="slds-notify slds-notify_toast slds-theme_error" role="alert">
+                <div class="slds-notify__content" style="width: 100%;">
+                    <div class="slds-grid">
+                        <div class="slds-size_5-of-6">
+                            <aura:unescapedHtml value="{!v.caseMessage}" />
+                            <aura:unescapedHtml value="{!v.catMessage}" />
+                            <aura:unescapedHtml value="{!v.prodUpdateMessage}" />
+                        </div>
+                        <div class="slds-size_1-of-6 slds-text-align_right">
+                            <lightning:buttonIcon iconName="utility:close" alternativeText="Close" onclick="{!c.closeToastClick}" variant="bare-inverse" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+
+    <div>
+        <div style="{!'display: flex;  min-height: 100px'}">
+            <div class="{!'slds-split-view_container ' + v.splitViewStatus}"  style="max-width: 35%;">
+                <aura:if isTrue="{! v.splitViewStatus == 'slds-is-open'}">
+                    <button class="slds-button slds-button_icon slds-split-view__toggle-button" aria-expanded="true" aria-controls="split-view-id" title="Close Split View" onclick="{!c.toggleView}">
+                        <lightning:icon iconName="utility:left" size="xx-small"/>
+                    </button>
+                    <aura:set attribute="else">
+                        <button class="slds-button slds-button_icon slds-split-view__toggle-button" aria-expanded="true" aria-controls="split-view-id" title="Open Split View" onclick="{!c.toggleView}">
+                            <lightning:icon iconName="utility:right" size="xx-small"/>
+                        </button>
+                    </aura:set>
+                </aura:if>
+                <div id="split-view-id" class="slds-split-view slds-grid slds-grid_vertical slds-grow" >
+                    <c:CategorizationCategoriesPanel recordId="{!v.recordId}" />
+                </div>
+            </div>
+            <div style="{! 'margin-left: 20px; width:' + if(v.splitViewStatus == 'slds-is-open','65%', '100%')}">
+                <div style="margin-bottom: 10px" class="slds-grid">
+                    <div class="slds-size_2-of-3" style="padding-right: 10px;">
+                        <c:CategorizationSearch recordId="{!v.recordId}" />
+                    </div>
+                    <div class="slds-size_1-of-3">
+                        <aura:if isTrue="{!v.showCaseComponent}">
+                            <c:CategorizationCase recordId="{!v.recordId}" allowSubmit="{!v.allowSubmit}" message="{!v.caseMessage}" primaryCategory="{!v.primaryCategory}" primarySubcategory="{!v.primarySubcategory}"/>
+                        </aura:if>
+                    </div>
+                </div>
+                <div style="margin-bottom: 10px">
+                    <div class="slds-text-heading_small">
+                        Categories
+                    </div>
+                    <c:CategorizationCategoriesList recordId="{!v.recordId}" allowSubmit="{!v.allowSubmit}" message="{!v.catMessage}"
+                            primaryCategory="{!v.primaryCategory}" primarySubcategory="{!v.primarySubcategory}" showPrimary="{!v.showPrimary}"
+                            showFeedbackToggle="{!v.showFeedbackToggle}" showOrigin="{!v.showOrigin}" />
+                </div>
+                <div style="margin-bottom: 10px">
+                    <div class="slds-text-heading_small">
+                        Product Updates
+                    </div>
+                    <c:CategorizationProductUpdatesList recordId="{!v.recordId}" allowSubmit="{!v.allowSubmit}" message="{!v.prodUpdateMessage}" />
+                </div>
+            </div>
+        </div>
+        <aura:if isTrue="{!v.showFooter}">
+            <div class="bottom-bar slds-text-align_right">
+                <lightning:button name="save" label="{!if(v.allowSubmit, 'Save', 'Saved!')}" variant="brand" onclick="{!c.submitClick}" disabled="{! !v.allowSubmit}" />
+            </div>
+        </aura:if>
+    </div>
+</aura:component>

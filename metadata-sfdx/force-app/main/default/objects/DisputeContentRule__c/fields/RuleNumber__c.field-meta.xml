@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RuleNumber__c</fullName>
+    <description>Auto number to indicate the rule number; used in trigger for matching.</description>
+    <displayFormat>DCR-{0000}</displayFormat>
+    <externalId>false</externalId>
+    <inlineHelpText>Auto number to indicate the rule number; used in trigger for matching.</inlineHelpText>
+    <label>Rule Number</label>
+    <trackTrending>false</trackTrending>
+    <type>AutoNumber</type>
+</CustomField>

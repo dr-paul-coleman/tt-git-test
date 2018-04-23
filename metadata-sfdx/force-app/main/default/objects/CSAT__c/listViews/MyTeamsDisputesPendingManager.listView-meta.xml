@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MyTeamsDisputesPendingManager</fullName>
+    <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
+    <columns>NAME</columns>
+    <columns>Case__c</columns>
+    <columns>CSATOwnerName__c</columns>
+    <columns>CSATResponse__c</columns>
+    <columns>LikelihoodToUseTTAgain__c</columns>
+    <columns>DisputeReason__c</columns>
+    <columns>Dispute_Comments__c</columns>
+    <columns>OfferResponseDate__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>CSAT__c.GetFeedbackCSAT,CSAT__c.CustomerSatisfaction,CSAT__c.MarketplaceIntegrityCSAT</value>
+    </filters>
+    <filters>
+        <field>IsMyTeam__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>DisputeReason__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>ManagerDisputeDecision__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>CSATOwnerIsActive__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>CSATReviewTeamDecision__c</field>
+        <operation>notEqual</operation>
+        <value>Disagree</value>
+    </filters>
+    <label>My Team's Disputes - Pending Manager</label>
+    <sharedTo>
+        <role>CSManagingUserTPH</role>
+        <role>CSManagingUserTSL</role>
+        <role>CustomerSuccessOrganization</role>
+        <role>LabsManagingUser</role>
+        <role>MIManagingUser</role>
+    </sharedTo>
+</ListView>

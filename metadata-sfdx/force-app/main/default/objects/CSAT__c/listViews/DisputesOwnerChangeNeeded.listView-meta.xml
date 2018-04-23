@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DisputesOwnerChangeNeeded</fullName>
+    <columns>NAME</columns>
+    <columns>Case__c</columns>
+    <columns>CSATIcon__c</columns>
+    <columns>LTCIcon__c</columns>
+    <columns>CSATOwnerName__c</columns>
+    <columns>ReportingManager__c</columns>
+    <columns>DisputeReason__c</columns>
+    <columns>CSATReviewTeamComments__c</columns>
+    <columns>DisputeSysAdminChangesMade__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>OfferResponseDate__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>DisputeReason__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>ManagerDisputeDecision__c</field>
+        <operation>equals</operation>
+        <value>Agree</value>
+    </filters>
+    <filters>
+        <field>CSATReviewTeamDecision__c</field>
+        <operation>equals</operation>
+        <value>Agree</value>
+    </filters>
+    <filters>
+        <field>DisputeSysAdminChangesMade__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>CSAT__c.CustomerSatisfaction</value>
+    </filters>
+    <label>Disputes - Owner Change Needed</label>
+    <sharedTo>
+        <group>CSAT_Dispute_Team</group>
+    </sharedTo>
+</ListView>

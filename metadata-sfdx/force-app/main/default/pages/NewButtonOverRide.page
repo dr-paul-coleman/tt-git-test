@@ -1,0 +1,10 @@
+<apex:page standardController="Service__c">
+
+<apex:form >
+        <apex:pageBlock >
+        <apex:pageMessage summary="New Service records can only be created from the Pros Account" severity="info" strength="3" />
+        <apex:pageMessages />
+
+  </apex:pageBlock>
+    </apex:form>
+</apex:page>

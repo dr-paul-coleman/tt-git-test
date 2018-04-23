@@ -1,0 +1,27 @@
+.THIS .slds-dropdown__list.slds-has-dividers--top span:first-child + .slds-item{
+	border: none;
+}
+
+.THIS .slds-dropdown__list.slds-has-dividers--top .slds-item:first-child {
+	border: none;
+}
+
+.THIS .slds-picklist li.slds-is-selected .slds-icon--selected svg {
+    fill: rgb(0, 112, 210);
+    opacity: 1;
+}
+
+.THIS .user-picklist .slds-input {
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+	background-color: #e0e5ee;
+}
+
+.THIS .user-picklist .slds-dropdown {
+	margin-top: 0px;
+	min-width: 100%;
+	width: 100%;
+	border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+	background-color: #f4f6f9;
+}

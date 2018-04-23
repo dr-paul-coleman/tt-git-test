@@ -1,0 +1,8 @@
+<apex:page showHeader="true" sidebar="false" standardStylesheets="false" title="Enroll A Pro - Agent Filters">
+	<style type="text/css">
+		body {
+			background-color: white;
+		}
+	</style>
+	<c:Lightning containerId="eapAgentFiltersLightning" appName="c:EAPAgentFilters_LO" componentName="c:EAPAgentFilters" includeSpinner="false" jsonParams="{}" />
+</apex:page>

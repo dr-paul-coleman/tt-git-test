@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Escalated_Review_Disputes</fullName>
+    <columns>NAME</columns>
+    <columns>Case__c</columns>
+    <columns>Escalated_Date__c</columns>
+    <columns>OwnerFirstName__c</columns>
+    <columns>Manager_Decision__c</columns>
+    <columns>Dispute_Reason__c</columns>
+    <columns>General_Comments__c</columns>
+    <columns>Manager_Comments__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Manager_Decision__c</field>
+        <operation>equals</operation>
+        <value>Awaiting Decision</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>SupportProcess__c.Customer_Support</value>
+    </filters>
+    <label>Escalated Review Disputes</label>
+    <sharedTo>
+        <group>EscalatedReviewDisputesUser</group>
+        <role>CustomerSuccessOrganization</role>
+    </sharedTo>
+</ListView>

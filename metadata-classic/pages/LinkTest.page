@@ -1,0 +1,39 @@
+<!--
+ - Created by pcoleman on 1/18/18.
+ -->
+
+<apex:page id="LinkTest" showHeader="false" controller="SolutionCenterController">
+    <apex:includeScript value="https://code.jquery.com/jquery-3.1.1.min.js"/>
+    <apex:form ><apex:commandButton value="Load Images" onclick="loadImages(); return false;"/></apex:form>
+
+    <!--img src="https://solcenter-thumbtack.cs91.force.com/sfc/servlet.shepherd/version/download/0682F000000EBszQAG"/-->
+    <div id="theDiv"></div>
+
+    <script>
+        $j = jQuery.noConflict();
+
+        function loadImages() {
+
+            SolutionCenterController.getOfferMessages( function(r,e){
+                if( e.status ) {
+                    var ms = JSON.parse(r)[0].messages;
+                    for( var i=0; i< ms.length; i++)
+                    {
+                        var m = ms[i];
+                        if( m.files && m.files.length ) {
+                            for( var f=0; f< m.files.length; f++ )
+                            {
+                                var fl = m.files[f];
+                                if( "UNKNOWN" !== fl.fileType )
+                                {
+                                    $j('#theDiv').prepend('<img id="'+fl.fileId+'" src="'+fl.src+'" />');
+                                }
+                            }
+                        }
+                    }
+                }
+            }, {escape: false} );
+        }
+
+    </script>
+</apex:page>

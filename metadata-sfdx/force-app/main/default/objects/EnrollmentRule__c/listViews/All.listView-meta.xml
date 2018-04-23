@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>PrerequisiteRuleName__c</columns>
+    <columns>Details__c</columns>
+    <columns>EnrollmentActionOrder__c</columns>
+    <columns>EnrollmentActionOutcome__c</columns>
+    <columns>EnrollmentActionType__c</columns>
+    <columns>EnrollmentOutreachType__c</columns>
+    <columns>EnrollmentOutreachGroup__c</columns>
+    <columns>EnrollmentFunnelStep__c</columns>
+    <columns>SetEnrollmentFunnelStepTo__c</columns>
+    <columns>IsActive__c</columns>
+    <columns>IsAutomatedAction__c</columns>
+    <columns>IsAutonomous__c</columns>
+    <columns>SetEnrollmentUnsuccessfulReasonTo__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>EnrollmentRule__c.Standard</value>
+    </filters>
+    <label>All</label>
+</ListView>

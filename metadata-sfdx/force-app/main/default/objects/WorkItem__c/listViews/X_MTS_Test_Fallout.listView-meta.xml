@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X_MTS_Test_Fallout</fullName>
+    <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
+    <columns>NAME</columns>
+    <columns>ProAccount__c</columns>
+    <columns>rev_usr_user_id_reviewed__c</columns>
+    <columns>rev_review_time__c</columns>
+    <columns>rev_rating__c</columns>
+    <columns>rev_text__c</columns>
+    <columns>rev_private_feedback_to_thumbtack__c</columns>
+    <columns>rev_usr_user_id_reviewer__c</columns>
+    <columns>bid_bid_id__c</columns>
+    <columns>ReviewAudit__c</columns>
+    <columns>Outcome__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Outcome__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>WorkItem__c.ConcerningReview</value>
+    </filters>
+    <label>X - MTS Test Fallout</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,164 @@
+<!--
+ /*******************************************************************************
+*                                                                              *
+*                                           ########                           *
+*                                            #####                             *
+*    Copyright (c) 2017 Thumbtack            ###                               *
+*       All rights reserved.                ###                                *
+*                                         #####                                *
+*                                      #########                               *
+*                                         #                                    *
+*                                        #                                     *
+*                                       #                                      *
+*                                      #                                       *
+*                                                                              *
+********************************************************************************
+Change List:
+
+Version      Date          Author            Description
+========+============+=================+================================================
+1.0      2017-08-17   Mendel Guillaume       Created
+========+============+=================+===============================================*/
+ -->
+
+<aura:component description="IncidentGuarantee" controller="IncidentGuaranteeController">
+    <aura:attribute name="incidentId" type="String" access="public" />
+
+    <aura:attribute name="guaranteeRequest" type="MIIncidentAction__c" access="private"   default="{'sobjectType' : 'MIIncidentAction__c'}"/>
+    <aura:attribute name="incident" type="MIIncident__c" access="private" default="{'sobjectType' : 'MIIncident__c'}"/>
+    <aura:attribute name="statuses" type="IncidentChargeCardManagerController.Option[]" access="private" />
+    <aura:attribute name="guaranteeEliFactsMap" type="Map" access="private" />
+    <aura:attribute name="guaranteeTypes" type="IncidentChargeCardManagerController.Option[]" access="private"/>
+    <aura:attribute name="eligibilityFactors" type="IncidentChargeCardManagerController.Option[]" access="private"/>
+    <aura:attribute name="adjusterStatuses" type="IncidentChargeCardManagerController.Option[]" access="private" />
+    <aura:attribute name="message" type="String" access="private" />
+    <aura:attribute name="messageType" type="String" access="private" default="success"/>
+    <aura:attribute name="fieldsAccessMap" type="Map" access="private" default="{AdjusterStatus__c : 'none'}"/>
+
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+    <aura:registerEvent name="IncidentOpenAction" type="c:IncidentOpenAction" />
+    <aura:registerEvent name="refreshIncident" type="c:IncidentRefreshEvent" /> 
+
+    <aura:if isTrue="{! v.guaranteeRequest.Id != null}" >
+        <div>
+            <lightning:button variant="base" label="View Details" onclick="{!c.viewClick}" />
+        </div>
+    </aura:if>
+
+    <div class="slds-grid">
+        <div class="slds-size--1-of-2 grid-padding-right">
+            <div class="slds-form slds-form_stacked">
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label">Date Request Submitted</label>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static">
+                            <ui:outputDate value="{!v.incident.request_create_time__c}" format="MMM d, yyyy h:mm a"/>
+                        </span>
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label">Date Damage Recognized</label>
+                    <div class="slds-form-element__control">
+                        <ui:inputDate displayDatePicker="true" class="slds-input" value="{! v.incident.RecognizedDamageDate__c}"  />
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label">Date Reported</label>
+                    <div class="slds-form-element__control">
+                        <ui:inputDate displayDatePicker="true" class="slds-input" value="{! v.incident.ReportedDate__c}"  />
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="slds-size--1-of-2 grid-padding-left">
+            <div class="slds-form slds-form_stacked">
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label">Date Hired</label>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static">
+                            <ui:outputDate value="{!v.incident.hired_time__c}" format="MMM d, yyyy h:mm a"/>
+                        </span>
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label">Elapsed Time to Hire</label>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static">
+                            <ui:outputText value="{!v.incident.ElapsedHiredTimeDays__c}" />
+                        </span>
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label">Elapsed Reported Time</label>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static">
+                            <ui:outputText value="{!v.incident.ElapsedReportedTimeDays__c}" />
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slds-grid" style="margin-top: 5px;">
+        <div class="slds-size_1-of-1">
+            <lightning:select name="GuaranteeType" aura:id="GuaranteeType" label="Guarantee Type" value="{!v.guaranteeRequest.GuaranteeType__c}" onchange="{!c.onGuaranteeTypeChange}">
+                <option text="" value="" />
+                <aura:iteration items="{!v.guaranteeTypes}" var="s">
+                    <option text="{!s.label}" value="{!s.value}" />
+                </aura:iteration>
+            </lightning:select>
+        </div>
+    </div>
+    <div class="slds-grid" style="margin-top: 5px;">
+        <div class="slds-size_1-of-2 grid-padding-right">
+            <lightning:select name="EligibilityFactors" aura:id="EligibilityFactors" label="Eligibility Factors" value="{!v.guaranteeRequest.EligibilityFactors__c}">
+                <option text="" value="" />
+                <aura:iteration items="{!v.eligibilityFactors}" var="s">
+                    <option text="{!s.label}" value="{!s.value}" selected="{!s.value == v.guaranteeRequest.EligibilityFactors__c}" />
+                </aura:iteration>
+            </lightning:select>
+            <lightning:select name="status" aura:id="status" label="Status" value="{!v.guaranteeRequest.Status__c}">
+                <option text="" value="" />
+                <aura:iteration items="{!v.statuses}" var="s">
+                    <option text="{!s.label}" value="{!s.value}" />
+                </aura:iteration>
+            </lightning:select>
+        </div>
+        <div class="slds-size_1-of-2 grid-padding-left">
+            <div class="slds-form-element">
+                <label class="slds-form-element__label">Eligibility</label>
+                <div class="slds-form-element__control">
+                        <span class="slds-form-element__static">
+                            <ui:outputText value="{!v.guaranteeRequest.PDGEligibility__c}" />
+                        </span>
+                </div>
+            </div>
+            <aura:if isTrue="{!v.fieldsAccessMap.AdjusterStatus__c == 'edit'}">
+                <lightning:select name="adjStatus" aura:id="adjStatus" label="Adjuster Status" value="{!v.guaranteeRequest.AdjusterStatus__c}">
+                    <option text="" value="" />
+                    <aura:iteration items="{!v.adjusterStatuses}" var="s">
+                        <option text="{!s.label}" value="{!s.value}" />
+                    </aura:iteration>
+                </lightning:select>
+            </aura:if>
+        </div>
+    </div>
+
+    <div class="slds-grid" style="margin-top: 5px;">
+        <div class="slds-size_1-of-1">
+            <lightning:textarea label="Notes" name="notes" value="{!v.guaranteeRequest.Notes__c}" />
+        </div>
+    </div>
+
+    <div style="margin-top: 5px;">
+        <lightning:button label="Save" name="Save" onclick="{!c.saveClick}" variant="brand"/>
+        <aura:if isTrue="{! v.message != null}">
+            <span class="{!'slds-text-color_' + v.messageType}">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!v.message}
+            </span>
+        </aura:if>
+    </div>
+
+
+
+</aura:component>

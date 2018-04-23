@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event template">
+	<aura:attribute name="phone" type="String"/>
+	<aura:attribute name="target" type="String"/>
+</aura:event>

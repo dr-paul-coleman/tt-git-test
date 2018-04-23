@@ -1,0 +1,49 @@
+.THIS .empty-box-icon.slds-icon-standard-empty, .THIS .checked-box-icon.slds-icon-standard-task2 {
+	background-color: white;
+}
+
+.THIS .empty-box-icon .slds-icon {
+	fill: black;
+}
+
+.THIS .checked-box-icon .slds-icon {
+	fill: rgb(0, 112, 210);
+}
+
+.THIS .empty-box-button .slds-button__icon {
+	fill: rgba(0, 0, 0, 0);
+}
+
+.THIS .slds-button.empty-box-button:hover .slds-button__icon, 
+.THIS .slds-button.empty-box-button:focus .slds-button__icon, 
+.THIS .slds-button.empty-box-button:active .slds-button__icon, 
+.THIS .slds-button.empty-box-button[disabled] .slds-button__icon {
+    fill: rgba(0, 0, 0, 0);
+}
+
+.THIS .text-italic, .THIS.text-italic {
+	font-style: italic;
+}
+
+.THIS .sub-steps {
+	white-space: pre;
+	padding-left: 5rem;
+}
+
+.THIS .callback-details {
+	padding-left: 5rem;
+}
+
+.THIS.task-container:hover .task-edit-button {
+	display: inline-block;
+	right: 0;
+	top: -25px;
+}
+
+.THIS .survey {
+	height: 400px;
+}
+
+.THIS .action-color{
+    background-color: #9ac0cd;
+}

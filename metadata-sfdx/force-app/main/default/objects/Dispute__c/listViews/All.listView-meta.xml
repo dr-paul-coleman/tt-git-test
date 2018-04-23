@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>DisputeNumber__c</columns>
+    <columns>NAME</columns>
+    <columns>IsTestData__c</columns>
+    <columns>Status__c</columns>
+    <columns>Stage__c</columns>
+    <columns>DisputeStartDate__c</columns>
+    <columns>InitiatorConfirmationDate__c</columns>
+    <columns>InitiatorLastViewed__c</columns>
+    <columns>ResponderLastViewed__c</columns>
+    <columns>PrePopulatedDesiredResolution__c</columns>
+    <columns>PrePopulatedResolutionAmount__c</columns>
+    <columns>OverallDisputeTimeInDays__c</columns>
+    <columns>ResponderFirstActionDate__c</columns>
+    <columns>MIIncident__c</columns>
+    <columns>DisputeExperience__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Dispute__c.SolutionCenterDispute</value>
+    </filters>
+    <label>08. All</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

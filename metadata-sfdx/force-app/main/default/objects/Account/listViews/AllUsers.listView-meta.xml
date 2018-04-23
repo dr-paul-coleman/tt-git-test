@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllUsers</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>usr_user_id__c</columns>
+    <columns>usr_first_name__c</columns>
+    <columns>usr_last_name__c</columns>
+    <columns>ACCOUNT.PHONE1</columns>
+    <columns>sav_phn_phone_number__c</columns>
+    <columns>sav_notifications_phn_phone_number__c</columns>
+    <columns>usr_email__c</columns>
+    <columns>usr_signup_date__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Users</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

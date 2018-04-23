@@ -1,0 +1,35 @@
+<aura:component controller="PicklistFieldController">
+    <!--Use salesforce lightning design style-->
+    <ltng:require styles="{! $Resource.SLDS221 + '/assets/styles/salesforce-lightning-design-system.css'}" />
+ 
+    <!--init function which is call on component load -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+ 
+    <!--Using Attributes-->
+    <aura:attribute name="objInfo" type="string" default="MIIncident__c" description="store object Info." />
+    <aura:attribute name="depnedentFieldMap" type="map" description="store controller(key)--> dependent(values) picklist value as a map." />
+    <aura:attribute name="isDependentDisable" type="boolean" default="true" description="use for, make disbale depandent field." />
+    <aura:attribute name="catValue" type="String" />
+	<aura:attribute name="subcatValue" type="String" />
+ 	<aura:registerEvent name="PicklistEvent" type="c:PicklistEvent" />
+    <div class="slds-form slds-form_compound">
+    	<div class="slds-form-element__group">
+		    <div class="slds-form-element__row" >
+		    	<div class="slds-form-element slds-size_1-of-2">
+		            <label class="slds-form-element__label" for="select-01">Select Category</label><br/>
+		            <div class="slds-select_container">
+		                <ui:inputSelect aura:id="conCountry" class="slds-select" change="{!c.onControllerFieldChange}" value="{!v.catValue}" required="true"/>
+		            </div>
+		        </div> 
+			        <!--Dependent Field-->
+		        <div class="slds-form-element slds-size_1-of-2">
+		            <label class="slds-form-element__label" for="select-01">Select Subcategory</label><br/>
+		            <div class="slds-select_container">
+		            	
+		                <ui:inputSelect aura:id="conState" disabled="{!v.isDependentDisable}" class="slds-select" change="{!c.onDependentFieldChange}" value="{!v.subcatValue}" required="true"/>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+    </div>
+</aura:component>

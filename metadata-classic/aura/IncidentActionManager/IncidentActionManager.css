@@ -1,0 +1,18 @@
+.THIS .mouse-pointer {
+	cursor: pointer;
+	background-color: white;
+}
+
+.THIS .mouse-pointer #due-date-picker.slds-input[disabled] {
+	cursor: pointer;
+	background-color: white;
+}
+
+.THIS#action-list .action-checkbox .slds-form-element__label {
+	display: none;
+}
+
+.THIS .timePicker-openIcon.display, .THIS .datePicker-openIcon.display
+{
+    display: none !important;
+}

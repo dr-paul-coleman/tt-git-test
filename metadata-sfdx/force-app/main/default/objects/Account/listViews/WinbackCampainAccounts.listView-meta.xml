@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>WinbackCampainAccounts</fullName>
+    <columns>ProAssistant__c</columns>
+    <columns>ThumbtackUserID__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>usr_email__c</columns>
+    <columns>ACCOUNT.PHONE1</columns>
+    <columns>usr_timezone__c</columns>
+    <columns>ProAssistantNotes__c</columns>
+    <columns>ProAssistantManagedBy__c</columns>
+    <columns>ProAssistantSubscriptionType__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>EnrollmentCallbackCampaign__c</field>
+        <operation>contains</operation>
+        <value>Winback</value>
+    </filters>
+    <label>Winback Campaign Accounts</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+        <roleAndSubordinatesInternal>LabsManagingUser</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>ProServicesManaging_User</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

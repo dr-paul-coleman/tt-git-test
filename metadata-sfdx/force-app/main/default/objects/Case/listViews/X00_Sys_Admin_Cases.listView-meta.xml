@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X00_Sys_Admin_Cases</fullName>
+    <booleanFilter>1 AND (2 OR 3 OR 4 OR 5) AND 6</booleanFilter>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>Category__c</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>NAME</columns>
+    <columns>ThumbtackUserID__c</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.LAST_UPDATE</columns>
+    <columns>UPDATEDBY_USER.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>CORE.USERS.ALIAS</field>
+        <operation>equals</operation>
+        <value>tackbot,Patrick,pcole,hmitc,toliv</value>
+    </filters>
+    <filters>
+        <field>CORE.USERS.ALIAS</field>
+        <operation>equals</operation>
+        <value>jonathan,stholen,kbiber,mkhan,sysint,uprov</value>
+    </filters>
+    <filters>
+        <field>CORE.USERS.ALIAS</field>
+        <operation>equals</operation>
+        <value>alexande,rlgc,marco,mschaaf,Nathan,jhwan,mcarter,yue,chas,dric,keving</value>
+    </filters>
+    <filters>
+        <field>CORE.USERS.ALIAS</field>
+        <operation>equals</operation>
+        <value>claireco,asayall,efujimot,peter,felipe,walter,vduong,jbryant</value>
+    </filters>
+    <filters>
+        <field>CASES.SUBJECT</field>
+        <operation>notContain</operation>
+        <value>VM 3(2002)</value>
+    </filters>
+    <label>XX - Tack Bot Open Cases</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

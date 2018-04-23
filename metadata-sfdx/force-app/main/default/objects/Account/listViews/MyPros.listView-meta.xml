@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MyPros</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>usr_first_name__c</columns>
+    <columns>usr_last_name__c</columns>
+    <columns>ACCOUNT.RECORDTYPE</columns>
+    <columns>ThumbtackUserID__c</columns>
+    <columns>AccountManager__c</columns>
+    <columns>AdminLinkViewUser__c</columns>
+    <columns>usr_email__c</columns>
+    <columns>ACCOUNT.PHONE1</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACCOUNT.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Account.ThumbtackPro,Account.ManagedAccount</value>
+    </filters>
+    <filters>
+        <field>LoggedinUserIsAccountManager__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>My Pros</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+        <roleAndSubordinatesInternal>SAM_Managing_User</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

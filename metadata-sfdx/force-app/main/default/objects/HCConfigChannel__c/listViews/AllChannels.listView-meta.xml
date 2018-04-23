@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllChannels</fullName>
+    <columns>NAME</columns>
+    <columns>Title__c</columns>
+    <columns>Status__c</columns>
+    <columns>Type__c</columns>
+    <columns>Icon__c</columns>
+    <columns>PhoneNumber__c</columns>
+    <columns>AvailableOnDesktop__c</columns>
+    <columns>AvailableOnMobile__c</columns>
+    <columns>ResponseTime__c</columns>
+    <columns>Unavailable__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>HCConfigChannel__c.ContactChannel</value>
+    </filters>
+    <label>01: All Channels</label>
+    <sharedTo>
+        <group>ContentUser</group>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

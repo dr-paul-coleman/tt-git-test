@@ -1,0 +1,19 @@
+.THIS .pre-wrap {
+	white-space: pre-wrap;
+}
+
+.THIS .note-tools-container {
+	display: none;
+}
+
+.THIS.note:hover .note-tools-container, .THIS .note:hover .note-tools-container {
+	display: block;
+}
+
+.THIS .note-tools {
+	right: 0;
+}
+
+.THIS .span-link{cursor: pointer; color: #0070d2;}
+.THIS .span-link:hover{text-decoration: underline;}
+.THIS .wrap-text{word-wrap: break-word;}

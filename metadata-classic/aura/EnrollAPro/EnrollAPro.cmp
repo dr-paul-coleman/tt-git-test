@@ -1,0 +1,38 @@
+<aura:component controller="EnrollAProController">
+	<aura:attribute name="outreachTypeOptions" type="List" access="private"/>
+	<aura:attribute name="selectedOutreachTypes" type="List" access="private"/>
+	<aura:attribute name="requestCategoryOptions" type="List" access="private"/>
+	<aura:attribute name="requestCategorySearchOptions" type="List" access="private"/>
+	<aura:attribute name="selectedCategories" type="List" access="private"/>
+	<aura:attribute name="funnelStepOptions" type="List" access="private"/>
+	<aura:attribute name="selectedFunnelSteps" type="List" access="private"/>
+	<aura:attribute name="requestCategorySearchText" type="String" access="private"/>
+	<aura:attribute name="showRequestCategorySearchOptions" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="shouldFilterFromUser" type="Boolean" default="true" access="private"/>
+	<aura:attribute name="numberOfListsPopulated" type="Integer" default="0" access="private"/>
+	<aura:attribute name="userFilter" type="Object" access="private"/>
+	<aura:attribute name="showCategorySpinner" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="showErrorToast" type="Boolean" default="false" access="private"/>
+
+	<aura:handler event="c:EAPFilterSaved" action="{!c.handleEnrollPro}"/>
+
+	<aura:registerEvent name="ProAssigned" type="c:ProAssigned"/>
+
+	<div class="slds-p-around--medium">
+		<aura:if isTrue="{!v.showErrorToast}">
+			<div class="slds-notify_container">
+				<div class="slds-notify slds-notify--toast slds-theme--error" role="alert">
+					<span class="slds-assistive-text">Error</span>
+					<lightning:buttonIcon iconName="utility:close" class="slds-notify__close" variant="bare-inverse" size="large" onclick="{!c.hideErrorToast}"/>
+					<div class="slds-notify__content slds-grid">
+						<lightning:icon iconName="utility:warning" size="small" class="slds-m-right--small slds-col slds-no-flex" variant="bare"/>
+						<div class="slds-col slds-align-middle">
+							<h2 class="slds-text-heading--small">There are no more Enrollments based on your selected filters.</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</aura:if>
+		<c:EAPFilter buttonLabel="Enroll a Pro"/>
+	</div>
+</aura:component>

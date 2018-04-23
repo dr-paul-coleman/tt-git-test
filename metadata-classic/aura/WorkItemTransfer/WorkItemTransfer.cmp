@@ -1,0 +1,57 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+================================================
+  1.0      2017-10-03   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+ -->
+
+<aura:component description="WorkItemTransfer" controller="WorkItemTransferController">
+    <aura:attribute name="records" type="WorkItemTransferController.WorkItemGroup[]" access="private" />
+    <aura:attribute name="recordsRT" type="WorkItemTransferController.WorkItemGroup[]" access="private" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" access="private" />
+
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+
+    <aura:registerEvent name="WorkItemOpenPrimaryTab" type="c:WorkItemOpenPrimaryTab" />
+
+    <aura:if isTrue="{!v.showSpinner}">
+        <div class="slds-spinner_container">
+            <div class="slds-spinner slds-spinner--medium slds-spinner_brand" aria-hidden="false" role="alert">
+                <div class="slds-spinner__dot-a" />
+                <div class="slds-spinner__dot-b" />
+            </div>
+        </div>
+    </aura:if>
+    <!-- Record Types -->
+    <div class="slds-grid" style="margin-bottom: 10px;">
+        <div class="slds-size_11-of-12">
+            <div class="slds-clearfix">
+                <aura:iteration var="w" items="{!v.recordsRT}">
+                    <div style="width: 250px; margin: 0px 10px 10px 10px;" class="slds-float_left">
+                        <lightning:button class="button-transfer" disabled="{!w.count == 0}" value="{!w.name}" name="{!w.name}" type="button" title="{!w.name + ' (' + w.count + ')'}" variant="neutral" label="{!w.name + ' (' + w.count + ')'}" onclick="{!c.transferRT}" />
+                    </div>
+                </aura:iteration>
+            </div>
+        </div>
+        <div class="slds-size_1-of-12 slds-text-align_right" style="padding-right: 5px;">
+            <lightning:buttonIcon name="Refresh" title="Refresh" type="button" iconName="utility:sync"  alternativeText="Refresh" onclick="{!c.doInit}" />
+        </div>
+    </div>
+
+    <!-- Types -->
+    <div class="slds-grid">
+        <div class="slds-size_11-of-12">
+            <div class="slds-clearfix">
+                <aura:iteration var="w" items="{!v.records}">
+                    <div style="width: 250px; margin: 0px 10px 10px 10px;" class="slds-float_left">
+                        <lightning:button class="button-transfer" disabled="{!w.count == 0}" value="{!w.name}" name="{!w.name}" type="button" title="{!w.name + ' (' + w.count + ')'}" variant="neutral" label="{!w.name + ' (' + w.count + ')'}" onclick="{!c.transfer}" />
+                    </div>
+                </aura:iteration>
+            </div>
+        </div>
+        <div class="slds-size_1-of-12 slds-text-align_right" style="padding-right: 5px;">
+        </div>
+    </div>
+</aura:component>

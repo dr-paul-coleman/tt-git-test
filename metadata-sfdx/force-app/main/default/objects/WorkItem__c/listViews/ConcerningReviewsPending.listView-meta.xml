@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ConcerningReviewsPending</fullName>
+    <columns>NAME</columns>
+    <columns>CreatedDateTime__c</columns>
+    <columns>RECORDTYPE</columns>
+    <columns>ProAccount__c</columns>
+    <columns>pro_first_name__c</columns>
+    <columns>pro_last_name__c</columns>
+    <columns>AdminLinkViewUser__c</columns>
+    <columns>bid_bid_id__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>WorkItem__c.ConcerningReview</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Assigned,Completed</value>
+    </filters>
+    <filters>
+        <field>Outcome__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>OwnerIsQueue__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Concerning Reviews - Pending</label>
+    <sharedTo>
+        <role>MIManagingUser</role>
+    </sharedTo>
+</ListView>

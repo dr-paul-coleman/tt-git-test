@@ -1,0 +1,16 @@
+.THIS .action-tools-container {
+	display: none;
+}
+
+.THIS.incident-action:hover .action-tools-container {
+	display: block;
+}
+
+.THIS .action-tools {
+	right: 0;
+}
+
+.THIS.color_gray {
+	color: gray;
+}
+.THIS .wrap-text{word-wrap: break-word;}

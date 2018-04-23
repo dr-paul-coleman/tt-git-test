@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>x1Topics</fullName>
+    <columns>NAME</columns>
+    <columns>KnowledgeCategorySortOrder__c</columns>
+    <columns>AvailableOnSupportPage__c</columns>
+    <columns>AvailableForProfessionals__c</columns>
+    <columns>AvailableForCustomers__c</columns>
+    <columns>MasterConfiguration__c</columns>
+    <columns>GAAction__c</columns>
+    <columns>GAValue__c</columns>
+    <columns>ConfigurationJSON__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ParentId__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>1a: All Topics</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

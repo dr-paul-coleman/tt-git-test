@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllOpenCasesPhoneSupport</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.LAST_UPDATE</columns>
+    <columns>CASES.ORIGIN</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>NAME</columns>
+    <columns>ANI__c</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>Category__c</columns>
+    <columns>SubCategory__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>CASES.ORIGIN</field>
+        <operation>equals</operation>
+        <value>Engagement Outbound Call,LiveOps Inbound Support Call,Voicemail</value>
+    </filters>
+    <label>All Open Cases - Phone Support</label>
+    <sharedTo>
+        <role>CSManagingUserTPH</role>
+        <role>CSManagingUserTSL</role>
+        <role>LabsManagingUser</role>
+        <role>MIManagingUser</role>
+        <role>SharedServicesUserTPH</role>
+        <role>SharedServicesUserTSL</role>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

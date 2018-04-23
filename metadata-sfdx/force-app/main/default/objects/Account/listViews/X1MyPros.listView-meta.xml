@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X1MyPros</fullName>
+    <columns>ThumbtackUserID__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>usr_email__c</columns>
+    <columns>ACCOUNT.PHONE1</columns>
+    <columns>usr_timezone__c</columns>
+    <columns>ProAssistantNotes__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACCOUNT.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Account.ThumbtackPro</value>
+    </filters>
+    <filters>
+        <field>LoggedInUserIsProAssistant__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>1. My Pro's</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>LabsManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>An event to fulfil reqs: 
+
+Need to send a signal to the front end to auto refresh the logged in users screen when a new message, dispute offer, or update to dispute has been made.
+
+WHEN
+A new dispute message (message, file or success tip RTs) is inserted -OR-
+A new dispute offer is inserted or changed -OR-
+An update to the dispute has been made (e.g., change in description or status/stage)
+
+THEN
+Display the new information for the logged in user.</description>
+    <eventType>StandardVolume</eventType>
+    <fields>
+        <fullName>DisputeIdHash__c</fullName>
+        <description>The has value that belongs to the event, first-level filter for the Solution Center Js to determine, &quot;Does this event message belong to the active user&apos;s dispute(s)?&quot;</description>
+        <externalId>false</externalId>
+        <isFilteringDisabled>false</isFilteringDisabled>
+        <isNameField>false</isNameField>
+        <isSortingDisabled>false</isSortingDisabled>
+        <label>DisputeIdHash</label>
+        <length>32</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EventCreatedByHash__c</fullName>
+        <description>The hash of the Solution Center Contact who generated the event, e.g., hash of DisputeOffer__c.LastModifiedBy.ContactId</description>
+        <externalId>false</externalId>
+        <isFilteringDisabled>false</isFilteringDisabled>
+        <isNameField>false</isNameField>
+        <isSortingDisabled>false</isSortingDisabled>
+        <label>EventCreatedByHash</label>
+        <length>32</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SObjectType__c</fullName>
+        <description>The name of the database object whose trigger fired the platform event, e.g. for Solution Center: DisputeOffer__c or DisputeMessage__c</description>
+        <externalId>false</externalId>
+        <isFilteringDisabled>false</isFilteringDisabled>
+        <isNameField>false</isNameField>
+        <isSortingDisabled>false</isSortingDisabled>
+        <label>SObjectType</label>
+        <length>80</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Solution Center Refresh Event</label>
+    <pluralLabel>Solution Center Refresh Events</pluralLabel>
+</CustomObject>

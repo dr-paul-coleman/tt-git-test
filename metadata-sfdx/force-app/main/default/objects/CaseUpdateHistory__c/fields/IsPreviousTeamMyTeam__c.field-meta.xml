@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsPreviousTeamMyTeam__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK( CasePreviousOwnerTeam__c ), False, 
+IF(TEXT($User.SpoofAsTeam__c) = CasePreviousOwnerTeam__c, True, 
+IF(AND(ISBLANK(TEXT($User.SpoofAsTeam__c)),TEXT($User.Team__c) = CasePreviousOwnerTeam__c), True, 
+False)))</formula>
+    <label>Is Previous Team My Team</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

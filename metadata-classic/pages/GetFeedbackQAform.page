@@ -1,0 +1,3 @@
+<apex:page standardController="case">
+<apex:iframe width="100%" height="568" src="https://www.getfeedback.com/r/j5kJhkGe?CASEID={!Case.Id}&CASEOWNERID={!Case.OwnerId}&USER={!$User.Id}&OWNERNAME={!Case.Owner.Name}"/>
+</apex:page>

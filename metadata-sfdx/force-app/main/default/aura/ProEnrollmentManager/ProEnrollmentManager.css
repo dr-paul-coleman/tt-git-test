@@ -1,0 +1,56 @@
+.THIS#pem-container {
+	background-color: white;
+}
+
+.THIS .enrollment-list {
+	overflow-x: auto;
+}
+
+.THIS .enrollment-box {
+	min-width: 20rem;
+}
+
+.THIS .slds-tabs--path__stage {
+	margin-top: -.5rem;
+}
+
+.THIS .brand-more-button .slds-button {
+    background-color: rgb(0, 112, 210);
+    border: 1px solid rgb(0, 112, 210);
+    border-left: 1px solid white;
+}
+
+.THIS .brand-more-button .slds-button:active {
+    background-color: rgb(0, 57, 107);
+}
+
+.THIS .brand-more-button .slds-button:hover, .THIS .brand-more-button .slds-button:focus {
+    background-color: rgb(0, 95, 178);
+}
+
+.THIS .header-button .slds-button__icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 2rem;
+    height: 2rem;
+}
+
+.THIS .button-action-icon {
+	padding: 0;
+    padding-top: 0.25rem;
+    border-radius: 0.25rem;
+}
+
+.THIS .background-color-yellow {
+	background-color: #f2cf5b;
+}
+
+.THIS .slds-tabs--default__link {
+	height: initial;
+	line-height: 2rem;
+}
+
+.THIS .modal-survey {
+	height: 500px;
+}

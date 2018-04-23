@@ -1,0 +1,154 @@
+<apex:page docType="html-5.0" showHeader="false" standardController="MIIncident__c" extensions="MIController" sidebar="false" standardStylesheets="true">
+    <apex:stylesheet value="https://extjs.cachefly.net/ext/gpl/5.1.0/build/packages/ext-theme-crisp/build/resources/ext-theme-crisp-all_01.css"/>
+    <apex:stylesheet value="https://extjs.cachefly.net/ext/gpl/5.1.0/build/packages/ext-theme-crisp/build/resources/ext-theme-crisp-all_02.css"/>
+    <apex:includeScript value="https://extjs.cachefly.net/ext/gpl/5.1.0/build/ext-all.js"/>
+    <script src="https://extjs.cachefly.net/ext/gpl/5.1.0/build/packages/ext-theme-crisp/build/ext-theme-crisp.js"/>
+    <script type="text/javascript" charset="utf-8" src="{!$Resource.EasyXDM2_4_19}/porthole/src/porthole.js"/>
+    <apex:includeScript value="/support/console/34.0/integration.js"/>
+
+    <apex:remoteObjects jsNamespace="rmo">
+        <apex:remoteObjectModel name="Case" fields="Id,OwnerId"/>
+    </apex:remoteObjects>
+    <style>
+
+    body, div, span, a {
+        font-family: Arial,Helvetica,sans-serif !important;
+        font-size: 11.3px !important;
+    }
+
+    a {color:black;}      /* unvisited link */
+	a:hover {color:#015ba7;}  /* mouse over link */
+	a:visited {color:black;}  /* visited link */
+	a:active {color:#015ba7;}  /* selected link */
+	   
+    </style>
+
+<div id="ExtJSPanel"/>
+<div id="LoadingDiv" style="font-family: Arial,Helvetica,sans-serif !important;font-size:11.5px !important;display:block;">Loading MI File Manager...</div>
+
+    <script>
+        if(Ext.isChrome) {
+            console.warn("MIFileManager CHILD FRAME");
+            console.warn( location.href );
+        }
+        //NOTE! the Id in the next line will need to be modifed after the first deployment to Prod Org (to match the new Id)
+        __thisPage = {urlConext:"{!$Page.MIFileManager}",Id:"066560000004GO7", Name:"MIFileManager", EnterpriseURL: "{!$Api.Enterprise_Server_URL_340}"};
+        var sessionId = "{!$Api.session_id}";
+        var $thisUser = "{!$User.Id}";
+        var $thisCase = {Id:"{!MIIncident__c.OriginalCase__c}",ContactId:"{!MIIncident__c.OriginalCase__r.ContactId}",Subject:"{!MIIncident__c.OriginalCase__r.Subject}",CaseNumber:"{!MIIncident__c.OriginalCase__r.CaseNumber}",Incident__c:"{!MIIncident__c.Id}",Incident__r: { Id: "{!MIIncident__c.Id}", Name: "{!MIIncident__c.Name}"} };
+        $sconsole = (sforce && sforce.console && sforce.console.isInConsole()? sforce.console: false);
+        if( $sconsole ) {
+            sforce.console.getFocusedPrimaryTabId( function(tab){ 
+                window.__parentTab = tab.id;
+            });
+        }
+        window._miid = $thisCase.Incident__c.length === 18? $thisCase.Incident__c.substring(0,15): $thisCase.Incident__c;
+        var urlParts = __thisPage.EnterpriseURL.substring("https://".length).split(".");
+        var hostParts = urlParts[0].split("--");    
+        //Parent frame url format: 
+        // https://thumbtack--dev.cs42.my.salesforce.com/a08560000007EsS?isdtp=vw&isWsVw=true&nonce=e9a103c319515738096102233b0346a408c14484f59ec0539aa4badfb40c854d&sfdcIFrameOrigin=https%3A%2F%2Fthumbtack--dev.cs42.my.salesforce.com
+        __vfFrameURL = hostParts.length === 2? "https://thumbtack.my.salesforce.com/": "https://" + hostParts[0] + "--" + hostParts[1] + "." +  urlParts[1] + ".my.salesforce.com/";
+        __vfFrameURL += _miid;            
+        if($sconsole) {
+            var sfdcIFrameOrigin = getParameterByName("sfdcIFrameOrigin");
+            var nonce = getParameterByName("nonce");
+            __vfFrameURL += "?isdtp=vw&isWsVw=true&nonce=" + nonce;
+            __vfFrameURL += "&sfdcIFrameOrigin=" + encodeURIComponent(sfdcIFrameOrigin);
+        } 
+
+        Ext.Loader.setConfig({enabled: true});
+        Ext.Loader.setPath('TT', '{!$Resource.MIFileManager}/app');
+        Ext.require([
+            'TT.model.*'
+        ]);
+
+        $AttachmentStore = Ext.create('TT.store.AttachmentStore',{});
+        $CaseStore = Ext.create('TT.store.CaseStore',{});
+        $EmailStore = Ext.create('TT.store.EmailStore',{});
+        $MIFileStore = Ext.create('TT.store.MIFileStore',{});
+
+        $_errorHandler = function(err){
+            if(Ext.isReady) {
+                Ext.Msg.show({
+                    title: "Call Processing Error",
+                    msg: err + "<br/><br/>Please contact your system administrator for assistance with this error.",
+                    buttons: Ext.Msg.OK,
+                    icon: Ext.Msg.ERROR
+                });
+            } 
+            console.error(err);
+        };
+
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+            var regexS = "[\\?&]" + name + "=([^&#]*)";
+            var regex = new RegExp(regexS);
+            var results = regex.exec(window.location.search);
+            if(results == null)
+                return null;
+            else
+                return decodeURIComponent(results[1].replace(/\+/g, " "));
+        };
+
+        $_reloadStores = function() {
+            $AttachmentStore.loadRawData([]);
+            MIController.getAttachmentsByMIId( $thisCase.Incident__c, function(r,event){
+                $CaseStore.loadRawData([]);
+                $EmailStore.loadRawData([]);
+                $MIFileStore.loadRawData([]);
+                if(event.status) {
+                    MIData = JSON.parse(r);
+                    $CaseStore.loadRawData(MIData.Cases);
+                    $EmailStore.loadRawData(MIData.Emails);
+                    $MIFileStore.loadRawData(MIData.MIFiles);
+                    if( !Ext.isEmpty(MIData.Attachments) ) {
+                        for(var a=0; a<MIData.Attachments.length; a++ ){
+                            var attachment = MIData.Attachments[a];
+                            if( !Ext.isEmpty(attachment.ParentId) ) {
+                                if( Ext.String.startsWith(attachment.ParentId,'500') ) {
+                                    //case attachment
+                                    attachment.AttachedTo = $thisCase.Id===attachment.ParentId?"Original Case":"Case";
+                                    var caseRec = $CaseStore.findRecord('Id',attachment.ParentId);
+                                    if(caseRec) {
+                                        attachment.CaseNumber = caseRec.get('CaseNumber');
+                                        attachment.CaseSubject = caseRec.get('Subject');
+                                    }
+                                } else {
+                                    //email attachment
+                                    attachment.AttachedTo = "Case Email";
+                                    var emailRec = $EmailStore.findRecord('Id',attachment.ParentId);
+                                    if(emailRec) {
+                                        attachment.CaseNumber = emailRec.data.Parent.CaseNumber;
+                                        attachment.CaseSubject = emailRec.data.Parent.Subject;
+                                    }
+                                }
+                            }
+                        }
+                        $AttachmentStore.loadRawData(MIData.Attachments);
+                    }
+                } else {
+                    console.error(event);
+                }
+            }, {escape:false} );
+        };
+
+        Ext.onReady( function(){
+
+            Ext.tip.QuickTipManager.init();
+            
+            Ext.fly('LoadingDiv').hide();
+            TTPanel = Ext.create('TT.view.TTPanel', {width:Ext.Element.getViewportWidth(),height:Ext.Element.getViewportHeight(),"case": $thisCase, renderTo: 'ExtJSPanel'});
+            Ext.getWin().on("resize", function(event,el,opts) {
+                        if(TTPanel) {
+                            TTPanel.setWidth(Ext.Element.getViewportWidth());
+                        }
+                    },window,{delay:1});
+            Ext.fly('LoadingDiv').destroy();
+            $_reloadStores();
+
+            __ProviderXDM = new Porthole.WindowProxy( __vfFrameURL, 'parent' );
+        }); //document ready
+
+    </script>
+
+</apex:page>

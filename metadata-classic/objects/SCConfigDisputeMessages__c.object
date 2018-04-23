@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom Object for Solution Center to capture &apos;Questions&apos;, &apos;Answers&apos;, from a Pro or Customer on a &apos;Resolution&apos; related to a &apos;Dispute&apos;.  Also captures &apos;Thumbtack Tips&apos; sent to a pro or customer from Thumbtack.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>DisputeOffer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Dispute Offer</label>
+        <referenceTo>SCConfigDisputeOffer__c</referenceTo>
+        <relationshipLabel>Dispute Messages</relationshipLabel>
+        <relationshipName>DisputeMessages</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ExpirationDate__c</fullName>
+        <externalId>false</externalId>
+        <label>Expiration Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Question__c</fullName>
+        <externalId>false</externalId>
+        <label>Question</label>
+        <length>5000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>RespondingContact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Responding Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Dispute Messages</relationshipLabel>
+        <relationshipName>DisputeMessages</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>Dispute Message</label>
+    <nameField>
+        <label>Record Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Dispute Messages</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>FileImage</fullName>
+        <active>true</active>
+        <description>Record type used to manage the images uploaded by a pro or customer during the dispute resolution process.</description>
+        <label>File Image</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Message</fullName>
+        <active>true</active>
+        <description>Record type used to manage the messages between solution center parties.</description>
+        <label>Message</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>ReportedIssue</fullName>
+        <active>true</active>
+        <description>Record type used to manage the issues reported through the Solution Center.</description>
+        <label>Reported Issue</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>ThumbtackMessage</fullName>
+        <active>true</active>
+        <description>Record type used to manage the messages sent to a pro or customer from Thumbtack.</description>
+        <label>Thumbtack Message</label>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

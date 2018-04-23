@@ -1,0 +1,284 @@
+<aura:component controller="EnrollmentActionManagerController">
+	<aura:attribute name="enrollmentId" type="String" access="public"/>
+	<aura:attribute name="myUser" type="User" access="public"/>
+	<aura:attribute name="enrollment" type="Enrollment__c" access="private"/>
+	<aura:attribute name="prevOnboardingSteps" type="EnrollmentItem[]" access="private"/>
+	<aura:attribute name="prevOnboardingStepNames" type="String[]" access="private"/>
+	<aura:attribute name="onboardingSteps" type="EnrollmentItem[]" access="private"/>
+	<aura:attribute name="onboardingStepNames" type="String[]" access="private"/>
+	<aura:attribute name="funnelStep" type="String" access="private"/>
+	<aura:attribute name="dispositionRules" type="EnrollmentRule__c[]" access="private"/>
+	<aura:attribute name="attempt" type="EnrollmentAction__c" default="{sobjectType:'EnrollmentAction__c', Type__c:'Outreach Attempt', OutreachDisposition__c: '', Enrollment__c: '', RuleId__c: '', Name: '', CallbackPhone__c: ''}" access="private"/>
+	<aura:attribute name="showAttemptSurvey" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="attemptSurveyInModal" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="showAttemptSurveyModal" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="funnelSteps" type="String[]" access="private"/>
+	<aura:attribute name="funnelStepEndpoint" type="String" access="private"/>
+	<aura:attribute name="callbackDate" type="String" access="private"/>
+	<aura:attribute name="showCallbackDateError" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="callbackMonth" type="Integer" access="private"/>
+	<aura:attribute name="callbackDay" type="Integer" access="private"/>
+	<aura:attribute name="callbackYear" type="Integer" access="private"/>
+	<aura:attribute name="callbackTime" type="String" access="private"/>
+	<aura:attribute name="showDatepicker" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="callbackOwnerId" type="String" access="private"/>
+	<aura:attribute name="callbackOwnerName" type="String" access="private"/>            	
+	<aura:attribute name="showCallbackOwnerModal" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="callbackOwnerChoice" type="String" access="private"/>
+	<aura:attribute name="otherOwnerSearchText" type="String" access="private"/>
+	<aura:attribute name="otherOwners" type="User[]" access="private"/>
+	<aura:attribute name="otherOwner" type="User" access="private"/>
+	<aura:attribute name="feedItems" type="EnrollmentAction__c[]" access="private"/>
+	<aura:attribute name="showSendEmailModal" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="showOnboardingStepsSpinner" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="isActiveTab" type="Boolean" default="false" access="public"/>
+
+	<ltng:require scripts="{!join(',', $Resource.jquery, $Resource.underscore)}" afterScriptsLoaded="{!c.handleScriptsLoaded}"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:handler event="c:EnrollmentActionModified" action="{!c.handleEnrollmentActionModified}"/>
+	<aura:handler event="c:FunnelStepClicked" action="{!c.handleFunnelStepClicked}"/>
+	<aura:handler event="c:DateSelected" action="{!c.handleDateSelected}"/>
+	<aura:handler event="c:EnrollmentTabSelected" action="{!c.handleEnrollmentTabSelected}"/>
+
+	<aura:registerEvent name="EnrollmentModified" type="c:EnrollmentModified"/>
+	<aura:registerEvent name="SendEmailClicked" type="c:SendEmailClicked"/>
+	<aura:registerEvent name="StandardEnrollmentDetailClicked" type="c:StandardEnrollmentDetailClicked"/>
+	<aura:registerEvent name="AccountUpdated" type="c:AccountUpdated"/>
+	<aura:registerEvent name="ProFeedRefreshNeeded" type="c:ProFeedRefreshNeeded"/>
+
+	<div class="slds-grid">
+		<c:Process steps="{!v.funnelSteps}" currentStep="{!v.enrollment.FunnelStep__c}" isLost="{!!empty(v.enrollment.UnsuccessfulReason__c)}" endStep="{!v.funnelStepEndpoint}"/>
+	</div>
+	<div class="slds-grid slds-nowrap slds-m-top--large">
+		<div class="slds-col slds-size--6-of-12 slds-p-horizontal--large">
+			<h3 class="slds-text-heading--medium slds-m-bottom--small" title="Enrollment Actions">Enrollment Actions</h3>
+			<div class="panel-container">
+				<div class="slds-panel slds-grid slds-grid--vertical slds-nowrap">
+					<div class="slds-form--stacked slds-grow slds-scrollable--y">
+						<aura:iteration items="{!v.prevOnboardingSteps}" var="step">
+							<span>
+								<aura:if isTrue="{!and(step.showItem, !step.isAutomated)}">
+									<c:EnrollmentAction item="{!step}" enrollmentId="{!v.enrollmentId}" enrollmentAction="{!step.action}" outreachType="{!v.enrollment.outreach_type__c}" proUserId="{!v.enrollment.user_id__c}" categoryId="{!v.enrollment.rca_request_category_id__c}" enrollmentSavedURL="{!v.enrollment.PricingURL__c}" accountId="{!v.enrollment.Account__c}" myUser="{!v.myUser}"/>
+								</aura:if>
+							</span>
+						</aura:iteration>
+						<aura:iteration items="{!v.onboardingSteps}" var="step">
+							<span>
+								<aura:if isTrue="{!and(step.showItem, !step.isAutomated)}">
+									<c:EnrollmentAction item="{!step}" enrollmentId="{!v.enrollmentId}" enrollmentAction="{!step.action}" outreachType="{!v.enrollment.outreach_type__c}" proUserId="{!v.enrollment.user_id__c}" categoryId="{!v.enrollment.rca_request_category_id__c}" enrollmentSavedURL="{!v.enrollment.PricingURL__c}" isActiveTab="{!v.isActiveTab}" accountId="{!v.enrollment.Account__c}" myUser="{!v.myUser}"/>
+								</aura:if>
+							</span>
+						</aura:iteration>
+						<span></span>
+						<aura:if isTrue="{!and(empty(v.onboardingSteps), empty(v.prevOnboardingSteps))}">
+							<div class="slds-panel__section slds-has-divider--bottom">
+								<p class="slds-text-heading--small" title="No actions found">No actions found</p>
+							</div>
+						</aura:if>
+						<aura:if isTrue="{!v.showOnboardingStepsSpinner}">
+							<lightning:spinner variant="brand"/>
+						</aura:if>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="slds-col slds-size--6-of-12 slds-p-horizontal--large height-530px">
+			<h3 class="slds-text-heading--medium slds-m-bottom--small" title="Outreach Details">Interaction Details</h3>
+			<div class="outreach-container">
+				<div class="outreach-attempt-details" aura:id="attemptDetails">
+					<div class="slds-form slds-form_stacked">
+                        <lightning:select aura:id="attemptSelect" label="Disposition" value="{!v.attempt.RuleId__c}" onchange="{!c.handleAttemptDispositionChange}" messageWhenValueMissing="This field is required." required="true">
+                            <option value="">-- Select --</option>
+                            <aura:iteration items="{!v.dispositionRules}" var="rule">
+                                <option value="{!rule.Id}" selected="{!if(equals(rule.Id, v.attempt.RuleId__c), true, '')}">{!rule.EnrollmentOutreachDisposition__c}</option>
+                            </aura:iteration>
+                        </lightning:select>
+					</div>
+					<div class="slds-form_compound slds-m-top--small">
+						<div class="slds-form-element__group">
+							<aura:if isTrue="{!and(v.showAttemptSurvey, !v.attemptSurveyInModal)}">
+								<aura:if isTrue="{!equals(v.enrollment.Market__r.RequestCategory__r.outreach_type__c, 'early_enrollment')}">
+									<iframe id="survey-frame" class="slds-size--1-of-1 slds-m-vertical--xx-small survey" src="{!format($Label.c.GoogleFormProAssistUrl, v.enrollment.user_id__c, v.enrollment.rca_request_category_id__c)}"/>
+								</aura:if>
+								<aura:if isTrue="{!equals(v.enrollment.Market__r.RequestCategory__r.outreach_type__c, 'product_enabled')}">
+									<iframe id="survey-frame" class="slds-size--1-of-1 slds-m-vertical--x-small survey" src="{!format($Label.c.GetFeedbackProAssistUrl, v.enrollment.Id, v.enrollment.Account__c, v.myUser.FirstName + ' ' + v.myUser.LastName)}"/>
+								</aura:if>
+							</aura:if>
+							<aura:if isTrue="{!equals(v.attempt.OutreachDisposition__c, 'Callback Scheduled')}">
+								<div class="slds-form-element__row">
+									<div class="{!'slds-form-element mouse-pointer slds-size--1-of-2' + if(v.showCallbackDateError, ' slds-has-error', '')}">
+										<label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Callback date</label>
+										<div class="slds-form-element__control" onclick="{!c.toggleDatepicker}">
+											<input type="text" class="slds-input" disabled="disabled" value="{!v.callbackDate}"/>
+										</div>
+										<aura:if isTrue="{!v.showCallbackDateError}">
+											<div class="slds-form-element__help">This field is required</div>
+										</aura:if>
+										<aura:if isTrue="{!v.showDatepicker}">
+											<c:Datepicker month="{!v.callbackMonth}" year="{!v.callbackYear}" selectedMonth="{!v.callbackMonth}" selectedDay="{!v.callbackDay}" selectedYear="{!v.callbackYear}"/>
+										</aura:if>
+									</div>
+									<lightning:select aura:id="callbackTimeSelect" label="Callback Time (MST)" value="{!v.callbackTime}" required="true" class="slds-size--1-of-2">
+										<option value="">-- Select --</option>
+										<option value="6:00">6:00 AM</option>
+										<option value="6:30">6:30 AM</option>
+										<option value="7:00">7:00 AM</option>
+										<option value="7:30">7:30 AM</option>
+										<option value="8:00">8:00 AM</option>
+										<option value="8:30">8:30 AM</option>
+										<option value="9:00">9:00 AM</option>
+										<option value="9:30">9:30 AM</option>
+										<option value="10:00">10:00 AM</option>
+										<option value="10:30">10:30 AM</option>
+										<option value="11:00">11:00 AM</option>
+										<option value="11:30">11:30 AM</option>
+										<option value="12:00">12:00 PM</option>
+										<option value="12:30">12:30 PM</option>
+										<option value="13:00">1:00 PM</option>
+										<option value="13:30">1:30 PM</option>
+										<option value="14:00">2:00 PM</option>
+										<option value="14:30">2:30 PM</option>
+										<option value="15:00">3:00 PM</option>
+										<option value="15:30">3:30 PM</option>
+										<option value="16:00">4:00 PM</option>
+										<option value="16:30">4:30 PM</option>
+										<option value="17:00">5:00 PM</option>
+									</lightning:select>
+								</div>
+								<div class="slds-form-element__row">
+									<div class="slds-form-element slds-size--1-of-2">
+										<label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Callback owner</label>
+										<div class="slds-form-element__control">
+											<span class="slds-form-element__static slds-p-left--x-small">{!v.callbackOwnerName}</span><lightning:buttonIcon iconName="utility:edit" variant="bare" class="slds-m-left--small" onclick="{!c.showCallbackOwnerModal}"/>
+										</div>
+									</div>
+									<lightning:input aura:id="callbackPhone" type="phone" label="Preferred phone" class="slds-size--1-of-2" value="{!v.attempt.CallbackPhone__c}"/>
+								</div>
+							</aura:if>
+						</div>
+					</div>
+                    <div class="slds-form slds-form_stacked">
+                        <lightning:textarea label="Notes" placeholder="Enter notes here..." value="{!v.attempt.Notes__c}"/>
+					</div>
+					<div class="slds-m-top--small slds-text-align--right slds-clearfix">
+						<lightning:button label="Send Email" variant="neutral" class="slds-float--left" onclick="{!c.showSendEmailModal}"/>
+						<aura:if isTrue="{!and(v.showAttemptSurvey, v.attemptSurveyInModal)}">
+							<lightning:button label="Submit Feedback" variant="brand" onclick="{!c.showAttemptSurveyModal}"/>
+						</aura:if>
+						<lightning:button label="Save Attempt" variant="brand" onclick="{!c.saveAttempt}"/>
+					</div>
+				</div>
+				<div class="outreach-attempt-confirmation" aura:id="attemptConfirmation">
+					<div class="outreach-attempt-confirmation-message">
+						<div class="slds-notify_container">
+							<div class="slds-notify slds-notify--toast slds-theme--success slds-m-left--none" role="alert">
+								<span class="slds-assistive-text">Success</span>
+								<div class="slds-notify__content slds-grid">
+									<lightning:icon iconName="utility:success" class="slds-m-right--small slds-col slds-no-flex" size="small" variant="bare"/>
+									<div class="slds-col slds-align-middle">
+										<h2 class="slds-text-heading--small ">Interaction Details Saved</h2>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<lightning:button label="Edit Attempt" variant="base" iconName="utility:back" class="slds-m-top--x-small" onclick="{!c.editAttempt}"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="slds-text-align--right slds-p-horizontal--large">
+		<lightning:button label="View Enrollment Details" variant="bare" onclick="{!c.openStandardDetail}"/>
+	</div>
+	<aura:if isTrue="{!v.showCallbackOwnerModal}">
+		<div role="dialog" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<div class="slds-modal__header">
+					<lightning:buttonIcon iconName="utility:close" size="large" variant="bare-inverse" class="slds-modal__close" onclick="{!c.cancelCallbackOwnerModal}"/>
+					<h2 class="slds-text-heading--medium">Callback Owner</h2>
+				</div>
+				<div class="slds-modal__content slds-p-around--medium">
+					<h3 class="slds-text-heading--small">Select a callback owner:</h3>
+					<div class="slds-form--stacked slds-m-top--medium">                      
+                        <lightning:input type="radio" aura:id="Myself" name="callback-owner" value="Myself" label="Myself" checked="{!v.callbackOwnerChoice == 'Myself'}" onchange="{!c.handleCallbackOwnerOptionSelected}"/>
+                        <aura:if isTrue="{!v.enrollment.outreach_type__c != 'managed_account'}">
+                            <lightning:input type="radio" aura:id="ProServices" name="callback-owner" value="Pro Services" label="Pro Services" checked="{!v.callbackOwnerChoice == 'Pro Services'}" onchange="{!c.handleCallbackOwnerOptionSelected}"/>						
+                        </aura:if>                        
+                        <lightning:input type="radio" aura:id="Other" name="callback-owner" value="other" label="Other" checked="{!v.callbackOwnerChoice == 'other'}" onchange="{!c.handleCallbackOwnerOptionSelected}"/>
+						<aura:if isTrue="{!equals(v.callbackOwnerChoice, 'other')}">
+							<aura:if isTrue="{!empty(v.otherOwner)}">
+								<div class="slds-picklist slds-dropdown-trigger slds-dropdown-trigger--click slds-is-open slds-m-top--x-small slds-m-left--large">
+									<lightning:input type="search" label="Select Other Owner" value="{!v.otherOwnerSearchText}" onchange="{!c.handleOtherOwnerSearchTextChange}" required="true" aura:id="otherOwnerSearch"/>
+									<aura:if isTrue="{!!empty(v.otherOwners)}">
+										<div class="slds-dropdown slds-dropdown--left slds-dropdown--length-5 users-dropdown" role="listbox">
+											<ul class="slds-dropdown__list" role="group">
+												<aura:iteration items="{!v.otherOwners}" var="user">
+													<li role="presentation" data-user-id="{!user.Id}" onclick="{!c.selectOtherOwner}">
+														<span class="slds-lookup__item-action slds-lookup__item-action--label" role="option">
+															<span class="slds-truncate">{!user.Name}</span>
+														</span>
+													</li>
+												</aura:iteration>
+											</ul>
+										</div>
+									</aura:if>
+								</div>
+								<aura:set attribute="else">
+									<span class="slds-pill slds-m-top--x-small slds-m-left--large slds-theme--shade slds-p-horizontal--x-small">
+										<span class="slds-pill__label" title="{!v.otherOwner.Name}">{!v.otherOwner.Name}</span>
+										<lightning:buttonIcon iconName="utility:close" variant="bare" class="slds-pill__remove" onclick="{!c.removeOtherOwner}"/>
+									</span>
+								</aura:set>
+							</aura:if>
+						</aura:if>
+					</div>
+				</div>
+				<div class="slds-modal__footer">
+					<lightning:button label="Cancel" variant="neutral" onclick="{!c.cancelCallbackOwnerModal}"/>
+					<lightning:button label="Save" variant="brand" onclick="{!c.saveCallbackOwner}"/>
+				</div>
+			</div>
+		</div>
+		<div class="slds-backdrop slds-backdrop--open"></div>
+	</aura:if>
+	<aura:if isTrue="{!and(v.showAttemptSurvey, v.showAttemptSurveyModal)}">
+		<div role="dialog" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<div class="slds-modal__header">
+					<lightning:buttonIcon iconName="utility:close" size="large" variant="bare-inverse" onclick="{!c.closeAttemptSurveyModal}" class="slds-modal__close"/>
+					<h2 id="header43" class="slds-text-heading--medium">Feedback</h2>
+				</div>
+				<div class="slds-modal__content slds-p-around--medium">
+					<aura:if isTrue="{!equals(v.enrollment.Market__r.RequestCategory__r.outreach_type__c, 'early_enrollment')}">
+						<iframe id="survey-frame" class="slds-size--1-of-1 slds-m-vertical--xx-small modal-survey" src="{!format($Label.c.GoogleFormProAssistUrl, v.enrollment.user_id__c, v.enrollment.rca_request_category_id__c)}"/>
+					</aura:if>
+					<aura:if isTrue="{!equals(v.enrollment.Market__r.RequestCategory__r.outreach_type__c, 'product_enabled')}">
+						<iframe id="survey-frame" class="slds-size--1-of-1 slds-m-vertical--x-small modal-survey" src="{!format($Label.c.GetFeedbackProAssistUrl, v.enrollment.Id, v.enrollment.Account__c, v.myUser.FirstName + ' ' + v.myUser.LastName)}"/>
+					</aura:if>
+				</div>
+				<div class="slds-modal__footer">
+					<lightning:button label="Close" variant="neutral" onclick="{!c.closeAttemptSurveyModal}"/>
+				</div>
+			</div>
+		</div>
+		<div class="slds-backdrop slds-backdrop--open"></div>
+	</aura:if>
+	<aura:if isTrue="{!v.showSendEmailModal}">
+		<div role="dialog" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<div class="slds-modal__header">
+					<lightning:buttonIcon iconName="utility:close" size="large" variant="bare-inverse" onclick="{!c.closeSendEmailModal}" class="slds-modal__close"/>
+					<h2 id="header43" class="slds-text-heading--medium">Send Email</h2>
+				</div>
+				<div class="slds-modal__content slds-p-around--medium">
+					<iframe class="slds-size--1-of-1 slds-m-vertical--xx-small modal-survey" src="{!format($Label.c.StandardSendEmailUrl, v.enrollmentId)}"/>
+				</div>
+				<div class="slds-modal__footer">
+					<lightning:button label="Close" variant="neutral" onclick="{!c.closeSendEmailModal}"/>
+				</div>
+			</div>
+		</div>
+		<div class="slds-backdrop slds-backdrop--open"></div>
+	</aura:if>
+</aura:component>

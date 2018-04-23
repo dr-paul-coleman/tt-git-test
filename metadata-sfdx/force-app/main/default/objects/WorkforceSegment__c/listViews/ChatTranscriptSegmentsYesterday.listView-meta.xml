@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ChatTranscriptSegmentsYesterday</fullName>
+    <columns>NAME</columns>
+    <columns>QueueDataQueueValue__c</columns>
+    <columns>BeginningChatTranscriptNumber__c</columns>
+    <columns>EndingChatTranscriptNumber__c</columns>
+    <columns>QueueNodeDateTime__c</columns>
+    <columns>QueueDataReceivedContacts__c</columns>
+    <columns>QueueDataAbandonedLong__c</columns>
+    <columns>QueueDataHandledLong__c</columns>
+    <columns>QueueDataHandledShort__c</columns>
+    <columns>QueueDataHandledTime__c</columns>
+    <columns>QueueDataQueueDelayTime__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>WorkforceSegment__c.ChatTranscriptSegment</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>YESTERDAY</value>
+    </filters>
+    <label>04: Chat Transcript Segments - YESTERDAY</label>
+    <sharedTo>
+        <role>CustomerSuccessOrganization</role>
+        <role>SharedServicesUserTSL</role>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,148 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+===============================================
+  1.0      2017-11-21   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+ -->
+
+<apex:page id="CaseTransferContainer" standardController="Case" standardStylesheets="false"   >
+    <apex:includeScript value="/canvas/sdk/js/publisher.js"/>
+    <apex:includeScript value="/support/console/35.0/integration.js"/>
+    <apex:includeLightning />
+    <style>
+        body.hasMotif {margin: 0px !important;}
+
+        /* datepicker styles */
+        .slds-day
+        {
+            font-size: 12px !important;
+            height: 25px !important;
+            width: 100% !important;
+            line-height: 25px !important;
+        }
+
+        .uiDatePickerGrid .calGrid th
+        {
+            font-size: 12px !important;
+            padding: 5px !important;
+        }
+
+        .uiInputTimePicker--default .datepicker--time
+        {
+            padding: .5rem 0 !important;
+            font-size: 12px !important;
+        }
+
+        .uiInputTimePicker--default .datepicker--time__list > li
+        {
+            margin: 0px !important;
+            padding: 3px 15px 3px 0px !important;
+            text-align: right !important;
+        }
+
+        .uiInputTimePicker--default .dropdown
+        {
+            min-width: 120px !important;
+        }
+
+        .uiInputTimePicker--default .datepicker--time__list
+        {
+            max-height: 8.5rem !important;
+        }
+
+        .actionsRight .slds-button.slds-button--neutral.slds-button--neutral.uiButton--default.uiButton  {
+            padding-left: 1rem;
+            padding-right: 1rem;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid rgb(216, 221, 230);
+            -webkit-transition: border .15s linear;
+            transition: border .15s linear;
+            background-color: rgb(255, 255, 255) !important;
+            border-color: rgb(216, 221, 230) !important;
+            color: rgb(0, 112, 210) !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+
+        .actionsRight .slds-button.slds-button--neutral.slds-button--brand.uiButton--default.uiButton  {
+            padding-left: 1rem;
+            padding-right: 1rem;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid rgb(217, 219, 221);
+            -webkit-transition: border .15s linear;
+            transition: border .15s linear;
+            background-color: rgb(0, 112, 210) !important;
+            border-color: rgb(0, 112, 210) !important;
+            color: rgb(255, 255, 255) !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+
+        .actionsRight .slds-button.slds-button--neutral.slds-button--neutral.uiButton--default.uiButton:hover
+        {
+            box-shadow: none !important;
+            text-shadow: none !important;
+            background: #f4f6f9 !important;
+        }
+
+        .actionsRight .slds-button.slds-button--neutral.slds-button--brand.uiButton--default.uiButton:hover
+        {
+            box-shadow: none !important;
+            text-shadow: none !important;
+            background: rgb(0, 95, 178) !important;
+        }
+
+        .actionsRight .slds-button.slds-button--neutral.slds-button--neutral.uiButton--default.uiButton .label, .actionsRight .slds-button.slds-button--neutral.slds-button--neutral.uiButton--default.uiButton .label:hover
+        {
+            text-shadow: none !important;
+            color: rgb(0, 112, 210) !important;
+        }
+
+        .actionsRight .slds-button.slds-button--neutral.slds-button--brand.uiButton--default.uiButton .label, .actionsRight .slds-button.slds-button--neutral.slds-button--brand.uiButton--default.uiButton .label:hover
+        {
+            text-shadow: none !important;
+            color: white !important;
+        }
+
+        .flowruntimeDisplayText, .flowruntimeInputWrapper
+        {
+            padding-bottom: 10px !important;
+            margin-bottom: 0px !important;
+        }
+    </style>
+    <div id="lightning">
+        <script>
+            $Lightning.use("c:CaseTransferApp", function(){
+                $Lightning.createComponent("c:CaseTransfer", {"caseId" : "{!Case.Id}"}, "lightning"
+                    , function(cmp){$A.eventService.addHandler({ "event": "c:CaseTransferEvent", "handler" : caseTransferEvenHandler });
+                });
+            });
+
+            function caseTransferEvenHandler(event)
+            {
+                var actionName = event.getParam('actionName');
+
+                if(actionName == 'Refresh Case')
+                {
+                    console.log('refreshCase Called In VF');
+                    Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload :{feed:true}});
+                    sforce.console.getFocusedPrimaryTabId( function(result){
+                        sforce.console.refreshPrimaryTabById(result.id, true,function(){
+                            sforce.console.getSubtabIds( result.id,function(subs){
+                                if(subs && subs.ids && subs.ids.length>0) {
+                                    for(var i=0; i<subs.ids.length; i++ ) {
+                                        sforce.console.refreshSubtabById(subs.ids[i], false);
+                                    }
+                                }
+                            }); //get subtabs
+                        }); //refresh tab
+                    });//focus tab
+                }
+            }
+        </script>
+    </div>
+</apex:page>

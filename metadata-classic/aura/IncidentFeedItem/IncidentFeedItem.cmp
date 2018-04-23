@@ -1,0 +1,91 @@
+<aura:component >
+	<aura:attribute name="feedItem" type="IncidentFeedItem" access="public"/>
+    <aura:attribute name="proAccountId" type="String" access="public"/>
+    <aura:attribute name="proContactId" type="String" access="public"/>
+
+	<ltng:require scripts="{!$Resource.jquery}" />
+
+	<div class="slds-border_bottom feed-item">
+		<div class="slds-grid slds-grid_vertical-align-center slds-p-vertical_small pointer" onclick="{!c.toggleDetails}">
+			<div class="slds-size_3-of-4">
+				<div class="slds-grid slds-grid_vertical-align-center">
+					<div>
+						<div class="slds-avatar slds-avatar_circle">
+							<aura:if isTrue="{!equals(v.feedItem.itemType, 'email')}">
+								<lightning:icon iconName="standard:email" class="slds-icon-standard-email" title="Email"/>
+							</aura:if>
+							<aura:if isTrue="{!equals(v.feedItem.itemType, 'call')}">
+								<lightning:icon iconName="standard:call" class="slds-icon-standard-call" title="Call"/>
+							</aura:if>
+							<aura:if isTrue="{!equals(v.feedItem.itemType, 'action')}">
+								<lightning:icon iconName="standard:product_item_transaction" class="slds-icon-standard-product-item-transaction" title="Action"/>
+							</aura:if>
+							<aura:if isTrue="{!equals(v.feedItem.itemType, 'note')}">
+								<lightning:icon iconName="standard:note" class="slds-icon-standard-note" title="Note"/>
+							</aura:if>
+							<aura:if isTrue="{!equals(v.feedItem.itemType, 'task')}">
+								<lightning:icon iconName="standard:task" class="slds-icon-standard-task" title="Task"/>
+							</aura:if>
+							<aura:if isTrue="{!equals(v.feedItem.itemType, 'history')}">
+								<lightning:icon iconName="standard:recent" class="slds-icon-standard-recent" title="Action History"/>
+							</aura:if>
+                            <aura:if isTrue="{!v.feedItem.itemType == 'CallLogPost' || v.feedItem.itemType == 'TextPost' || v.feedItem.itemType == 'CaseCommentPost'}">
+                                <lightning:icon iconName="standard:note" class="slds-icon-standard-note"  title="Case Feed" />
+                            </aura:if>
+                            <aura:if isTrue="{!equals(v.feedItem.itemType, 'IncidentFactor')}">
+                                <lightning:icon iconName="standard:announcement" class="feed-icon-announcement" title="Incident Factor"/>
+                            </aura:if>
+						</div>
+					</div>
+					<div class="nowrap bold slds-p-horizontal_small"> 
+						{!v.feedItem.personName}
+					</div>
+					<div aura:id="feed-item-summary" class="slds-truncate">
+                        <aura:if isTrue="{!v.feedItem.itemType == 'call'}">
+							logged a <span aura:id="{!v.feedItem.phoneCall.Id}" class="span-link" onclick="{!c.viewClick}" data-name="{!v.feedItem.phoneCall.Subject}" data-value="{!v.feedItem.phoneCall.Id}">call</span>.
+                            <aura:set attribute="else">
+								{!v.feedItem.summary}
+							</aura:set>
+						</aura:if>
+					</div>
+				</div>
+			</div>
+			<div class="slds-size_1-of-4 slds-grid slds-grid_vertical-align-center">
+				<div class="slds-size_1-of-1 slds-text-align_right">
+					<ui:outputDateTime value="{!v.feedItem.sortDate}" class="slds-truncate" format="MMM d, yyyy h:mm a"/>
+				</div>
+			</div>
+		</div>
+		<div aura:id="feed-item-details" class="feed-item-details prewrap slds-p-left_xx-large slds-p-bottom_medium slds-hide">
+            <aura:if isTrue="{!equals(v.feedItem.itemType, 'email')}">
+				<div class="slds-m-bottom_medium">
+                    <dl class="slds-dl_inline">
+                        <dt class="slds-dl_inline__label">Subject:</dt>
+                        <dd class="slds-dl_inline__detail">{!v.feedItem.email.Subject}</dd>
+                        <dt class="slds-dl_inline__label">To:</dt>
+                        <dd class="slds-dl_inline__detail">{!v.feedItem.email.ToAddress}</dd>
+                        <dt class="slds-dl_inline__label">From:</dt>
+                        <dd class="slds-dl_inline__detail">{!v.feedItem.email.FromName}&nbsp;({!v.feedItem.email.FromAddress})</dd>
+                        <dt class="slds-dl_inline__label">Attachments:</dt>
+                        <dd class="slds-dl_inline__detail">{!v.feedItem.email.HasAttachment ? 'Yes' : 'No'}</dd>
+                    </dl>
+                </div>
+			</aura:if>
+			<aura:if isTrue="{!equals(v.feedItem.detailType, 'text')}">
+				<div class="slds-text-body_small wrap-text">{!v.feedItem.details}</div>
+				<aura:set attribute="else">
+					<aura:if isTrue="{!equals(v.feedItem.detailType, 'html')}">
+						<div  style="white-space: normal !important; word-wrap: normal !important;">
+							<ui:outputRichText value="{!v.feedItem.details}" />
+						</div>
+						<aura:set attribute="else">
+							<aura:if isTrue="{!equals(v.feedItem.detailType, 'link')}">
+								<a href="{!'/' + v.feedItem.details}" target="_blank">{!v.feedItem.summary}</a>
+							</aura:if>
+						</aura:set>
+					</aura:if>
+				</aura:set>
+			</aura:if>
+		</div>
+	</div>
+</aura:component>

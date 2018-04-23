@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MTSServiceLevel</fullName>
+    <booleanFilter>1 AND ((2 AND 3) OR 4) AND 5 AND 6</booleanFilter>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>NAME</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>MICategory__c</columns>
+    <columns>MISubcategory__c</columns>
+    <columns>CASES.ORIGIN</columns>
+    <columns>TransferredtoMI__c</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.LAST_UPDATE</columns>
+    <columns>UPDATEDBY_USER.ALIAS</columns>
+    <columns>Category__c</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>Incident__c</columns>
+    <columns>MIIncidentStatus__c</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>CASES.PRIORITY</field>
+        <operation>equals</operation>
+        <value>Tier 1</value>
+    </filters>
+    <filters>
+        <field>TransferredtoMI__c</field>
+        <operation>lessOrEqual</operation>
+        <value>N_DAYS_AGO:3</value>
+    </filters>
+    <filters>
+        <field>CASES.PRIORITY</field>
+        <operation>equals</operation>
+        <value>Tier 2,Tier 3,Tier 4</value>
+    </filters>
+    <filters>
+        <field>MISubcategory__c</field>
+        <operation>notEqual</operation>
+        <value>Collateral Damage</value>
+    </filters>
+    <filters>
+        <field>MISubcategory__c</field>
+        <operation>notEqual</operation>
+        <value>MBG Pilot</value>
+    </filters>
+    <label>MTS - Service Level</label>
+    <queue>MarketplaceIntegrity</queue>
+    <sharedTo>
+        <role>CustomerSuccessOrganization</role>
+        <role>SystemLevelAccess</role>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

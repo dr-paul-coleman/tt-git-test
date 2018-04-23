@@ -1,0 +1,49 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+================================================
+  1.0      2017-12-06   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+-->
+
+<apex:page id="SupportProcessParentCasePostFeed" standardController="SupportProcess__c" standardStylesheets="false"   >
+    <apex:includeScript value="/canvas/sdk/js/publisher.js"/>
+    <apex:includeScript value="/support/console/35.0/integration.js"/>
+    <apex:includeLightning />
+    <style>
+        body.hasMotif {margin: 0px !important;}
+    </style>
+    <div id="lightning">
+        <script>
+            $Lightning.use("c:ParentCasePostFeedApp", function(){
+                $Lightning.createComponent("c:ParentCasePostFeed", {"caseId" : "{!SupportProcess__c.Case__c}"}, "lightning"
+                    , function(cmp){$A.eventService.addHandler({ "event": "c:ParentCasePostFeedEvent", "handler" : eventHandler });
+                });
+            });
+
+            function eventHandler(event)
+            {
+                var actionName = event.getParam('actionName');
+
+                if(actionName == 'Refresh Case')
+                {
+                    /*if (sforce.console.isInConsole()) {
+                        Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload :{feed:true}});
+                        sforce.console.getFocusedPrimaryTabId( function(result){
+                            sforce.console.refreshPrimaryTabById(result.id, true,function(){
+                                sforce.console.getSubtabIds( result.id,function(subs){
+                                    if(subs && subs.ids && subs.ids.length>0) {
+                                        for(var i=0; i<subs.ids.length; i++ ) {
+                                            sforce.console.refreshSubtabById(subs.ids[i], false);
+                                        }
+                                    }
+                                }); //get subtabs
+                            }); //refresh tab
+                        });//focus tab
+                    }*/
+                }
+            }
+        </script>
+    </div>
+</apex:page>

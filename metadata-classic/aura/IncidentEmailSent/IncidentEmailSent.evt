@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="IncidentEmailSent">
+	<aura:attribute name="isSuccess" type="Boolean"/>
+</aura:event>

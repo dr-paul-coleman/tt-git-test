@@ -1,0 +1,128 @@
+<apex:page docType="html-5.0" showHeader="false" standardController="Case" extensions="LiveOpsInboundScreenPopController" sidebar="false" standardStylesheets="true">
+<apex:stylesheet value="{!URLFOR($Resource.extjs510107Zip, 'build/packages/ext-theme-crisp/build/resources/ext-theme-crisp-all_01.css')}"/>
+<apex:includeScript value="/support/console/35.0/integration.js"/>
+<apex:remoteObjects jsNamespace="rmo">
+    <apex:remoteObjectModel name="Case" fields="Id,AccountId,ContactId"/>
+    <apex:remoteObjectModel name="Contact" fields="Id,Name,AccountId,Phone,Email"/>
+    <apex:remoteObjectModel name="Account" fields="Id,Name"/>
+    <apex:remoteObjectModel name="RecordType" fields="Id,Name,DeveloperName,SobjectType"/>
+</apex:remoteObjects>
+<style>
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.x-btn {
+    -webkit-border-radius: 3px !important;
+    -moz-border-radius: 3px !important;
+    -ms-border-radius: 3px !important;
+    -o-border-radius: 3px !important;
+    border-radius: 3px !important;
+    padding: 3px 3px 3px 3px !important;
+    border-style: solid !important;
+    background-image: none !important;
+    background-color: #3892D3 !important;
+    background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(0%,#4B9CD7),color-stop(50%,#3892D3),color-stop(51%,#358AC8),color-stop(100%,#3892D3)) !important;
+    background-image: -webkit-linear-gradient(top,#4B9CD7,#3892D3 50%,#358AC8 51%,#3892D3) !important;
+    background-image: -moz-linear-gradient(top,#4b9cd7,#3892d3 50%,#358ac8 51%,#3892d3) !important;
+    background-image: -o-linear-gradient(top,#4b9cd7,#3892d3 50%,#358ac8 51%,#3892d3) !important;
+    background-image: linear-gradient(top,#4b9cd7,#3892d3 50%,#358ac8 51%,#3892d3) !important;
+}
+.x-btn-inner{
+    color: white;
+}
+
+a {color:black;}      /* unvisited link */
+a:hover {color:darkblue;}  /* mouse over link */
+a:visited {color:black;}  /* visited link */
+a:active {color:darkblue;}  /* selected link */
+div#ExtJSPanel {
+        margin-top: 2px;
+        padding: 5px;
+        padding-right: 15px;
+        -margin-right: auto;
+        -margin-left: auto;
+        max-width: 800px;
+        min-height: 320px;
+        min-width: 459px;
+        display: none;
+    }
+div#LoadingDiv {
+        margin-top: 120px;
+        margin-right: auto;
+        margin-left: auto;
+        max-width: 800px;
+        min-height: 100px;
+        min-width: 459px;
+        text-align: center;
+    }
+</style>
+
+    <div id="ExtJSPanel"/>
+    <div id="LoadingDiv">Loading...</div>
+    <script src="{!URLFOR($Resource.extjs510107Zip,'build/ext-all.js')}"></script>
+
+    <script type="text/javascript">
+
+        function refreshFeed() {
+            Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload :{feed:true}});
+        }
+        var sessionId = "{!$Api.session_id}";
+        Ext.Loader.setConfig({enabled: true});
+        Ext.Loader.setPath('TT', '{!$Resource.AssignCaseAccount}/app');
+
+        Ext.onReady( function(){
+
+            Ext.require(['TT.model.*']);
+            $AccountStore = Ext.create('TT.store.AccountStore',{});
+
+            var main = function() {
+                Ext.tip.QuickTipManager.init();
+                Ext.fly('LoadingDiv').hide();
+                Ext.fly('ExtJSPanel').show();
+                TTPanel = Ext.create('TT.view.AssignCaseAccountPanel', {case: $ThisCase, renderTo: 'ExtJSPanel',width:(Ext.Element.getViewportWidth()-20)});
+                Ext.defer( function(){
+                    var tfield = TTPanel.queryById('AccountSearchText');
+                    if( !Ext.isEmpty($ThisCase.Contact) && !Ext.isEmpty($ThisCase.Contact.Name) ) {
+                        tfield.setValue($ThisCase.Contact.Name);
+                    } else if( !Ext.isEmpty($ThisCase.Account) && !Ext.isEmpty($ThisCase.Account.Name) ) {
+                        tfield.setValue($ThisCase.Account.Name);
+                    }
+                    tfield.focus(false,200);
+                    Ext.getWin().on("resize", function(event,el,opts) {
+                        if("undefined"!==typeof(TTPanel)) {
+                            TTPanel.setWidth(Ext.Element.getViewportWidth()-20);
+                        }
+                    },window,{delay:1});
+                }, 500);
+                Ext.fly('LoadingDiv').destroy();
+                Ext.getHead().insertHtml('beforeEnd', '<link id="extjscss2" rel="stylesheet" type="text/css"/>' );
+                Ext.fly("extjscss2").dom.href = "{!URLFOR($Resource.extjs510107Zip, 'build/packages/ext-theme-crisp/build/resources/ext-theme-crisp-all_02.css')}";
+                Ext.Loader.loadScript({url: '/js/functions.js',onError: function(){console.log('CaseEscalation functions.js error');}});
+                Ext.Loader.loadScript({url: '/canvas/sdk/js/publisher.js',onError: function(){console.log('CaseEscalation publisher.js error');}});
+            }; //end main
+
+            $ThisCase = {Id:"{!Case.Id}",ANI__c:"{!Case.ANI__c}",Subject:"{!Case.Subject}",AccountId:"{!Case.AccountId}",Account: {Id:"{!Case.Subject}",Name:"{!Case.Account.Name}"},ContactId:"{!Case.ContactId}",Contact:{Id:"{!Case.ContactId}",Name:"{!Case.Contact.Name}"}};
+            if( Ext.isEmpty($ThisCase.Id) ) {
+                if(sforce && sforce.console && sforce.console.isInConsole()) {
+                    sforce.console.getFocusedPrimaryTabObjectId( function(result){
+                        if ( !Ext.isEmpty(result.id) ) {
+                            $ThisCase.Id = result.id;
+                            main();
+                        } else {
+                            console.error("Could not get context Case Id");
+                        }
+                    });
+                } else {
+                    main();
+                }                    
+            } else {
+                main();
+            }
+
+        });
+
+    </script>
+<script asyc="true" src="{!URLFOR($Resource.extjs510107Zip, 'build/packages/ext-theme-crisp/build/ext-theme-crisp.js')}"/>
+</apex:page>

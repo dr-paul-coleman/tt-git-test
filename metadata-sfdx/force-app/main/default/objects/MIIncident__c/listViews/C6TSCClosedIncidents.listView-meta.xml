@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>C6TSCClosedIncidents</fullName>
+    <columns>IncidentNumber__c</columns>
+    <columns>NAME</columns>
+    <columns>SolutionCenterStage__c</columns>
+    <columns>Status__c</columns>
+    <columns>MICategory__c</columns>
+    <columns>OwnerFullName__c</columns>
+    <columns>LastActionStatus__c</columns>
+    <columns>NextFollowupDate__c</columns>
+    <columns>NextFollowupTask__c</columns>
+    <columns>CustomerContact__c</columns>
+    <columns>ProContact__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Closed</value>
+    </filters>
+    <filters>
+        <field>SolutionCenterStage__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>C6: TSC Closed Incidents</label>
+    <sharedTo>
+        <role>CustomerSuccessOrganization</role>
+        <role>SharedServicesUserTSL</role>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

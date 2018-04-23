@@ -1,0 +1,20 @@
+<apex:page controller="DisplayEmailTemplateController">
+    <apex:form >
+       <apex:pageBlock >
+         <apex:pageBlockTable value="{!TempList}" var="temRec">
+            <apex:column value="{!temRec.Folder.Name}" headerValue="Folder Name"/>
+            <apex:column value="{!temRec.Id}" headerValue="Template ID"/>
+            <apex:column value="{!temRec.Name}" headerValue="Template Name"/>
+            <apex:column value="{!temRec.Subject}" headerValue="Subject"/>
+            <apex:column value="{!temRec.Description}" headerValue="Description"/>
+            <apex:column value="{!temRec.TemplateType}" headerValue="TemplateType"/>
+            <apex:column value="{!temRec.IsActive}" headerValue="Is Active"/>
+            <apex:column value="{!temRec.TimesUsed}" headerValue="Times Used"/>
+            <apex:column value="{!temRec.LastUsedDate}" headerValue="Last Used Date"/>
+            <apex:column value="{!temRec.CreatedDate}" headerValue="Created Date"/>
+            <apex:column value="{!temRec.LastModifiedDate}" headerValue="Last Modified Date"/>
+            <apex:column value="{!temRec.LastModifiedBy.Name}" headerValue="Last Modified By"/>
+        </apex:pageBlockTable>
+       </apex:pageBlock>
+    </apex:form>
+</apex:page>

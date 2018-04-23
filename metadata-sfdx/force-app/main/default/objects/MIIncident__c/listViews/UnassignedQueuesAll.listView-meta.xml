@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UnassignedQueuesAll</fullName>
+    <columns>IncidentNumber__c</columns>
+    <columns>NAME</columns>
+    <columns>Priority__c</columns>
+    <columns>Origin__c</columns>
+    <columns>Status__c</columns>
+    <columns>UPDATEDBY_USER.ALIAS</columns>
+    <columns>AmountRange__c</columns>
+    <columns>ProIsHighVolumeAccount__c</columns>
+    <columns>OwnerFullName__c</columns>
+    <columns>FirstCaseCreatedDate__c</columns>
+    <columns>FirstCaseTransferredtoMIDate__c</columns>
+    <columns>CreatedDateTime__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>OwnerisQueue__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>A7: Unassigned Queues - ALL</label>
+    <sharedTo>
+        <role>CustomerSuccessOrganization</role>
+        <role>SharedServicesUserTSL</role>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

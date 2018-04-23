@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AgentEmpoweredMe__c</fullName>
+    <description>[Agent Name] empowered me to resolve my question or issue.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>[Agent Name] empowered me to resolve my question or issue.</inlineHelpText>
+    <label>Agent Empowered Me</label>
+    <length>5000</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

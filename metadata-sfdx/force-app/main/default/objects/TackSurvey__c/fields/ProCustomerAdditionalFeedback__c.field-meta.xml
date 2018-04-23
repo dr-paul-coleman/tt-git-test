@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProCustomerAdditionalFeedback__c</fullName>
+    <description>Open text area for the engagement specialist to enter in any additional feedback provided by the Pro/Customer during the negative Tack Survey review call.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Additional feedback provided by the Pro/Customer during the negative Tack Survey review call.</inlineHelpText>
+    <label>Pro/Customer Additional Feedback</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

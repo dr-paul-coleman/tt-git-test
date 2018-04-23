@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DirectlyTackSurvey</fullName>
+    <active>true</active>
+    <label>Directly Tack Survey</label>
+    <picklistValues>
+        <picklist>CoachingStatus__c</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Needed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CommunicatedClearly__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disagree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Neither agree nor disagree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strongly Agree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strongly disagree</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DisputeReason__c</picklist>
+        <values>
+            <fullName>Bad Response %281 or 2 %29 but positive comment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Could not connect but followed process</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deleted or blacklisted pro%2Fcustomer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplicate survey</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Foreign language speaker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MC escalation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Meant for another specialist</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Positive agent%2C but negative product comment</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Effortpersonallyputforthbyprocust__c</picklist>
+        <values>
+            <fullName>High effort</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low effort</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium effort</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very high effort</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very low effort</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HelpCenterSatisfaction__c</picklist>
+        <values>
+            <fullName>Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Neither satisfied nor dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Satisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very satisfied</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IMOnboardingQuoteSatisfaction__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IMOnboardingSetupSatisfaction__c</picklist>
+        <values>
+            <fullName>Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Neither satisfied nor dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Satisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very Satisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very dissatisfied</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IMQuotingIssues__c</picklist>
+        <values>
+            <fullName>Quote message is wrong</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quoting price</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thumbtack quoted on a project that is not aligned with your travel preferences</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thumbtack quoted on a project that isn%27t a fit for you business</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>InstantMatchSignupSource__c</picklist>
+        <values>
+            <fullName>A notification in the Thumbtack app or online</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>A phone call from Thumbtack</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>An email from Thumbtack</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>LikelihoodToUseTTAgain__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Likely</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Neither likely nor unlikely</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unlikely</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very likely</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very unlikely</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ManagerDisputeDecision__c</picklist>
+        <values>
+            <fullName>Agree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disagree</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ManualOverride__c</picklist>
+        <values>
+            <fullName>Send Survey Email</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Numberofinteractionstoresolution__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4 or more</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4%2B</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Issue is not resolved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>More than one</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>One</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Offer_Status__c</picklist>
+        <values>
+            <fullName>Offered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Responded</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PSValue__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ReasonForNegativeTackSurvey__c</picklist>
+        <values>
+            <fullName>Complaint about Pro%2FCustomer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer suggestions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data advertised</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Filtering%2FSorting Quotes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Filtering%2FSorting Requests</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Landing pages%2Fspotlight</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Notifications</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment Mentods</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phone Apps</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Polish - Grammar%2FSpelling%2FLayout</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Positive Feedback</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pro wants feedback from customers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Profile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Profile Social Media links</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Profile credentials %28background checks%2C licenses%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quality of leads</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quote Flow</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refund%2FCredit dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requests</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reviews</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Site expansion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Suggested Questions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Support%2FHelp Pages</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thumbtack Specialist</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Travel Preferences</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ResolvedonCallback__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ReviewMentions__c</picklist>
+        <values>
+            <fullName>Agent Driven - Conduct</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agent Driven - Incomplete Information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agent Driven - Misinformation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agent Driven - No%2FLate Follow-up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>App Specific - Android</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>App Specific - iOS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Blank%2FNot enough info email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit refund dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credits versus Points</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Driven - Conduct</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Driven - Message for Pro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Driven - Negative Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Driven - No Payment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Driven - No Reply to Pro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Driven - No Response to Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Driven - Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Feedback Implementation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MI - Investigation%2FOther</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MI - Removal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Macro - Generic%2FUnrelated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mistake</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Passive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product - Bugs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product - Landing Page</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product - License</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product - Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product - Policy %28General%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product - Pricing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product - Request Form</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product - Review Policy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product - Technical Issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Professional Driven - Conduct</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Professional Driven - Financial Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Professional Driven - No show%2FLate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Professional Driven - Not Winning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Professional Driven - Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Professional Driven - Scam%2FLead quality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Professional Driven - Work Incomplete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Professional Driven - marked as hired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Professional Driven-Message for Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam Concerns</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unwanted Contact</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>SetupCompletionType__c</picklist>
+        <values>
+            <fullName>A Thumbtack Support Specialist waled me through the process on the phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Both of the above</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>I completed it myself using the Thumbtack app%2Fwebsite</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>TackSurveyDelay__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>24</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manual Override</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>TackSurveyResponse__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bad</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Good</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>TackSurveyReviewTeamDecision__c</picklist>
+        <values>
+            <fullName>Agree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disagree</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ThumbtackValue__c</picklist>
+        <values>
+            <fullName>Comprehensive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dependable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Easy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Encouraging</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High-Five</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Super-Helpful</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>VisitedHelpCenter__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,159 @@
+<!--
+ Copyright (c) [2015 -] 2017 Thumbtack. All rights reserved.                
+
+Version  Date         Author               Description
+========+============+===================+====================================================
+1.0      2017-05-25   Adam Schultz         Created, Updated 
+1.1      2017-09-28   Meena Pisupati       Replaced proassist@thumbtack.com:Thumbtack Proassist
+                                           with instantmatch@thumbtack.com:Instant Match
+========+============+===================+=====================================================-->
+
+<apex:page standardController="Enrollment__c" showHeader="true" sidebar="false" standardStylesheets="false" title="{!Enrollment__c.Name}">
+    <apex:includeScript value="/support/console/35.0/integration.js"/>
+    <apex:includeScript value="{!URLFOR($Resource.vf_jquery, '')}"/>
+    <style type="text/css">
+        body {
+            background-color: white;
+        }
+    </style>
+    <script type="text/javascript">
+        if(sforce.console.isInConsole()) {
+            sforce.console.setTabTitle('Enrollment');
+        }
+        var openPro = function(event) {
+            var enrollmentId = event.getParam('enrollmentId');
+            if (sforce.console.isInConsole()) {
+                sforce.console.getEnclosingPrimaryTabId(function(parent) {
+                    sforce.console.openPrimaryTab(parent.id, '/' + enrollmentId, true, null, function(sub_result){
+                        console.log(sub_result.id);
+                        if(false === sub_result.success) {
+                            console.warn("Open Pro tab failed");
+                            console.dir(sub_result);
+                        }
+                    });
+                });
+            } else {
+                location.href = '/' + enrollmentId;
+            }
+        };
+        var manageOpenPro = function() {
+            $A.eventService.addHandler({
+                event: "c:EnrollAProClicked",
+                handler: openPro
+            });
+        };
+        var openSendEmail = function(event) {
+            var enrollmentId = event.getParam('enrollmentId');
+            var contactId = event.getParam('contactId');
+            if(sforce.console.isInConsole()) {
+                sforce.console.openPrimaryTab(null, "/_ui/core/email/author/EmailAuthor?p3_lkid="+enrollmentId + '&p2_lkid=' + contactId + '&p26=instantmatch@thumbtack.com:Instant Match', true, 'Send Email', function(sub_result){
+                    console.log(sub_result.id);
+                    if(false === sub_result.success) {
+                        console.warn("Open Send Email Sub tab failed");
+                        console.dir(sub_result);
+                    }
+                },'sendEmail-' + enrollmentId);  
+            } else {
+                window.open("/_ui/core/email/author/EmailAuthor?p3_lkid="+enrollmentId + '&p2_lkid=' + contactId + '&p26=instantmatch@thumbtack.com:Instant Match', '_blank');
+            }
+        };
+        var manageOpenSendEmail = function() {
+            $A.eventService.addHandler({
+                event: "c:SendEmailClicked",
+                handler: openSendEmail
+            });
+        };
+        var openStandardDetailPage = function(event) {
+            var enrollmentId = event.getParam('enrollmentId');
+            var enrollmentName = event.getParam('enrollmentName');
+            if(sforce.console.isInConsole()) {
+                sforce.console.getEnclosingPrimaryTabId(function(parent) {
+                    console.log(parent);
+                    console.log(enrollmentId);
+                    console.log(enrollmentName);
+                    sforce.console.openSubtab(parent.id, '/' + enrollmentId + '?nooverride=1', true, enrollmentName, null, function(sub_result){
+                        console.log(sub_result.id);
+                        if(false === sub_result.success) {
+                            console.warn("Open standard enrollment detail failed");
+                            console.dir(sub_result);
+                        }
+                    },'override-' + enrollmentId);
+                });
+                // sforce.console.openPrimaryTab(null, '/' + enrollmentId + '?nooverride=1', true, enrollmentName, function(sub_result){
+                //  console.log(sub_result.id);
+                //  if(false === sub_result.success) {
+                //      console.warn("Open standard enrollment detail failed");
+                //      console.dir(sub_result);
+                //  }
+                // },'override-' + enrollmentId);  
+            } else {
+                window.open('/' + enrollmentId + '?nooverride=1', '_blank');
+            }
+        };
+        var manageOpenStandardDetailPage = function() {
+            $A.eventService.addHandler({
+                event: "c:StandardEnrollmentDetailClicked",
+                handler: openStandardDetailPage
+            });
+        };
+        var clickAccountPhone = function() {
+            $('#account-phone a').click();
+        };
+        var manageClickEnrollmentPhone = function() {
+            $A.eventService.addHandler({
+                event: "c:AccountPhoneClicked",
+                handler: clickAccountPhone
+            });
+        };
+        var clickCustomPhone = function(event) {
+            var customPhone = event.getParam('phone');
+            var oldPhone = '{!Enrollment__c.Account__r.Phone}';
+            oldPhone = oldPhone.replace(/\(/g, '\\(');
+            oldPhone = oldPhone.replace(/\)/g, '\\)');
+            var phoneLinkTemplate = $('#account-phone').clone().html().replace(new RegExp('(' + oldPhone + ')', 'g'), customPhone);
+            $('#custom-phone').html(phoneLinkTemplate);
+            $('#custom-phone a').click();
+        };
+        var manageClickCustomPhone = function() {
+            $A.eventService.addHandler({
+                event: "c:CustomPhoneClicked",
+                handler: clickCustomPhone
+            });
+        };
+
+        var openInSubTab = function(event) {
+            var url = event.getParam('url');
+            var title = event.getParam('title');
+
+            console.warn('openInSubTab');
+            if (sforce.console.isInConsole()) {
+                sforce.console.getEnclosingPrimaryTabId(function(parent) {
+                    sforce.console.openSubtab(parent.id, url, true, title, null, function(sub_result){
+                        console.log(sub_result.id);
+                        if(false === sub_result.success) {
+                            console.warn("Failed to open url in sub tab - " + url);
+                            console.dir(sub_result);
+                        }
+                    });
+                });
+            } else {
+                //location.href = url;
+                window.open(url);
+            }
+
+        }
+
+        var openInSubTabClick = function() {
+            $A.eventService.addHandler({
+                event: "c:ProEnrollmentEvent",
+                handler: openInSubTab
+            });
+        };
+
+    </script>
+    <span style="display: none;" id="account-phone">
+        <support:clickToDial number="{!Enrollment__c.Account__r.Phone}" entityId="{!Enrollment__c.Id}"/>
+    </span>
+    <span style="display: none;" id="custom-phone"></span>
+    <c:Lightning containerId="proEnrollmentManagerLightning" appName="c:ProEnrollmentManager_LO" componentName="c:ProEnrollmentManager" includeSpinner="false" jsonParams="{recordId:'{!Enrollment__c.Id}',accountId:'{!Enrollment__c.Account__c}'}" jsMethods="manageOpenSendEmail,manageOpenStandardDetailPage,manageOpenPro,manageClickEnrollmentPhone,manageClickCustomPhone,openInSubTabClick"/>
+</apex:page>

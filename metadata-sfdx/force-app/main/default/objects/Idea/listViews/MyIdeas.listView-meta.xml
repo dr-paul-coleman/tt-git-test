@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MyIdeas</fullName>
+    <columns>IDEA.TITLE</columns>
+    <columns>IDEA.BODY</columns>
+    <columns>DateImplemented__c</columns>
+    <columns>IDEA.CREATED_BY_NICKNAME</columns>
+    <columns>IDEA.STATUS</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>VOTE.HAS_VOTED</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>01 My Ideas</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>CustomerSuccessOrganization</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

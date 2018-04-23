@@ -1,0 +1,71 @@
+<aura:component controller="ProHeaderController">
+	<aura:attribute name="buttons" type="Aura.component[]" access="public"/>
+	<aura:attribute name="enrollmentId" type="String" access="public"/>
+	<aura:attribute name="enrollment" type="Enrollment__c" access="public" />
+	<aura:attribute name="proURL" type="String" access="public"/>
+	<aura:attribute name="account" type="Account" access="private"/>
+
+	<ltng:require scripts="{!join(',', $Resource.jquery, $Resource.clipboard)}" afterScriptsLoaded="{!c.handleScriptsLoaded}"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:handler event="c:AccountUpdated" action="{!c.handleAccountUpdatedEvent}"/>
+
+	<aura:registerEvent name="AccountPhoneClicked" type="c:AccountPhoneClicked"/>
+	<aura:registerEvent name="ProEnrollmentEvent" type="c:ProEnrollmentEvent"/>
+
+	<div class="slds-page-header">
+		<div class="slds-grid">
+			<div class="slds-col slds-has-flexi-truncate">
+				<div class="slds-media slds-no-space slds-grow">
+					<div class="slds-media__figure slds-text-align--center slds-p-right--large">
+						<p class="slds-text-title--caps slds-line-height--reset">Pro</p>
+						<lightning:icon iconName="standard:contact" class="slds-icon-standard-contact slds-avatar slds-avatar--circle slds-m-vertical--x-small" size="large"/>
+						<h1 class="slds-page-header__title" title="{!v.account.usr_first_name__c + ' ' + v.account.usr_last_name__c}">{!v.account.usr_first_name__c + ' ' + v.account.usr_last_name__c}</h1>
+					</div>
+					<div class="slds-media__body slds-p-left--large">
+						<div class="slds-grid">
+							<div class="slds-col slds-list--horizontal slds-wrap slds-align-top slds-size--1-of-2 slds-p-right--small">  
+                                <div class="slds-item--label slds-text-color--weak slds-truncate" title="Account">Account:</div>
+                                <!-- <div class="slds-item- -detail slds-truncate">{!v.account.Name}</div> -->
+                                <div class="slds-item--detail slds-truncate"><a href="javascript:void(0);" onclick="{!c.openAccountInTabClick}">{!v.account.Name}</a></div>
+								<div class="slds-item--label slds-text-color--weak slds-truncate" title="ID">ID:</div>
+								<div class="slds-item--detail slds-truncate">{!v.account.ThumbtackUserID__c}</div>
+								<div class="slds-item--label slds-text-color--weak slds-truncate" title="Phone">Phone:</div>
+								<div class="slds-item--detail slds-truncate"><a href="javascript:void(0);" onclick="{!c.callPro}">{!v.account.Phone}</a></div>
+								<div class="slds-item--label slds-text-color--weak slds-truncate" title="Email">Email: <button aura:id="copy-button" class="slds-button slds-button--icon-bare" type="button" title="Copy to clipboard"><lightning:icon iconName="utility:copy" class="slds-button__icon" size="x-small"/></button></div>
+								<div class="slds-item--detail slds-truncate" title="{!v.account.usr_email__c}">{!v.account.usr_email__c}</div>
+                                <div class="slds-item--label slds-text-color--weak slds-truncate" title="Time Zone">Time Zone:</div>
+								<div class="slds-item--detail slds-truncate">{!v.account.usr_timezone__c}</div>
+								
+							</div>
+							<div class="slds-col slds-list--horizontal slds-wrap slds-align-top slds-size--1-of-2">	                                
+								<div class="slds-item--label slds-text-color--weak slds-truncate" title="Open Cases">Open Cases:</div>
+								<div class="slds-item--detail slds-truncate">{!v.account.Cases.length}</div>
+								<div class="slds-item--label slds-text-color--weak slds-truncate" title="">View Admin:</div>
+								<div class="slds-item--detail slds-truncate"><a target="_blank" href="{!'https://www.thumbtack.com/admin/users/user?usr_user_id=' + v.account.ThumbtackUserID__c}">Click Here</a></div>
+								<div class="slds-item--label slds-text-color--weak slds-truncate" title="">Login As User:</div>
+								<div class="slds-item--detail slds-truncate"><a target="_blank" href="{!v.proURL}">Click Here</a></div>								
+								<div class="slds-item--label slds-text-color--weak slds-truncate" title="Assigned To">Assigned To:</div>
+                                <aura:if isTrue="{!v.enrollment.outreach_type__c == 'managed_account'}">
+                                	<div class="slds-item--detail slds-truncate">{!if(empty(v.account.EnrollmentAssignedTo__r.Name), 'Managed Accounts', v.account.EnrollmentAssignedTo__r.Name)}</div>
+									<aura:set attribute="else">
+                                        <div class="slds-item--detail slds-truncate">{!if(empty(v.account.EnrollmentAssignedTo__r.Name), 'Pro Services', v.account.EnrollmentAssignedTo__r.Name)}</div>
+									</aura:set>
+								</aura:if>
+                                <div class="slds-item--label slds-text-color--weak slds-truncate" title="Top Pro">Top Pro:</div>
+								<div class="slds-item--detail slds-truncate">{!if(empty(v.account.Enrollments__r), 'No', 'Yes')}</div>                                
+                                <aura:if isTrue="{!v.enrollment.outreach_type__c == 'managed_account'}">
+                                <div class="slds-item--label slds-text-color--weak slds-truncate" title="Sold By">Sold By:</div>                                
+                                <div class="slds-item--detail slds-truncate">{!v.enrollment.SoldBy__c}</div>
+                                </aura:if>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="slds-col slds-no-flex slds-grid slds-align-top">
+				{!v.buttons}
+			</div>
+		</div>
+	</div>
+</aura:component>

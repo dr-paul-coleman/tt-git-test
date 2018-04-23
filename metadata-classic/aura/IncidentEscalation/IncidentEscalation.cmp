@@ -1,0 +1,74 @@
+<!--
+/*******************************************************************************
+*                                                                              *
+*                                           ########                           *
+*                                            #####                             *
+*    Copyright (c) 2017 Thumbtack            ###                               *
+*       All rights reserved.                ###                                *
+*                                         #####                                *
+*                                      #########                               *
+*                                         #                                    *
+*                                        #                                     *
+*                                       #                                      *
+*                                      #                                       *
+*                                                                              *
+********************************************************************************
+Change List:
+
+Version      Date          Author            Description
+========+============+=================+================================================
+1.0      2017-08-29   Mendel Guillaume       Created
+========+============+=================+===============================================*/
+ -->
+
+<aura:component description="IncidentEscalation" controller="IncidentSectionsController">
+    <aura:attribute name="incidentId" type="String" access="public"/>
+    <aura:attribute access="public" type="MIIncident__c" name="incident" default="{ 'sobjectType': 'MIIncident__c' }" />
+
+    <aura:attribute name="escalationTypes" type="IncidentChargeCardManagerController.Option[]" access="private" />
+    <aura:attribute name="message" type="String" access="private" />
+    <aura:attribute name="messageType" type="String" access="private" default="success"/>
+
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+
+
+    <div class="slds-grid">
+        <div class="slds-size_1-of-2">
+            <div class="slds-form slds-form_stacked" style="padding-right: 5px;">
+                <lightning:select name="escTypes" aura:id="escTypes" label="Escalation Type" value="{!v.incident.EscalationType__c}" required="true" messageWhenValueMissing="Required Field.">
+                    <option text="" value="" />
+                    <aura:iteration items="{!v.escalationTypes}" var="s">
+                        <option text="{!s.label}" value="{!s.value}" />
+                    </aura:iteration>
+                </lightning:select>
+            </div>
+        </div>
+        <div class="slds-size_1-of-2">
+            <div class="slds-form slds-form_stacked" style="padding-left: 5px;">
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label">Escalation Date</label>
+                    <div class="slds-form-element__control">
+                        <ui:outputDate value="{!v.incident.EscalationDate__c}" format="MMM d, yyyy h:mm a"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slds-grid">
+        <div class="slds-size_1-of-1">
+            <div class="slds-form slds-form_stacked" style="margin-top: 0.5rem;">
+                <lightning:textarea name="dod" aura:id="dod" label="Description of Dispute" value="{!v.incident.DescriptionOfDispute__c}" />
+                <lightning:textarea name="dtt" aura:id="dtt" label="Disposition Towards Thumbtack" value="{!v.incident.DispositionTowardsThumbtack__c}" />
+                <lightning:textarea name="recAction" aura:id="recAction" label="Recommended Action" value="{!v.incident.RecommendedAction__c}" />
+            </div>
+        </div>
+    </div>
+    <div class="slds-text-align_left" style="padding-top: 5px;">
+        <lightning:button label="Submit" variant="brand" onclick="{!c.submitClick}" />
+        <aura:if isTrue="{! v.message != null}">
+            <span class="{!'slds-text-color_' + v.messageType}">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!v.message}
+            </span>
+        </aura:if>
+    </div>
+</aura:component>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BGCNeedToGetReports</fullName>
+    <columns>CREATED_DATE</columns>
+    <columns>NAME</columns>
+    <columns>CandidateId__c</columns>
+    <columns>CandidateName__c</columns>
+    <columns>Account__c</columns>
+    <columns>Contact__c</columns>
+    <columns>ReportId__c</columns>
+    <columns>BackgroundCheckComplete__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>BackgroundCheck__c.Checkr</value>
+    </filters>
+    <filters>
+        <field>BackgroundCheckComplete__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>BGC - Need to get reports</label>
+    <sharedTo>
+        <group>MarketplaceIntegrityRestricted</group>
+    </sharedTo>
+</ListView>

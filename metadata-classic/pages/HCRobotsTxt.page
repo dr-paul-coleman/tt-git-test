@@ -1,0 +1,10 @@
+<apex:page contentType="text/plain" showHeader="false"
+>Sitemap: https://help.thumbtack.com{!$Page.HCSiteMapTxt}
+User-agent: *
+Disallow: /?ut=
+Disallow: /?vw=cht
+Disallow: /?vw=em
+Disallow: /request-a-call
+Disallow: /preview-article
+Disallow: /callback-request
+</apex:page>

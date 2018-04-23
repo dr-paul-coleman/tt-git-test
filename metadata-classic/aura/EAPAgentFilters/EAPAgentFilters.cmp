@@ -1,0 +1,86 @@
+<aura:component controller="EAPAgentFiltersController">
+	<aura:attribute name="userOptions" type="List" access="private"/>
+	<aura:attribute name="selectedUsers" type="List" access="private"/>
+	<aura:attribute name="userIds" type="String[]" access="private"/>
+	<aura:attribute name="userSearchText" type="String" access="private"/>
+	<aura:attribute name="showUserSearchOptions" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="userSearchOptions" type="List" access="private"/>
+	<aura:attribute name="teams" type="String[]" access="private"/>
+	<aura:attribute name="selectedTeam" type="String" access="private"/>
+	<aura:attribute name="showSaveConfirmationToast" type="Boolean" default="false" access="private"/>
+
+	<ltng:require scripts="{!join(',', $Resource.jquery, $Resource.underscore)}"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:handler name="EAPFilterSelected" event="c:EAPFilterSelected" action="{!c.handleEAPFilterSelected}"/>
+	<aura:handler event="c:EAPFilterSaved" action="{!c.handleEAPFilterSaved}"/>
+
+	<aura:if isTrue="{!v.showSaveConfirmationToast}">
+		<div class="slds-notify_container">
+			<div class="slds-notify slds-notify--toast slds-theme--success" role="alert">
+				<span class="slds-assistive-text">Success</span>
+				<lightning:buttonIcon iconName="utility:close" class="slds-notify__close" variant="bare-inverse" size="large" onclick="{!c.hideSaveConfirmationToast}"/>
+				<div class="slds-notify__content slds-grid">
+					<lightning:icon iconName="utility:success" size="small" class="slds-m-right--small slds-col slds-no-flex" variant="bare"/>
+					<div class="slds-col slds-align-middle">
+						<h2 class="slds-text-heading--small">The filters saved successfully.</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</aura:if>
+	<div class="slds-grid">
+		<div class="slds-col slds-p-right--large slds-m-right--large slds-border--right slds-size--1-of-7">
+			<div class="slds-form--stacked">
+				<lightning:select value="{!v.selectedTeam}" label="Team filter" onchange="{!c.handleSelectedTeamChange}">
+					<option value="">--None--</option>
+					<aura:iteration items="{!v.teams}" var="team">
+						<option>{!team}</option>
+					</aura:iteration>
+				</lightning:select>
+				<div class="slds-m-vertical--x-small">
+					<lightning:button label="Select All" onclick="{!c.selectAll}"/>
+					<lightning:button label="Select None" onclick="{!c.selectNone}"/>
+				</div>
+				<div class="slds-form-element">
+					<div class="slds-picklist slds-is-open user-picklist">
+						<lightning:input label="User" type="search" value="{!v.userSearchText}" onchange="{!c.handleUserSearchTextChanged}"/>
+						<div aura:id="userDropdownBox" class="slds-dropdown slds-dropdown--left slds-dropdown--length-10 slds-is-static" role="listbox">
+							<aura:if isTrue="{!v.showUserSearchOptions}">
+								<ul class="slds-dropdown__list slds-has-dividers--top" role="group">
+									<aura:iteration items="{!v.selectedUsers}" var="option">
+										<span class="rerender-fix-span"></span>
+										<c:EnrollAProFilterOption option="{!option}"/>
+										<span></span>
+									</aura:iteration>
+									<aura:iteration items="{!v.userSearchOptions}" var="option">
+										<span class="rerender-fix-span"></span>
+										<c:EnrollAProFilterOption option="{!option}" alwaysShow="false"/>
+										<span></span>
+									</aura:iteration>
+								</ul>
+								<aura:set attribute="else">
+									<ul aura:id="userDropdownList" class="slds-dropdown__list slds-has-dividers--top" role="group">
+										<aura:iteration items="{!v.selectedUsers}" var="option">
+											<span class="rerender-fix-span"></span>
+											<c:EnrollAProFilterOption option="{!option}"/>
+											<span></span>
+										</aura:iteration>
+										<aura:iteration items="{!v.userOptions}" var="option">
+											<span class="rerender-fix-span"></span>
+											<c:EnrollAProFilterOption option="{!option}" alwaysShow="false"/>
+											<span></span>
+										</aura:iteration>
+									</ul>
+								</aura:set>
+							</aura:if>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="slds-col">
+			<c:EAPFilter userIds="{!v.userIds}" allowBlankUserIds="false"/>
+		</div>
+	</div>
+</aura:component>

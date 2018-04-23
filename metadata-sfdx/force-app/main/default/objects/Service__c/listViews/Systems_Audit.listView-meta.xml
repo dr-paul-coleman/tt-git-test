@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Systems_Audit</fullName>
+    <columns>NAME</columns>
+    <columns>ProAccount__c</columns>
+    <columns>ProAssistant__c</columns>
+    <columns>ProAssistantSubscriptionType__c</columns>
+    <columns>TEMPAccountSubscriptionType__c</columns>
+    <columns>TEMPMismatch__c</columns>
+    <columns>CREATEDBY_USER.ALIAS</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Service__c.Pro_Assistance_Service</value>
+    </filters>
+    <label>X - Systems Audit</label>
+    <sharedTo>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

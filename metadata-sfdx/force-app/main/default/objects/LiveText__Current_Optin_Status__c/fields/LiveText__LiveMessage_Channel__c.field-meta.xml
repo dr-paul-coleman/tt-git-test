@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LiveText__LiveMessage_Channel__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>The LiveMessage channel item related to this opt-in status</description>
+    <externalId>false</externalId>
+    <label>LiveMessage Channel</label>
+    <referenceTo>LiveText__LiveText_Number__c</referenceTo>
+    <relationshipLabel>Current Optin Statuses</relationshipLabel>
+    <relationshipName>Current_Optin_Statuses</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

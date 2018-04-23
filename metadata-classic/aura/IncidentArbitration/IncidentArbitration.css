@@ -1,0 +1,30 @@
+/*******************************************************************************
+*                                                                              *
+*                                           ########                           *
+*                                            #####                             *
+*    Copyright (c) 2017 Thumbtack            ###                               *
+*       All rights reserved.                ###                                *
+*                                         #####                                *
+*                                      #########                               *
+*                                         #                                    *
+*                                        #                                     *
+*                                       #                                      *
+*                                      #                                       *
+*                                                                              *
+********************************************************************************
+Change List:
+
+Version      Date          Author            Description
+========+============+=================+================================================
+1.0      2017-08-18   Mendel Guillaume       Created
+========+============+=================+===============================================*/
+.THIS .slds-text-color_success
+{
+    color: #04844b;
+}
+.THIS .timePicker-openIcon.display, .THIS .datePicker-openIcon.display
+{
+    display: none !important;
+}
+.THIS .grid-padding-right {padding-right: 5px;}
+.THIS .grid-padding-left {padding-left: 5px;}

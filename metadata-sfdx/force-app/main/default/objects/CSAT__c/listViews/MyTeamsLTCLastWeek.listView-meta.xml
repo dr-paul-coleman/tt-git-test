@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MyTeamsLTCLastWeek</fullName>
+    <columns>NAME</columns>
+    <columns>LTCIcon__c</columns>
+    <columns>LikelihoodToUseTTAgain__c</columns>
+    <columns>LikelihoodToUseTTAgainComment__c</columns>
+    <columns>User__c</columns>
+    <columns>ReportingManager__c</columns>
+    <columns>OfferDate__c</columns>
+    <columns>OfferResponseDate__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>CSAT__c.CustomerSatisfaction,CSAT__c.MarketplaceIntegrityCSAT</value>
+    </filters>
+    <filters>
+        <field>LikelihoodToUseTTAgain__c</field>
+        <operation>equals</operation>
+        <value>5,4,3,2,1</value>
+    </filters>
+    <filters>
+        <field>OfferResponseDateminusone__c</field>
+        <operation>equals</operation>
+        <value>LAST_WEEK</value>
+    </filters>
+    <filters>
+        <field>IsMyTeam__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>My Team's LTC - Last Week</label>
+    <sharedTo>
+        <role>CSManagingUserTPH</role>
+        <role>CSManagingUserTSL</role>
+        <role>CustomerSuccessOrganization</role>
+        <role>MIManagingUser</role>
+        <role>ProServicesManaging_User</role>
+        <role>SAM_Managing_User</role>
+    </sharedTo>
+</ListView>

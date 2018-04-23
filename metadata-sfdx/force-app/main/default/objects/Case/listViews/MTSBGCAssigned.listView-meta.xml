@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MTSBGCAssigned</fullName>
+    <booleanFilter>1 AND (2 OR 5) AND (3 OR 4) AND 6 AND 7</booleanFilter>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.LAST_UPDATE</columns>
+    <columns>UPDATEDBY_USER.ALIAS</columns>
+    <columns>BGCChargesPreEmailSent__c</columns>
+    <columns>CASES.RECORDTYPE</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>BGCReportId__c</columns>
+    <columns>BackgroundCheck__c</columns>
+    <columns>BGCCharges__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>SubCategory__c</field>
+        <operation>notEqual</operation>
+        <value>Scam/Fake Request</value>
+    </filters>
+    <filters>
+        <field>CASES.SUBJECT</field>
+        <operation>contains</operation>
+        <value>[Checkr]</value>
+    </filters>
+    <filters>
+        <field>CASES.SUBJECT</field>
+        <operation>contains</operation>
+        <value>BG:</value>
+    </filters>
+    <filters>
+        <field>MISubcategory__c</field>
+        <operation>notEqual</operation>
+        <value>Scam/Fake Request</value>
+    </filters>
+    <filters>
+        <field>CASES.SUBJECT</field>
+        <operation>notContain</operation>
+        <value>Clear</value>
+    </filters>
+    <filters>
+        <field>OWNER_NAME</field>
+        <operation>notEqual</operation>
+        <value>Marketplace Integrity</value>
+    </filters>
+    <label>MTS - BGC Assigned</label>
+    <sharedTo>
+        <group>MarketplaceIntegrityRestricted</group>
+        <role>MIManagingUser</role>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

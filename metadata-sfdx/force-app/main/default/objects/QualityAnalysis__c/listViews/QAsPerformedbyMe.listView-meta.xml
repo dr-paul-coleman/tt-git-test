@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>QAsPerformedbyMe</fullName>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Agent__c</columns>
+    <columns>EvaluationType__c</columns>
+    <columns>TotalScorePercentage__c</columns>
+    <columns>Case__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>PerformedByCurrentUser__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>QAs Performed by Me</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>CSManagingUserTPH</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>CSManagingUserTSL</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>CustomerSuccessOrganization</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>LabsManagingUser</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

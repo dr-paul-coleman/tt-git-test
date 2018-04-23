@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LiveText__Offline_Hours_Message_Length_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>LEN( LiveText__Offline_Hours_Message__c) > 160</errorConditionFormula>
+    <errorDisplayField>LiveText__Offline_Hours_Message__c</errorDisplayField>
+    <errorMessage>Offline hours message should not have more than 160 characters.</errorMessage>
+</ValidationRule>

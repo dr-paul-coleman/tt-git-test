@@ -1,0 +1,173 @@
+<apex:page standardController="MIIncident__c" showHeader="true" sidebar="true" standardStylesheets="false" title="{!MIIncident__c.Name}" extensions="IncidentManagerControllerExtension">
+	<apex:includeScript value="/support/console/35.0/integration.js"/>
+	<apex:includeScript value="{!URLFOR($Resource.vf_jquery, '')}"/>
+	<style>
+		/* datepicker styles */
+		.slds-day
+		{
+         	font-size: 12px !important;
+          	height: 25px !important;
+          	width: 100% !important;
+          	line-height: 25px !important;
+	  	}
+
+	  	.uiDatePickerGrid .calGrid th
+	  	{
+			font-size: 12px !important;
+			padding: 5px !important;
+		}
+
+		.uiInputTimePicker--default .datepicker--time
+		{
+    		padding: .5rem 0 !important;
+    		font-size: 12px !important;
+		}
+
+		.uiInputTimePicker--default .datepicker--time__list > li
+		{
+		    margin: 0px !important;
+		    padding: 3px 15px 3px 0px !important;
+		    text-align: right !important;
+  		}
+
+		.uiInputTimePicker--default .dropdown
+		{
+			min-width: 120px !important;
+  		}
+
+  		.uiInputTimePicker--default .datepicker--time__list
+  		{
+			max-height: 8.5rem !important;
+		}
+	</style>
+	<script type="text/javascript">
+		var clickCustomPhone = function(event) {
+			var target = event.getParam('target');
+			if (target == 'pro') {
+				$('#pro-phone a').click();
+			} else if (target == 'customer') {
+				$('#customer-phone a').click();
+			}
+		};
+		var manageClickCustomPhone = function() {
+			$A.eventService.addHandler({
+				event: "c:CustomPhoneClicked",
+				handler: clickCustomPhone
+			});
+		};
+		var openLink = function(event) {
+			var url = event.getParam('url');
+			// if (sforce.console.isInConsole()) {
+			// 	sforce.console.getEnclosingPrimaryTabId(function(parent) {
+			// 		sforce.console.openPrimaryTab(parent.id, url, true, null, function(sub_result){
+			// 			console.log(sub_result.id);
+			// 			if(false === sub_result.success) {
+			// 				console.warn("Open URL failed");
+			// 				console.dir(sub_result);
+			// 			}
+			// 		});
+			// 	});
+			// } else {
+			// 	window.open(url, '_blank');
+			// }
+			console.log('Open Link');
+			console.log('Url: ' + url);
+			window.open(url, '_blank');
+		};
+		var manageOpenLink = function() {
+			$A.eventService.addHandler({
+				event: "c:CustomURLClicked",
+				handler: openLink
+			});
+		};
+
+		var openIncidentAction = function(event) {
+		    console.log('Event Fired')
+           var actionId = event.getParam('actionId');
+           var actionName = event.getParam('actionName');
+
+           if(actionName == 'Refresh ClickToDial')
+           {
+               refreshClkToDial();
+           }
+           else
+           {
+				if (sforce.console.isInConsole()) {
+					sforce.console.getEnclosingPrimaryTabId(function(parent) {
+						sforce.console.openSubtab(parent.id, '/' + actionId, true, actionName, null, function(sub_result){
+							console.log(sub_result.id);
+							if(false === sub_result.success) {
+								console.warn("Failed to open Incident Action");
+								console.dir(sub_result);
+							}
+						});
+					});
+				} else {
+					location.href = '/' + actionId;
+				}
+           }
+        }
+
+        var incidentActionClicked = function() {
+            $A.eventService.addHandler({
+                event: "c:IncidentOpenAction",
+                handler: openIncidentAction
+            });
+        };
+
+        var openInPrimaryTab = function(event) {
+		    console.log('Event Fired openInPrimaryTab')
+           var url = event.getParam('url');
+           var name = event.getParam('name');
+            if (sforce.console.isInConsole()) {
+                    sforce.console.openPrimaryTab(null, url, true, name, function(sub_result){
+                        console.log(sub_result.id);
+                        if(false === sub_result.success) {
+                            console.warn("Failed to open primary tab");
+                            console.dir(sub_result);
+                        }
+                    }, name);
+
+            } else {
+                location.href = url;
+            }
+        }
+
+        var openInPrimaryTabClicked = function() {
+            $A.eventService.addHandler({
+                event: "c:OpenInPrimaryTab",
+                handler: openInPrimaryTab
+            });
+        };
+
+        function setTitle() {
+            //Set the current tab's title
+            sforce.console.setTabTitle("{!SUBSTITUTE(MIIncident__c.Name, '"', '\\"')}");
+        }
+        var pageLoad = window.onload;
+          window.onload = function() {
+                if (pageLoad) {
+                        pageLoad();
+                }
+                  setTitle();
+          }
+
+		if({!MIIncident__c.RecordType.Name == 'Marketplace Integrity'})
+		{
+		    window.location.href = '/{!MIIncident__c.Id}?nooverride=1';
+  		}
+	</script>
+
+    <apex:form >
+		<apex:actionFunction name="refreshClkToDial"  reRender="pnlClickToDial" action="{!refresh}" />
+	</apex:form>
+	<apex:outputPanel rendered="true" id="pnlClickToDial">
+		<span style="display: none;" id="pro-phone">
+			<support:clickToDial number="{!incident.ProPhone__c}" entityId="{!MIIncident__c.Id}" />
+		</span>
+		<span style="display: none;" id="customer-phone">
+			<support:clickToDial number="{!incident.CustomerPhone__c}" entityId="{!MIIncident__c.Id}"/>
+		</span>
+	</apex:outputPanel>
+	<c:Lightning containerId="incident-manager-container" appName="c:IncidentManager_LO" componentName="c:IncidentManager" jsonParams="{recordId:'{!MIIncident__c.Id}'}" jsMethods="manageClickCustomPhone,manageOpenLink,incidentActionClicked,openInPrimaryTabClicked" includeSpinner="false"/>
+</apex:page>

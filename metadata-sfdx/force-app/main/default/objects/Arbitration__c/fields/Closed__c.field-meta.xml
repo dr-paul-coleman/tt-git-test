@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Closed__c</fullName>
+    <description>Formula field to determine whether or not the Status of the arbitration is in a closed-like status.</description>
+    <externalId>false</externalId>
+    <formula>IF(AND(RecordType.Name = "Arbitration", 
+          OR(
+            ISPICKVAL(Status__c, "Claimant did not sign up"),
+            ISPICKVAL(Status__c, "Respondent did not sign up"),
+            ISPICKVAL(Status__c, "Decision made"),
+            ISPICKVAL(Status__c, "Settlement reached"),
+            ISPICKVAL(Status__c, "Payment made"),
+            ISPICKVAL(Status__c, "Completed")
+            
+              )
+            ), True,
+False)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Closed</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

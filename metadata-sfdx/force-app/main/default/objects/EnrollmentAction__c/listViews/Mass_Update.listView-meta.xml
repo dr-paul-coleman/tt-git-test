@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mass_Update</fullName>
+    <columns>CREATEDBY_USER</columns>
+    <columns>NAME</columns>
+    <columns>Enrollment__c</columns>
+    <columns>EventLogOldFieldValue__c</columns>
+    <columns>EventLogNewFieldValue__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Type__c</field>
+        <operation>equals</operation>
+        <value>Event Log</value>
+    </filters>
+    <filters>
+        <field>CompletedOn__c</field>
+        <operation>equals</operation>
+        <value>7/18/2017 12:00 AM</value>
+    </filters>
+    <filters>
+        <field>EventLogNewFieldValue__c</field>
+        <operation>equals</operation>
+        <value>Live on Instant Match</value>
+    </filters>
+    <label>*Mass Update</label>
+</ListView>

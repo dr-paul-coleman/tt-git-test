@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllQuickText</fullName>
+    <columns>Name</columns>
+    <columns>Message</columns>
+    <columns>Channel</columns>
+    <columns>Category</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Quick Text</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>CustomerSuccessOrganization</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,21 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+===============================================
+  1.0      2018-02-20   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+ -->
+
+<aura:component description="AccountFeedback">
+    <aura:attribute name="accountId" type="Id" access="public" />
+   
+    <aura:if isTrue="{!empty(v.accountId)}">
+
+        <c:FindUser />
+
+        <aura:set attribute="else">
+            <c:CategorizationContainer recordId="{!v.accountId}" showFooter="true" showPrimary="false" showFeedbackToggle="false" showOrigin="true" />
+        </aura:set>
+    </aura:if>
+</aura:component>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RcaTableActivated</fullName>
+    <columns>NAME</columns>
+    <columns>ValueType__c</columns>
+    <columns>rca_active__c</columns>
+    <columns>rca_delete_time__c</columns>
+    <columns>rca_request_category_id__c</columns>
+    <columns>rca_keywords__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>rca_request_category_id__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>rca_active__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>ProductValue__c.ProductFeedback</value>
+    </filters>
+    <label>Rca table - Activated</label>
+    <sharedTo>
+        <role>SharedServicesUserTSL</role>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,1 @@
+<apex:page id="ValidateSCJs" controller="SolutionCenterController" showHeader="false"/>

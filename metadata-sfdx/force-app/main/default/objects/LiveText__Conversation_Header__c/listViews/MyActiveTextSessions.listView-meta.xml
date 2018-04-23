@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MyActiveTextSessions</fullName>
+    <columns>NAME</columns>
+    <columns>LiveText__Originating_Number__c</columns>
+    <columns>LiveText__LiveText_Number__c</columns>
+    <columns>LiveText__Status__c</columns>
+    <columns>AcceptedDateTime__c</columns>
+    <columns>CreatedDateTime__c</columns>
+    <columns>LastModifiedDateTime__c</columns>
+    <columns>LastModifiedByName__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>LiveText__Status__c</field>
+        <operation>equals</operation>
+        <value>New,Active</value>
+    </filters>
+    <label>My Active Text Sessions</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>CustomerSuccessOrganization</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,84 @@
+<!--
+ /*******************************************************************************
+*                                                                              *
+*                                           ########                           *
+*                                            #####                             *
+*    Copyright (c) 2017 Thumbtack            ###                               *
+*       All rights reserved.                ###                                *
+*                                         #####                                *
+*                                      #########                               *
+*                                         #                                    *
+*                                        #                                     *
+*                                       #                                      *
+*                                      #                                       *
+*                                                                              *
+********************************************************************************
+Change List:
+
+Version      Date          Author            Description
+========+============+=================+================================================
+1.0      2017-08-25   Mendel Guillaume       Created
+========+============+=================+===============================================*/
+ -->
+
+<aura:component description="CustomerSuccessGuidanceList" controller="CustomerSuccessGuidanceListController">
+    <aura:attribute name="accountId" type="String" access="public" />
+    <aura:attribute name="accountName" type="String" access="public" />
+
+    <aura:attribute name="records" type="CustomerSuccessGuidance__c[]" access="private" />
+
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+    <aura:registerEvent name="IncidentOpenAction" type="c:IncidentOpenAction" />
+
+    <div class="slds-m-bottom_medium">
+        <lightning:button variant="brand" label="New Customer Success Guidance" onclick="{!c.newCsgClick}" />
+    </div>
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <thead>
+        <tr class="slds-text-title_caps">
+            <th scope="col">
+                Name
+            </th>
+            <th scope="col">
+                Flag
+            </th>
+            <th scope="col">
+                Flag Type
+            </th>
+            <th scope="col">
+                Flag Explanation
+            </th>
+            <th scope="col">
+                Created Date
+            </th>
+            <th scope="col">
+                Owner
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+            <aura:iteration var="r" items="{!v.records}">
+                <tr>
+                    <td >
+                        <span aura:id="{!r.Id}" class="span-link" onclick="{!c.viewClick}" data-name="{!r.Name}" data-value="{!r.Id}">{!r.Name}</span>
+                    </td>
+                    <td>
+                        <ui:outputRichText value="{!r.Flag__c}" />
+                    </td>
+                    <td>
+                        {!r.FlagType__c}
+                    </td>
+                    <td class="slds-cell-wrap">
+                        {!r.FlagExplanation__c}
+                    </td>
+                    <td>
+                        <ui:outputDate value="{!r.CreatedDate}" format="MMM d, yyyy" />
+                    </td>
+                    <td>
+                        {!r.Owner.Name}
+                    </td>
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+</aura:component>

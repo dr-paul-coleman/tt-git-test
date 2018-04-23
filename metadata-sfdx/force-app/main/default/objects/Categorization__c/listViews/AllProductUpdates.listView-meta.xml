@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllProductUpdates</fullName>
+    <columns>NAME</columns>
+    <columns>Case__c</columns>
+    <columns>ProductUpdate__c</columns>
+    <columns>Sentiment__c</columns>
+    <columns>Notes__c</columns>
+    <columns>OWNER.FIRST_NAME</columns>
+    <columns>OWNER.LAST_NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ProductUpdate__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>All Product Updates</label>
+    <sharedTo>
+        <roleAndSubordinates>SharedServicesUserTPH</roleAndSubordinates>
+        <roleAndSubordinates>SharedServicesUserTSL</roleAndSubordinates>
+        <roleAndSubordinates>SpecialProjectsTSL</roleAndSubordinates>
+    </sharedTo>
+</ListView>

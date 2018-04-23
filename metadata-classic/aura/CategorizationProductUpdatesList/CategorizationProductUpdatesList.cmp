@@ -1,0 +1,58 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+================================================
+  1.0      2017-10-27   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+-->
+
+<aura:component description="CategorizationProductUpdatesList" controller="CategorizationProdUpdatesListController">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="productUpdates" type="LightningInnerClass[]" />
+    <aura:attribute name="allowSubmit" type="Boolean" default="false" />
+    <aura:attribute name="message" type="String" access="public" />
+    <aura:attribute name="messageType" type="String" access="private" default="success" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="showSentiment" type="Boolean" default="true" />
+
+    <aura:handler name="init" action="{!c.doInit}" value="this" />
+    <aura:handler event="c:CategorizationEvent" action="{!c.handleCategorizationEvent}" /> 
+
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner aura:id="mySpinner" variant="brand" size="large"></lightning:spinner>
+    </aura:if>
+
+    <div style="max-height: 225px; overflow: auto;" >
+        <table class="slds-table slds-table_bordered" style="border: 2px solid #ccc; border-radius: 4px;">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 10%;" >
+                        Select
+                    </th>
+                    <th scope="col" style="width: 30%;">
+                        Product Update
+                    </th>
+                    <aura:if isTrue="{!v.showSentiment}">
+                        <th scope="col" style="width: 10%;">
+                            Sentiment
+                        </th>
+                    </aura:if>
+                    <th style="{!'width:' + if(v.showSentiment, '49%', '59%')}" scope="col" class="slds-text-align_center">
+                        Outcome/Feedback
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            <aura:iteration items="{!v.productUpdates}" var="pu" indexVar="index">
+                <aura:if isTrue="{!pu.isParent}">
+                    <c:CategorizationCategoryItemParent cw="{!pu}" index="{!index}" forCategories="false" allowSubmit="{!v.allowSubmit}" showSentiment="{!v.showSentiment}" />
+                    <aura:set attribute="else">
+                        <c:CategorizationCategoryItem cw="{!pu}" index="{!index}" forCategories="false" allowSubmit="{!v.allowSubmit}" showSentiment="{!v.showSentiment}" />
+                    </aura:set>
+                </aura:if>
+            </aura:iteration>
+            </tbody>
+        </table>
+    </div>
+</aura:component>

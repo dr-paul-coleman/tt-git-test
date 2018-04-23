@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AwaitingResponderFirstAction</fullName>
+    <columns>DisputeNumber__c</columns>
+    <columns>NAME</columns>
+    <columns>DisputeStartDate__c</columns>
+    <columns>InitiatorConfirmationDate__c</columns>
+    <columns>ResponderFirstActionDueDate__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Dispute__c.SolutionCenterDispute</value>
+    </filters>
+    <filters>
+        <field>Stage__c</field>
+        <operation>equals</operation>
+        <value>Initiator confirmation needed</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Awaiting</value>
+    </filters>
+    <label>02. Awaiting Responder First Action</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

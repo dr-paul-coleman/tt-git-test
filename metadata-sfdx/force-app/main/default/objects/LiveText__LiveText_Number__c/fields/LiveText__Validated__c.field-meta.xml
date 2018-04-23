@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LiveText__Validated__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>A number must be verified by HeyWire Business before it is enabled for LiveText. To register additional phone numbers please contact LiveText support at http://support.hwlivetext.com</inlineHelpText>
+    <label>Validated</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

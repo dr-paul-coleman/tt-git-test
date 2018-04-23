@@ -1,0 +1,11 @@
+.THIS.check-incomplete {
+	background-color: #e0e5ee;
+}
+
+.THIS.check-complete {
+	background-color: #4bca81;
+}
+
+.THIS.check svg {
+	fill: white;
+}

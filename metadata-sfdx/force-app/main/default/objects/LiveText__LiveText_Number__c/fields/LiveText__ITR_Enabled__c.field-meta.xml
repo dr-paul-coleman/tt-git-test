@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LiveText__ITR_Enabled__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Whether or not ITR, and it's associated workflows, is enabled for this number.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>ITR automates opt-out tracking, routing to agent queues(via Omnichannel),case creation,off-hour handling and other interactions.Review the Admin Guide for more info: 
+        http://www.heywire.com
+        /resources/(Documentation tab)</inlineHelpText>
+    <label>ITR Enabled</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

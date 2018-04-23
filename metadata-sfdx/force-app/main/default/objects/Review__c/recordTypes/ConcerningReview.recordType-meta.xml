@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ConcerningReview</fullName>
+    <active>true</active>
+    <description>This recordtype is used for concerning reviews created from the Thumbtack database.</description>
+    <label>Concerning Review</label>
+    <picklistValues>
+        <picklist>ReviewAuditOutcome__c</picklist>
+        <values>
+            <fullName>No Action Taken</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Warning Sent%3A Due to Open MI Case</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Warning Sent%3A Previous Concerning Review Warning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sent to MI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warned and Flagged</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ReviewAudit__c</picklist>
+        <values>
+            <fullName>Immediate MI Action Needed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Action Needed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warn and Flag</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

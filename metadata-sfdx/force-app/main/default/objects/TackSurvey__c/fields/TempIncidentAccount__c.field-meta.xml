@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TempIncidentAccount__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(OR( 
+AND(NOT ISBLANK(Case__r.Incident__c), 
+NOT ISBLANK(Case__r.Incident__r.ProAccount__c), 
+Case__r.Incident__r.ProAccount__r.Id = Case__r.AccountId), 
+AND(NOT ISBLANK(Case__r.Incident__c), 
+NOT ISBLANK(Case__r.Incident__r.ProID__c), 
+Case__r.Incident__r.ProID__c = TEXT(Case__r.Account.usr_user_id__c))), 'Pro match', 
+IF(AND(NOT ISBLANK(Case__r.Incident__c), 
+NOT ISBLANK(Case__r.Incident__r.CustomerID__c), 
+Case__r.Incident__r.CustomerID__c = TEXT(Case__r.Account.usr_user_id__c)), 'Customer match', 
+'No match'))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Temp Incident Account</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

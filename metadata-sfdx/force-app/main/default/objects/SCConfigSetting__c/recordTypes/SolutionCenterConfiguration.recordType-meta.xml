@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SolutionCenterConfiguration</fullName>
+    <active>true</active>
+    <description>Record type used to manage the solution center configurations.</description>
+    <label>Solution Center Configuration</label>
+    <picklistValues>
+        <picklist>DisputeType__c</picklist>
+        <values>
+            <fullName>Property damage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

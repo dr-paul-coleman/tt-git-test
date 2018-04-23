@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Arbitration</fullName>
+    <active>true</active>
+    <description>Record type used to manage arbitration (e.g., Fairclaims) solutions.</description>
+    <label>Arbitration</label>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Claimant did not sign up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Claimant signed up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decision made</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment made</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment overdue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Respondent did not sign up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Respondent signed up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Settlement reached</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>dispute_channels__c</picklist>
+        <values>
+            <fullName>arbitration_with_chat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>chat_only</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>respondent_status__c</picklist>
+        <values>
+            <fullName>none</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

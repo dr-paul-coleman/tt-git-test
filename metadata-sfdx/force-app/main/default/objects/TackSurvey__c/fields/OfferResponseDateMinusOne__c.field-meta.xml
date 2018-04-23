@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OfferResponseDateMinusOne__c</fullName>
+    <description>Used specifically in the Tack Survey list views that contain "This Week" and "Last Week" in the list view name. This formula field is used instead of Offer Response Date in the list views in order to manipulate the date ranges so that the list views can use the standard THIS WEEK and LAST WEEK filter parameters, since Salesforce considers a weekly range Sun to Sat, and Thumbtack uses Mon to Sun.</description>
+    <externalId>false</externalId>
+    <formula>OfferResponseDate__c - 1</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Offer Response Date (Minus One)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

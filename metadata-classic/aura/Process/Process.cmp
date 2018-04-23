@@ -1,0 +1,29 @@
+<aura:component >
+	<aura:attribute name="steps" type="String[]" access="public"/>
+	<aura:attribute name="currentStep" type="String" access="public"/>
+	<aura:attribute name="currentStepIndex" type="Integer" default="0" access="private"/>
+	<aura:attribute name="showAnimation" type="Boolean" default="false" access="private"/>
+	<aura:attribute name="isLost" type="Boolean" default="false" access="public"/>
+	<aura:attribute name="endStep" type="String" access="public"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:handler name="change" value="{!v.currentStep}" action="{!c.handleCurrentStepChange}"/>
+
+	<aura:registerEvent name="FunnelStepClicked" type="c:FunnelStepClicked"/>
+
+	<div class="slds-tabs--path slds-align-middle" role="application">
+		<ul class="slds-tabs--path__nav" role="tablist">
+			<aura:iteration items="{!v.steps}" var="step" indexVar="stepIndex">
+				<li class="{!'slds-tabs--path__item process-item ' + if(equals(stepIndex, v.currentStepIndex), if(v.isLost, 'slds-is-lost', 'slds-is-current'), if(lessthan(stepIndex, v.currentStepIndex), 'slds-is-complete', 'slds-is-incomplete'))}" role="presentation">
+					<a class="slds-tabs--path__link" tabindex="-1" role="tab" href="javascript:void(0);" data-funnel-step="{!step}" data-funnel-step-index="{!stepIndex}" onclick="{!c.viewFunnelStep}">
+						<!--<span class="slds-tabs- -path__stage">
+							 <lightning:icon iconName="utility:check" size="x-small" variant="bare"/>    
+						</span> -->
+						<span class="slds-path__title">{!step}</span> <!--slds-tabs- -path__title -->
+					</a>
+				</li>
+			</aura:iteration>
+		</ul>
+	</div>
+	<c:ProcessEnd currentStep="{!v.currentStep}" endStep="{!v.endStep}"/>
+</aura:component>

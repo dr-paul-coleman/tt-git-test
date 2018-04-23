@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NewContentSupportRequestLink__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK("/a05/e?00N3100000GNNoG="&amp;ArticleNumber&amp;"&amp;Name=Content Request for "&amp;ArticleNumber&amp;"&amp;00N3100000G42tT="&amp;Title 
+, "New Content Support Request","_self")</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>New Content Support Request Link</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

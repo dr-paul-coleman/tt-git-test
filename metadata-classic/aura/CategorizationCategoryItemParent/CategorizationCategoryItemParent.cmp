@@ -1,0 +1,57 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+================================================
+  1.0      2018-02-23   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+-->
+
+<aura:component description="CategorizationCategoryItemParent">
+    <aura:attribute name="cw" type="CategorizationCategoriesListController.CategoryWrapper" />
+    <aura:attribute name="index" type="Integer" />
+    <aura:attribute name="forCategories" type="Boolean" default="true" />
+    <aura:attribute name="allowSubmit" type="Boolean" default="false" />
+    <aura:attribute name="showHelp" type="Boolean" default="false" />
+    <aura:attribute name="showTextarea" type="Boolean" default="false" />
+    <aura:attribute name="showSentiment" type="Boolean" default="true" />
+    <aura:attribute name="showModal" type="Boolean" default="false" />
+    <aura:attribute name="textCount" type="Integer" default="0" />
+    <aura:attribute name="showPrimary" type="Boolean" default="true" />
+    <aura:attribute name="showFeedbackToggle" type="Boolean" default="true" />
+    <aura:attribute name="showOrigin" type="Boolean" default="false" />
+    <aura:attribute name="origins" type="CategorizationCategoriesListController.Option[]" access="public" />
+    <aura:attribute name="showChildren" type="Boolean" default="false" access="private" />
+
+    <aura:handler name="init" action="{!c.doInit}" value="this" />
+
+    <tr>
+        <td class="cell-select item-col">
+            <aura:if isTrue="{!v.showChildren}">
+                <lightning:buttonIcon alternativeText="Select" iconName="utility:dash" onclick="{!c.toggleRows}" variant="border-filled" title="Select" value="{!v.cw.catDefinition.Key__c}" size="x-small" />
+                <aura:set attribute="else">
+                    <lightning:buttonIcon alternativeText="Select" iconName="utility:add" onclick="{!c.toggleRows}" variant="border-filled" title="Select" value="{!v.cw.catDefinition.Key__c}" size="x-small" />
+                </aura:set>
+            </aura:if>
+        </td>
+        <td class="item-col" colspan="{!v.showSentiment ? '4' : '3'}">
+            {!v.cw.category.ProductUpdate__c}
+            <aura:if isTrue="{!and(v.cw.tooltip != null, v.cw.tooltip != '')}">
+                <div class="category-help-container" style="position: relative; display: inline-block; vertical-align: text-bottom;">
+                    &nbsp;<lightning:icon iconName="utility:info" class="category-icon-help" size="xx-small"/>
+                    <div class="slds-popover slds-popover_tooltip slds-nubbin_top category-text-help" role="tooltip" id="help" style="position: absolute; top: 30px; left: -89px; width: 200px;">
+                        <div class="slds-popover__body">
+                            {!v.cw.tooltip}
+                        </div>
+                    </div>
+                </div>
+            </aura:if>
+        </td>
+    </tr>
+
+    <aura:if isTrue="{!v.showChildren}">
+        <aura:iteration items="{!v.cw.childCategories}" var="cpu" indexVar="cindex">
+            <c:CategorizationCategoryItem cw="{!cpu}" index="{!cindex}" forCategories="{!v.forCategories}" allowSubmit="{!v.allowSubmit}" showSentiment="{!v.showSentiment}" isChild="true" />
+        </aura:iteration>
+    </aura:if>
+</aura:component>

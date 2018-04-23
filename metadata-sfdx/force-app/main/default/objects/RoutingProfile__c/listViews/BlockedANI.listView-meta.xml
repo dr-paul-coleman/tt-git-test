@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BlockedANI</fullName>
+    <columns>NAME</columns>
+    <columns>Phone__c</columns>
+    <columns>Phone2__c</columns>
+    <columns>Phone3__c</columns>
+    <columns>Phone4__c</columns>
+    <columns>Phone5__c</columns>
+    <columns>Email__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Blocked__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Blocked ANIs</label>
+    <sharedTo>
+        <role>CSManagingUserTSL</role>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

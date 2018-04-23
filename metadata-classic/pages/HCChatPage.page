@@ -1,0 +1,313 @@
+<apex:page showHeader="false">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <style>
+        @font-face {
+          font-family: 'Avenir';
+          font-weight: 300;
+          src: url("//thumbprint.thumbtack.com/asset/font/1129856/49c5f3e1-5867-4b1d-a843-2d07fa60d85d.woff2") format("woff2"), url("//thumbprint.thumbtack.com/asset/font/1129856/f401df6f-54eb-406c-b46a-90b9451c598d.woff") format("woff"); }
+
+        @font-face {
+          font-family: 'Avenir';
+          font-weight: 300;
+          src: url("//thumbprint.thumbtack.com/asset/font/1129859/62e28d52-436d-40b8-a5f0-00479f3f44ed.woff2") format("woff2"), url("//thumbprint.thumbtack.com/asset/font/1129859/5b8c6fdc-0ba4-4b65-87e4-d5ae51245ea5.woff") format("woff");
+          font-style: italic; }
+
+        @font-face {
+          font-family: 'Avenir';
+          font-weight: 400;
+          src: url("//thumbprint.thumbtack.com/asset/font/721263/2cd55546-ec00-4af9-aeca-4a3cd186da53.woff2") format("woff2"), url("//thumbprint.thumbtack.com/asset/font/721263/1e9892c0-6927-4412-9874-1b82801ba47a.woff") format("woff"); }
+
+        @font-face {
+          font-family: 'Avenir';
+          font-weight: 400;
+          src: url("//thumbprint.thumbtack.com/asset/font/721266/7377dbe6-f11a-4a05-b33c-bc8ce1f60f84.woff2") format("woff2"), url("//thumbprint.thumbtack.com/asset/font/721266/92b66dbd-4201-4ac2-a605-4d4ffc8705cc.woff") format("woff");
+          font-style: italic; }
+
+        @font-face {
+          font-family: 'Avenir';
+          font-weight: 500;
+          src: url("//thumbprint.thumbtack.com/asset/font/721275/627fbb5a-3bae-4cd9-b617-2f923e29d55e.woff2") format("woff2"), url("//thumbprint.thumbtack.com/asset/font/721275/f26faddb-86cc-4477-a253-1e1287684336.woff") format("woff"); }
+
+        @font-face {
+          font-family: 'Avenir';
+          font-weight: 600;
+          src: url("//thumbprint.thumbtack.com/asset/font/721269/aad99a1f-7917-4dd6-bbb5-b07cedbff64f.woff2") format("woff2"), url("//thumbprint.thumbtack.com/asset/font/721269/91b50bbb-9aa1-4d54-9159-ec6f19d14a7c.woff") format("woff"); }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 1em;
+        }
+        
+        body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            font-size: 0.875rem;
+            font-family: Avenir, sans-serif;
+        }
+
+        body.is-iframe header {
+            display: none;
+        }
+
+        button {
+            cursor: pointer;
+            font-size: inherit !important;
+            font-family: inherit !important;
+        }
+                
+        aside {
+            display: none;
+        	margin: 1rem;
+            text-align: center;
+        }
+
+        p {
+            margin: 0 1rem;
+            text-align: center;
+        }
+
+        .liveAgentStateWaiting aside {
+            display: block;
+        }
+
+        main {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            -ms-flex-align: center;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            align-items: center;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            position: relative;
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3rem;
+            width: 100%;
+        }
+
+        #liveAgentClientChat {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        #liveAgentClientChat.liveAgentStateWaiting {
+        }
+
+        #liveAgentClientChat.liveAgentStateEnded {
+        }
+        
+        #liveAgentChatLog {
+            overflow-y: auto;
+            position: absolute;
+            top: 0px;
+            left: 0;
+            right: 0;
+            bottom: 3rem;
+            width: auto;
+            height: auto;
+            border: 0;
+            background-color: rgb(244, 244, 244); /* fog */
+        }
+
+        #liveAgentChatLogText {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: end;
+            -ms-flex-pack: end;
+            justify-content: flex-end;
+            min-height: 100%;
+        }
+            
+        #liveAgentChatLogText::before {
+            content: "Feel free to use the Help Center while you chat. Your session will stay active as you browse other pages.";
+            display: block;
+            padding: 0.5rem;
+            font-size: 13px;
+            font-style: italic;
+            text-align: center;
+            color: rgb(141, 148, 148); /* steel */
+        }
+        
+        #liveAgentChatLogTyping {
+            display: inline-block;
+        	margin-top: 0.5rem;
+        }
+
+        .liveAgentSaveButton,
+        .liveAgentEndButton {
+            padding: 0.3rem;
+        }
+
+        .liveAgentEndButton {
+            margin: 0.5rem;
+        }
+
+        .liveAgentAlert {
+            text-align: center;
+        }
+        
+        .liveAgentChatInput {
+            outline: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 85%;
+            height: 3rem;
+            padding: 0.5rem 0.75rem;
+            font: inherit;
+            border: 0;
+        }
+        
+        .liveAgentSendButton {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 15%;
+            height: 3rem;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            border-radius: 0;
+            background: white;
+            color: rgb(63, 147, 243); /* sky */
+            font-weight: bold;
+        }
+
+        .liveAgentQueuePosition:empty::before {
+            content: '0';
+        }
+
+        .operator,
+        .client {
+            max-width: 70%;
+            margin: 0.5rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+        }
+
+        .operator {
+            -ms-flex-item-align: start;
+            align-self: flex-start;
+            background-color: rgb(225, 227, 227); /* cinder */
+            color: rgb(49, 47, 47); /* chalkboard */
+        }
+
+        .client {
+            -ms-flex-item-align: end;
+            align-self: flex-end;
+            background-color: rgb(242, 120, 2); /* orange */
+            color: white;
+        }
+
+        .client + .client,
+        .operator + .operator {
+            margin-top: 0;
+        }
+        
+        .system {
+        	margin: 0.5rem;
+        }
+    </style>
+    <script>
+    (function() {
+        // Scroll the chat log to the bottom whenever the window is resized.
+        window.addEventListener('resize', function () {
+            var node = document.getElementById('liveAgentChatLog');
+            if (node) {
+                node.scrollTop = node.scrollHeight;
+            }
+        });
+        // Turn off autocomplete
+        window.addEventListener('DOMContentLoaded', function () {
+            var node = document.getElementById('liveAgentChatInput');
+            if (node) {
+                node.setAttribute('autocomplete', 'off');
+            }
+        });
+        // Detect if we're an iframe
+        var inFrame;
+        try {
+                inFrame = window.self !== window.top;
+        } catch (e) {
+                inFrame = true;
+        }
+        if (inFrame) {
+            window.document.body.classList.add('is-iframe');
+        }
+    })();
+    </script>
+</head>
+<liveAgent:clientChat >
+    <header>
+        <liveAgent:clientChatSaveButton />
+        <liveAgent:clientChatEndButton />
+    </header>
+    <main>
+        <p>
+            <span role="alert" aria-live="assertive">
+	            <liveAgent:clientChatAlertMessage />
+	        </span>
+            <span role="status" aria-live="polite">
+                <liveAgent:clientChatStatusMessage />
+	        </span>
+        </p>
+        <aside role="status" aria-live="polite">
+            <liveagent:clientChatQueuePosition label="Please wait while you are connected to an available agent. Your position in the queue: " />
+        </aside>
+    	<div role="log" aria-live="polite">
+            <liveAgent:clientChatLog />
+	    </div>
+        <footer>
+            <liveagent:clientChatInput />
+            <liveAgent:clientChatSendButton />
+        </footer>
+    </main>
+</liveAgent:clientChat>
+<script>
+var _mfq = _mfq || [];
+(function() {
+var mf = document.createElement("script");
+mf.type = "text/javascript"; mf.async = true;
+mf.src = "//cdn.mouseflow.com/projects/2d5c43f3-f3c9-4ac0-a15a-454773f81f65.js";
+document.getElementsByTagName("head")[0].appendChild(mf);
+})();
+</script>
+</apex:page>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New</fullName>
+                <default>true</default>
+                <label>New</label>
+            </value>
+            <value>
+                <fullName>Claimant signed up</fullName>
+                <default>false</default>
+                <label>Claimant signed up</label>
+            </value>
+            <value>
+                <fullName>Respondent signed up</fullName>
+                <default>false</default>
+                <label>Respondent signed up</label>
+            </value>
+            <value>
+                <fullName>Claimant did not sign up</fullName>
+                <default>false</default>
+                <label>Claimant did not sign up</label>
+            </value>
+            <value>
+                <fullName>Respondent did not sign up</fullName>
+                <default>false</default>
+                <label>Respondent did not sign up</label>
+            </value>
+            <value>
+                <fullName>Decision made</fullName>
+                <default>false</default>
+                <label>Decision made</label>
+            </value>
+            <value>
+                <fullName>Settlement reached</fullName>
+                <default>false</default>
+                <label>Settlement reached</label>
+            </value>
+            <value>
+                <fullName>Payment made</fullName>
+                <default>false</default>
+                <label>Payment made</label>
+            </value>
+            <value>
+                <fullName>Payment overdue</fullName>
+                <default>false</default>
+                <label>Payment overdue</label>
+            </value>
+            <value>
+                <fullName>Completed</fullName>
+                <default>false</default>
+                <label>Completed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

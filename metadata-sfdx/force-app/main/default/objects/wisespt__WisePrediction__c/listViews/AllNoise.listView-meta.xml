@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllNoise</fullName>
+    <columns>NAME</columns>
+    <columns>wisespt__CaseID__c</columns>
+    <columns>wisethumbtack__WiseTag_Tier__c</columns>
+    <columns>wisethumbtack__WiseTag_Tier_confident__c</columns>
+    <columns>wisethumbtack__WiseTag_Tier_score__c</columns>
+    <columns>wisethumbtack__WiseTag_Noise__c</columns>
+    <columns>wisethumbtack__WiseTag_Noise_confident__c</columns>
+    <columns>wisethumbtack__WiseTag_Noise_score__c</columns>
+    <columns>wisethumbtack__Wise_ParseJSON_Tag_Error__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>wisethumbtack__WiseTag_Noise__c</field>
+        <operation>equals</operation>
+        <value>noise</value>
+    </filters>
+    <label>All Noise</label>
+</ListView>

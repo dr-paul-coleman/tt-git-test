@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MTSBGCPendingPostAAFollowup</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.TYPE</columns>
+    <columns>CASES.RECORDTYPE</columns>
+    <columns>BGCCharges__c</columns>
+    <columns>BGCChargesPreEmailSent__c</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.LAST_UPDATE</columns>
+    <columns>UPDATEDBY_USER.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.MarketplaceIntegrityRestricted</value>
+    </filters>
+    <filters>
+        <field>CASES.TYPE</field>
+        <operation>equals</operation>
+        <value>Pending Post AA</value>
+    </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>equals</operation>
+        <value>Pending Customer</value>
+    </filters>
+    <label>MTS - BGC Pending Post AA Follow-up</label>
+    <sharedTo>
+        <group>MarketplaceIntegrityRestricted</group>
+        <role>MIManagingUser</role>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

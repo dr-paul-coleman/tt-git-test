@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>QACalibration_QualityAnalysis</fullName>
+    <columns>NAME</columns>
+    <columns>EvaluationType__c</columns>
+    <columns>Case__c</columns>
+    <columns>Agent__c</columns>
+    <columns>TotalScorePercentage__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Queue</filterScope>
+    <label>QA Calibration</label>
+    <queue>QACalibration</queue>
+    <sharedTo>
+        <role>SharedServicesUserTSL</role>
+    </sharedTo>
+</ListView>

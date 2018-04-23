@@ -1,0 +1,74 @@
+<apex:page standardcontroller="ProductUpdates__c" showHeader="false" sidebar="false" standardStylesheets="false">
+
+<head>
+ <style>
+  {background-color:#F4F6F9;}
+  div.content { width: 960px }
+ </style> 
+ <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body>
+
+  <div class="content">
+  <font face="arial">
+
+  <apex:includeScript value="/support/console/26.0/integration.js"/>
+
+  <script>
+    function openTab() {
+      if (sforce.console.isInConsole())
+      sforce.console.openPrimaryTab(undefined, '/a1Wq00000028yOQ', true, 'Test');
+        else
+      window.top.location.href = '/a1Wq00000028yOQ' ;
+    }
+  </script>
+
+  <hr></hr>
+  <p></p>
+
+<!---  <font face="verdana" size="4">
+    <button class="button"><apex:outputText value="{!Product.Name}" escape="false"  /> </button>
+    </font>
+  <p></p> --->
+
+  <font face="verdana" size="2">
+    <b>Type</b>
+      <br></br>
+    <apex:outputText value="{!ProductUpdates__c.Type__c}" escape="false"  />
+      <p></p>
+    <b>Launch Date</b>
+      <br></br>
+    <apex:outputText id="StatusField" value="{0,date,EEEE MMM d, yyyy}">
+      <apex:param id="something" value="{!ProductUpdates__c.LaunchDate__c}" />
+    </apex:outputText><apex:outputText value="TBD" rendered="{!Text(ProductUpdates__c.LaunchDate__c) == ''}"  />
+      <p></p>
+    <b>Applies to</b>
+      <br></br>
+    <apex:outputText value="{!ProductUpdates__c.ProductsImpacted__c}" escape="false"  />
+      <p></p>
+    <b>Knowlege Articles</b>
+      <br></br>
+    <apex:outputText value="{!ProductUpdates__c.KnowledgeArticles__c}" escape="false"/><apex:outputText value="Not Available" rendered="{!ProductUpdates__c.KnowledgeArticles__c == ''}"  /> 
+      <p></p>
+    <b><apex:outputText value="Contact" rendered="{!$User.IsLeadershipOrMC__c == True}"  /></b>
+      <br></br>
+    <apex:outputText value="{!ProductUpdates__c.Owner.Name}" rendered="{!$User.IsLeadershipOrMC__c == True}"  />
+      <p></p>       
+      <hr></hr>    
+    <b>What You Need to Know</b>
+  </font>
+  <font face="verdana" size="2">
+    <apex:outputText value="{!ProductUpdates__c.Description__c}" escape="false"  />
+  </font>
+  <hr></hr> 
+
+  </font>
+  </div>
+
+  <script>
+   $('a#modified_url_text').text('{!ProductUpdates__c.KnowledgeArticleId__c}');
+  </script>
+
+</body>
+</apex:page>

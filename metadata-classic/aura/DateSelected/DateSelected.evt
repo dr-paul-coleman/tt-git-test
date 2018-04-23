@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="Event template">
+	<aura:attribute name="month" type="Integer"/>
+	<aura:attribute name="day" type="Integer"/>
+	<aura:attribute name="year" type="Integer"/>
+</aura:event>

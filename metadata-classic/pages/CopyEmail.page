@@ -1,0 +1,140 @@
+<apex:page standardController="Request__c" standardStylesheets="false" showHeader="false" sidebar="false">
+<apex:includeScript loadOnReady="false" value="https://code.jquery.com/jquery-2.1.4.min.js"/>
+<apex:includeScript loadOnReady="false" value="/soap/ajax/37.0/connection.js"/>
+<apex:remoteObjects jsNamespace="rmo">
+    <apex:remoteObjectModel name="Request__c" jsShorthand="Request" fields="Id,EmailHTMLBodyLong__c"/>
+</apex:remoteObjects>
+
+<style>
+body{font-family:'Lato',sans-serif;}.gradient{background:#4cd964;background:-moz-linear-gradient(45deg,#4cd964 0%,#5ac8fa 100%);background:-webkit-gradient(left bottom,right top,color-stop(0%,#4cd964),color-stop(100%,#5ac8fa));background:-webkit-linear-gradient(45deg,#4cd964 0%,#5ac8fa 100%);background:-o-linear-gradient(45deg,#4cd964 0%,#5ac8fa 100%);background:-ms-linear-gradient(45deg,#4cd964 0%,#5ac8fa 100%);background:linear-gradient(45deg,#4cd964 0%,#5ac8fa 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4cd964',endColorstr='#5ac8fa',GradientType=1);margin:0 auto;}.header{padding-top:92px;}.title{color:white;font-size:64px;font-weight:900;letter-spacing:-1px;margin:0 20px 20px;}.subtitle{color:#16a085;font-size:27px;font-weight:400;line-height:30px;margin:0 20px 20px;}.subtitle+.subtitle{color:white;}.gh-btns{margin:92px 0 0;background:rgba(0,0,0,.1);padding:20px 0 10px;}.wrap{margin:0 auto 90px;max-width:540px;padding:0 15px;}p{color:#333;font-size:18px;line-height:1.7;}a{color:#1BC1A1;border-bottom:1px dotted #1BC1A1;-webkit-transition:opacity .3s ease-in-out;transition:opacity .3s ease-in-out;}a:hover,a:focus{text-decoration:none;opacity:.7;}h1{margin-top:80px;color:#1BC1A1;}h3{color:#333;margin:40px 0;font-size:18px;font-weight:300;text-align:center;}.clippy{margin-top:-3px;position:relative;top:3px;}.btn[disabled] .clippy{opacity:.3;}.example{position:relative;margin:15px 0 0;padding:39px 19px 14px;background-color:#fff;border-radius:4px 4px 0 0;border:1px solid #ddd;z-index:2;}.example p{color:#666;}.example:after{content:"Example";position:absolute;top:0;left:0;padding:2px 8px;font-size:12px;font-weight:bold;background-color:#f5f5f5;color:#9da0a4;border-radius:4px 0 4px 0;}.example+.snippet{background:#f8f8f8;border-radius:4px;border:1px solid #ddd;clear:both;top:-20px;padding:20px 0 0;}.form-actions{margin-top:15px;}.form-actions .btn{float:left;}textarea{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;width:100%;}.snippet{position:relative;overflow:visible;}.snippet code{font-size:14px;line-height:20px;}.snippet .btn{-webkit-transition:opacity 0.3s ease-in-out;-o-transition:opacity 0.3s ease-in-out;transition:opacity 0.3s ease-in-out;opacity:0;padding:2px 6px;position:absolute;right:4px;top:4px;}.snippet:hover .btn{opacity:1;}@media screen and (max-width: 768px) {.snippet .btn{opacity:1;}}.example+.snippet .btn{top:22px;right:2px;}code{background-color:#E8F5F2;border-radius:3px;color:#1BC1A1;font-size:85%;margin:0;padding:0.2em;}.hljs-keyword{color:#008080;font-weight:normal;}.support{list-style:none;text-align:center;}.support li{display:inline-block;text-align:center;margin:15px 0;width:30%;}@media screen and (max-width: 410px) {.support li{width:45%;}}@media screen and (max-width: 290px) {.support li{width:100%;}}.support p{margin:0;}.credits,.maintainer{font-weight:400;font-family:'Lato',sans-serif;font-size:20px;color:#16a085;padding:30px 0;margin:0;}.footer-link{color:white;border-color:white;}.footer-link:hover,.footer-link:focus{text-decoration:none;border-color:white;}.love{display:inline-block;position:relative;top:.2em;font-size:1.4em;-webkit-transform:scale(.9);-moz-transform:scale(.9);transform:scale(.9);-webkit-animation:love .5s infinite linear alternate-reverse;-moz-animation:love .5s infinite linear alternate-reverse;animation:love .5s infinite linear alternate-reverse;}@-webkit-keyframes love{to{-webkit-transform:scale(1.2);}}@-moz-keyframes love{to{-moz-transform:scale(1.2);}}@keyframes love{to{transform:scale(1.2);}}.maintainer{background:rgba(0,0,0,.05);}@media screen and (max-width: 540px) {.title{font-size:48px;}.subtitle{font-size:22px;}.credits{font-size:22px;}}
+.htmlBody{}
+#tooltip{
+    display: none;
+    font-size:9.5px;
+    color: green;
+    font-weight: 700;
+    border: solid 1px #eee;
+    background-color: #ffffdd;
+    padding: 3px;
+}
+#noHTML{
+    display: none;
+    font-size:10.5px;
+    color: red;
+    font-weight: 700;
+    padding: 3px;
+}
+button.btn span {
+    display: inline-block !important;
+    vertical-align: top !important;
+    text-align: left !important;
+    padding-top: 1.2px !important;
+}
+</style>
+<script src="{!URLFOR($Resource.ClipBoardJs, 'clipboard.js-master/dist/clipboard.min.js')}"></script>
+<!-- Trigger -->
+<div>
+    <button id="clipBtn" class="btn" data-clipboard-target="input" title="Copy to clipboard">
+        <img src="{!URLFOR($Resource.ClipBoardJs, 'clipboard.js-master/assets/images/clippy.svg')}" width="13px" alt="Copy to clipboard"/>
+        <span>Copy Email HTML</span>
+    </button>
+    <button id="clipBtn2" style="display:none;" class="btn" data-clipboard-target="input" title="Copy to clipboard">
+        <img src="{!URLFOR($Resource.ClipBoardJs, 'clipboard.js-master/assets/images/clippy.svg')}" width="13px" alt="Copy to clipboard"/>
+        <span>Copy 2nd Segment</span>
+    </button>
+    <span id="noHTML">No HTML</span>
+    <span id="tooltip">Copied</span>
+</div>
+<script>
+    $j = "undefined"!==jQuery? jQuery.noConflict(): function(){};
+    if("true"==="{!IF(OR(ISNULL(Request__c.EmailHTMLBodyLong__c),ISBLANK(Request__c.EmailHTMLBodyLong__c)), false,true)}"){
+
+        getClipboardText = function(trigger){
+            if(window.emailHTML){
+                return $j("#clipBtn").is(":visible")? window.emailHTML.substring(0,49999): window.emailHTML.substring(49999);
+            } else {
+                try{
+                    var q = sforce.connection.query("SELECT Id,EmailHTMLBodyLong__c FROM Request__c WHERE Id='{!Request__c.Id}' LIMIT 1");
+                    window.emailHTML = q.records.EmailHTMLBodyLong__c.replace(/\>\s+\</g,"><").replace(/\n|\r/g," ").replace(/<br\s*[\/]?>/gi, " ").replace(/\ \ /g," ").replace(/\ \ /g," ").replace(/\ \ /g," ");
+                    //if not emailHTML yet, will be first copy by default
+                    window.emailLength = emailHTML.length;
+                    return emailHTML.substring(0,49999); 
+                }catch(ex){
+                    alert(ex.faultstring);
+                    return "";
+                }
+            }
+        };
+        
+        var clipboard = new Clipboard('.btn', {
+            target: function(trigger) {
+                return trigger;
+            },
+            text: getClipboardText
+        });
+        
+        clipboard.on('success', function(e) {
+            e.clearSelection();
+            $j("#tooltip").text("Copied");
+            $j("#tooltip").show();
+            setTimeout(function(){
+                $j("#noHTML").hide();
+                $j("#tooltip").hide();
+                if($j("#clipBtn").is(":visible") && emailLength>49999){
+                    $j("#clipBtn").hide();
+                    $j("#clipBtn2").show();
+                }else if (!$j("#clipBtn").is(":visible")){
+                    $j("#clipBtn").show();
+                    $j("#clipBtn2").hide();
+                }
+            }, 1200);
+            console.info('Action:', e.action);
+            console.info('Text:', e.text.substring(0,100)+"...");
+            console.info('Trigger:', e.trigger);
+        });
+        
+        clipboard.on('error', function(e) {
+            $j("#clipBtn").hide();
+            $j("#clipBtn2").hide();
+            $j("#tooltip").text("NOT Copied, Use CTRL/CMD+C to Manually copy.");
+            $j("#tooltip").css("color", "red");
+            $j("#tooltip").show();
+            setTimeout(function(){
+                $j("#tooltip").hide();
+                $j("#tooltip").css("color", "green");
+            },10000);
+            console.error('Action:', e.action);
+            console.error('Trigger:', e.trigger);
+        });
+    } else {
+        $j("#noHTML").text("No Email Data to Copy");
+        $j("button").hide();
+        $j("#noHTML").show();
+    }
+    
+    sforce.connection.init( "{!$Api.session_id}", "/services/Soap/u/37.0" );
+    new rmo.Request().retrieve({where:{Id:{eq:'{!Request__c.Id}'}},limit:1}, function(err, requests, evt){
+        var doError = function(err) {
+            $j("#clipBtn").hide();
+            $j("#clipBtn2").hide();
+            $j("#tooltip").text("Page Load Error, Use CTRL/CMD+C to Manually copy.");
+            $j("#tooltip").css("color", "red");
+            $j("#tooltip").show();
+        }
+        
+        if(err){
+            doError();
+            console.error(err);
+        }else{
+            try {
+                window.emailHTML =  $j('<div/>').html(requests[0]._props.EmailHTMLBodyLong__c).text().replace(/\>\s+\</g,"><").replace(/\n|\r/g," ").replace(/<br\s*[\/]?>/gi, " ").replace(/\ \ /g," ").replace(/\ \ /g," ").replace(/\ \ /g," ");
+                window.emailLength = emailHTML.length;
+                $j("#clipBtn span").text((emailLength>49999)?"Copy 1st Segment":"Copy Email HTML");
+            }catch (ex) {
+                doError();
+                console.error(ex);
+            }
+        }
+    });
+</script>
+</apex:page>

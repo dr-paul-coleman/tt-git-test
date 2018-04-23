@@ -1,0 +1,60 @@
+<apex:page standardcontroller="MIIncidentAction__c" Extensions="savePDF" showHeader="false" sidebar="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false">
+    <html>
+    <head>
+    <style>
+      @page {
+                size: landscape;
+                margin: 20mm;
+                }
+            }
+
+            body {
+                font-family: Arial Unicode MS;
+            }
+            table {
+            border-collapse: collapse;
+            }
+        
+            table, th, td {
+            border: 1px solid black;
+            }
+
+        </style>
+    </head>
+  <apex:image url="/resource/1496245668000/MIPayoutLogoForPDF" width="175" height="75"/>
+
+<apex:form >
+    <apex:actionFunction name="saveAttachement" action="{!saveAttachement}" rerender="allPanel"/>
+
+
+                <body>
+
+                    <table>
+                        <tr><td>Name:</td> <td><apex:outputText value="{!MIIncidentAction__c.FullName__c}"/> </td> </tr>
+                        <tr><td>Street Address:</td> <td><apex:outputText value="{!MIIncidentAction__c.StreetAddress__c}"/> </td> </tr>
+                        <tr><td>Apt/Suite:</td> <td><apex:outputText value="{!MIIncidentAction__c.AptSuite__c}"/> </td> </tr>
+                        <tr><td>City, State, Zip Code:</td> <td><apex:outputText value="{!MIIncidentAction__c.CityStateZip__c}"/> </td> </tr>
+                        <tr><td>MI Incident Number/Invoice:</td> <td><apex:outputText value="{!MIIncidentAction__c.MIIncidentNumber__c}"/> </td> </tr>
+                        <tr><td>Type of Payout:</td> <td><apex:outputText value="{!MIIncidentAction__c.Type__c}"/> </td> </tr>
+                        <tr><td>Approved By:</td> <td><apex:outputText value="{!MIIncidentAction__c.ApprovedBy__c}"/> </td> </tr>
+                        <tr><td>Notes:</td> <td><apex:outputText value="{!MIIncidentAction__c.Notes__c}"/> </td> </tr>
+                        <tr><td>Amount:</td> <td bgcolor="FFFF00"> <apex:outputField value="{!MIIncidentAction__c.Amount__c}"/></td> </tr>
+                    </table>
+            
+            
+                </body>
+
+
+        <script>
+           window.onload=function()
+           {
+             saveAttachement();
+           };
+        </script>
+
+  </apex:form>
+
+
+
+   </html>
+</apex:page>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DisputeComments__c</fullName>
+    <description>The reason, in text, the agent feels the Tack Survey should be modified.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Please provide a detailed description and valid reason why you feel this Survey should be changed.</inlineHelpText>
+    <label>Dispute Comments</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

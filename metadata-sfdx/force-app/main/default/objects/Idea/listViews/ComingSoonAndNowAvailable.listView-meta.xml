@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ComingSoonAndNowAvailable</fullName>
+    <columns>IDEA.TITLE</columns>
+    <columns>IDEA.CATEGORIES</columns>
+    <columns>VOTE_STATS.WEIGHTED_SUM</columns>
+    <columns>IDEA.CREATED_BY_NICKNAME</columns>
+    <columns>IDEA.STATUS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>IDEA.STATUS</field>
+        <operation>equals</operation>
+        <value>Coming Soon,Now Available</value>
+    </filters>
+    <label>03 Coming Soon and Now Available</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>CustomerSuccessOrganization</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

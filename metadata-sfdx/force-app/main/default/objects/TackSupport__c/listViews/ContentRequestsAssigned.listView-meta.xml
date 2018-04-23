@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ContentRequestsAssigned</fullName>
+    <columns>OWNER.FIRST_NAME</columns>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>TypeOfRequest__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>TackSupport__c.ContentRequest</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Closed,Canceled,Completed</value>
+    </filters>
+    <filters>
+        <field>OWNER.ALIAS</field>
+        <operation>notEqual</operation>
+        <value>Support Content</value>
+    </filters>
+    <label>2. Content Request - Assigned</label>
+    <sharedTo>
+        <group>ContentUser</group>
+        <role>SharedServicesUserTSL</role>
+    </sharedTo>
+</ListView>

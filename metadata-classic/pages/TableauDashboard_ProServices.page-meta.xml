@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>41.0</apiVersion>
+    <availableInTouch>true</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Embedded link for Pro Services Tableau dashboard, the link to this dashboard is created and maintained by the TT Analytics team in SLC.</description>
+    <label>TableauDashboard_ProServices</label>
+</ApexPage>

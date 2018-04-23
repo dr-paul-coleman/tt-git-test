@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AskAnExpertProEscalation_Case</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <filterScope>Queue</filterScope>
+    <label>Ask an Expert Pro Escalation</label>
+    <queue>AskAnExpertProEscalation</queue>
+    <sharedTo>
+        <group>AskAnExpertProEscalationUser</group>
+        <role>SystemLevelAccess</role>
+    </sharedTo>
+</ListView>

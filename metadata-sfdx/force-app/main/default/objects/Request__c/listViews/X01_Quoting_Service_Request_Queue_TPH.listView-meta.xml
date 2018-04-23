@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X01_Quoting_Service_Request_Queue_TPH</fullName>
+    <columns>QuotingServiceStatus__c</columns>
+    <columns>Status__c</columns>
+    <columns>SubscriptionType__c</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Request__c.ProAssistanceRequest</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Pro Paused,Max Contact Reached,No Credits - Cant Quote,Negative Balance</value>
+    </filters>
+    <label>01. Quoting Service Request Queue TPH</label>
+    <queue>ProAssistance</queue>
+    <sharedTo>
+        <roleAndSubordinatesInternal>ProServicesManaging_User</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>SAM_Managing_User</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

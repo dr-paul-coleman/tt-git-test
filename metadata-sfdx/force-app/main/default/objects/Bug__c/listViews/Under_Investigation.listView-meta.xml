@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Under_Investigation</fullName>
+    <columns>NAME</columns>
+    <columns>DateLogged__c</columns>
+    <columns>DateFixed__c</columns>
+    <columns>Project__c</columns>
+    <columns>TackLabels__c</columns>
+    <columns>Affects__c</columns>
+    <columns>BugDescription__c</columns>
+    <columns>JIRALink__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>TackLabels__c</field>
+        <operation>equals</operation>
+        <value>Under Investigation</value>
+    </filters>
+    <label>Under Investigation</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>CustomerSuccessOrganization</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

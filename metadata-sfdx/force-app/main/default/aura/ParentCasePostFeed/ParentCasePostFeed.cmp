@@ -1,0 +1,51 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+================================================
+  1.0      2017-12-05   Mendel Guillaume       Created
+  ========+============+=================+===============================================
+-->
+
+<aura:component description="ParentCasePostFeed" controller="ParentCasePostFeedController">
+    <aura:attribute name="caseId" type="String" access="global" />
+    <aura:attribute name="post" type="String" />
+    <aura:attribute name="message" type="String" access="public" default="" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+
+    <aura:registerEvent name="ParentCasePostFeedEvent" type="c:ParentCasePostFeedEvent" />
+
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner aura:id="mySpinner" variant="brand" size="large"></lightning:spinner>
+    </aura:if>
+
+    <aura:if isTrue="{! v.message != ''}">
+        <div class="slds-notify_container">
+            <div class="slds-notify slds-notify_toast slds-theme_error" role="alert">
+                <div class="slds-notify__content" style="width: 100%;">
+                    <div class="slds-grid">
+                        <div class="slds-size_5-of-6">
+                            <aura:unescapedHtml value="{!v.message}" />
+                        </div>
+                        <div class="slds-size_1-of-6 slds-text-align_right">
+                            <lightning:buttonIcon iconName="utility:close" alternativeText="Close" onclick="{!c.closeToastClick}" variant="bare-inverse" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+
+    <div class="slds-text-title_caps slds-p-bottom_medium">
+        Post to Case Feed
+    </div>
+
+    <aura:if isTrue="{! !empty(v.caseId)}">
+        <div class="slds-form_horizontal ">
+            <lightning:inputRichText value="{!v.post}" aura:id="post" />
+            <div class="slds-p-top_small slds-text-align_right">
+                <lightning:button label="Submit" variant="brand" onclick="{!c.submitClick}" disabled="{! empty(v.post)}" />
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

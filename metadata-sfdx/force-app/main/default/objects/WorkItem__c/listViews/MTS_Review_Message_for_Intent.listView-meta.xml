@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MTS_Review_Message_for_Intent</fullName>
+    <columns>NAME</columns>
+    <columns>AdminLinkViewUser__c</columns>
+    <columns>FullName__c</columns>
+    <columns>Details__c</columns>
+    <columns>Outcome__c</columns>
+    <columns>Priority__c</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>WorkItem__c.StandardWorkItem</value>
+    </filters>
+    <filters>
+        <field>Type__c</field>
+        <operation>equals</operation>
+        <value>Review Message</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>New,Assigned</value>
+    </filters>
+    <filters>
+        <field>Priority__c</field>
+        <operation>equals</operation>
+        <value>High,Medium</value>
+    </filters>
+    <label>MTS - Review Message for Intent</label>
+    <queue>TPHSharedServices</queue>
+    <sharedTo>
+        <roleAndSubordinatesInternal>CustomerSuccessOrganization</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <articleTypeChannelDisplay>
+        <articleTypeTemplates>
+            <channel>App</channel>
+            <template>Tab</template>
+        </articleTypeTemplates>
+        <articleTypeTemplates>
+            <channel>Prm</channel>
+            <template>Tab</template>
+        </articleTypeTemplates>
+        <articleTypeTemplates>
+            <channel>Csp</channel>
+            <template>Tab</template>
+        </articleTypeTemplates>
+        <articleTypeTemplates>
+            <channel>Pkb</channel>
+            <template>Toc</template>
+        </articleTypeTemplates>
+    </articleTypeChannelDisplay>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>These KB articles contain externally facing information for customers and pros.</description>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <fields>
+        <fullName>AndroidPublicContent__c</fullName>
+        <externalId>false</externalId>
+        <label>Android (Public Content)</label>
+        <length>131072</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Audience__c</fullName>
+        <description>Picklist field to indicate the audience of the article, used for internal tracking purposes.</description>
+        <externalId>false</externalId>
+        <label>Audience</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Customer Facing</fullName>
+                    <default>false</default>
+                    <label>Customer Facing</label>
+                </value>
+                <value>
+                    <fullName>Pro Facing</fullName>
+                    <default>false</default>
+                    <label>Pro Facing</label>
+                </value>
+                <value>
+                    <fullName>Customer and Pro Facing</fullName>
+                    <default>false</default>
+                    <label>Customer and Pro Facing</label>
+                </value>
+                <value>
+                    <fullName>Unsearchable</fullName>
+                    <default>false</default>
+                    <label>Unsearchable</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>BestPracticeInternalContent__c</fullName>
+        <description>Field to house content specific to internal best practices.  Field should only be visible to internal staff.</description>
+        <externalId>false</externalId>
+        <label>Best Practice (Internal Content)</label>
+        <length>131072</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>BitlyLink__c</fullName>
+        <description>URL field to house the bit.ly link for the specified article.</description>
+        <externalId>false</externalId>
+        <label>Bit.ly</label>
+        <required>false</required>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>CSArticleView__c</fullName>
+        <description>Link that can be sent to CS agents to open directly in console view.</description>
+        <externalId>false</externalId>
+        <formula>&apos;https://thumbtack.my.salesforce.com/console#%2Farticles%2FPublicArticle%2F&apos;&amp;UrlName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Link that can be sent to CS agents to open directly in the tack app view.</inlineHelpText>
+        <label>CS Article View</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ContainsVideo__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox field; when checked (true) will display a video icon next to the article title anywhere the article is visible in the public help center.</description>
+        <externalId>false</externalId>
+        <label>Contains Video</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>HelpCenterArticleId__c</fullName>
+        <description>Open text field that will be populated by the Sys Admin to store the Public Article ID (parent, __ka); used in formula field to produce Help Center URL Link</description>
+        <externalId>false</externalId>
+        <label>Help Center Article Id</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HelpCenterLink__c</fullName>
+        <description>Formula field to display the URL that an agent can send a Pro or Customer to from a Knowledge article inside the service console.</description>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;https://help.thumbtack.com/article/&quot;&amp;UrlName,&quot;Help Center Link&quot;)</formula>
+        <label>Help Center Link</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HelpCenterPublicContent__c</fullName>
+        <externalId>false</externalId>
+        <label>Help Center (Public Content)</label>
+        <length>131072</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>KnowledgePointOfContact__c</fullName>
+        <description>Open text area of the content manager to add in the person&apos;s name and department of who the subject matter expert is for the article text.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please enter the name and department of the person who you are working with to compile the knowledge article.</inlineHelpText>
+        <label>Knowledge Point of Contact</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MCContent__c</fullName>
+        <description>Rich text area field to store information pertinent to MC&apos;s (mastery certified agents) only.</description>
+        <externalId>false</externalId>
+        <label>MC Content</label>
+        <length>131072</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>MetaDescription__c</fullName>
+        <description>Used in the article&apos;s meta tags - this allows us to override the description displayed on a social media card when the article is shared.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Overrides the description displayed on a social media card when the article is shared. Limited to 155 characters.</inlineHelpText>
+        <label>Meta Description</label>
+        <length>155</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MetaImage__c</fullName>
+        <description>Meta image for use in social media share cards.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Image to be shown on the card when the article is shared via social media.</inlineHelpText>
+        <label>Meta Image</label>
+        <required>false</required>
+        <type>File</type>
+    </fields>
+    <fields>
+        <fullName>MetaTitle__c</fullName>
+        <description>Used in the article&apos;s meta tags. Allows the title to be overridden on social media cards when the article is shared.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Overrides the article&apos;s title on the social media card when the article is shared.</inlineHelpText>
+        <label>Meta Title</label>
+        <length>60</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NewContentSupportRequestLink__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;/a05/e?00N3100000GNNoG=&quot;&amp;ArticleNumber&amp;&quot;&amp;Name=Content Request for &quot;&amp;ArticleNumber&amp;&quot;&amp;00N3100000G42tT=&quot;&amp;Title 
+, &quot;New Content Support Request&quot;,&quot;_self&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>New Content Support Request Link</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PreviewInHelpCenter__c</fullName>
+        <description>Formula field to link a content manager to an article preview in the public help center.</description>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;/apex/hcpagermo?preview=&quot;&amp;X18DigitID__c,&quot;Open Preview Window&quot;, &quot;_blank&quot;)</formula>
+        <label>Preview in Help Center</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ProductLinksToArticle__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Thumbtack.com product or marketing content links to article.</description>
+        <externalId>false</externalId>
+        <label>Product/Marketing Links to Article</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>RelatedContent__c</fullName>
+        <description>Custom rich text field to house the email templates and/or macros that could be used to respond to the customer/pro.</description>
+        <externalId>false</externalId>
+        <label>Related Content</label>
+        <length>32768</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Temp__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Temporary field used for data cleanup.</description>
+        <externalId>false</externalId>
+        <label>Temp</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>X18DigitID__c</fullName>
+        <description>Formula to gather the 18-digit record ID for the article.</description>
+        <externalId>false</externalId>
+        <formula>Id
+&amp; MID(&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ012345&quot;,(
+    IF(FIND(MID(Id,1,1), &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;)&gt;0,1,0)
+    +IF(FIND(MID(Id,2,1), &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;)&gt;0,2,0)
+    +IF(FIND(MID(Id,3,1), &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;)&gt;0,4,0)
+    +IF(FIND(MID(Id,4,1), &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;)&gt;0,8,0)
+    +IF(FIND(MID(Id,5,1), &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;)&gt;0,16,0)
+    )+1,1)
+&amp; MID(&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ012345&quot;,(
+    IF(FIND(MID(Id,6,1), &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;)&gt;0,1,0)
+    +IF(FIND(MID(Id,7,1), &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;)&gt;0,2,0)
+    +IF(FIND(MID(Id,8,1), &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;)&gt;0,4,0)
+    +IF(FIND(MID(Id,9,1), &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;)&gt;0,8,0)
+    +IF(FIND(MID(Id,10,1), &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;)&gt;0,16,0)
+    )+1,1)
+&amp; MID(&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ012345&quot;,(
+    IF(FIND(MID(Id,11,1), &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;)&gt;0,1,0)
+    +IF(FIND(MID(Id,12,1), &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;)&gt;0,2,0)
+    +IF(FIND(MID(Id,13,1), &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;)&gt;0,4,0)
+    +IF(FIND(MID(Id,14,1), &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;)&gt;0,8,0)
+    +IF(FIND(MID(Id,15,1), &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;)&gt;0,16,0)
+    )+1,1)</formula>
+        <label>18 Digit ID</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>iPhonePublicContent__c</fullName>
+        <externalId>false</externalId>
+        <label>iPhone (Public Content)</label>
+        <length>131072</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <label>Public Article</label>
+    <pluralLabel>Public Articles</pluralLabel>
+    <validationRules>
+        <fullName>BitlyRequiredForPKB</fullName>
+        <active>false</active>
+        <description>Require bit.ly before adding to PKB channel.</description>
+        <errorConditionFormula>ISBLANK(BitlyLink__c)&amp;&amp; 
+IsVisibleInPkb = True</errorConditionFormula>
+        <errorMessage>A bit.ly link is required before making this article visible in the public knowledge base.</errorMessage>
+    </validationRules>
+</CustomObject>

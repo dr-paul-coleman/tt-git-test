@@ -1,0 +1,12 @@
+/*
+   Copyright (c) 2017 Thumbtack. All rights reserved.
+
+   Version      Date          Author            Description
+   ========+============+=================+================================================
+   1.0      2018-02-23   Mendel Guillaume       Created
+   ========+============+=================+===============================================
+*/
+.THIS .item-col{vertical-align: middle; padding-bottom: 0.1rem !important; padding-top: 0.1rem !important; word-wrap: break-word !important; white-space: normal !important;}
+.THIS .category-help-container .category-text-help{display: none;}
+.THIS .category-help-container:hover .category-text-help{display: block;}
+.THIS .cell-select {padding-left: 20px !important;}

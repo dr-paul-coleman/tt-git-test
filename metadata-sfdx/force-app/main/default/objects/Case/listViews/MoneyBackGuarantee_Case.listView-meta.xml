@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MoneyBackGuarantee_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>Money Back Guarantee</label>
+    <queue>MoneyBackGuarantee</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

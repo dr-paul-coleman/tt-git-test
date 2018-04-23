@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReviewAuditOutcome__c</fullName>
+    <externalId>false</externalId>
+    <label>Review Audit Outcome</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Warned and Flagged</fullName>
+                <default>false</default>
+                <label>Warned and Flagged</label>
+            </value>
+            <value>
+                <fullName>Sent to MI</fullName>
+                <default>false</default>
+                <label>Sent to MI</label>
+            </value>
+            <value>
+                <fullName>No Warning Sent: Due to Open MI Case</fullName>
+                <default>false</default>
+                <label>No Warning Sent: Due to Open MI Case</label>
+            </value>
+            <value>
+                <fullName>No Warning Sent: Previous Concerning Review Warning</fullName>
+                <default>false</default>
+                <label>No Warning Sent: Previous Concerning Review Warning</label>
+            </value>
+            <value>
+                <fullName>No Action Taken</fullName>
+                <default>false</default>
+                <label>No Action Taken</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

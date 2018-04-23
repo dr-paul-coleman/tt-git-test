@@ -1,0 +1,45 @@
+<!--
+/*******************************************************************************
+*                                                                              *
+*                                           ########                           *
+*                                            #####                             *
+*    Copyright (c) 2017 Thumbtack            ###                               *
+*       All rights reserved.                ###                                *
+*                                         #####                                *
+*                                      #########                               *
+*                                         #                                    *
+*                                        #                                     *
+*                                       #                                      *
+*                                      #                                       *
+*                                                                              *
+********************************************************************************
+Change List:
+
+Version      Date          Author            Description
+========+============+=================+================================================
+1.0      2017-08-16   Mendel Guillaume       Created
+========+============+=================+===============================================*/
+ -->
+
+<aura:component description="IncidentChargeCard" controller="IncidentChargeCardManagerController">
+    <aura:attribute name="ccRequest" access="public" type="MIIncidentAction__c" />
+    <aura:registerEvent name="IncidentOpenAction" type="c:IncidentOpenAction" />
+
+    <div class="slds-grid slds-text-color_weak slds-text-body_small slds-m-top_medium">
+        <div class="slds-size_1-of-2">
+            {!v.ccRequest.LastModifiedBy.Name}
+        </div>
+        <div class="slds-size_1-of-2 slds-text-align_right">
+            <ui:outputDate value="{!v.ccRequest.LastModifiedDate}" format="MMM d, yyyy h:mm a"/>
+        </div>
+    </div>
+    <div class="slds-grid">
+        <div class="slds-size_1-of-2">
+            <lightning:button onclick="{!c.requestClick}" label="{!v.ccRequest.Status__c}" variant="base" />
+        </div>
+        <div class="slds-size_1-of-2 slds-text-align_right">
+             <ui:outputCurrency value="{!v.ccRequest.Amount__c}" />
+        </div>
+    </div>
+
+</aura:component>

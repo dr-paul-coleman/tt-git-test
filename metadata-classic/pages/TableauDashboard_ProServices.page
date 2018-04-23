@@ -1,0 +1,7 @@
+<apex:page standardController="Account" showheader="false" sidebar="false">
+ 
+  <apex:iframe src="https://us-east-1.online.tableau.com/t/thumbtack/views/UserInfo/UserInfo?:embed=yes&:toolbar=no&user_id={!account.usr_user_id__c}" height="800px" width="1000px" scrolling="true">
+ 
+  </apex:iframe>
+ 
+</apex:page>

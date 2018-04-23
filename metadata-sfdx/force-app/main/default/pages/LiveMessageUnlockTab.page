@@ -1,0 +1,43 @@
+<apex:page standardController="LiveText__Conversation_Header__c"> 
+<html> 
+<head> 
+<title>LOCK OR UNLOCK TABS</title> 
+
+<script src="/support/console/41.0/integration.js"></script> 
+
+<script type="text/javascript"> 
+
+function displayResultsCallback(result){ 
+var resDiv = document.getElementById("eventResults"); 
+resDiv.innerHTML = JSON.stringify(result); 
+} 
+
+function disableTabCloseTrueWithId() { 
+var tabId = window.prompt("Enter the tab ID","scc-pt-0"); 
+sforce.console.disableTabClose(true, tabId, displayResultsCallback); 
+} 
+
+function disableTabCloseFalseWithId() { 
+var tabId = window.prompt("Enter the tab ID","scc-pt-0"); 
+sforce.console.disableTabClose(false, tabId, displayResultsCallback); 
+} 
+
+</script> 
+</head> 
+
+<body> 
+
+<h2>FIRST FIND TAB ID</h2> 
+<p>E.g. Tab in first position = 'scc-pt-0'</p> 
+
+<ul> 
+<li><a href="#" onClick="disableTabCloseTrueWithId();return false;"> 
+LOCK</a></li> 
+
+<li><a href="#" onClick="disableTabCloseFalseWithId();return false;"> 
+UNLOCK</a></li> 
+</ul> 
+
+</body> 
+</html> 
+</apex:page>

@@ -1,0 +1,145 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false">
+  <html>
+    <head>
+      <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script type="text/javascript">
+        (function() { 
+          function handlePageLoad() {
+            var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");
+            document.getElementById('prechatForm').setAttribute('action',
+            decodeURIComponent(endpointMatcher.exec(document.location.search)[1]));
+          } 
+            if (window.addEventListener) {
+              window.addEventListener('load', handlePageLoad, false);
+            } else { 
+              window.attachEvent('onload', handlePageLoad, false);
+            }
+            })();
+
+        document.addEventListener("DOMContentLoaded", function() {
+          var elements = document.getElementsByTagName("INPUT");
+          for (var i = 0; i < elements.length; i++) {
+            elements[i].oninvalid = function(e) {
+            e.target.setCustomValidity("");
+            if (!e.target.validity.valid) {
+                e.target.setCustomValidity("Please enter your name, a valid email, and what we can help you with.");
+                }
+            };
+            elements[i].oninput = function(e) {
+              e.target.setCustomValidity("");
+            };
+          }
+        })
+        
+        function countChar(val) {
+           var len = val.value.length;
+           if (len >=100) {
+              val.value = val.value.substring (0, 100);
+            }  {
+              $('#charNum').text(100 - len);
+            }
+        };  
+                                       
+      </script>
+      <title>Pre-Chat Form</title>
+      <style type="text/css">
+        
+          body {
+        margin: auto;
+        max-width: 600px;
+        background-color: #F9F9F9;
+        }
+        
+        .container {
+          width: 90%;
+          clear: both;
+          text-align: center;
+          margin: auto;
+          font-family: "Helvetica Neue", Helvetica Neue, Arial, sans-serif;
+          font-weight: 200;
+          font-size: 1.2em;
+          color: #5e5e5e;
+          padding: 15px;
+        }
+        
+        .container input {
+          width: 90%;
+          clear: both;
+          border: 1px solid #D3D3D3;
+          border-radius: 4px;
+          font-size: 1em;
+          font-weight: 200;
+          padding: 5px;
+          margin-top: 10px;
+        }
+        
+        #prechat_submit {
+          width: 50%;
+          font-size: 1em;
+          font-weight: 200;
+          border-radius: 4px;
+          background: #4494ED;
+          color: #FFFFFF;
+          border: none;
+          cursor: pointer;
+          padding: 7px;
+        }
+        
+        #prechat_submit:hover {
+          background: #1674df;
+        }
+        
+        #prechat_submit:focus {
+          outline: 0;
+        }
+        
+        #charNum {
+          color: #AAAAAA;
+          text-align: right;
+          width: 95%;
+          display: inherit;
+        
+        @media screen and (max-width: 425px), handheld and (max-device-width: 425px) {
+          body {
+            width: 300px;
+          }
+        }
+      </style>
+    </head>
+
+  <body>
+    <div class="container">
+      <span class="title">So that we can better help you, please fill out the following:</span><br/><br/>
+        <form method="post" id="prechatForm">
+           
+          <!-- Detail inputs -->
+          <input type="text" name="liveagent.prechat:WebName" required="required" autofocus="true" onchange="javascript: document.getElementById('prechat_field').value=this.value;" maxlength="80" placeholder="Name" />
+          <input type="email" name="liveagent.prechat:WebEmail" required="required" maxlength="80" placeholder="Email" pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$" />
+          <input type="text" name="liveagent.prechat:caseSubject" required="required" maxlength="100" title="In a few words, please let us know what you'd like to talk to us about." onkeyup="countChar(this)" placeholder="What can we help you with?" />
+          <div id="charNum">100</div>
+
+          
+          <!--Custom Visitor Name field, copies from WebName input-->
+          <input type="hidden" name="liveagent.prechat.name"  id='prechat_field'/>
+           
+          <!-- Create a Case every time -->
+          <input type="hidden" name="liveagent.prechat:caseOrigin" value="Live Chat" />
+          <input type="hidden" name="liveagent.prechat:caseRecordType" value="0123100000169kP" />
+          <input type="hidden" name="liveagent.prechat.findorcreate.map:Case" value="Origin,caseOrigin;Subject,caseSubject;SuppliedName,WebName;SuppliedEmail,WebEmail;RecordTypeId,caseRecordType;" />
+          <input type="hidden" name="liveagent.prechat.findorcreate.map.doCreate:Case" value="Origin,true;Subject,true;SuppliedName,true;SuppliedEmail,true;RecordTypeId,true;" />
+          <input type="hidden" name="liveagent.prechat.findorcreate.saveToTranscript:Case" value="Case" />
+          <input type="hidden" name="liveagent.prechat.findorcreate.showOnCreate:Case" value="true" />
+          
+          <!-- Save the Contact on the Live Chat Transcript's Contact Lookup -->
+          <input type="hidden" name="liveagent.prechat.findorcreate.saveToTranscript:Contact" value="Contact" />
+
+          
+          <input type="submit" value="Request Chat" id="prechat_submit" />
+        </form>
+    </div>
+  </body>
+  </html>
+</apex:page>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DisputeOfferStatus__c</fullName>
+    <description>The status the offer must be in order to trigger the automatic tip.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The status the offer must be in order to trigger the automatic tip.</inlineHelpText>
+    <label>Dispute Offer Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>DisputeOfferStatus</valueSetName>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,313 @@
+<apex:page docType="html-5.0" showHeader="false" sidebar="false" standardStylesheets="false" standardController="Case" extensions="LiveOpsInboundScreenPopController" action="{!initialize}">
+<apex:remoteObjects jsNamespace="rmo">
+    <apex:remoteObjectModel name="Case" fields="Id,CaseNumber,Subject,AccountId,RecordTypeId,ContactId,ANI__c,DNIS__c,Origin,Priority,CreatedDate,IsClosed,ClosedDate,Status,OwnerId"/>
+    <apex:remoteObjectModel name="RecordType" fields="Id,DeveloperName,SobjectType"/>
+</apex:remoteObjects>
+
+<div style="height: 40px;"/>
+<div id="LoadingDiv" style="display:block;font-family: monospace;font-weight:700;font-size: large;"><span style="padding:0 0 0 100px">Searching for Thumbtack User...</span><div style="margin:10px 0 0 200px"><img src="{!$Resource.LiveOpsScreenPopLoading}"/></div></div>
+<apex:includeScript value="https://code.jquery.com/jquery-2.1.4.min.js"/>
+<apex:includeScript value="/support/console/36.0/integration.js"/>
+<script async="true" src="{!URLFOR($Resource.TTExtJsv5)}"></script>
+<script type="text/javascript">
+    $j = jQuery.noConflict();
+    $j.ajaxSetup({cache:!0});
+    try{if(sforce.console.isInConsole()){sforce.console.setTabTitle('Searching...');}}catch(e){}
+
+    $_errorHandler = function(err){
+        if("undefined"!==typeof(Ext) && Ext.Msg && Ext.isReady) {
+            Ext.Msg.show({
+                title: "Call Processing Error",
+                msg: err + "<br/><br/>Please contact your system administrator for assistance with this error.",
+                buttons: Ext.Msg.OK,
+                icon: Ext.Msg.ERROR
+            });
+        } else {
+          $j('#LoadingDiv').html(err);
+        }
+        console.error(err);
+    };
+
+    $_openTabs = function(searchtabid, account, _case, primarytabid) {
+      if("string"!==typeof(primarytabid)){ 
+        sforce.console.openPrimaryTab(undefined, "/"+account.Id, true, account.Name, function(pri_result){ 
+          if (true === pri_result.success) {
+            sforce.console.openSubtab(pri_result.id, "/"+_case.Id, true, _case.CaseNumber, null, function(sub_result){
+              if(false === sub_result.success) {
+                console.warn("Open Case Sub tab failed");
+              }
+              sforce.console.closeTab(searchtabid); 
+            },_case.Id);
+          } else {
+            sforce.console.openPrimaryTab(undefined, "/"+_case.Id, true, _case.CaseNumber, function(sub_result){
+              if(false === sub_result.success) {
+                console.warn("Open Case Sub tab failed");
+              }
+              sforce.console.closeTab(searchtabid); 
+            },_case.Id);
+            console.warn("Open Account tab failed");
+          }
+        }, account.Id);
+      } else {
+        sforce.console.openSubtab(primarytabid, "/"+_case.Id, true, _case.CaseNumber, null, function(sub_result){
+          if(false === sub_result.success) {
+            console.warn("Open Case Sub tab failed");
+          }
+          sforce.console.closeTab(searchtabid); 
+        },_case.Id);        
+      }
+    };
+
+    $_doConsoleTabs = function (account, _case) {
+      sforce.console.getEnclosingTabId( function(tab){ 
+        if("undefined"!==typeof(account) || null===account) {
+          sforce.console.openPrimaryTab(undefined, "/"+_case.Id, true, _case.CaseNumber);
+          sforce.console.closeTab(tab.id); 
+        } else {
+          sforce.console.getPrimaryTabIds(function(tabs) {
+            if( 1===tabs.ids.length ) { //dialer tab is only one open
+              $_openTabs(tab.id,account,_case);
+            } else if(account && "string"===typeof(account.Id)){ 
+              isAccountTabFound = false;
+              for(t=0; t< tabs.ids.length; t++) {
+                setTimeout( function(primarytabid) {
+                  sforce.console.getTabLink(sforce.console.TabLink.TAB_ONLY, primarytabid, function(linkUrl) {
+                    var links = decodeURIComponent(linkUrl.tabLink).split("/");
+                    var csoleEl = $j.inArray("console#",links);
+                    var recId = links[(csoleEl+1)];
+                    if ( "string"===typeof(recId) && recId.length >=15 && 0===account.Id.indexOf(recId) ) {
+                        isAccountTabFound = true;
+                        $_openTabs(tab.id,account,_case,primarytabid);
+                    }
+                    if(primarytabid == tabs.ids[(tabs.ids.length-1)]) {
+                      //TODO, last tab, see if account not found
+                      if (!isAccountTabFound) {
+                        $_openTabs(tab.id,account,_case);
+                      }
+                    };
+                  });
+                },1,tabs.ids[t]);
+              }
+            } else {
+              $_openTabs(tab.id,account,_case);
+            }
+          });
+        }
+      });
+    };
+    
+    $_doCaseInsert = function (account, contactId) {
+        try{if(sforce.console.isInConsole()){sforce.console.setTabTitle('Creating Case...');}}catch(e){}
+        new rmo.RecordType().retrieve( 
+            { where: { DeveloperName: {eq: 'CustomerSupport'}, SobjectType: {eq: 'Case'} },limit: 1},  
+            function(err, rts) { 
+               if (err) return $_errorHandler(err.message); 
+               try {
+                   var caseObj = { 
+                       ANI__c: $_ANI,
+                       DNIS__c: $_DNIS,
+                       AccountId: (account && "string"===typeof(account.Id))? account.Id :null,
+                       ContactId: contactId,   
+                       Subject: 'Inbound Support Call from ' + (""===$_ANI? "UNKNOWN":$_ANI),
+                       Origin: 'Inbound Phone',
+                       Priority: 'Low',
+                       //Type: 'Created by JS',
+                       OwnerId: $_UserId
+                   }
+                   if(rts && 1===rts.length) {
+                       caseObj.RecordTypeId = rts[0].get("Id");
+                   }
+
+                   var caseRec = new rmo.Case();
+                   caseRec.create(caseObj, function(err,ids) {
+                        if(err) return $_errorHandler(err.message);
+                        console.log(caseRec.log());
+                        if(sforce.console.isInConsole()) {
+                          new rmo.Case().retrieve( { "where": { "Id": {"eq": ids[0]} }, "limit": 1},  
+                          function(err, cases) { 
+                            if(err) return $_errorHandler(err.message);
+                            if(cases && 1===cases.length) {
+                              $_doConsoleTabs(account,cases[0]._props);
+                            } else {
+                              return $_errorHandler("Failed to retrieve newly inserted case record");
+                            }
+                          });
+                        } else {
+                            location.replace("/"+ids[0]); 
+                        }
+                        $j('#LoadingDiv').hide();
+                    });
+                } catch(err) {
+                    $_errorHandler(err);
+                }
+            } //end callback function
+        ); 
+    };
+ 
+     $checkForCase = function(){
+      new rmo.RecordType().retrieve( 
+      { where: { DeveloperName: {in: ['CustomerSupport','LiveChat','MarketplaceIntegrity']}, SobjectType: {eq: 'Case'} },limit: 3},  
+      function(err, rts) { 
+         if (err) { return $_errorHandler(err.message); } 
+         if( rts && 0!==rts.length) {
+              //open existing Case, if any
+              new rmo.Case().retrieve({ where: { AccountId: {eq: account.Id}, Origin: {in:['Inbound Phone','Email','Engagement Outbound Call','Live Chat','Social Media','Text Message','Voicemail','Web']},RecordTypeId: {in: [rts[0].get("Id"),rts[1].get("Id"),rts[2].get("Id")]}, IsClosed: {eq: false} }, orderby: [ {CreatedDate: 'DESC'} ],limit: 1 },
+              function(err,cases){
+                  if(err) {
+                      return $_errorHandler(err.message);
+                  } else {
+                      if( cases && 0!==cases.length ){
+                          locatedCase = cases[0];
+                          var isMarketPlaceIntegrity = false;
+                          for (var i=0; i<rts.length;i++){
+                            if(rts[i].DeveloperName == "MarketplaceIntegrity") {
+                                isMarketPlaceIntegrity = rts[i].Id == locatedCase.RecordTypeId;
+                                break;
+                            }
+                          }
+                          
+                          //ensure dnis is set on existing case
+                          var dnis = locatedCase.get("DNIS__c") || !1;
+                          if(!dnis){
+                            //update case with DNIS if it is not set
+                            locatedCase.update({Id:locatedCase.get("Id"), DNIS__c:$_DNIS },function(e,r){
+                              console.log(e||r);
+                            });
+                          }
+                      
+                          if(-1===locatedCase.get("OwnerId").indexOf($_UserId) && !isMarketPlaceIntegrity){
+                            locatedCase.update({Id:locatedCase.get("Id"),OwnerId:$_UserId},function(e,r){
+                              if(sforce.console.isInConsole()) {
+                                $_doConsoleTabs(account,locatedCase._props);
+                              } else {
+                                location.replace("/"+locatedCase.get("Id")); 
+                              } 
+                            });
+                          }else{
+                            if(sforce.console.isInConsole()) {
+                              $_doConsoleTabs(account,locatedCase._props);
+                            } else {
+                              location.replace("/"+locatedCase.get("Id")); 
+                            } 
+                          }
+                      } else {
+                        $_doCaseInsert(account,contactId);    
+                      }
+                  }
+              });
+         } else {
+           $_doCaseInsert(account,contactId);
+         }
+      });        
+    }
+
+    $_case = {Id:"{!$CurrentPage.parameters.id}",CaseNumber:"{!Case.CaseNumber}",ContactId:"{!Case.ContactId}",Account:{Id:"{!Case.AccountId}",Name:"{!Case.Account.Name}"}};
+    $_ANI = "{!$CurrentPage.parameters.ANI}";
+    $_DNIS = "{!$CurrentPage.parameters.DNIS}"||"{!$CurrentPage.parameters.ProductPhone}";
+    $_UserId = "{!$User.Id}";
+
+    var account = null; //accountid for pending Case insert, if any
+    var contactId = null;
+
+    if( "string"===typeof("{!$CurrentPage.parameters.id}") && 0==="{!$CurrentPage.parameters.id}".indexOf("500") ) {
+      if(sforce.console.isInConsole()){
+        $_doConsoleTabs($_case.Account,$_case);
+      } else {
+        location.replace("/{!$CurrentPage.parameters.id}");
+      }
+    } else if( "string"===typeof($_ANI) && ""!==$_ANI ) {
+        $_ANI = $_ANI.replace(/\D+/g, ""); //strip out any non-digit formatting
+        var phoneSearchTerm = $_ANI.length > 10 && $_ANI[0]==="1" ? $_ANI + " OR " + $_ANI.substr(1): $_ANI;
+        LiveOpsInboundScreenPopController.doSOSL('FIND {'+phoneSearchTerm+'} IN PHONE FIELDS RETURNING Contact(Id,Name,AccountId,Account.Id,Account.sav_is_activated__c,Account.usr_lastlogin_time__c,Account.Name) LIMIT 10',
+          function(records, evt) {
+            if (!evt.status) return $_errorHandler(evt.message);
+            window.records = records = JSON.parse(records)[0];
+            if( records && 0!==records.length ) {
+                if( 1 === records.length  ) {
+                    //create case tied to located Account
+                    account = "string"!==typeof(records[0].AccountId)? null: {Id:records[0].AccountId,Name:records[0].Account.Name};
+                    contactId = records[0].Id;
+                    $checkForCase();
+                } else { //more than one return record from SOSL
+                  $doUI();
+                }
+            } else {
+              $_doCaseInsert(account,contactId);
+            } 
+        },{escape:false});//end search callback
+    } else {
+        $j('#LoadingDiv').html("No Phone Number found for lookup");
+    }
+
+    $doUI = function(){
+        if("object"===typeof(Ext) && Ext.isReady){ //Ext loaded via jQuery ajax on page parse
+            $doExt();
+        } else {
+            setTimeout($doUI,50);
+        }
+    };
+
+    $doExt = function(){
+      $orgUrl = "{!$Api.Enterprise_Server_URL_350}";
+      $isProdOrg = 0==="{!$Organization.Id}".indexOf("00Di0000000dEJt") || 0===$orgUrl.indexOf("https://thumbtack.my.salesforce.com") || 0===$orgUrl.indexOf("https://thumbtack--c.na25.visual.force.com");
+
+      Ext.Loader.setConfig({enabled:true, disableCaching:false});
+      Ext.define("TT.model.AccountModel",{extend:"Ext.data.Model",requires:["Ext.data.Field"],idProperty:"Id",fields:[{name:"Id"},{name:"ContactId"},{name:"Name"},{name:"sav_is_activated__c",type: 'boolean'},{convert:function(e){return Ext.isEmpty(e)?null:Ext.Date.parse(e,"c")},name:"usr_lastlogin_time__c"}]});
+      
+      var accounts = [];
+      //create ExtJS Store to facilitate sorting, filtering and sub-searches
+      var aStore = Ext.create('Ext.data.Store', {model: 'TT.model.AccountModel',proxy: {type: 'memory',reader: {type: 'json'}}});
+        //get Accounts from Contacts
+      for(var c=0; c< records.length; c++) {
+        var contact = records[c];
+        if( !Ext.isEmpty(records[c].AccountId) && Ext.String.startsWith(records[c].AccountId,'001') ) {
+          accounts.push( Ext.apply(records[c].Account,{ContactId:records[c].Id}) ); 
+        }     
+      }
+      
+      if(accounts.length === 0){
+        //contact only returns
+        account = null;
+        contactId = records[0].Id;
+
+      } else if(accounts.length === 1){
+      
+          account = {Id:accounts[0].Id,Name:accounts[0].Name};
+          contactId = accounts[0].ContactId;
+      
+      } else {
+          //Get newest Account based on the following status hierarchy
+          aStore.loadRawData(accounts);
+          var matches;
+          if(aStore.count()>0) {
+              
+              /* Removed by req JIRA CS-982, per Kristin 2016-APR-29, as with all 
+                 previous references to IsBanned__c in this page
+                 */
+              if( !Ext.isEmpty(aStore.findRecord('sav_is_activated__c',true)) ) {
+                  matches = aStore.queryBy(function(rec) { return rec.data.sav_is_activated__c===true;} )
+              } else if( !Ext.isEmpty(aStore.findRecord('sav_is_activated__c',false)) ) {
+                  matches = aStore.queryBy(function(rec) { return rec.data.sav_is_activated__c===false;} )
+              } else {
+                matches = aStore.queryBy(function(rec) { return Ext.String.startsWith(rec.data.Id,'001');} ); //get all accounts regardless of status
+              }                                
+          }                      
+          
+           if ( !Ext.isEmpty(matches.items) ) matches.sort('usr_lastlogin_time__c','DESC');
+
+           account = Ext.isEmpty(accounts) || Ext.isEmpty(matches) || Ext.isEmpty(matches.items)? null: {Id: matches.items[0].get("Id"),Name:matches.items[0].get("Name")};    
+           contactId = Ext.isEmpty(accounts) || Ext.isEmpty(matches) || Ext.isEmpty(matches.items)? null: matches.items[0].get("ContactId");    
+      }    
+
+      if( null === account ) {
+          //no matching account found
+          $_doCaseInsert(null,contactId); 
+      } else {
+         $checkForCase();                 
+      }
+    }
+    
+    console.log(window.location.href);
+</script>
+
+</apex:page>

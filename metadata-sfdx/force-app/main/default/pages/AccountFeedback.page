@@ -1,0 +1,85 @@
+<!--
+  Copyright (c) 2017 Thumbtack. All rights reserved.
+
+  Version      Date          Author            Description
+  ========+============+=================+===============================================
+  1.0      2018-02-20   Mendel Guillaume       Created
+  1.1      2018-03-26   Mendel Guillaume       Updated to account for apostrophe in name
+  ========+============+=================+===============================================
+ -->
+
+<apex:page id="AccountFeedback" standardController="Account" showHeader="false" standardStylesheets="false" sideBar="false" >
+    <apex:includeScript value="/canvas/sdk/js/publisher.js"/> 
+    <apex:includeScript value="/support/console/35.0/integration.js"/>
+    <apex:includeLightning />
+
+    <script type="text/javascript">
+
+        var findUserEventHandler = function(event) {
+            console.log('Event Fired: findUserEventHandler')
+            var accountId = event.getParam('accountId');
+            var actionName = event.getParam('actionName');
+
+            if(actionName == 'accountRedirect')
+            {
+                var url = '/' + accountId;
+
+                if (sforce.console.isInConsole()) {
+                        sforce.console.openPrimaryTab(null, url , true, '{!JSENCODE(Account.Name)}', function(sub_result){
+                            console.log(sub_result.id);
+                            if(false === sub_result.success) {
+                                console.warn("Failed to open primary tab");
+                                console.dir(sub_result);
+                            }
+                        }, name);
+
+                }
+                else
+                {
+                    location.href = url;
+                }
+            }
+        };
+
+        var findUserEventFunction = function() {
+            $A.eventService.addHandler({
+                event: "c:FindUserEvent",
+                handler: findUserEventHandler
+            });
+        };
+
+        var refreshAccountHandler = function (event)
+        {
+            var actionName = event.getParam('actionName');
+
+            if(actionName == 'Refresh Case')
+            {
+                console.log('refreshCase Called In VF');
+                Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload :{feed:true}});
+                sforce.console.getFocusedPrimaryTabId( function(result){
+                    sforce.console.refreshPrimaryTabById(result.id, true,function(){
+                        sforce.console.getSubtabIds( result.id,function(subs){
+                            if(subs && subs.ids && subs.ids.length>0) {
+                                for(var i=0; i<subs.ids.length; i++ ) {
+                                    sforce.console.refreshSubtabById(subs.ids[i], false);
+                                }
+                            }
+                        }); //get subtabs
+                    }); //refresh tab
+                });//focus tab
+            }
+        };
+
+        var refreshAccountFunction = function() {
+            $A.eventService.addHandler({
+                event: "c:CategorizationEvent",
+                handler: refreshAccountHandler
+            });
+        };
+
+
+    </script>
+
+    <c:Lightning containerId="account-feedback" appName="c:AccountFeedbackApp" componentName="c:AccountFeedback"
+                 jsonParams="{accountId:'{!Account.Id}'}" jsMethods="findUserEventFunction,refreshAccountFunction" includeSpinner="false"/>
+</apex:page>

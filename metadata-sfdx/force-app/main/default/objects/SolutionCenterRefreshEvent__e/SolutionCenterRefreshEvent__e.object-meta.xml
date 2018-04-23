@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>An event to fulfil reqs: 
+
+Need to send a signal to the front end to auto refresh the logged in users screen when a new message, dispute offer, or update to dispute has been made.
+
+WHEN
+A new dispute message (message, file or success tip RTs) is inserted -OR-
+A new dispute offer is inserted or changed -OR-
+An update to the dispute has been made (e.g., change in description or status/stage)
+
+THEN
+Display the new information for the logged in user.</description>
+    <eventType>StandardVolume</eventType>
+    <label>Solution Center Refresh Event</label>
+    <pluralLabel>Solution Center Refresh Events</pluralLabel>
+</CustomObject>

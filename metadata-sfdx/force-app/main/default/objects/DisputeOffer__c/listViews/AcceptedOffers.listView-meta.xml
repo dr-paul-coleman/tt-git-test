@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AcceptedOffers</fullName>
+    <columns>NAME</columns>
+    <columns>DesiredResolution__c</columns>
+    <columns>DesiredRefundAmount__c</columns>
+    <columns>OfferedByParty__c</columns>
+    <columns>ContactCreatedBy__c</columns>
+    <columns>ContactSharedWith__c</columns>
+    <columns>TotalMessageCount__c</columns>
+    <columns>CreateDateTime__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>DisputeOffer__c.SolutionCenterOffer</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Accepted</value>
+    </filters>
+    <label>03. Accepted Offers</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

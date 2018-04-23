@@ -1,0 +1,54 @@
+/*
+   Copyright (c) 2017 Thumbtack. All rights reserved.
+
+   Version      Date          Author            Description
+   ========+============+=================+================================================
+   1.0      2017-10-23   Mendel Guillaume       Created
+   ========+============+=================+===============================================
+*/
+.THIS .category-type-header{padding: 4px 5px; background-color: #dcdcdc; border-bottom: solid 1px #ccc; border-top: solid 1px #ccc;cursor: pointer;}
+.THIS .category-help-container .category-text-help{display: none;}
+.THIS .category-help-container:hover .category-text-help{display: block;}
+.THIS .slds-tabs__nav-scroller{width: 50% !important;}
+.THIS .slds-vertical-tabs__nav{width: 100% !important;}
+
+.THIS .category-container {padding: 1px 1px 1px 5px; border-top: 1px solid #dedede; cursor: pointer; min-height: 25px;}
+.THIS .category-container.active {background-color: #fff; position: relative;}
+.THIS .category-container.inactive {background-color: #eee;}
+
+.THIS .category-container.active:after{
+	left: 100%;
+	top: 50%;
+	border: solid;
+	content: " ";
+	position: absolute;
+}
+
+.THIS .category-container.active:before {
+	left: 100%;
+	top: 50%;
+	border: solid;
+	content: " ";
+	position: absolute;
+}
+
+.THIS .category-container.active:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-left-color: #fff;
+	border-width: 12px;
+	margin-top: -12px;
+}
+.THIS .category-container.active:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-left-color: #dedede;
+	border-width: 14px;
+	margin-top: -14px;
+}
+
+.THIS .subcategories-container{}
+.THIS .subcategory-container{padding: 1px 1px 1px 15px; border-top: 1px solid #dedede; cursor: pointer; min-height: 25px;}
+
+.THIS .span-remove{cursor: pointer; color: rgba(194, 57, 52, 0.95); font-weight: bold;}
+
+.THIS .category-selected{font-style: italic; font-weight: bold;}
+.THIS .category-selected-bullet{text-align: right; padding-right: 2px; font-size: 30px; line-height: 19px;}

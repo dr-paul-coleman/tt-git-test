@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>x2SubTopicsPros</fullName>
+    <columns>NAME</columns>
+    <columns>ParentId__c</columns>
+    <columns>KnowledgeCategorySortOrder__c</columns>
+    <columns>AvailableOnSupportPage__c</columns>
+    <columns>AvailableForProfessionals__c</columns>
+    <columns>AvailableForCustomers__c</columns>
+    <columns>MasterConfiguration__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>GAAction__c</columns>
+    <columns>GAValue__c</columns>
+    <columns>ConfigurationJSON__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ParentId__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>AvailableForProfessionals__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>2b: Sub Topics - Pros</label>
+</ListView>

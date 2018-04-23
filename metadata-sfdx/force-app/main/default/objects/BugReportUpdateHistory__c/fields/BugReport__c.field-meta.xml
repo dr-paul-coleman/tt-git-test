@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BugReport__c</fullName>
+    <description>Master-detail to the Bug Report object.</description>
+    <externalId>false</externalId>
+    <label>Bug Report</label>
+    <referenceTo>SupportProcess__c</referenceTo>
+    <relationshipLabel>Bug Report Update History</relationshipLabel>
+    <relationshipName>BugReportUpdateHistory</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

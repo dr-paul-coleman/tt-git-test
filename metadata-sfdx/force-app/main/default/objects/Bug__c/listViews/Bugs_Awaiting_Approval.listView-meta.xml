@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bugs_Awaiting_Approval</fullName>
+    <columns>NAME</columns>
+    <columns>DateLogged__c</columns>
+    <columns>Project__c</columns>
+    <columns>Priority__c</columns>
+    <columns>TackLabels__c</columns>
+    <columns>BugDescription__c</columns>
+    <columns>BugOwner__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Awaiting_Approval__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Bugs Awaiting Approval</label>
+    <sharedTo>
+        <group>BugsTeam</group>
+    </sharedTo>
+</ListView>

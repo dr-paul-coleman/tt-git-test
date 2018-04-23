@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to store information for the arbitration (e.g., FairClaims) activities related to a marketplace trust and safety incident.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>CalloutResponseMessage__c</fullName>
+        <externalId>false</externalId>
+        <label>Callout Response Message</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>ClaimId__c</fullName>
+        <externalId>false</externalId>
+        <label>Claim Id</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Closed__c</fullName>
+        <description>Formula field to determine whether or not the Status of the arbitration is in a closed-like status.</description>
+        <externalId>false</externalId>
+        <formula>IF(AND(RecordType.Name = &quot;Arbitration&quot;, 
+          OR(
+            ISPICKVAL(Status__c, &quot;Claimant did not sign up&quot;),
+            ISPICKVAL(Status__c, &quot;Respondent did not sign up&quot;),
+            ISPICKVAL(Status__c, &quot;Decision made&quot;),
+            ISPICKVAL(Status__c, &quot;Settlement reached&quot;),
+            ISPICKVAL(Status__c, &quot;Payment made&quot;),
+            ISPICKVAL(Status__c, &quot;Completed&quot;)
+            
+              )
+            ), True,
+False)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Closed</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>DateSubmitted__c</fullName>
+        <description>The date the pro/customer claim was filed with FairClaims.</description>
+        <externalId>false</externalId>
+        <label>Date Submitted</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Incident__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the MI Incident</description>
+        <externalId>false</externalId>
+        <label>Incident</label>
+        <referenceTo>MIIncident__c</referenceTo>
+        <relationshipName>IncidentArbitrations</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ProspectId__c</fullName>
+        <externalId>false</externalId>
+        <label>Prospect Id</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>New</fullName>
+                    <default>true</default>
+                    <label>New</label>
+                </value>
+                <value>
+                    <fullName>Claimant signed up</fullName>
+                    <default>false</default>
+                    <label>Claimant signed up</label>
+                </value>
+                <value>
+                    <fullName>Respondent signed up</fullName>
+                    <default>false</default>
+                    <label>Respondent signed up</label>
+                </value>
+                <value>
+                    <fullName>Claimant did not sign up</fullName>
+                    <default>false</default>
+                    <label>Claimant did not sign up</label>
+                </value>
+                <value>
+                    <fullName>Respondent did not sign up</fullName>
+                    <default>false</default>
+                    <label>Respondent did not sign up</label>
+                </value>
+                <value>
+                    <fullName>Decision made</fullName>
+                    <default>false</default>
+                    <label>Decision made</label>
+                </value>
+                <value>
+                    <fullName>Settlement reached</fullName>
+                    <default>false</default>
+                    <label>Settlement reached</label>
+                </value>
+                <value>
+                    <fullName>Payment made</fullName>
+                    <default>false</default>
+                    <label>Payment made</label>
+                </value>
+                <value>
+                    <fullName>Payment overdue</fullName>
+                    <default>false</default>
+                    <label>Payment overdue</label>
+                </value>
+                <value>
+                    <fullName>Completed</fullName>
+                    <default>false</default>
+                    <label>Completed</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Active?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>arbitrator_decision__c</fullName>
+        <externalId>false</externalId>
+        <label>Arbitrator Decision</label>
+        <length>5000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>brief_description_of_dispute__c</fullName>
+        <externalId>false</externalId>
+        <label>Brief Description of Dispute</label>
+        <length>10000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>brief_description_of_dispute_respondent__c</fullName>
+        <externalId>false</externalId>
+        <label>Brief Description of Dispute Respondent</label>
+        <length>10000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>chat_active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Chat Active</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>chat_end_time__c</fullName>
+        <externalId>false</externalId>
+        <label>Chat End Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>claim_amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Claim Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>claimant_confirmed_claim_paid__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Claimant Confirmed Claim Paid</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>claimant_email__c</fullName>
+        <externalId>false</externalId>
+        <label>Claimant Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>claimant_first_name__c</fullName>
+        <externalId>false</externalId>
+        <label>Claimant First Name</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>claimant_last_name__c</fullName>
+        <externalId>false</externalId>
+        <label>Claimant Last Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>claimant_phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Claimant Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>company_name_claimant__c</fullName>
+        <externalId>false</externalId>
+        <label>Company Name Claimant</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>company_name_respondent__c</fullName>
+        <externalId>false</externalId>
+        <label>Company Name Respondent</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>created_at__c</fullName>
+        <externalId>false</externalId>
+        <label>Created At</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>deadline_arb_send_hearing_dates__c</fullName>
+        <externalId>false</externalId>
+        <label>Deadline ARB Send Hearing Dates</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>deadline_for_claimant_signup__c</fullName>
+        <externalId>false</externalId>
+        <label>Deadline for Claimant Signup</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>deadline_for_decision__c</fullName>
+        <externalId>false</externalId>
+        <label>Deadline for Decision</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>deadline_for_decision_payment__c</fullName>
+        <externalId>false</externalId>
+        <label>Deadline for Decision Payment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>deadline_for_hearing__c</fullName>
+        <externalId>false</externalId>
+        <label>Deadline for Hearing</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>deadline_for_respondent_signup__c</fullName>
+        <externalId>false</externalId>
+        <label>Deadline for Respondent Signup</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>deadline_hearing_dates_reply__c</fullName>
+        <externalId>false</externalId>
+        <label>Deadline Hearing Dates Reply</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>deadline_to_upload_evidence__c</fullName>
+        <externalId>false</externalId>
+        <label>Deadline to Upload Evidence</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>decision_amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Decision Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>decision_date__c</fullName>
+        <externalId>false</externalId>
+        <label>Decision Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>decision_summary__c</fullName>
+        <externalId>false</externalId>
+        <label>Decision Summary</label>
+        <length>10000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>dispute_amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Dispute Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>dispute_channels__c</fullName>
+        <externalId>false</externalId>
+        <label>Dispute Channels</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>arbitration_with_chat</fullName>
+                    <default>false</default>
+                    <label>arbitration_with_chat</label>
+                </value>
+                <value>
+                    <fullName>chat_only</fullName>
+                    <default>false</default>
+                    <label>chat_only</label>
+                </value>
+                <value>
+                    <fullName>arbitration_only</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>arbitration_only</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>dispute_code__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Dispute Code</label>
+        <length>10</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>finalized__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Finalized</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>full_description_of_dispute__c</fullName>
+        <externalId>false</externalId>
+        <label>Full Description of Dispute</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>full_description_of_dispute_respondent__c</fullName>
+        <externalId>false</externalId>
+        <label>Full Description of Dispute Respondent</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>hearing_date__c</fullName>
+        <externalId>false</externalId>
+        <label>Hearing Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>legal_issue__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Legal Issue</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>partner_id__c</fullName>
+        <externalId>false</externalId>
+        <label>Partner Id</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>respondent_email__c</fullName>
+        <externalId>false</externalId>
+        <label>Respondent Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>respondent_first_name__c</fullName>
+        <externalId>false</externalId>
+        <label>Respondent First Name</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>respondent_last_name__c</fullName>
+        <externalId>false</externalId>
+        <label>Respondent Last Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>respondent_phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Respondent Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>respondent_said_claim_paid__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Respondent Said Claim Paid</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>respondent_status__c</fullName>
+        <externalId>false</externalId>
+        <label>respondent_status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>none</fullName>
+                    <default>false</default>
+                    <label>none</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>scheduling_next_step__c</fullName>
+        <externalId>false</externalId>
+        <label>Scheduling Next Step</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>settlement_reached__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Settlement Reached</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>signup_date_claimant__c</fullName>
+        <externalId>false</externalId>
+        <label>Signup Date Claimant</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>signup_date_respondent__c</fullName>
+        <externalId>false</externalId>
+        <label>Signup Date Respondent</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>support_team_member_email__c</fullName>
+        <externalId>false</externalId>
+        <label>Support Team Member Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>support_team_member_name__c</fullName>
+        <externalId>false</externalId>
+        <label>Support Team Member Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Arbitration</label>
+    <nameField>
+        <label>Record Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Arbitration</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Arbitration</fullName>
+        <active>true</active>
+        <description>Record type used to manage arbitration (e.g., Fairclaims) solutions.</description>
+        <label>Arbitration</label>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Claimant did not sign up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Claimant signed up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Decision made</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment made</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment overdue</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Respondent did not sign up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Respondent signed up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Settlement reached</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>dispute_channels__c</picklist>
+            <values>
+                <fullName>arbitration_with_chat</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>chat_only</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>respondent_status__c</picklist>
+            <values>
+                <fullName>none</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

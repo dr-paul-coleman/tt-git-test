@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ContentRequestHCAlertMessages</fullName>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>IsThisUrgent__c</columns>
+    <columns>IfUrgentPleaseExplainWhy__c</columns>
+    <columns>Status__c</columns>
+    <columns>PublishDate__c</columns>
+    <columns>UnpublishDate__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>TackSupport__c.ContentRequest</value>
+    </filters>
+    <filters>
+        <field>TypeOfRequest__c</field>
+        <operation>equals</operation>
+        <value>Alert message in Help Center</value>
+    </filters>
+    <label>6. Content Request - HC Alert Messages</label>
+    <sharedTo>
+        <group>ContentUser</group>
+        <role>SharedServicesUserTSL</role>
+    </sharedTo>
+</ListView>

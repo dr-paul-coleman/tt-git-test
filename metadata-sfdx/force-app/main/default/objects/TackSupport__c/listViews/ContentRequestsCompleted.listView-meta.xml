@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ContentRequestsCompleted</fullName>
+    <columns>OWNER.FIRST_NAME</columns>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>TypeOfRequest__c</columns>
+    <columns>UpdateType__c</columns>
+    <columns>DueDate__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>CREATEDBY_USER.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>TackSupport__c.ContentRequest</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Closed,Canceled,Completed</value>
+    </filters>
+    <label>3. Content Request - Completed</label>
+    <sharedTo>
+        <group>ContentUser</group>
+        <role>SharedServicesUserTSL</role>
+    </sharedTo>
+</ListView>

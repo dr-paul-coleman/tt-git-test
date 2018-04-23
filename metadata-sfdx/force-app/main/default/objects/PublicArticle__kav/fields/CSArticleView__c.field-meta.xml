@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CSArticleView__c</fullName>
+    <description>Link that can be sent to CS agents to open directly in console view.</description>
+    <externalId>false</externalId>
+    <formula>'https://thumbtack.my.salesforce.com/console#%2Farticles%2FPublicArticle%2F'&amp;UrlName</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Link that can be sent to CS agents to open directly in the tack app view.</inlineHelpText>
+    <label>CS Article View</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

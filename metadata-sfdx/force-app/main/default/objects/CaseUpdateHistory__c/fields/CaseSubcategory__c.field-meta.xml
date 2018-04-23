@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CaseSubcategory__c</fullName>
+    <description>Picklist field to indicate the Subcategory of the case at the time of the Case Update History record being created.</description>
+    <externalId>false</externalId>
+    <label>Case Subcategory</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Background Check</fullName>
+                <default>false</default>
+                <label>Background Check</label>
+            </value>
+            <value>
+                <fullName>Background Check (Clear)</fullName>
+                <default>false</default>
+                <label>Background Check (Clear)</label>
+            </value>
+            <value>
+                <fullName>Background Check (Not Clear)</fullName>
+                <default>false</default>
+                <label>Background Check (Not Clear)</label>
+            </value>
+            <value>
+                <fullName>Bugs</fullName>
+                <default>false</default>
+                <label>Bugs</label>
+            </value>
+            <value>
+                <fullName>Called for Customer</fullName>
+                <default>false</default>
+                <label>Called for Customer</label>
+            </value>
+            <value>
+                <fullName>Called for Pro</fullName>
+                <default>false</default>
+                <label>Called for Pro</label>
+            </value>
+            <value>
+                <fullName>Called for Specific Employee</fullName>
+                <default>false</default>
+                <label>Called for Specific Employee</label>
+            </value>
+            <value>
+                <fullName>Canceled</fullName>
+                <default>false</default>
+                <label>Canceled</label>
+            </value>
+            <value>
+                <fullName>Change Status</fullName>
+                <default>false</default>
+                <label>Change Status</label>
+            </value>
+            <value>
+                <fullName>Connection Issues - Didn't Talk</fullName>
+                <default>false</default>
+                <label>Connection Issues - Didn't Talk</label>
+            </value>
+            <value>
+                <fullName>Create</fullName>
+                <default>false</default>
+                <label>Create</label>
+            </value>
+            <value>
+                <fullName>Thumbtack Balance</fullName>
+                <default>false</default>
+                <label>Thumbtack Balance</label>
+            </value>
+            <value>
+                <fullName>Delete Account</fullName>
+                <default>false</default>
+                <label>Delete Account</label>
+            </value>
+            <value>
+                <fullName>Delete Profile</fullName>
+                <default>false</default>
+                <label>Delete Profile</label>
+            </value>
+            <value>
+                <fullName>Dispute</fullName>
+                <default>false</default>
+                <label>Dispute</label>
+            </value>
+            <value>
+                <fullName>Employment at TT</fullName>
+                <default>false</default>
+                <label>Employment at TT</label>
+            </value>
+            <value>
+                <fullName>Engagement CSAT campaign</fullName>
+                <default>false</default>
+                <label>Engagement CSAT campaign</label>
+            </value>
+            <value>
+                <fullName>Foreign Language</fullName>
+                <default>false</default>
+                <label>Foreign Language</label>
+            </value>
+            <value>
+                <fullName>Get Reviews</fullName>
+                <default>false</default>
+                <label>Get Reviews</label>
+            </value>
+            <value>
+                <fullName>Give Reviews</fullName>
+                <default>false</default>
+                <label>Give Reviews</label>
+            </value>
+            <value>
+                <fullName>Help Getting Started</fullName>
+                <default>false</default>
+                <label>Help Getting Started</label>
+            </value>
+            <value>
+                <fullName>Hire Status</fullName>
+                <default>false</default>
+                <label>Hire Status</label>
+            </value>
+            <value>
+                <fullName>How to Submit</fullName>
+                <default>false</default>
+                <label>How to Submit</label>
+            </value>
+            <value>
+                <fullName>Job Boards</fullName>
+                <default>false</default>
+                <label>Job Boards</label>
+            </value>
+            <value>
+                <fullName>Landing Page</fullName>
+                <default>false</default>
+                <label>Landing Page</label>
+            </value>
+            <value>
+                <fullName>License</fullName>
+                <default>false</default>
+                <label>License</label>
+            </value>
+            <value>
+                <fullName>Location or Travel Distance</fullName>
+                <default>false</default>
+                <label>Location or Travel Distance</label>
+            </value>
+            <value>
+                <fullName>Login and Password</fullName>
+                <default>false</default>
+                <label>Login and Password</label>
+            </value>
+            <value>
+                <fullName>Marketplace Integrity</fullName>
+                <default>false</default>
+                <label>Marketplace Integrity</label>
+            </value>
+            <value>
+                <fullName>Media</fullName>
+                <default>false</default>
+                <label>Media</label>
+            </value>
+            <value>
+                <fullName>Message intended for Customer</fullName>
+                <default>false</default>
+                <label>Message intended for Customer</label>
+            </value>
+            <value>
+                <fullName>Message intended for Pro</fullName>
+                <default>false</default>
+                <label>Message intended for Pro</label>
+            </value>
+            <value>
+                <fullName>Messenger</fullName>
+                <default>false</default>
+                <label>Messenger</label>
+            </value>
+            <value>
+                <fullName>Multiple Profiles</fullName>
+                <default>false</default>
+                <label>Multiple Profiles</label>
+            </value>
+            <value>
+                <fullName>Noise</fullName>
+                <default>false</default>
+                <label>Noise</label>
+            </value>
+            <value>
+                <fullName>Non-product Technical Help</fullName>
+                <default>false</default>
+                <label>Non-product Technical Help</label>
+            </value>
+            <value>
+                <fullName>No Quotes</fullName>
+                <default>false</default>
+                <label>No Quotes</label>
+            </value>
+            <value>
+                <fullName>Not Enough Info</fullName>
+                <default>false</default>
+                <label>Not Enough Info</label>
+            </value>
+            <value>
+                <fullName>Not Getting</fullName>
+                <default>false</default>
+                <label>Not Getting</label>
+            </value>
+            <value>
+                <fullName>Not Hearing Back / Not Hired</fullName>
+                <default>false</default>
+                <label>Not Hearing Back / Not Hired</label>
+            </value>
+            <value>
+                <fullName>Payment Info</fullName>
+                <default>false</default>
+                <label>Payment Info</label>
+            </value>
+            <value>
+                <fullName>Payment Method</fullName>
+                <default>false</default>
+                <label>Payment Method</label>
+            </value>
+            <value>
+                <fullName>Points</fullName>
+                <default>false</default>
+                <label>Points</label>
+            </value>
+            <value>
+                <fullName>Poor Quality</fullName>
+                <default>false</default>
+                <label>Poor Quality</label>
+            </value>
+            <value>
+                <fullName>Press Inquiries</fullName>
+                <default>false</default>
+                <label>Press Inquiries</label>
+            </value>
+            <value>
+                <fullName>Profile Link</fullName>
+                <default>false</default>
+                <label>Profile Link</label>
+            </value>
+            <value>
+                <fullName>Pro Mentor</fullName>
+                <default>false</default>
+                <label>Pro Mentor</label>
+            </value>
+            <value>
+                <fullName>Quote Form</fullName>
+                <default>false</default>
+                <label>Quote Form</label>
+            </value>
+            <value>
+                <fullName>Quote or Hire Dispute</fullName>
+                <default>false</default>
+                <label>Quote or Hire Dispute</label>
+            </value>
+            <value>
+                <fullName>Reactivate</fullName>
+                <default>false</default>
+                <label>Reactivate</label>
+            </value>
+            <value>
+                <fullName>Receiving</fullName>
+                <default>false</default>
+                <label>Receiving</label>
+            </value>
+            <value>
+                <fullName>Refunds</fullName>
+                <default>false</default>
+                <label>Refunds</label>
+            </value>
+            <value>
+                <fullName>Request Types and Categories</fullName>
+                <default>false</default>
+                <label>Request Types and Categories</label>
+            </value>
+            <value>
+                <fullName>Research / Surveys</fullName>
+                <default>false</default>
+                <label>Research / Surveys</label>
+            </value>
+            <value>
+                <fullName>Respond to Reviews</fullName>
+                <default>false</default>
+                <label>Respond to Reviews</label>
+            </value>
+            <value>
+                <fullName>Scam / Fake</fullName>
+                <default>false</default>
+                <label>Scam / Fake</label>
+            </value>
+            <value>
+                <fullName>Spotlight Blogs</fullName>
+                <default>false</default>
+                <label>Spotlight Blogs</label>
+            </value>
+            <value>
+                <fullName>Subscribe / Unsubscribe</fullName>
+                <default>false</default>
+                <label>Subscribe / Unsubscribe</label>
+            </value>
+            <value>
+                <fullName>Suggested Questions</fullName>
+                <default>false</default>
+                <label>Suggested Questions</label>
+            </value>
+            <value>
+                <fullName>Supervisor</fullName>
+                <default>false</default>
+                <label>Supervisor</label>
+            </value>
+            <value>
+                <fullName>Trust and Safety</fullName>
+                <default>false</default>
+                <label>Trust and Safety</label>
+            </value>
+            <value>
+                <fullName>TT Overview / How it works</fullName>
+                <default>false</default>
+                <label>TT Overview / How it works</label>
+            </value>
+            <value>
+                <fullName>Update</fullName>
+                <default>false</default>
+                <label>Update</label>
+            </value>
+            <value>
+                <fullName>Update Account</fullName>
+                <default>false</default>
+                <label>Update Account</label>
+            </value>
+            <value>
+                <fullName>Update Profile</fullName>
+                <default>false</default>
+                <label>Update Profile</label>
+            </value>
+            <value>
+                <fullName>User Marked TT as Spam</fullName>
+                <default>false</default>
+                <label>User Marked TT as Spam</label>
+            </value>
+            <value>
+                <fullName>Voicemail</fullName>
+                <default>false</default>
+                <label>Voicemail</label>
+            </value>
+            <value>
+                <fullName>Wrong Number</fullName>
+                <default>false</default>
+                <label>Wrong Number</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

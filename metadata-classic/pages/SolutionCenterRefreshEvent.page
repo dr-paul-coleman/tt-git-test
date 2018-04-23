@@ -1,0 +1,41 @@
+<apex:page id="SolutionCenterRefreshEvent" showHeader="false" sideBar="false">
+
+    <apex:includeScript value="{!$Resource.cometd}"/>
+    <apex:includeScript value="{!$Resource.jquery}"/>
+    <apex:includeScript value="{!$Resource.json2}"/>
+    <apex:includeScript value="{!$Resource.jquery_cometd}"/>
+    <apex:includeScript value="{!$Resource.cometdReplayExtension}"/>
+    <apex:includeScript value="{!$Resource.cometdCustom}"/>
+
+    <apex:pageBlock >
+        <apex:pageBlockSection >
+            <apex:pageBlockSectionItem ><h1 style="font-size: 18px;">Solution Center Notifications</h1>
+            <div id="content">
+                <strong>Received notifications should appear below...</strong><br/>
+            </div>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <script>
+        var cometdCustom = cometdCustom();
+        $(document).ready(function() {
+            $('#content').append('<br>');
+            cometdCustom.cometdConnect( cometdCustom.cometdURL('42.0'), '{!$Api.Session_ID}', '/event/SolutionCenterRefreshEvent__e', '-1', onMessageListener );
+        });
+
+
+        window.onbeforeunload = function() { cometdCustom.cometdDisconnect() };
+
+        function onMessageListener(message) {
+            var div = document.getElementById('content');
+            div.innerHTML = div.innerHTML + '<p style="color:red"><b>Notification</b></p>' +
+                '<b>Event Channel: </b>' + JSON.stringify(message.channel) + '<br>' +
+                '<b>Payload: </b>' + JSON.stringify(message.data.payload) + '<br>' +
+                '<b>Replay Id: </b>' + JSON.stringify(message.data.event.replayId) + '<br>' +
+                '<b>Full message: </b>' + JSON.stringify(message) + '</p><br/><br/>';
+            console.dir(message);
+        }
+
+    </script>
+
+</apex:page>

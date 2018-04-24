@@ -1,5 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AlertStatus__c</fullName>
+        <description>Formula field to display the status of the alert record on the experience record.</description>
+        <externalId>false</externalId>
+        <formula>TEXT(Alert__r.Status__c)</formula>
+        <label>Alert Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Alert__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the HC Config Alert object record that will be displayed when visitors enter the help center.</description>
+        <externalId>false</externalId>
+        <label>Alert</label>
+        <referenceTo>HCConfigAlert__c</referenceTo>
+        <relationshipLabel>Experiences</relationshipLabel>
+        <relationshipName>Experiences</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>AvailableForCustomers__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox to indicate true if the HC Experience is available to customers.</description>
+        <externalId>false</externalId>
+        <label>Available for Customers</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>AvailableForProfessionals__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox to indicate true if the HC Experience is available to professionals.</description>
+        <externalId>false</externalId>
+        <label>Available for Professionals</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>DefaultExperience__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox indicating if this is the default help center experience.</description>
+        <externalId>false</externalId>
+        <label>Default Experience</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>The publication status of the overall help center experience.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Draft: experience is being built out
+Needs approval: experience needs final approval before making it visible to site visitors
+Publish: experience is made available for use on the public help center
+Archive: experience is archived and no longer visible</inlineHelpText>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Draft</fullName>
+                    <default>false</default>
+                    <label>Draft</label>
+                </value>
+                <value>
+                    <fullName>Needs approval</fullName>
+                    <default>false</default>
+                    <label>Needs approval</label>
+                </value>
+                <value>
+                    <fullName>Published</fullName>
+                    <default>false</default>
+                    <label>Published</label>
+                </value>
+                <value>
+                    <fullName>Archived</fullName>
+                    <default>false</default>
+                    <label>Archived</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Version__c</fullName>
+        <description>Open text field to store the version number of the help center experience.</description>
+        <externalId>false</externalId>
+        <label>Version</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>HC Config: Experience</label>
     <listViews>
         <fullName>AllExperiences</fullName>
         <columns>NAME</columns>
@@ -21,4 +183,39 @@
             <group>ContentUser</group>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Experiences</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>HelpCenterExperience</fullName>
+        <active>true</active>
+        <description>Record type used to manage help center experiences.</description>
+        <label>Help Center Experience</label>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Archived</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Draft</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Needs approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

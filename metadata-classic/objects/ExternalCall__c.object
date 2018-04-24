@@ -1,5 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to store api calls from external systems to kick off processes in Tack.  Records are generally temporary.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>CreatedDateTime_del__c</fullName>
+        <externalId>false</externalId>
+        <label>Created Date/Time</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>SMSOutboundMessage__c</fullName>
+        <defaultValue>&quot;Thank you for contacting Thumbtack. Reply to this message to start a text message with a support specialist. Terms apply: http://thumb.tk/smstac&quot;</defaultValue>
+        <description>This holds the verbage for the outbound SMS message that is sent for IVR to Text. By changing the default value of this field, the message can be changed on-the-fly.</description>
+        <externalId>false</externalId>
+        <label>SMS Outbound Message</label>
+        <length>160</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SMSSentDateTime__c</fullName>
+        <description>The date/time at which the outbound SMS was sent.</description>
+        <externalId>false</externalId>
+        <label>SMS Sent Date/Time</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>ToPhone__c</fullName>
+        <description>The phone number to which an outbound SMS message will be sent</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The phone number to which an outbound SMS message will be sent</inlineHelpText>
+        <label>To Phone</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <label>External Call</label>
     <listViews>
         <fullName>All</fullName>
         <columns>NAME</columns>
@@ -10,4 +104,19 @@
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
+    <nameField>
+        <label>External Calls Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>External Calls</pluralLabel>
+    <recordTypes>
+        <fullName>IVRtoSMS</fullName>
+        <active>true</active>
+        <description>Requests coming from the telephony system for SMS deflection. Triggers process in SFDC to send the initial text.</description>
+        <label>IVR to SMS</label>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <startsWith>Vowel</startsWith>
+    <visibility>Public</visibility>
 </CustomObject>

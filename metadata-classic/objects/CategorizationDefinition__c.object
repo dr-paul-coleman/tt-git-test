@@ -1,5 +1,461 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Metadata object - the records from this object define what Categorization options are available for a given record.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>ActiveDate__c</fullName>
+        <description>The date this Definition is available from</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The datee this Definition is available from</inlineHelpText>
+        <label>Active Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Whether or not this Categorization Definition is currently available for use.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Whether or not this Categorization Definition is currently available for use.</inlineHelpText>
+        <label>Active</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Alias__c</fullName>
+        <description>The public-facing name for this Categorization Definition. To be used where categorization options are available to Pros/Customers - e.g. Suggestion box, forms, etc.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The public-facing name for this Categorization Definition. To be used where categorization options are available to Pros/Customers - e.g. Suggestion box, forms, etc.</inlineHelpText>
+        <label>Alias</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AvailableOnAccount__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Available On Account</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>AvailableOnCase__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>If true, this definition is available on the Case object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If true, this definition is available on the Case object.</inlineHelpText>
+        <label>Available On Case</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>AvailableOnEnrollment__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>If checked, this definition is available on the Enrollment Object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, this definition is available on the Enrollment Object.</inlineHelpText>
+        <label>Available On Enrollment</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>AvailableinHelpCenter__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>If true, this category becomes available in the Help Center in the suggestion box.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, this category becomes available in the Help Center in the suggestion box.</inlineHelpText>
+        <label>Available in Help Center</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CSATEligible__c</fullName>
+        <description>The CSAT eligibility of this Definition</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The CSAT eligibility of this Definition</inlineHelpText>
+        <label>CSAT Eligible</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Eligible</fullName>
+                    <default>true</default>
+                    <label>Eligible</label>
+                </value>
+                <value>
+                    <fullName>Ineligible</fullName>
+                    <default>false</default>
+                    <label>Ineligible</label>
+                </value>
+                <value>
+                    <fullName>Always Eligible</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Always Eligible</label>
+                </value>
+                <value>
+                    <fullName>Always Ineligible</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Always Ineligible</label>
+                </value>
+                <value>
+                    <fullName>Ineligible if Primary</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Ineligible if Primary</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CategoryType__c</fullName>
+        <description>Category or Subcategory?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Category or Subcategory?</inlineHelpText>
+        <label>Category Type</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Category</fullName>
+                    <default>false</default>
+                    <label>Category</label>
+                </value>
+                <value>
+                    <fullName>Subcategory</fullName>
+                    <default>false</default>
+                    <label>Subcategory</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Customer__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>UI organization bucket - is this category available for Customers?</description>
+        <externalId>false</externalId>
+        <label>Customer</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ExperienceType__c</fullName>
+        <description>If this Category should only be available for interactions with users in a specific product experience, then this should be overridden. Otherwise, the default Standard experience type is used.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If this Category should only be available for interactions with users in a specific product experience, then this should be overridden. Otherwise, the default Standard experience type is used.</inlineHelpText>
+        <label>Experience Type</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Standard</fullName>
+                    <default>true</default>
+                    <label>Standard</label>
+                </value>
+                <value>
+                    <fullName>Instant Match</fullName>
+                    <default>false</default>
+                    <label>Instant Match</label>
+                </value>
+                <value>
+                    <fullName>Experiment</fullName>
+                    <default>false</default>
+                    <label>Experiment</label>
+                </value>
+                <value>
+                    <fullName>MTS</fullName>
+                    <default>false</default>
+                    <label>MTS</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Functional__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>UI organization bucket - is this a functional category?</description>
+        <externalId>false</externalId>
+        <label>Functional</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>HelpText__c</fullName>
+        <description>The agent-facing help text for this category.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The agent-facing help text for this category.</inlineHelpText>
+        <label>Help Text</label>
+        <length>120</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Icon__c</fullName>
+        <description>The code for the icon to be displayed next to this category/subcategory/product update, if applicable.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The code for the icon to be displayed next to this category/subcategory/product update, if applicable.</inlineHelpText>
+        <label>Icon</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>InactiveDate__c</fullName>
+        <description>The date/time this Definition is available until.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date/time this Definition is available until.</inlineHelpText>
+        <label>Inactive Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Key__c</fullName>
+        <description>The unique key of this Categorization Definition</description>
+        <displayFormat>{YYYY}{MM}-{000000}</displayFormat>
+        <externalId>true</externalId>
+        <inlineHelpText>The unique key of this Categorization Definition.</inlineHelpText>
+        <label>Key</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>KnowledgeText__c</fullName>
+        <externalId>false</externalId>
+        <label>Knowledge Text</label>
+        <length>10000</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ParentCategory__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The parent Category for use with Subcategories.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The parent Category for use with Subcategories.</inlineHelpText>
+        <label>Parent Category</label>
+        <referenceTo>CategorizationDefinition__c</referenceTo>
+        <relationshipLabel>Subcategories</relationshipLabel>
+        <relationshipName>Subcategories</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Placeholder__c</fullName>
+        <description>The text placeholder to display on the input field, if any.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The text placeholder to display on the input field, if any.</inlineHelpText>
+        <label>Placeholder</label>
+        <length>55</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PreventRecordCreation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>If checked, this subcategory will not create a Categorization__c record when &apos;submit&apos; is set.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, this subcategory will not create a Categorization__c record when &apos;submit&apos; is set.</inlineHelpText>
+        <label>Prevent Record Creation</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Pro__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>UI organization bucket - is this category available for Pros?</description>
+        <externalId>false</externalId>
+        <label>Pro</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>SentimentScale__c</fullName>
+        <description>The availability of sentiment to be captured.
+If zero, sentiment is not available.
+If 2, sentiment is to be captured on a two-point scale (positive or negative)
+If 3, sentiment is to be captured on a three-point scale (positive, negative, neutral)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The availability of sentiment to be captured.
+If zero, sentiment is not available.
+If 2, sentiment is to be captured on a two-point scale (positive or negative).
+If 3, sentiment is to be captured on a three-point scale (positive, negative, neutral).</inlineHelpText>
+        <label>Sentiment Scale</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>0</fullName>
+                    <default>false</default>
+                    <label>0</label>
+                </value>
+                <value>
+                    <fullName>2</fullName>
+                    <default>false</default>
+                    <label>2</label>
+                </value>
+                <value>
+                    <fullName>3</fullName>
+                    <default>false</default>
+                    <label>3</label>
+                </value>
+                <value>
+                    <fullName>4</fullName>
+                    <default>false</default>
+                    <label>4</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>SortOrder__c</fullName>
+        <description>The sort order of a Product Update record.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The sort order of a Product Update record.</inlineHelpText>
+        <label>Sort Order</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <description>The overall type / Level zero categorization type.</description>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Pro</fullName>
+                    <default>false</default>
+                    <label>Pro</label>
+                </value>
+                <value>
+                    <fullName>Customer</fullName>
+                    <default>false</default>
+                    <label>Customer</label>
+                </value>
+                <value>
+                    <fullName>Functional</fullName>
+                    <default>false</default>
+                    <label>Functional</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Categorization Definition</label>
     <listViews>
         <fullName>AllActiveproductUpdates</fullName>
         <columns>NAME</columns>
@@ -120,4 +576,235 @@
             <roleAndSubordinates>CustomerSuccessOrganization</roleAndSubordinates>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Categorization Definition Name</label>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Categorization Definitions</pluralLabel>
+    <recordTypeTrackHistory>true</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Category</fullName>
+        <active>true</active>
+        <description>Category/Subcategory</description>
+        <label>Category</label>
+        <picklistValues>
+            <picklist>CSATEligible__c</picklist>
+            <values>
+                <fullName>Eligible</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ineligible</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CategoryType__c</picklist>
+            <values>
+                <fullName>Category</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Subcategory</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ExperienceType__c</picklist>
+            <values>
+                <fullName>Experiment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instant Match</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MTS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Standard</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>SentimentScale__c</picklist>
+            <values>
+                <fullName>0</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Functional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>ProductUpdate</fullName>
+        <active>true</active>
+        <label>Product Update</label>
+        <picklistValues>
+            <picklist>CSATEligible__c</picklist>
+            <values>
+                <fullName>Eligible</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ineligible</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CategoryType__c</picklist>
+            <values>
+                <fullName>Category</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Subcategory</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ExperienceType__c</picklist>
+            <values>
+                <fullName>Experiment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instant Match</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Standard</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>SentimentScale__c</picklist>
+            <values>
+                <fullName>0</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Functional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Type__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>RECORDTYPE</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CategoryType__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Type__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CategoryType__c</lookupPhoneDialogsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>PreventCSATEligibility</fullName>
+        <active>true</active>
+        <description>Prevents setting CSAT Eligibility for L1 Categories.</description>
+        <errorConditionFormula>RecordType.Name = &quot;Category&quot; &amp;&amp;
+ISPICKVAL(CategoryType__c, &quot;Category&quot;) &amp;&amp;
+NOT(ISPICKVAL(CSATEligible__c,&quot;&quot;))</errorConditionFormula>
+        <errorDisplayField>CSATEligible__c</errorDisplayField>
+        <errorMessage>Primary Categories do not require CSAT Eligibility.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>PreventParentCategory</fullName>
+        <active>true</active>
+        <description>Prevents setting a Parent Category if CategoryType__c = Category</description>
+        <errorConditionFormula>RecordType.Name = &quot;Category&quot; &amp;&amp;
+ISPICKVAL(CategoryType__c, &quot;Category&quot;) &amp;&amp;
+NOT(ISBLANK(ParentCategory__c))</errorConditionFormula>
+        <errorDisplayField>ParentCategory__c</errorDisplayField>
+        <errorMessage>Primary Categories should not have a Parent Category.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RequireAlias</fullName>
+        <active>true</active>
+        <description>Requires Alias if category is available in Help Center.</description>
+        <errorConditionFormula>RecordType.Name = &quot;Category&quot; &amp;&amp;
+AvailableinHelpCenter__c &amp;&amp;
+ISBLANK(Alias__c)</errorConditionFormula>
+        <errorDisplayField>Alias__c</errorDisplayField>
+        <errorMessage>Please provide an alias for use in the Help Center.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RequireCSATeligibility</fullName>
+        <active>true</active>
+        <description>Requires CSAT Eligibility value if CategoryType__c = Subcategory</description>
+        <errorConditionFormula>RecordType.Name = &quot;Category&quot; &amp;&amp;
+ISPICKVAL(CategoryType__c, &quot;Subcategory&quot;) &amp;&amp; ISPICKVAL(CSATEligible__c, &quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>CSATEligible__c</errorDisplayField>
+        <errorMessage>Please select the level of CSAT Eligibility for this Subcategory.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RequireCategoryType</fullName>
+        <active>true</active>
+        <description>Require Category Type when RecordtType.Name = &quot;Category&quot;</description>
+        <errorConditionFormula>RecordType.Name = &quot;Category&quot; &amp;&amp;
+ISPICKVAL(CategoryType__c,&quot;&quot;)</errorConditionFormula>
+        <errorDisplayField>CategoryType__c</errorDisplayField>
+        <errorMessage>Please indicate whether this is a Category or Subcategory.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RequireParentCategory</fullName>
+        <active>true</active>
+        <description>Parent Category required if CategoryType__c = Subcategory</description>
+        <errorConditionFormula>RecordType.Name = &quot;Category&quot; &amp;&amp;
+ISPICKVAL(CategoryType__c, &quot;Subcategory&quot;) &amp;&amp;
+ISNULL(ParentCategory__c)</errorConditionFormula>
+        <errorDisplayField>ParentCategory__c</errorDisplayField>
+        <errorMessage>Please select the parent Category for this Subcategory.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
 </CustomObject>

@@ -1,6 +1,818 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to store records pertaining to the Pro Assistant, Quoting Service, or Instant Quote Service profiles (e.g., is the Pro active in Quoting service).</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
     <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AddalineNumber__c</fullName>
+        <externalId>false</externalId>
+        <label>Addaline Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>AdminLinkEditUser__c</fullName>
+        <description>Formula field to bring over the admin link to directly edit the user in the admin tool.</description>
+        <externalId>false</externalId>
+        <formula>ProAccount__r.AdminLinkEditUser__c</formula>
+        <label>Admin Link Edit User</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AdminLinkLoginAsUser__c</fullName>
+        <description>Formula that brings over the Admin link to log in as the Pro directly from the Admin tool.</description>
+        <externalId>false</externalId>
+        <formula>ProAccount__r.AdminLinkLoginAsUser__c</formula>
+        <label>Admin Link Login As User</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AdminLinkViewService__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+NOT(ISBLANK(sav_available_service_id__c)), 
+HYPERLINK(&quot;https://www.thumbtack.com/admin/services/service?sav_available_service_id=&quot;&amp;TEXT(sav_available_service_id__c), &quot;View Service&quot;), 
+HYPERLINK(&quot;https://www.thumbtack.com/admin/services&quot;, &quot;Search Service&quot;) 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Admin Link View Service</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AdminLinkViewUser__c</fullName>
+        <description>Formula to bring over the Admin link to view the Pro (user) in the Admin tool.</description>
+        <externalId>false</externalId>
+        <formula>ProAccount__r.AdminLinkViewUser__c</formula>
+        <label>Admin Link View User</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BillingFrequency__c</fullName>
+        <description>Pick list whose value describes the frequency in which we bill / invoice the professional.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the appropriate fee billing schedule for the professional.</inlineHelpText>
+        <label>Billing Frequency</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Weekly</fullName>
+                    <default>false</default>
+                    <label>Weekly</label>
+                </value>
+                <value>
+                    <fullName>Bi-weekly</fullName>
+                    <default>false</default>
+                    <label>Bi-weekly</label>
+                </value>
+                <value>
+                    <fullName>Monthly</fullName>
+                    <default>false</default>
+                    <label>Monthly</label>
+                </value>
+                <value>
+                    <fullName>Quarterly</fullName>
+                    <default>false</default>
+                    <label>Quarterly</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>ChurnDetail__c</fullName>
+        <description>This is a reason in detail as to why the account churned.</description>
+        <externalId>false</externalId>
+        <label>Churn Detail</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>ChurnReason__c</fullName>
+        <description>These are the reasons why a service was ended</description>
+        <externalId>false</externalId>
+        <label>Churn Reason</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Mistakenly Created - Not True Churn</fullName>
+                    <default>false</default>
+                    <label>Mistakenly Created - Not True Churn</label>
+                </value>
+                <value>
+                    <fullName>Merging Locations - Not True Churn</fullName>
+                    <default>false</default>
+                    <label>Merging Locations - Not True Churn</label>
+                </value>
+                <value>
+                    <fullName>Closing Business/Location</fullName>
+                    <default>false</default>
+                    <label>Closing Business/Location</label>
+                </value>
+                <value>
+                    <fullName>Not happy with ROI/Results</fullName>
+                    <default>false</default>
+                    <label>Not happy with ROI/Results</label>
+                </value>
+                <value>
+                    <fullName>Pricing is too high/dynamic</fullName>
+                    <default>false</default>
+                    <label>Pricing is too high/dynamic</label>
+                </value>
+                <value>
+                    <fullName>Pro Stopped Responding (Drop-off)</fullName>
+                    <default>false</default>
+                    <label>Pro Stopped Responding (Drop-off)</label>
+                </value>
+                <value>
+                    <fullName>Unresolved Payment</fullName>
+                    <default>false</default>
+                    <label>Unresolved Payment</label>
+                </value>
+                <value>
+                    <fullName>Unknown User Deletion</fullName>
+                    <default>false</default>
+                    <label>Unknown User Deletion</label>
+                </value>
+                <value>
+                    <fullName>100% Switched to Instant</fullName>
+                    <default>false</default>
+                    <label>100% Switched to Instant</label>
+                </value>
+                <value>
+                    <fullName>Too many scam requests</fullName>
+                    <default>false</default>
+                    <label>Too many scam requests</label>
+                </value>
+                <value>
+                    <fullName>MTS Issue</fullName>
+                    <default>false</default>
+                    <label>MTS Issue</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>EncodedServiceID__c</fullName>
+        <description>The encoded serviced ID is found in admin on the service in the &apos;Legacy ID:&apos; field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The encoded serviced ID is found in admin on the service in the &apos;Legacy ID:&apos; field.</inlineHelpText>
+        <label>Service Legacy ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EndDate__c</fullName>
+        <description>Date that the pro ended their enrollment in the Pro Assistant program.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the pro ended their enrollment in the Pro Assistant program.</inlineHelpText>
+        <label>End Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>FreeTrialStatus__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+AND(ISPICKVAL(ProAssistantSubscriptionType__c, &apos;Quoting Service&apos;), (TODAY() &lt;= (StartDate__c + 14))), 
+&quot;Active&quot;, 
+IF( 
+AND(ISPICKVAL(ProAssistantSubscriptionType__c, &apos;Quoting Service&apos;), (TODAY() &gt; (StartDate__c + 14))), 
+&quot;Expired&quot;, NULL 
+))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Free Trial Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ParentAccount__c</fullName>
+        <externalId>false</externalId>
+        <formula>ProAccount__r.Parent.Name</formula>
+        <label>Parent Account</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PricingCalculator__c</fullName>
+        <description>Link to the pricing calculator in gdocs.</description>
+        <externalId>false</externalId>
+        <label>Pricing Calculator</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>ProAccount__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The Pro business/name the service is related to.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Pro business/name the service is related to.</inlineHelpText>
+        <label>Pro Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Services</relationshipLabel>
+        <relationshipName>Services</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ProAssistInitialJobCommission__c</fullName>
+        <description>Percent of commission we charge the pro.</description>
+        <externalId>false</externalId>
+        <label>Pro Assist Initial Job Commission %</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>ProAssistRepeatJobCommission__c</fullName>
+        <description>The commission percent charged to Pro for any repeat lead jobs.</description>
+        <externalId>false</externalId>
+        <label>Pro Assist Repeat Job Commission %</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>ProAssistantEmail__c</fullName>
+        <description>Specific email address created for each Pro Account that the Pro Assistant used as the TT email.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>DO NOT CHANGE THIS EMAIL ADDRESS. IT MUST END WITH: @yourpromail.com- Otherwise requests will not be created</inlineHelpText>
+        <label>Pro&apos;s Gmail Address</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ProAssistantFee__c</fullName>
+        <description>Fee for pro assistance service.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The fee charged to the pro for the pro assist program subscription.</inlineHelpText>
+        <label>Pro Assistant Fee</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>ProAssistantManagedBy__c</fullName>
+        <description>These values describes who is managing the pro assistant program for this account.</description>
+        <externalId>false</externalId>
+        <label>Pro Assistant Managed By</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Thumbtack TSL</fullName>
+                    <default>false</default>
+                    <label>Thumbtack TSL</label>
+                </value>
+                <value>
+                    <fullName>Hourwise</fullName>
+                    <default>false</default>
+                    <label>Hourwise</label>
+                </value>
+                <value>
+                    <fullName>Sales &amp; Account Management</fullName>
+                    <default>false</default>
+                    <label>Sales &amp; Account Management</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>ProAssistantMessaging__c</fullName>
+        <description>Open text area to store information about the Pro messaging practices and policies; used for the Pro Assistant Labs project.</description>
+        <externalId>false</externalId>
+        <label>Pro Assistant Messaging</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ProAssistantNotes__c</fullName>
+        <description>Open text area that allows the Pro Assistant to enter general notes for assisting the Pro (Schedule, Pricing, Service Area, Preferences, bid/pass criteria, etc.)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter pertinent notes for assisting the Pro (schedule, pricing, service area, preferences, bid/pass criteria, etc.)</inlineHelpText>
+        <label>Notes</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ProAssistantPricing__c</fullName>
+        <description>Open text area to store information about the Pro&apos;s pricing practices and policies; used for the Pro Assistant Labs project.</description>
+        <externalId>false</externalId>
+        <label>Pro Assistant Pricing</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ProAssistantSubscriptionType__c</fullName>
+        <description>The subscription type the Pro has enrolled in.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The subscription type the Pro has enrolled in.</inlineHelpText>
+        <label>Subscription Type</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Instant Match</fullName>
+                    <default>false</default>
+                    <label>Instant Match</label>
+                </value>
+                <value>
+                    <fullName>Instant Match and Quoting Service</fullName>
+                    <default>false</default>
+                    <label>Instant Match and Quoting Service</label>
+                </value>
+                <value>
+                    <fullName>Instant Match Early Enrollment</fullName>
+                    <default>false</default>
+                    <label>Instant Match Early Enrollment</label>
+                </value>
+                <value>
+                    <fullName>Quoting Service</fullName>
+                    <default>false</default>
+                    <label>Quoting Service</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>ProAssistant__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The Thumbtack.com staff personnel who is assigned to be the Pro&apos;s assistant through the Pro Assistance Lab project.</description>
+        <externalId>false</externalId>
+        <label>Pro Assistant</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Services</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>QuotingServiceStatus__c</fullName>
+        <externalId>false</externalId>
+        <label>Quoting Service Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>ON</fullName>
+                    <default>false</default>
+                    <label>ON</label>
+                </value>
+                <value>
+                    <fullName>OFF</fullName>
+                    <default>false</default>
+                    <label>OFF</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>StartDate__c</fullName>
+        <description>Date that the pro enrolled in the Pro Assistant program.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the pro enrolled in the Pro Assistant program.</inlineHelpText>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>TEMPAccountSubscriptionType__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(ProAccount__r.ProAssistantSubscriptionType__c)</formula>
+        <label>TEMP Account Subscription Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TEMPMismatch__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISBLANK(TEMPAccountSubscriptionType__c),False,
+IF( TEMPAccountSubscriptionType__c  &lt;&gt; TEXT( ProAssistantSubscriptionType__c ),True,False))</formula>
+        <label>TEMP Mismatch</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ThumbtackUserIDFlag__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (ThumbtackUserID__c = ThumbtackUserIDReference__c, TRUE, FALSE)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Thumbtack User ID Flag</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ThumbtackUserIDReference__c</fullName>
+        <description>Thumbtack User ID that is populated by the Service trigger. This field is used to reference the TT ID that is populated by the user.</description>
+        <externalId>false</externalId>
+        <label>Thumbtack User ID Reference</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ThumbtackUserID__c</fullName>
+        <description>This field will be updated by the user upon creation of the service record.</description>
+        <externalId>false</externalId>
+        <label>Thumbtack User ID</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>sav_available_service_id__c</fullName>
+        <externalId>true</externalId>
+        <label>Service ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>sav_is_activated__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Is Activated</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>sav_notifications_phn_phone_number_id__c</fullName>
+        <externalId>false</externalId>
+        <label>Notifications Phone Number ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>sav_phn_phone_number_id__c</fullName>
+        <externalId>false</externalId>
+        <label>Phone Number ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>sav_title__c</fullName>
+        <externalId>false</externalId>
+        <label>Title</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>sav_travel_dist__c</fullName>
+        <externalId>false</externalId>
+        <label>Travel Distance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>sav_usr_user_id__c</fullName>
+        <externalId>false</externalId>
+        <label>User ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>sav_web_website_id__c</fullName>
+        <externalId>false</externalId>
+        <label>Website ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>usa_address1__c</fullName>
+        <externalId>false</externalId>
+        <label>Street Address</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>usa_city__c</fullName>
+        <externalId>false</externalId>
+        <label>City</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>usa_state__c</fullName>
+        <externalId>false</externalId>
+        <label>State</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>usa_usr_user_id__c</fullName>
+        <externalId>true</externalId>
+        <label>Address ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>usa_zip_code_id__c</fullName>
+        <externalId>false</externalId>
+        <label>Zip Code</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>usr_email__c</fullName>
+        <externalId>false</externalId>
+        <label>User Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>usr_email_is_verified__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Email Is Verified</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>usr_first_name__c</fullName>
+        <externalId>false</externalId>
+        <label>First Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>usr_is_activated__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>User Is Activated</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>usr_is_disabled__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>User Is Disabled</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>usr_last_name__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>usr_lastlogin_time__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Login Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>usr_phn_phone_number__c</fullName>
+        <description>The phone number the pro assistant uses on behalf of the Pro.
+Help Text</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The phone number the pro assistant uses on behalf of the Pro.
+Help Text</inlineHelpText>
+        <label>Phone Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>usr_signup_date__c</fullName>
+        <externalId>false</externalId>
+        <label>Sign Up Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>usr_timezone__c</fullName>
+        <externalId>false</externalId>
+        <label>Timezone</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Service</label>
     <listViews>
         <fullName>AllProAssistantPros</fullName>
         <columns>NAME</columns>
@@ -98,7 +910,7 @@
         </sharedTo>
     </listViews>
     <listViews>
-        <fullName>ServicesCreatedToday</fullName>
+        <fullName>ServicesCreatedThisMonth</fullName>
         <columns>NAME</columns>
         <columns>ProAssistantSubscriptionType__c</columns>
         <columns>FreeTrialStatus__c</columns>
@@ -122,9 +934,9 @@
         <filters>
             <field>CREATED_DATE</field>
             <operation>equals</operation>
-            <value>TODAY</value>
+            <value>THIS_MONTH</value>
         </filters>
-        <label>X - Services Created TODAY</label>
+        <label>X - Services Created THIS MONTH</label>
         <sharedTo>
             <role>SystemLevelAccess</role>
         </sharedTo>
@@ -150,4 +962,149 @@
             <role>SystemLevelAccess</role>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Service Type</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Services</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Pro_Assistance_Service</fullName>
+        <active>true</active>
+        <description>Record type used to manage the services for Pro&apos;s who are enrolled in the Pro Assistance or Quoting Service programs.</description>
+        <label>Pro Assistance Service</label>
+        <picklistValues>
+            <picklist>BillingFrequency__c</picklist>
+            <values>
+                <fullName>Bi-weekly</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quarterly</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Weekly</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ChurnReason__c</picklist>
+            <values>
+                <fullName>100%25 Switched to Instant</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closing Business%2FLocation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MTS Issue</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Merging Locations - Not True Churn</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mistakenly Created - Not True Churn</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not happy with ROI%2FResults</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pricing is too high%2Fdynamic</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro Stopped Responding %28Drop-off%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Too many scam requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unknown User Deletion</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unresolved Payment</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ProAssistantManagedBy__c</picklist>
+            <values>
+                <fullName>Hourwise</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales %26 Account Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Thumbtack TSL</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ProAssistantSubscriptionType__c</picklist>
+            <values>
+                <fullName>Instant Match</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instant Match Early Enrollment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instant Match and Quoting Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quoting Service</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>QuotingServiceStatus__c</picklist>
+            <values>
+                <fullName>OFF</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ON</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <excludedStandardButtons>New</excludedStandardButtons>
+        <lookupDialogsAdditionalFields>sav_available_service_id__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ThumbtackUserID__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>usr_email__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ProAssistantEmail__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ProAssistantSubscriptionType__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ProAssistant__c</lookupDialogsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>RequireChurnReason</fullName>
+        <active>true</active>
+        <description>Enter a Churn Reason and End Date if either field populated</description>
+        <errorConditionFormula>AND( $User.ProfileId != &quot;00ei00000011y4A&quot;, 
+IF(ISBLANK(EndDate__c), 0, 1) + 
+IF(ISBLANK(TEXT(ChurnReason__c)), 0, 1) == 1 )</errorConditionFormula>
+        <errorDisplayField>ChurnReason__c</errorDisplayField>
+        <errorMessage>Please complete End Date and Churn Reason before saving this record.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
 </CustomObject>

@@ -1,5 +1,349 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>AddToCampaign</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CallHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ChangeStatus</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Convert</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EmailHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>FindDup</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ListClean</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SmsHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>LeadRecordPage</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <businessProcesses>
+        <fullName>Standard</fullName>
+        <isActive>true</isActive>
+        <values>
+            <fullName>Acquired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prospecting</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Unsuccessful</fullName>
+            <default>false</default>
+        </values>
+    </businessProcesses>
+    <compactLayoutAssignment>Lead_Compact_Layout</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>Lead_Compact_Layout</fullName>
+        <fields>Name</fields>
+        <fields>Email</fields>
+        <fields>Phone</fields>
+        <fields>MobilePhone</fields>
+        <fields>Industry</fields>
+        <fields>NumberOfEmployees</fields>
+        <fields>AnnualRevenue</fields>
+        <fields>Status</fields>
+        <label>Lead Compact Layout</label>
+    </compactLayouts>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <fields>
+        <fullName>AccountManager__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account Manager</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Leads</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Address</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>AnnualContacts__c</fullName>
+        <externalId>false</externalId>
+        <label>Annual Contacts</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AnnualRevenue</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>CBSA__c</fullName>
+        <externalId>false</externalId>
+        <label>CBSA</label>
+        <length>250</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CampaignId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Company</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>CurrentUserisSalesRep__c</fullName>
+        <description>Used to reflect if the current user that is view a list view is the Sales Reps list of Leads. this does not need to be on a page layout</description>
+        <externalId>false</externalId>
+        <formula>IF( $User.Id =  SalesRep__r.Id, &quot;True&quot;,&quot;False&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Current User is Sales Rep</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>DoNotCall</fullName>
+        <inlineHelpText>Select this box if the lead has asked us to not call them again.</inlineHelpText>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Email</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Enrollment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to Enrollment related to lead</description>
+        <externalId>false</externalId>
+        <label>Enrollment</label>
+        <referenceTo>Enrollment__c</referenceTo>
+        <relationshipLabel>Leads</relationshipLabel>
+        <relationshipName>Leads</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Fax</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>HasOptedOutOfEmail</fullName>
+        <inlineHelpText>Checking this box will prevent the Welcome email and Go-Live emails from sending to the lead.</inlineHelpText>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>HasOptedOutOfFax</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Industry</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Jigsaw</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>LastTransferDate</fullName>
+    </fields>
+    <fields>
+        <fullName>LeadSource</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MobilePhone</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Name</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>NumberOfEmployees</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Number_of_Attempts__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Number of Attempts</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OwnerId</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Phone</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Rating</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SalesRep__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Sales Rep</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>SalesLeads</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Status</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>StatusDetails__c</fullName>
+        <externalId>false</externalId>
+        <label>Status Details</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>TimeZone__c</fullName>
+        <externalId>false</externalId>
+        <label>Time Zone</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Title</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>UserID__c</fullName>
+        <externalId>true</externalId>
+        <label>User ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Website</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
     <listViews>
         <fullName>My_Leads</fullName>
         <columns>FULL_NAME</columns>
@@ -10,7 +354,12 @@
         <columns>AnnualContacts__c</columns>
         <columns>LEAD.STATUS</columns>
         <columns>LEAD.EMPLOYEES</columns>
-        <filterScope>Mine</filterScope>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CurrentUserisSalesRep__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filters>
         <label>My Leads</label>
     </listViews>
     <listViews>
@@ -29,4 +378,1822 @@
             <roleAndSubordinatesInternal>SystemLevelAccess</roleAndSubordinatesInternal>
         </sharedTo>
     </listViews>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>ManagedAccountLead</fullName>
+        <active>true</active>
+        <businessProcess>Standard</businessProcess>
+        <label>Managed Account Lead</label>
+        <picklistValues>
+            <picklist>Industry</picklist>
+            <values>
+                <fullName>3D Modeling Expert</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ASVAB Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>AV Equipment Rental Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Accountant</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Accounting Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Acting Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Administrative Assistant</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Advanced Math Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Advertiser</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Airbrusher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Alternative Medicine Practitioner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Android App Developer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Animal Removal Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Animal Show Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Animal Trainer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Animator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Antique Restoration Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Appliance Installer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Appliance Repairman</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Aquarium Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Arabic Translator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Arabic Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Archery Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Architect</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Artisan and Craftsman</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Artist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Audio Production Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bagpipe Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Balloon Artist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Band</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Banjo Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bankruptcy Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Baseball Coach</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Basketball Coach</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bass Guitar Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Belly Dancer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biology Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bodyguard</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bridal Stylist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Calligrapher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Candy Buffet Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Caricaturist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Carpenter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Carpet Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Casino Games Rental Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cat Groomer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Caterer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cello Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chemistry Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chess Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chimney Inspector</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chinese Translator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Circus Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Civil Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Civil Engineer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Clarinet Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cleaner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Climbing Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Clown</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>College Admissions Counselor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Comedian</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Commercial Cleaner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Commercial Photographer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Computer Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Computer and Device Repair Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Concrete Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Consumer Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contracts Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Copyright Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Corporate Law Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Costume Character Entertainer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Criminal Defense Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Crocheting Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Service Agent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cycling Trainer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DJ and MC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dance Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dancer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data Entry Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Decorative Painter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Decorator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Digital Artist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Digital Marketer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Direct Mail Marketer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disability Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Diving Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dog Fence Installer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dog Groomer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dog Walker</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Double Bass Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Driving Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Drum Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dunk Tank Rental Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>E-Commerce Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ESL Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Economics Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electrician</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email Manager</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email Marketer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engraver</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Estate Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Esthetician</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Event Wait Staff</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Excavation Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exercise Equipment Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exterminator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Face Painter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Law Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Farsi Translator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fashion Designer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fence Installer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Filmmaker</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Finance Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Financial Advisor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fire Inspector</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fireplace and Chimney Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fishing Trip Guide</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Floor Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Flooring Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Florist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Flower Arranging Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Flute Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Food Rental Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Food Truck Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>French Horn Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>French Translator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>French Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Furniture Assembler</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Furniture Repair Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Furniture Restoration Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GED Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GMAT Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GRE Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Garage Door Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Genealogist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>General Contractor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Generator Serviceman</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>German Translator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>German Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Goldsmith</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Golf Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Graphic Designer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Guitar Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Gutter Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>HR %2F Payroll Service Provider</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>HVAC Technician</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hair Stylist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Handyman</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Harmonica Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Harp Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hebrew Translator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hebrew Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Henna Artist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>History Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Home Automation Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Home Energy Auditor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Home Inspector</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Home Security Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Home Stager</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Home Theater Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Horseback Riding Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ISEE Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ice Skating Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Illustrator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Immigration Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Inflatables Rental Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Inspector</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Insulation Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intellectual Property Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Interior Designer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>International Law Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Italian Translator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Italian Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Japanese Translator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Japanese Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Junk Remover</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Karaoke Machine Rental Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Keyboard Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Knitting Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Korean Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LSAT Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Labor and Employment Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Land Surveyor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Landscaper</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Laser Show Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lawncare Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Leadership Development Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal Document Preparation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Life Coach</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Locksmith</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MCAT Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Magician</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Makeup Artist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Makeup Artistry Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Management Consultant</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mandarin Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mandolin Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marketer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marketing Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marketing Strategy Consultant</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mason</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Massage Therapist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Math Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mediator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medical Coding Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medical Transcriber</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Metalworker</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile Software Developer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Motivational Speaker</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mover</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Multi-Subject Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Music Composition Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Music Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Musician</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NCLEX Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Negotiation Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Neonatal Resuscitation Program Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Network Support Engineer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Business Incorporation Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Notary</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Nutritionist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Oboe Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Organizer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Outdoor Cleaner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Painter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paranormal Investigator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Party Favor Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pastry Chef</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patent Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Personal Chef</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Personal Coach</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Personal Counselor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Personal Finance Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Personal Injury Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Personal Trainer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pet Boarder</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pet Caretaker</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pet Masseuse</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pet Sitter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Photo Booth Rental Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Photo Technician</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Photographer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Photography Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Physical Therapist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Physics Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pianist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Piano Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Piano Technician</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Picture Framing Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pilates Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Planner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Plumber</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pokemon Master</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pool %26 Spa Service Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pool Builder</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Portuguese Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Powder Coating Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Printer and Copier Repair Technician</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Private Investigator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Process Server</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Project Manager</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property Manager</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Psychic Reader</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Public Relations Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Public Speaking Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Puppet Show Entertainment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quilting Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reading and Writing Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Real Estate Agent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Real Estate Appraiser</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Real Estate Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Real Estate Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recruiter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reiki Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Remediation Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Resume Writer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Roof Inspector</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Roofer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Running and Jogging Coach</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Russian Translator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SEM Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SEO Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SMM Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Safety %26 First Aid Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales Trainer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Satellite Dish Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Saxophone Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Science Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sculpting Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Search Engine Optimizer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Security Guard</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seismic Retrofiter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Self Defense Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sewing Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shredding Service Provider</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Siding Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sign Language Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Site Preparation Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Skateboarding Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Soccer Coach</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Social Counselor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Social Studies Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Softball Coach</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Software Developer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Solar Panel Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sommelier</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Songwriter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sound Proofing Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spanish Translator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Spanish Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Specialized Language Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Specialty Cleaner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stained Glass Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Startup Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Statistical Analyst</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Steam Cleaner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>String Quartet</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Structural Engineer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Surfing Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Swim Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>TOEFL Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Table Tennis Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tai Chi Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tailor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tax Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Technology Support Technician</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Telemarketer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Telephone System Technician</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tennis Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Test Prep Tutor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Text Message Marketer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Therapist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tiler</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tour Guide</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trademark Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Traffic Law Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transcriber</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Translator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transportation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Travel Agent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trombone Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trumpet Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Turkish Translator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ukulele Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Upholstery Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Valet Parking Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Venue Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Video Technician</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Videographer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Vietnamese Translator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Violin Teacher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Vocalist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voice Coach</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voice Over Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Volleyball Coach</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wallpaper Professional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wardrobe Consultant</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web Developer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web Hosting Provider</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web Researcher</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wedding Officiant</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Welder</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Welding Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Well and Water Treatment Specilist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wills and Estate Planning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Window Cleaner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Window Treatment Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Window and Door Specialist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Windows App Developer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Writer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yoga Instructor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Developer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LeadSource</picklist>
+            <values>
+                <fullName>Cold Calling</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Name</picklist>
+            <values>
+                <fullName>Dr%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mr%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mrs%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ms%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Prof%2E</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Rating</picklist>
+            <values>
+                <fullName>Cold</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hot</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Warm</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>FULL_NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LEAD.COMPANY</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LEAD.PHONE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LEAD.STATUS</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LEAD.LAST_UPDATE</customTabListAdditionalFields>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>ChangeStatus</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>AddToCampaign</excludedStandardButtons>
+        <excludedStandardButtons>SendListEmailAction</excludedStandardButtons>
+        <excludedStandardButtons>MassAccept</excludedStandardButtons>
+        <excludedStandardButtons>MassChangeStatus</excludedStandardButtons>
+        <excludedStandardButtons>CreateCallList</excludedStandardButtons>
+        <excludedStandardButtons>MassAddToCampaign</excludedStandardButtons>
+        <lookupDialogsAdditionalFields>FULL_NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>LEAD.COMPANY</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>FULL_NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>LEAD.COMPANY</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>LEAD.PHONE</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>LEAD.MOBILE_PHONE</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>FULL_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LEAD.COMPANY</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LEAD.EMAIL</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LEAD.STATUS</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LEAD.RECORDTYPE</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <webLinks>
+        <fullName>GoogleMaps</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Google Maps</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>http://maps.google.com/maps?f=q&amp;hl=en&amp;q={!Lead_Street}+{!Lead_City}+{!Lead_State}&amp;om=1</url>
+    </webLinks>
+    <webLinks>
+        <fullName>GoogleNews</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Google News</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>http://www.google.com/news?&amp;q={!Lead_Company}&amp;btnG=Search+News</url>
+    </webLinks>
+    <webLinks>
+        <fullName>GoogleSearch</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Google Search</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>http://www.google.com/search?q={!Lead_Company}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>LiveText__Opt_in_for_Text_Messages_list</fullName>
+        <availability>online</availability>
+        <description>This button is for List View</description>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Opt-in for Text Messages</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/10.0/connection.js&quot;)} 
+			{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/apex.js&quot;)} 
+			{!REQUIRESCRIPT(&apos;/support/console/31.0/integration.js&apos;)}; 
+
+			var records = {!GETRECORDIDS($ObjectType.Account)};
+            var hasShortCodeNumber = sforce.apex.execute(&quot;LiveText.RetrievePreferredPhoneNumber&quot;,&quot;agentHasShortcodeNumberAssigned&quot;,{});
+            if (records[0] == null){ 
+                alert(&quot;Please select at least one lead&quot;) 
+            }else if((records.length &gt; 25) &amp;&amp; hasShortCodeNumber==&apos;false&apos;){
+                alert(&apos;A maximum of 25 text messages may be sent at once. Please select fewer recipients and try again.&apos;);
+            }else{
+				var packagePrefix = &quot;LiveText__&quot;; 
+				var recordType = &quot;lead&quot;; 
+				var recordIds = &quot;&quot;; 
+				var optOutField = &apos;&apos;; 
+				var optOutDefaultValue = &apos;yes&apos;; 
+				var smsType = &apos;&apos;; 
+				var userId = &apos;{!$User.Id}&apos;; 
+				var elementIdVar = &apos;&apos;; 
+				var showUserDropDown = false; 
+				var dialogTitle = &apos;&apos;; 
+				var queryString = &apos;&apos;; 
+
+				for (var n in records) { 
+					if(n == &apos;remove&apos; || n == &apos;indexOf&apos;) continue; 
+					recordIds = recordIds + records[n]; 
+				
+					if (n != records.length-1) { 
+						recordIds = recordIds + &quot;,&quot;; 
+					} 
+				} 
+
+				var e = document.getElementsByName(&quot;fcf&quot;)[0]; 
+				var selectedView = e.options[e.selectedIndex].value; 
+				
+				var returnURL = &apos;/00Q?fcf=&apos;+ selectedView + &apos;&amp;rolodexIndex=-1&amp;page=1&apos;; 
+
+				var urlStart =  &apos;https://&apos;+window.location.hostname+&apos;/apex/LiveText__LiveTextOptinStatusPage?recordType=&apos;+recordType +
+								&apos;&amp;records=&apos;+recordIds+&apos;&amp;retURL=&apos;+returnURL;
+
+				if(sforce.console.isInConsole()) { 
+					sforce.console.openPrimaryTab(null, urlStart + &apos;&amp;inConsole=yes&amp;optType=1&apos;, true, &apos;Opt-in for Text Messages&apos;); 
+				}else{ 
+					window.top.location.href = urlStart + &apos;&amp;inConsole=no&amp;optType=1&apos;; 
+				} 
+			}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>LiveText__Opt_out_for_Text_Messages_list</fullName>
+        <availability>online</availability>
+        <description>This button is for List View</description>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Opt-out for Text Messages</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/10.0/connection.js&quot;)} 
+			{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/apex.js&quot;)} 
+			{!REQUIRESCRIPT(&apos;/support/console/31.0/integration.js&apos;)}; 
+
+			var records = {!GETRECORDIDS($ObjectType.Lead)}; 
+			if (records[0] == null) 
+			{ 
+				alert(&quot;Please select at least one lead&quot;) 
+			} 
+			else{ 
+				var packagePrefix = &quot;LiveText__&quot;; 
+				var recordType = &quot;lead&quot;; 
+				var recordIds = &quot;&quot;; 
+				var optOutField = &apos;&apos;; 
+				var optOutDefaultValue = &apos;yes&apos;; 
+				var smsType = &apos;&apos;; 
+				var userId = &apos;{!$User.Id}&apos;; 
+				var elementIdVar = &apos;&apos;; 
+				var showUserDropDown = false; 
+				var dialogTitle = &apos;&apos;; 
+				var queryString = &apos;&apos;; 
+
+				for (var n in records) { 
+					if(n == &apos;remove&apos; || n == &apos;indexOf&apos;) continue; 
+					recordIds = recordIds + records[n]; 
+				
+					if (n != records.length-1) { 
+						recordIds = recordIds + &quot;,&quot;; 
+					} 
+				} 
+
+				var e = document.getElementsByName(&quot;fcf&quot;)[0]; 
+				var selectedView = e.options[e.selectedIndex].value; 
+				
+				var returnURL = &apos;/00Q?fcf=&apos;+ selectedView + &apos;&amp;rolodexIndex=-1&amp;page=1&apos;; 
+
+				var urlStart =  &apos;https://&apos;+window.location.hostname+&apos;/apex/LiveText__LiveTextOptinStatusPage?recordType=&apos;+recordType + 
+&apos;&amp;records=&apos;+recordIds+&apos;&amp;retURL=&apos;+returnURL;
+
+				if(sforce.console.isInConsole()) { 
+					sforce.console.openPrimaryTab(null, urlStart + &apos;&amp;inConsole=yes&amp;optType=0&apos;, true, &apos;Opt-out for Text Messages&apos;); 
+				}else{ 
+					window.top.location.href = urlStart + &apos;&amp;inConsole=no&amp;optType=0&apos;; 
+				} 
+			}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>LiveText__Send_Bulk_SMS</fullName>
+        <availability>online</availability>
+        <description>Sends text message to selected records</description>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Send Text to List</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/10.0/connection.js&quot;)} 
+            {!REQUIRESCRIPT(&quot;/soap/ajax/14.0/apex.js&quot;)} 
+            {!REQUIRESCRIPT(&apos;/support/console/31.0/integration.js&apos;)}; 
+
+            var records = {!GETRECORDIDS($ObjectType.Lead)}; 
+            var hasShortCodeNumber = sforce.apex.execute(&quot;LiveText.RetrievePreferredPhoneNumber&quot;,&quot;agentHasShortcodeNumberAssigned&quot;,{});
+            if (records[0] == null){ 
+                alert(&quot;Please select at least one lead&quot;);
+            }else if((records.length &gt; 25) &amp;&amp; hasShortCodeNumber==&quot;false&quot;){ 
+                alert(&quot;A maximum of 25 text messages may be sent at once. Please select fewer recipients and try again.&quot;); 
+            } 
+            else{ 
+                var packagePrefix = &quot;LiveText__&quot;; 
+                var recordType = &quot;lead&quot;; 
+                var recordIds = &quot;&quot;;
+
+                for (var n in records) { 
+                    if(n == &apos;remove&apos; || n == &apos;indexOf&apos;) continue; 
+                    recordIds = recordIds + records[n]; 
+                    
+                    if (n != records.length-1) { 
+                        recordIds = recordIds + &quot;,&quot;; 
+                    } 
+                }
+
+                var storageId = sforce.apex.execute(&quot;LiveText.RetrievePreferredPhoneNumber&quot;,&quot;saveToStorage&quot;,{stringToSave:recordIds});
+                var urlStart = &apos;https://&apos;+window.location.hostname+&apos;/apex/LiveText__LiveTextBulkSms?recordType=&apos;+recordType+&apos;&amp;storageId=&apos;+storageId; 
+                
+                if(sforce.console.isInConsole()) { 
+                    sforce.console.openPrimaryTab(null, urlStart, true);
+                } else { 
+                    window.top.location.href = urlStart; 
+                } 
+            }</url>
+    </webLinks>
+    <webLinks>
+        <fullName>dsfs__Send_with_DocuSign</fullName>
+        <availability>online</availability>
+        <description>This button will initiate a DocuSign Envelope that is linked to the Lead</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Send with DocuSign</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/apex/dsfs__DocuSign_JavaScript&quot;)}
+DocuSign_CreateEnvelope();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>zoom_app__Start_Zoom_Meeting</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Start Zoom Meeting</masterLabel>
+        <openType>sidebar</openType>
+        <page>zoom_app__ZoomMeetingStartLead</page>
+        <protected>false</protected>
+    </webLinks>
 </CustomObject>

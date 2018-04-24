@@ -1,5 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Description</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>IsAlohaSupported</fullName>
+    </fields>
+    <fields>
+        <fullName>IsLightningSupported</fullName>
+    </fields>
+    <fields>
+        <fullName>Name</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>OwnerId</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>StartingContext</fullName>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <description>Custom picklist field to categorize the the macro.  Helps with organization and reporting.</description>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Customer Support</fullName>
+                    <default>false</default>
+                    <label>Customer Support</label>
+                </value>
+                <value>
+                    <fullName>MarketplaceTrustAndSafety</fullName>
+                    <default>false</default>
+                    <label>Marketplace Trust &amp; Safety</label>
+                </value>
+                <value>
+                    <fullName>Pro Services</fullName>
+                    <default>false</default>
+                    <label>Pro Services</label>
+                </value>
+                <value>
+                    <fullName>Sales &amp; Account Mgmt</fullName>
+                    <default>false</default>
+                    <label>Sales &amp; Account Mgmt</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
     <listViews>
         <fullName>MTSMacros</fullName>
         <columns>Name</columns>
@@ -46,4 +145,48 @@
             <allInternalUsers></allInternalUsers>
         </sharedTo>
     </listViews>
+    <recordTypes>
+        <fullName>CustomerSupport</fullName>
+        <active>true</active>
+        <description>Record type used for Macros associated with Customer Support.</description>
+        <label>Customer Support</label>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Customer Support</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MarketplaceTrustAndSafety</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales %26 Account Mgmt</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>StartingContext</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LastModifiedDate</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LastModifiedBy</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>StartingContext</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>LastModifiedDate</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>LastModifiedBy</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>StartingContext</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>LastModifiedDate</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>LastModifiedBy</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>StartingContext</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LastModifiedDate</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LastModifiedBy</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
 </CustomObject>

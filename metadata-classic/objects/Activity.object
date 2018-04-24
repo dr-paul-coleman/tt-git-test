@@ -1,5 +1,1175 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ComposeGmail</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>LogCall</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>MailMerge</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>RequestUpdate</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SendEmail</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ViewAll</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>ActivityDateMinusOne__c</fullName>
+        <description>Used in specific Activity (Task &amp; Events) reports that use the THIS WEEK or LAST WEEK date range based on the Activity date, to automatically match Thumbtack&apos;s work week, allowing for automation of weekly reports and dashboards.</description>
+        <externalId>false</externalId>
+        <formula>ActivityDate - 1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Activity Date (Minus One)</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>AssignedToManager__c</fullName>
+        <description>Formula field to display the name of the Activity Assigned to (Owner) Manager.  Used for reporting.</description>
+        <externalId>false</externalId>
+        <formula>Owner:User.Manager.FirstName + &quot; &quot; + Owner:User.Manager.LastName</formula>
+        <label>Assigned to Manager</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CallRecordingLink__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(NOT ISBLANK(Five9__Five9SessionId__c), &apos;&apos;,
+IF(ISBLANK(CallObject),&apos; &apos;, LOCC_App__LO_CC_base_URL__c &amp; &quot;/html/play.cgi?session_id=&quot; &amp; CallObject))</formula>
+        <inlineHelpText>Please open the call recording in Firefox. (sorry)</inlineHelpText>
+        <label>Call Recording Link</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CreatedDateTime__c</fullName>
+        <externalId>false</externalId>
+        <formula>CreatedDate</formula>
+        <label>Created Date/Time</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Five9__Five9ANI__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Five9 ANI</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Five9__Five9AgentExtension__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Five9 Agent Extension</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Five9__Five9AgentName__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Five9 Agent Name</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Five9__Five9Agent__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Five9 Agent</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Five9__Five9CallType__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Five9 Call Type</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Five9__Five9CallbackCampaignId__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Five9CallbackCampaignId</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Five9__Five9CallbackCampaignName__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Five9CallbackCampaignName</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Five9__Five9CallbackId__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Five9CallbackId</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Five9__Five9CallbackNumber__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Five9CallbackNumber</label>
+        <required>false</required>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Five9__Five9Campaign__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Five9 Campaign</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Five9__Five9Cost__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Five9 Cost</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Five9__Five9DNIS__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Five9 DNIS</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Five9__Five9HandleTime__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Five9 Handle Time</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Five9__Five9SessionId__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Five9 Session Id</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Five9__Five9TalkAndHoldTimeInSeconds__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Five9 Talk and Hold Duration</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Five9__Five9WrapTime__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Five9 After Call Work Time</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HourActivityCreated24HrFormat__c</fullName>
+        <description>Formula field to display the hour of day the activity was created, used in reporting.</description>
+        <externalId>false</externalId>
+        <formula>VALUE(MID (TEXT (CreatedDate - 0.2502), 12, 2))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Hour Activity Created (24 Hr Format)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsMyTeam__c</fullName>
+        <description>Formula field to indicate true if the Logged in User&apos;s Team matches the Team stamped on the activity.  Used for dynamic list views, reports, and dashboards.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(Team__c), False,
+IF(AND(ISBLANK(TEXT($User.SpoofAsTeam__c)),TEXT($User.Team__c) = Team__c), True, 
+IF(TEXT($User.SpoofAsTeam__c) = Team__c, True, 
+False)))</formula>
+        <label>Is My Team</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LOCC_App__Call_Recording__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>HYPERLINK( LOCC_App__LO_CC_base_URL__c  &amp; &quot;/html/play.cgi?session_id=&quot; &amp; CallObject, &quot;Play Recording&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Call Recording</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LOCC_App__LO_CC_base_URL__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>LO CC base URL</label>
+        <required>false</required>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>LOCC_App__calllength__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Call Length</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LOCC_App__callscore__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Call Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LOCC_App__campaignid__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Campaign ID</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LOCC_App__campaignname__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Campaign Name</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LOCC_App__dnis__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>DNIS</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LOCC_App__interactionid__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Interaction ID</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LOCC_App__phonenumbercountry__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Phone Number Country</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LOCC_App__wrapuplength__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Wrap Up Length</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NameObjectType__c</fullName>
+        <description>The object (Contact or Lead) of the related Name field.  To be able to decipher if activities are related to a Lead or not.</description>
+        <externalId>false</externalId>
+        <formula>IF(LEFT(WhoId,3)= &apos;00Q&apos;,&apos;Lead&apos;,
+IF(LEFT(WhoId,3)=&apos;003&apos;,&apos;Contact&apos;,
+Null))</formula>
+        <label>Name Object Type</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SAMDisposition__c</fullName>
+        <description>(Temporary) field for Sales and Account Management team members to log the disposition of an interaction.</description>
+        <externalId>false</externalId>
+        <label>SAM Disposition</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Check-in</fullName>
+                    <default>false</default>
+                    <label>Check-in</label>
+                </value>
+                <value>
+                    <fullName>Empathy</fullName>
+                    <default>false</default>
+                    <label>Empathy</label>
+                </value>
+                <value>
+                    <fullName>Profile improvement</fullName>
+                    <default>false</default>
+                    <label>Profile improvement</label>
+                </value>
+                <value>
+                    <fullName>Report</fullName>
+                    <default>false</default>
+                    <label>Report</label>
+                </value>
+                <value>
+                    <fullName>Responsiveness</fullName>
+                    <default>false</default>
+                    <label>Responsiveness</label>
+                </value>
+                <value>
+                    <fullName>Retention</fullName>
+                    <default>false</default>
+                    <label>Retention</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>SAMInteractionType__c</fullName>
+        <description>(Temporary) field for the Sales and Account Management team to log the type of interaction they had.</description>
+        <externalId>false</externalId>
+        <label>SAM Interaction Type</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Outbound email</fullName>
+                    <default>false</default>
+                    <label>Outbound email</label>
+                </value>
+                <value>
+                    <fullName>Inbound email</fullName>
+                    <default>false</default>
+                    <label>Inbound email</label>
+                </value>
+                <value>
+                    <fullName>Outbound phone</fullName>
+                    <default>false</default>
+                    <label>Outbound phone</label>
+                </value>
+                <value>
+                    <fullName>Inbound phone</fullName>
+                    <default>false</default>
+                    <label>Inbound phone</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Team__c</fullName>
+        <description>Custom picklist field to indicate the &apos;Assigned To&apos; user&apos;s assigned team.</description>
+        <externalId>false</externalId>
+        <label>Team</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Additional_Emails__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Please separate emails with Comma[ , ]</inlineHelpText>
+        <label>Send Email to External Attendees</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Customer_Duration_of_Meeting__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the scheduled duration of the meeting in &quot;minutes&quot;, as a number.
+Ex: 30</inlineHelpText>
+        <label>Customer Meeting Duration</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Customer_Start_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the starting time of the meeting as per customer.</inlineHelpText>
+        <label>Customer Start Time</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Customer_Time_Zone__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the proper time zone location for the customer. DST will be managed automatically.</inlineHelpText>
+        <label>Customer Time Zone</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Pacific/Kiritimati</fullName>
+                    <default>false</default>
+                    <label>(GMT+14:00) Line Is. Time (Pacific/Kiritimati)</label>
+                </value>
+                <value>
+                    <fullName>Pacific/Chatham</fullName>
+                    <default>false</default>
+                    <label>(GMT+12:45/+13:45) Chatham Standard / Daylight Time (Pacific/Chatham)</label>
+                </value>
+                <value>
+                    <fullName>Pacific/Auckland</fullName>
+                    <default>false</default>
+                    <label>(GMT+12:00/+13:00) New Zealand Standard / Daylight Time (Pacific/Auckland)</label>
+                </value>
+                <value>
+                    <fullName>Pacific/Enderbury</fullName>
+                    <default>false</default>
+                    <label>(GMT+13:00) Phoenix Is. Time (Pacific/Enderbury)</label>
+                </value>
+                <value>
+                    <fullName>Pacific/Tongatapu</fullName>
+                    <default>false</default>
+                    <label>(GMT+13:00) Tonga Time (Pacific/Tongatapu)</label>
+                </value>
+                <value>
+                    <fullName>Pacific/Fiji</fullName>
+                    <default>false</default>
+                    <label>(GMT+12:00) Fiji Time (Pacific/Fiji)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Kamchatka</fullName>
+                    <default>false</default>
+                    <label>(GMT+12:00) Petropavlovsk-Kamchatski Time (Asia/Kamchatka)</label>
+                </value>
+                <value>
+                    <fullName>Australia/Lord_Howe</fullName>
+                    <default>false</default>
+                    <label>(GMT+10:30/+11:00) Lord Howe  Standard / Daylight Time (Australia/Lord_Howe)</label>
+                </value>
+                <value>
+                    <fullName>Pacific/Norfolk</fullName>
+                    <default>false</default>
+                    <label>(GMT+11:00) Norfolk Time (Pacific/Norfolk)</label>
+                </value>
+                <value>
+                    <fullName>Pacific/Guadalcanal</fullName>
+                    <default>false</default>
+                    <label>(GMT+11:00) Solomon Is. Time (Pacific/Guadalcanal)</label>
+                </value>
+                <value>
+                    <fullName>Australia/Sydney</fullName>
+                    <default>false</default>
+                    <label>(GMT+10:00/+11:00) Australian Eastern Standard / Daylight Time (New South Wales) (Australia/Sydney)</label>
+                </value>
+                <value>
+                    <fullName>Australia/Adelaide</fullName>
+                    <default>false</default>
+                    <label>(GMT+10:30/+9:30) Australian Central Standard / Daylight Time (South Australia) (Australia/Adelaide)</label>
+                </value>
+                <value>
+                    <fullName>Australia/Darwin</fullName>
+                    <default>false</default>
+                    <label>(GMT+09:30) Australian Central Standard Time (Northern Territory) (Australia/Darwin)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Tokyo</fullName>
+                    <default>false</default>
+                    <label>(GMT+09:00) Japan Standard Time (Asia/Tokyo)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Seoul</fullName>
+                    <default>false</default>
+                    <label>(GMT+09:00) Korea Standard Time (Asia/Seoul)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Manila</fullName>
+                    <default>false</default>
+                    <label>(GMT+08:00) Philippines Time (Asia/Manila)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Kuala_Lumpur</fullName>
+                    <default>false</default>
+                    <label>(GMT+08:00) Malaysia Time (Asia/Kuala_Lumpur)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Shanghai</fullName>
+                    <default>false</default>
+                    <label>(GMT+08:00) China Standard Time (Asia/Shanghai)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Singapore</fullName>
+                    <default>false</default>
+                    <label>(GMT+08:00) Singapore Time (Asia/Singapore)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Taipei</fullName>
+                    <default>false</default>
+                    <label>(GMT+08:00) China Standard Time (Asia/Taipei)</label>
+                </value>
+                <value>
+                    <fullName>Australia/Perth</fullName>
+                    <default>false</default>
+                    <label>(GMT+08:00) Australian Western Standard Time (Australia/Perth)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Hong_Kong</fullName>
+                    <default>false</default>
+                    <label>(GMT+08:00) Hong Kong Time (Asia/Hong_Kong)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Jakarta</fullName>
+                    <default>false</default>
+                    <label>(GMT+07:00) West Indonesia Time (Asia/Jakarta)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Bangkok</fullName>
+                    <default>false</default>
+                    <label>(GMT+07:00) Indochina Time (Asia/Bangkok)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Ho_Chi_Minh</fullName>
+                    <default>false</default>
+                    <label>(GMT+07:00) Indochina Time (Asia/Ho_Chi_Minh)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Rangoon</fullName>
+                    <default>false</default>
+                    <label>(GMT+06:30) Myanmar Time (Asia/Rangoon)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Dhaka</fullName>
+                    <default>false</default>
+                    <label>(GMT+06:00) Bangladesh Time (Asia/Dhaka)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Kathmandu</fullName>
+                    <default>false</default>
+                    <label>(GMT+05:45) Nepal Time (Asia/Kathmandu)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Kolkata</fullName>
+                    <default>false</default>
+                    <label>(GMT+05:30) India Standard Time (Asia/Kolkata)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Colombo</fullName>
+                    <default>false</default>
+                    <label>(GMT+05:30) India Standard Time (Asia/Colombo)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Tashkent</fullName>
+                    <default>false</default>
+                    <label>(GMT+05:00) Uzbekistan Time (Asia/Tashkent)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Yekaterinburg</fullName>
+                    <default>false</default>
+                    <label>(GMT+05:00) Yekaterinburg Time (Asia/Yekaterinburg)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Karachi</fullName>
+                    <default>false</default>
+                    <label>(GMT+05:00) Pakistan Time (Asia/Karachi)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Kabul</fullName>
+                    <default>false</default>
+                    <label>(GMT+04:30) Afghanistan Time (Asia/Kabul)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Tbilisi</fullName>
+                    <default>false</default>
+                    <label>(GMT+04:00) Georgia Time (Asia/Tbilisi)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Dubai</fullName>
+                    <default>false</default>
+                    <label>(GMT+04:00) Gulf Standard Time (Asia/Dubai)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Tehran</fullName>
+                    <default>false</default>
+                    <label>(GMT+03:30) Iran Standard Time (Asia/Tehran)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Baghdad</fullName>
+                    <default>false</default>
+                    <label>(GMT+03:00) Arabia Standard Time (Asia/Baghdad)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Kuwait</fullName>
+                    <default>false</default>
+                    <label>(GMT+03:00) Arabia Standard Time (Asia/Kuwait)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Riyadh</fullName>
+                    <default>false</default>
+                    <label>(GMT+03:00) Arabia Standard Time (Asia/Riyadh)</label>
+                </value>
+                <value>
+                    <fullName>Africa/Nairobi</fullName>
+                    <default>false</default>
+                    <label>(GMT+03:00) Eastern African Time (Africa/Nairobi)</label>
+                </value>
+                <value>
+                    <fullName>Europe/Istanbul</fullName>
+                    <default>false</default>
+                    <label>(GMT+03:00) Eastern European Time (Europe/Istanbul)</label>
+                </value>
+                <value>
+                    <fullName>Europe/Minsk</fullName>
+                    <default>false</default>
+                    <label>(GMT+03:00) Moscow Standard Time (Europe/Minsk)</label>
+                </value>
+                <value>
+                    <fullName>Europe/Moscow</fullName>
+                    <default>false</default>
+                    <label>(GMT+03:00) Moscow Standard Time (Europe/Moscow)</label>
+                </value>
+                <value>
+                    <fullName>Asia/Jerusalem</fullName>
+                    <default>false</default>
+                    <label>(GMT+02:00) Israel Standard Time (Asia/Jerusalem)</label>
+                </value>
+                <value>
+                    <fullName>Africa/Cairo</fullName>
+                    <default>false</default>
+                    <label>(GMT+02:00) Eastern European Time (Africa/Cairo)</label>
+                </value>
+                <value>
+                    <fullName>Europe/Helsinki</fullName>
+                    <default>false</default>
+                    <label>(GMT+02:00) Eastern European Time (Europe/Helsinki)</label>
+                </value>
+                <value>
+                    <fullName>Europe/Bucharest</fullName>
+                    <default>false</default>
+                    <label>(GMT+02:00) Eastern European Time (Europe/Bucharest)</label>
+                </value>
+                <value>
+                    <fullName>Africa/Johannesburg</fullName>
+                    <default>false</default>
+                    <label>(GMT+02:00) South Africa Standard Time (Africa/Johannesburg)</label>
+                </value>
+                <value>
+                    <fullName>Europe/Athens</fullName>
+                    <default>false</default>
+                    <label>(GMT+02:00) Eastern European Time (Europe/Athens)</label>
+                </value>
+                <value>
+                    <fullName>Europe/Berlin</fullName>
+                    <default>false</default>
+                    <label>(GMT+01:00) Central European Time (Europe/Berlin)</label>
+                </value>
+                <value>
+                    <fullName>Europe/Amsterdam</fullName>
+                    <default>false</default>
+                    <label>(GMT+01:00) Central European Time (Europe/Amsterdam)</label>
+                </value>
+                <value>
+                    <fullName>Africa/Algiers</fullName>
+                    <default>false</default>
+                    <label>(GMT+01:00) Central European Time (Africa/Algiers)</label>
+                </value>
+                <value>
+                    <fullName>Europe/Brussels</fullName>
+                    <default>false</default>
+                    <label>(GMT+01:00) Central European Time (Europe/Brussels)</label>
+                </value>
+                <value>
+                    <fullName>Europe/Paris</fullName>
+                    <default>false</default>
+                    <label>(GMT+01:00) Central European Time (Europe/Paris)</label>
+                </value>
+                <value>
+                    <fullName>Europe/Prague</fullName>
+                    <default>false</default>
+                    <label>(GMT+01:00) Central European Time (Europe/Prague)</label>
+                </value>
+                <value>
+                    <fullName>Europe/Rome</fullName>
+                    <default>false</default>
+                    <label>(GMT+01:00) Central European Time (Europe/Rome)</label>
+                </value>
+                <value>
+                    <fullName>GMT</fullName>
+                    <default>false</default>
+                    <label>(GMT+00:00) Greenwich Mean Time (GMT)</label>
+                </value>
+                <value>
+                    <fullName>Europe/Dublin</fullName>
+                    <default>false</default>
+                    <label>(GMT+00:00) Greenwich Mean Time (Europe/Dublin)</label>
+                </value>
+                <value>
+                    <fullName>Europe/Lisbon</fullName>
+                    <default>false</default>
+                    <label>(GMT+00:00) Western European Time (Europe/Lisbon)</label>
+                </value>
+                <value>
+                    <fullName>Europe/London</fullName>
+                    <default>false</default>
+                    <label>(GMT+00:00/+1:00) Greenwich Mean Time / British Standard Time  (Europe/London)</label>
+                </value>
+                <value>
+                    <fullName>Atlantic/Cape_Verde</fullName>
+                    <default>false</default>
+                    <label>(GMT-01:00) Cape Verde Time (Atlantic/Cape_Verde)</label>
+                </value>
+                <value>
+                    <fullName>Atlantic/South_Georgia</fullName>
+                    <default>false</default>
+                    <label>(GMT-02:00) South Georgia Standard Time (Atlantic/South_Georgia)</label>
+                </value>
+                <value>
+                    <fullName>America/St_Johns</fullName>
+                    <default>false</default>
+                    <label>(GMT-02:30/-3:30) Newfoundland Standard / Daylight Time (America/St_Johns)</label>
+                </value>
+                <value>
+                    <fullName>America/Argentina/Buenos_Aires</fullName>
+                    <default>false</default>
+                    <label>(GMT-03:00) Argentine Time (America/Argentina/Buenos_Aires)</label>
+                </value>
+                <value>
+                    <fullName>Atlantic/Bermuda</fullName>
+                    <default>false</default>
+                    <label>(GMT-4:00/-03:00) Atlantic Standard / Daylight Time (Atlantic/Bermuda)</label>
+                </value>
+                <value>
+                    <fullName>America/Halifax</fullName>
+                    <default>false</default>
+                    <label>(GMT-04:00/-3:00) Atlantic Standard / Daylight Time (America/Halifax)</label>
+                </value>
+                <value>
+                    <fullName>America/Santiago</fullName>
+                    <default>false</default>
+                    <label>(GMT-03:00) Chile Summer Time (America/Santiago)</label>
+                </value>
+                <value>
+                    <fullName>America/Sao_Paulo</fullName>
+                    <default>false</default>
+                    <label>(GMT-03:00) Brasilia Time (America/Sao_Paulo)</label>
+                </value>
+                <value>
+                    <fullName>America/Indiana/Indianapolis</fullName>
+                    <default>false</default>
+                    <label>(GMT-5:00/-04:00) Eastern Standard / Daylight Time (America/Indiana/Indianapolis)</label>
+                </value>
+                <value>
+                    <fullName>America/New_York</fullName>
+                    <default>false</default>
+                    <label>(GMT-5:00/-04:00) Eastern  Standard / Daylight Time (America/New_York)</label>
+                </value>
+                <value>
+                    <fullName>America/Caracas</fullName>
+                    <default>false</default>
+                    <label>(GMT-04:00) Venezuela Time (America/Caracas)</label>
+                </value>
+                <value>
+                    <fullName>America/Puerto_Rico</fullName>
+                    <default>false</default>
+                    <label>(GMT-04:00) Atlantic Standard Time (America/Puerto_Rico)</label>
+                </value>
+                <value>
+                    <fullName>America/Chicago</fullName>
+                    <default>false</default>
+                    <label>(GMT-6:00/-05:00) Central  Standard / Daylight Time (America/Chicago)</label>
+                </value>
+                <value>
+                    <fullName>America/Bogota</fullName>
+                    <default>false</default>
+                    <label>(GMT-05:00) Colombia Time (America/Bogota)</label>
+                </value>
+                <value>
+                    <fullName>America/Lima</fullName>
+                    <default>false</default>
+                    <label>(GMT-05:00) Peru Time (America/Lima)</label>
+                </value>
+                <value>
+                    <fullName>America/Panama</fullName>
+                    <default>false</default>
+                    <label>(GMT-05:00) Eastern Standard Time (America/Panama)</label>
+                </value>
+                <value>
+                    <fullName>America/El_Salvador</fullName>
+                    <default>false</default>
+                    <label>(GMT-06:00) Central Standard Time (America/El_Salvador)</label>
+                </value>
+                <value>
+                    <fullName>America/Mexico_City</fullName>
+                    <default>false</default>
+                    <label>(GMT-06:00) Central Standard Time (America/Mexico_City)</label>
+                </value>
+                <value>
+                    <fullName>America/Denver</fullName>
+                    <default>false</default>
+                    <label>(GMT-7:00/-06:00) Mountain  Standard / Daylight Time (America/Denver)</label>
+                </value>
+                <value>
+                    <fullName>America/Tijuana</fullName>
+                    <default>false</default>
+                    <label>(GMT-8:00/-07:00) Pacific  Standard / Daylight  Time (America/Tijuana)</label>
+                </value>
+                <value>
+                    <fullName>America/Phoenix</fullName>
+                    <default>false</default>
+                    <label>(GMT-07:00) Mountain Standard Time (America/Phoenix)</label>
+                </value>
+                <value>
+                    <fullName>America/Anchorage</fullName>
+                    <default>false</default>
+                    <label>(GMT-9:00/-08:00) Alaska Standard / Daylight Time (America/Anchorage)</label>
+                </value>
+                <value>
+                    <fullName>America/Los_Angeles</fullName>
+                    <default>false</default>
+                    <label>(GMT-08:00/-7:00) Pacific Standard / Daylight Time (America/Los_Angeles)</label>
+                </value>
+                <value>
+                    <fullName>Pacific/Honolulu</fullName>
+                    <default>false</default>
+                    <label>(GMT-10:00) Hawaii-Aleutian Standard Time (Pacific/Honolulu)</label>
+                </value>
+                <value>
+                    <fullName>Pacific/Niue</fullName>
+                    <default>false</default>
+                    <label>(GMT-11:00) Niue Time (Pacific/Niue)</label>
+                </value>
+                <value>
+                    <fullName>Pacific/Pago_Pago</fullName>
+                    <default>false</default>
+                    <label>(GMT-11:00) Samoa Standard Time (Pacific/Pago_Pago)</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Duration_mins__c</fullName>
+        <deprecated>false</deprecated>
+        <description>This field shows the actual duration of Zoom meeting.</description>
+        <externalId>false</externalId>
+        <label>Duration (mins)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Google_Event_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>This will be populated automatically after event creation in Google Calendar.</inlineHelpText>
+        <label>Google Event Id</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Host_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Host Id</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zoom_app__IsExternal__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>IsExternal</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>zoom_app__IsZoomMeeting__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>This field is used to mark an event is from Zoom Meetings.</description>
+        <externalId>false</externalId>
+        <label>Is Zoom Meeting</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Join_Url__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Join Url</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Join_before_host__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Let users join the meeting before the host arrives</inlineHelpText>
+        <label>Join before host</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Make_it_Zoom_Meeting__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>This option will schedule a zoom meeting and put the meeting link in the description</inlineHelpText>
+        <label>Schedule a Zoom Meeting</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Meeting_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Meeting Type</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Participant_Count__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Participant Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Participants__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Participants</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Send_Email__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Send email to Contact or Lead, Event Invitees and External Attendees while creating Zoom Meeting or Resend email when this field is subsequently checked after creating Zoom Meeting.</inlineHelpText>
+        <label>Send Email</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Start_Url_1__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Start Url 1</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Start_Url_2__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Start Url 2</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Start_Url_3__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Start Url 3</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zoom_app__UUID__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>UUID</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Use_personal_Zoom_meeting_Id__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Use my Zoom personal meeting id</inlineHelpText>
+        <label>Use my Zoom PMI</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Zoom_Meeting_Creation_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zoom Meeting Creation Status</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Zoom_Meeting_End_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zoom Meeting End Time</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Zoom_Meeting_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zoom Meeting Id</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Zoom_Meeting_Start_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zoom Meeting Start Time</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Zoom_Meeting_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zoom Status</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Open</fullName>
+                    <default>true</default>
+                    <label>Open</label>
+                </value>
+                <value>
+                    <fullName>Completed</fullName>
+                    <default>false</default>
+                    <label>Completed</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Zoom_Meeting_Status_fr__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if(  ISBLANK(TEXT(zoom_app__Zoom_Meeting_Status__c)),&apos;Open&apos;,TEXT(zoom_app__Zoom_Meeting_Status__c))</formula>
+        <label>Zoom Meeting Status</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
     <listViews>
         <fullName>MyActivitiesAll</fullName>
         <columns>TASK.SUBJECT</columns>
@@ -321,18 +1491,28 @@
         <columns>Team__c</columns>
         <filterScope>Everything</filterScope>
         <filters>
-            <field>CREATEDBY_USER.ALIAS</field>
-            <operation>equals</operation>
-            <value>wbachman</value>
+            <field>TASK.SUBJECT</field>
+            <operation>startsWith</operation>
+            <value>Call</value>
         </filters>
         <filters>
             <field>TASK.CREATED_DATE</field>
             <operation>equals</operation>
-            <value>LAST_N_DAYS:3</value>
+            <value>TODAY</value>
         </filters>
         <label>X - Data Cleanup</label>
         <sharedTo>
             <role>SystemLevelAccess</role>
         </sharedTo>
     </listViews>
+    <searchLayouts>
+        <excludedStandardButtons>NewEvent</excludedStandardButtons>
+        <excludedStandardButtons>NewTask</excludedStandardButtons>
+        <searchResultsAdditionalFields>TASK.SUBJECT</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>TASK.WHO_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>TASK.WHAT_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>TASK.DUE_DATE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
 </CustomObject>

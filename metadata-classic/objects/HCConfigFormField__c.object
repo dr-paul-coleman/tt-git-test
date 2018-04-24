@@ -1,5 +1,244 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>CharacterLimit__c</fullName>
+        <description>Number field to indicate if there is a character limit for a text or number field.</description>
+        <externalId>false</externalId>
+        <label>Character Limit</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DefaultValue__c</fullName>
+        <description>The default value that should be set in the field mapping.</description>
+        <externalId>false</externalId>
+        <label>Default Value</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FieldHelpText__c</fullName>
+        <description>Text area to store the helpful/instructional text as displayed on the field in the public help center form.</description>
+        <externalId>false</externalId>
+        <label>Field Help Text</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>FieldMapping__c</fullName>
+        <description>Text area to store the API name of the salesforce field that the answer response should be saved to.</description>
+        <externalId>false</externalId>
+        <label>Field Mapping</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>FieldType__c</fullName>
+        <description>Picklist whose values dictate the type of form field to be displayed on the form in the public help center.</description>
+        <externalId>false</externalId>
+        <label>Field Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Currency</fullName>
+                    <default>false</default>
+                    <label>Currency</label>
+                </value>
+                <value>
+                    <fullName>Email</fullName>
+                    <default>false</default>
+                    <label>Email</label>
+                </value>
+                <value>
+                    <fullName>Phone</fullName>
+                    <default>false</default>
+                    <label>Phone</label>
+                </value>
+                <value>
+                    <fullName>Short text</fullName>
+                    <default>false</default>
+                    <label>Short text</label>
+                </value>
+                <value>
+                    <fullName>Long text</fullName>
+                    <default>false</default>
+                    <label>Long text</label>
+                </value>
+                <value>
+                    <fullName>Full name</fullName>
+                    <default>false</default>
+                    <label>Full name</label>
+                </value>
+                <value>
+                    <fullName>Article suggest</fullName>
+                    <default>false</default>
+                    <label>Article suggest</label>
+                </value>
+                <value>
+                    <fullName>Hidden</fullName>
+                    <default>false</default>
+                    <label>Hidden</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Form__c</fullName>
+        <description>Master-detail to Form object</description>
+        <externalId>false</externalId>
+        <label>Form</label>
+        <referenceTo>HCConfigForm__c</referenceTo>
+        <relationshipLabel>Form Fields</relationshipLabel>
+        <relationshipName>FormFields</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>IsRequired__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Boolean to indicate true if the form field is required before submission.</description>
+        <externalId>false</externalId>
+        <label>Is Required?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Label__c</fullName>
+        <description>Text area to store the label of the field as displayed on the public help center.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Text area to store the label of the field as displayed on the public help center.</inlineHelpText>
+        <label>Label</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>ObjectMapping__c</fullName>
+        <description>Picklist whose values indicate which object the field mapping pertains to.</description>
+        <externalId>false</externalId>
+        <label>Object Mapping</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Case</fullName>
+                    <default>false</default>
+                    <label>Case</label>
+                </value>
+                <value>
+                    <fullName>Lead</fullName>
+                    <default>false</default>
+                    <label>Lead</label>
+                </value>
+                <value>
+                    <fullName>CSAT__c</fullName>
+                    <default>false</default>
+                    <label>CSAT__c</label>
+                </value>
+                <value>
+                    <fullName>ProductFeedback__c</fullName>
+                    <default>false</default>
+                    <label>ProductFeedback__c</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>SortOrder__c</fullName>
+        <description>Number field to store the sort order number of the form field.</description>
+        <externalId>false</externalId>
+        <label>Sort Order</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ValidationMessage__c</fullName>
+        <description>Text area to store the informational message if the form field input is not a valid value.</description>
+        <externalId>false</externalId>
+        <label>Validation Message</label>
+        <length>2000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <label>HC Config: Form Field</label>
     <listViews>
         <fullName>All</fullName>
         <columns>NAME</columns>
@@ -11,4 +250,72 @@
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Form Fields</pluralLabel>
+    <recordTypes>
+        <fullName>FormField</fullName>
+        <active>true</active>
+        <description>Record type used to manage the fields appearing on help center forms.</description>
+        <label>Form Field</label>
+        <picklistValues>
+            <picklist>FieldType__c</picklist>
+            <values>
+                <fullName>Article suggest</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Currency</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Full name</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hidden</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Long text</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Short text</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ObjectMapping__c</picklist>
+            <values>
+                <fullName>CSAT%5F%5Fc</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Case</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lead</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ProductFeedback%5F%5Fc</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

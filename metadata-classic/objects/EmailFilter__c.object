@@ -1,5 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object whose records store text filters (regex strings) for parsing inbound CaseEmails to determine if they are responses to unmonitored email addresses</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>false</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>false</enableSharing>
+    <enableStreamingApi>false</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AutoResponseTemplate__c</fullName>
+        <externalId>false</externalId>
+        <label>Auto Response Template</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Template 1</fullName>
+                    <default>false</default>
+                    <label>Template 1</label>
+                </value>
+                <value>
+                    <fullName>Template 2</fullName>
+                    <default>false</default>
+                    <label>Template 2</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>EmailFilterMatched__c</fullName>
+        <externalId>false</externalId>
+        <label>Email Filter Matched</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Rule 1</fullName>
+                    <default>false</default>
+                    <label>Rule 1</label>
+                </value>
+                <value>
+                    <fullName>Rule 2</fullName>
+                    <default>false</default>
+                    <label>Rule 2</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>ExampleSubject__c</fullName>
+        <externalId>false</externalId>
+        <label>Example Subject</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>FilterActive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>When matched, should the rule update the case?</inlineHelpText>
+        <label>Filter Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Regex__c</fullName>
+        <description>Field to contain the regular expression to match on the subject text of inbound emails</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter or paste a regular expression (e.g., https://regex101.com/)</inlineHelpText>
+        <label>Regex</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <label>EmailFilter</label>
     <listViews>
         <fullName>All</fullName>
         <columns>NAME</columns>
@@ -10,4 +140,19 @@
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
+    <nameField>
+        <label>EmailSupportFilters Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>EmailFilters</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <startsWith>Vowel</startsWith>
+    <validationRules>
+        <fullName>ValidateExampleSubjectRegex</fullName>
+        <active>true</active>
+        <errorConditionFormula>NOT(REGEX( ExampleSubject__c  ,  Regex__c ))</errorConditionFormula>
+        <errorMessage>Regex doesn&apos;t match example subject.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
 </CustomObject>

@@ -1,6 +1,211 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object used to manage the customer-facing self-service page (help.thumbtack.com).</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
     <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AvailableForCustomers__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>This field is used directly by the page. Setting this to true will make this topic / subtopic available for customers in the self service page.</inlineHelpText>
+        <label>Available for Customers</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>AvailableForProfessionals__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>This field is used directly by the page. Setting this to true will make this topic / subtopic available for pros in the self service page.</inlineHelpText>
+        <label>Available for Professionals</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>AvailableOnSupportPage__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>This field is used directly by the page. Setting this to true will make this topic / sub-topic available to see in the self service page.</inlineHelpText>
+        <label>Available on Support Page</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ConfigExternalID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Config External ID</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>ConfigurationJSON__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>This field is used directly by the page.</inlineHelpText>
+        <label>Configuration JSON</label>
+        <length>10000</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>50</visibleLines>
+    </fields>
+    <fields>
+        <fullName>GAAction__c</fullName>
+        <description>Action for Google Analytics</description>
+        <externalId>false</externalId>
+        <label>GA: Action</label>
+        <length>25</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GACategory__c</fullName>
+        <description>Category for Google Analytics</description>
+        <externalId>false</externalId>
+        <label>GA: Category</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GALabel__c</fullName>
+        <description>Formula field for Google Analytics Label. If SSC is available for customer and pros, returns &quot;Customer and Pro&quot;. If SSC is available for customer only, returns &quot;Customer&quot;. Else, returns &quot;Pro&quot;.</description>
+        <externalId>false</externalId>
+        <formula>IF(( AvailableForCustomers__c &amp;&amp;  AvailableForProfessionals__c ), &quot;Customer and Pro&quot;,  IF(AvailableForCustomers__c, &quot;Customer&quot;, &quot;Pro&quot;) )</formula>
+        <label>GA: Label</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GAValue__c</fullName>
+        <description>Value for Google Analytics</description>
+        <externalId>false</externalId>
+        <label>GA: Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>KnowledgeCategorySortOrder__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>This field is used directly by the page. It determines the sorting for topics / subtopics.</inlineHelpText>
+        <label>Topic Sort Order</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MasterConfiguration__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>This field is used directly by the page. It indicates the default record used by the page when another self-service configuration record is not selected. There should only ever be one self-service record marked as the master.</inlineHelpText>
+        <label>Master Configuration</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PGConfigurationJSON__c</fullName>
+        <description>Text area used to stored JSON to configure the PG (property damage guarantee) form fields and instructions.</description>
+        <externalId>false</externalId>
+        <label>PG Case Field Override JSON</label>
+        <length>10000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ParentId__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>This field is used directly by the page. If there is a parent record, the record is a sub-topic. If there is not a parent record, the record is a topic.</inlineHelpText>
+        <label>Parent</label>
+        <referenceTo>SelfServiceConfiguration__c</referenceTo>
+        <relationshipLabel>Self Service Configurations</relationshipLabel>
+        <relationshipName>ChildConfigurations</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>Self Service Configuration</label>
     <listViews>
         <fullName>x1Topics</fullName>
         <columns>NAME</columns>
@@ -158,4 +363,22 @@
             <role>SystemLevelAccess</role>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Self Service Configuration Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Self Service Configurations</pluralLabel>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>AvailableForCustomers__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>AvailableForProfessionals__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>AvailableOnSupportPage__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ParentId__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>AvailableForCustomers__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>AvailableForProfessionals__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>AvailableOnSupportPage__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ParentId__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

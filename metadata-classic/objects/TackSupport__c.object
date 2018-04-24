@@ -1,5 +1,423 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to store data records pertaining to support content change requests (e.g., requests to change or create email templates, knowledge articles, macros, or quick text).</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>ArticleNumber__c</fullName>
+        <description>The article number of the knowledge article that this content support request is regarding.</description>
+        <externalId>false</externalId>
+        <label>Article Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CompletedBy__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Admin who worked on the issue</description>
+        <externalId>false</externalId>
+        <label>Completed By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>TackSupport</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CreatedByFirstName__c</fullName>
+        <description>The first name of the person who created the Content Support Request. Used as a merge field in Email Templates.</description>
+        <externalId>false</externalId>
+        <formula>CreatedBy.FirstName</formula>
+        <label>Created By First Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DueDate__c</fullName>
+        <description>Date to indicate when the content should be published and available for agent use.</description>
+        <externalId>false</externalId>
+        <label>Due Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EmailNotificationText__c</fullName>
+        <description>Open text area used as a merge field in automated email template alerts.</description>
+        <externalId>false</externalId>
+        <label>Email Notification Text</label>
+        <length>5000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>IfUrgentPleaseExplainWhy__c</fullName>
+        <description>Open text area used for explanation.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Explain why this is an urgent request.</inlineHelpText>
+        <label>If urgent, please explain why:</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>IsThisUrgent__c</fullName>
+        <description>Picklist that describes the urgency of the request.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Urgent requests should only be sent by managers, SMEs, or TLs.</inlineHelpText>
+        <label>Is this urgent?</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>KnowledgeURL__c</fullName>
+        <description>Best Practice or Knowledge Base article link.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Knowledge Base article link</inlineHelpText>
+        <label>Knowledge URL</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>LoggedInUserIsCreator__c</fullName>
+        <description>Formula field to indicate true if the logged in user is the same user as the record creator.  Used for list view creation.</description>
+        <externalId>false</externalId>
+        <formula>CreatedBy.Id = $User.Id</formula>
+        <label>Logged In User is Creator</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>NameOfMacroArticle__c</fullName>
+        <description>Text area to allow users to enter the current titles of Email Templates, Macros, or Knowledge articles that need to be revised.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Ex. Buying credits for the first time</inlineHelpText>
+        <label>Name of macro/article</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PointOfContact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to user that indicates the person to contact for clarification or additional questions.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The person to contact for clarification or additional questions.</inlineHelpText>
+        <label>Point of Contact</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>TackSupportPointOfContact</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Priority__c</fullName>
+        <externalId>false</externalId>
+        <label>Priority</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>High</fullName>
+                    <default>false</default>
+                    <label>High</label>
+                </value>
+                <value>
+                    <fullName>Medium</fullName>
+                    <default>false</default>
+                    <label>Medium</label>
+                </value>
+                <value>
+                    <fullName>Low</fullName>
+                    <default>false</default>
+                    <label>Low</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>PublishDate__c</fullName>
+        <description>The date the macro, article, or alert message is published.</description>
+        <externalId>false</externalId>
+        <label>Publish Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>ReasonForRequest__c</fullName>
+        <description>Text area that allows users to describe why the new content is needed or why the existing content needs to be revised.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Help us understand why this is needed. Ex: The process has changed slightly. Step three should say, “X” instead of “Y.”</inlineHelpText>
+        <label>Reason for Request</label>
+        <length>5000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Resolution__c</fullName>
+        <description>Resolution of the Tack issue by admin</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Resolution of the Tack issue by admin</inlineHelpText>
+        <label>Resolution</label>
+        <length>32768</length>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>RoughDraftOfContent__c</fullName>
+        <description>Text area to allow users to enter in instructions, wording, information, or talking points for the requested support content.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How you would write or update the macro/article. Not sure what to include? See example to the right.</inlineHelpText>
+        <label>Rough draft of content</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>15</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>Field to show the current working status of Tack help request.</description>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>New</fullName>
+                    <default>true</default>
+                    <label>New</label>
+                </value>
+                <value>
+                    <fullName>Submitted</fullName>
+                    <default>false</default>
+                    <label>Submitted</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Need More Info</fullName>
+                    <default>false</default>
+                    <label>Need More Info</label>
+                </value>
+                <value>
+                    <fullName>Added to Trello</fullName>
+                    <default>false</default>
+                    <label>Added to Trello</label>
+                </value>
+                <value>
+                    <fullName>Completed</fullName>
+                    <default>false</default>
+                    <label>Completed</label>
+                </value>
+                <value>
+                    <fullName>Canceled</fullName>
+                    <default>false</default>
+                    <label>Canceled</label>
+                </value>
+                <value>
+                    <fullName>Closed</fullName>
+                    <default>false</default>
+                    <label>Closed</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>TypeOfRequest__c</fullName>
+        <description>Picklist of values to describe the type of request the record is.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select an option from the drop-down menu.</inlineHelpText>
+        <label>Type of Content Request</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>New macro</fullName>
+                    <default>false</default>
+                    <label>New macro</label>
+                </value>
+                <value>
+                    <fullName>New knowledge article</fullName>
+                    <default>false</default>
+                    <label>New knowledge article</label>
+                </value>
+                <value>
+                    <fullName>Update or edit to existing content</fullName>
+                    <default>false</default>
+                    <label>Update or edit to existing content</label>
+                </value>
+                <value>
+                    <fullName>Alert message in Help Center</fullName>
+                    <default>false</default>
+                    <label>Alert message in Help Center</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>UnpublishDate__c</fullName>
+        <description>The date the macro, article, or alert message is unpublished.</description>
+        <externalId>false</externalId>
+        <label>Unpublish Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>UpdateType__c</fullName>
+        <description>Picklist whose value describe the type of content update needed.</description>
+        <externalId>false</externalId>
+        <label>Update Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Quick fix</fullName>
+                    <default>false</default>
+                    <label>Quick fix</label>
+                </value>
+                <value>
+                    <fullName>Extensive update</fullName>
+                    <default>false</default>
+                    <label>Extensive update</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Content Support</label>
     <listViews>
         <fullName>ContentRequestHCAlertMessages</fullName>
         <columns>NAME</columns>
@@ -207,4 +625,217 @@
             <roleAndSubordinatesInternal>CustomerSuccessOrganization</roleAndSubordinatesInternal>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Subject</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Content Support</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>ContentRequest</fullName>
+        <active>true</active>
+        <description>Record type used to submit a request for Support Content (e.g., email template, macro, Knowledge article)</description>
+        <label>Content Request</label>
+        <picklistValues>
+            <picklist>IsThisUrgent__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority__c</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Need More Info</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Submitted</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TypeOfRequest__c</picklist>
+            <values>
+                <fullName>Alert message in Help Center</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New knowledge article</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New macro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Update or edit to existing content</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>UpdateType__c</picklist>
+            <values>
+                <fullName>Extensive update</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quick fix</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>TackSupport</fullName>
+        <active>false</active>
+        <description>Record type used to submit a live-ops bug log or tack support help request.</description>
+        <label>Tack Support</label>
+        <picklistValues>
+            <picklist>IsThisUrgent__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority__c</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TypeOfRequest__c</picklist>
+            <values>
+                <fullName>New knowledge article</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New macro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Update or edit to existing content</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>UpdateType__c</picklist>
+            <values>
+                <fullName>Extensive update</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quick fix</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>EmailNotificationTextRequired</fullName>
+        <active>true</active>
+        <description>The email notification text field is required when the status is need more info or canceled.</description>
+        <errorConditionFormula>AND( 
+RecordTypeId = &apos;01Ii000000258Ya&apos;,
+ISBLANK( EmailNotificationText__c ), 
+OR( 
+ISPICKVAL(Status__c, &quot;Need More Info&quot;), 
+ISPICKVAL(Status__c, &quot;Canceled&quot;) 
+) 
+)</errorConditionFormula>
+        <errorDisplayField>EmailNotificationText__c</errorDisplayField>
+        <errorMessage>By setting the status to &quot;Need More Info&quot; or &quot;Canceled&quot; an automatic email will be sent to the creator. Be sure to enter your message before selecting these statuses.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>NameOfContentRequiredOnUpdateType</fullName>
+        <active>true</active>
+        <description>You must enter the name of the macro or article when selecting the update or edit to existing content request type.</description>
+        <errorConditionFormula>RecordTypeId = &apos;01Ii000000258Ya&apos; &amp;&amp;
+ISPICKVAL(TypeOfRequest__c, &quot;Update or edit to existing content&quot;) &amp;&amp;
+ISBLANK( NameOfMacroArticle__c )</errorConditionFormula>
+        <errorDisplayField>NameOfMacroArticle__c</errorDisplayField>
+        <errorMessage>You must enter the name of the macro or article when selecting the update or edit to existing content request type.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>UrgentExplanationRequired</fullName>
+        <active>true</active>
+        <description>Requires an explanation if marked as urgent.</description>
+        <errorConditionFormula>RecordTypeId = &apos;01Ii000000258Ya&apos; &amp;&amp;
+ISPICKVAL(IsThisUrgent__c, &quot;Yes&quot;) &amp;&amp;
+ISBLANK(IfUrgentPleaseExplainWhy__c)</errorConditionFormula>
+        <errorDisplayField>IfUrgentPleaseExplainWhy__c</errorDisplayField>
+        <errorMessage>Please enter your explanation for urgency.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
 </CustomObject>

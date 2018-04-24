@@ -1,5 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Preview</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Category</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Channel</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <description>Description of how/when the quick text should be used.</description>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>500</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Message</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Name</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>OwnerId</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
     <listViews>
         <fullName>AllQuickText</fullName>
         <columns>Name</columns>
@@ -52,4 +127,118 @@
             <roleAndSubordinatesInternal>CustomerSuccessOrganization</roleAndSubordinatesInternal>
         </sharedTo>
     </listViews>
+    <recordTypes>
+        <fullName>CustomerSupport</fullName>
+        <active>true</active>
+        <label>Customer Support</label>
+        <picklistValues>
+            <picklist>Category</picklist>
+            <values>
+                <fullName>Account%2FProfile</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Category%2FTravel Preferences</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closing Statements</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credits%2FPricing%2FPayment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer%2FPro Communication %28messaging%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Editing Media</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email%2FPassword%2FLogin</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Escalations%2FBugs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Escalations%2FBugs%3B Marketplace Integrity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Getting Started</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Greetings</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Hiring%3B Quotes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Landing Page and Widgets</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile Site and App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Notifications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reviews</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Salutation%2FClosing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trust and Safety Guidelines</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Channel</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Live Agent</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>LiveMessage</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>Message</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Category</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Channel</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Message</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Category</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Channel</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Message</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Category</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Channel</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Message</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Category</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Channel</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
 </CustomObject>

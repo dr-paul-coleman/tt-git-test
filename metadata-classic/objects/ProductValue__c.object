@@ -1,6 +1,397 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to store records relating to Product feedback (e.g., category values, level 2 feedback categorization values).</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
     <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AvailableInHelpCenter__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This field determines whether or not this product value is available for customers to select from the feedback / suggestion box page.</description>
+        <externalId>false</externalId>
+        <label>Available in Help Center</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>DefaultHelpCenterFeedbackL0__c</fullName>
+        <externalId>false</externalId>
+        <label>Default Help Center Feedback L0</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Account / Profile</fullName>
+                    <default>false</default>
+                    <label>Account / Profile</label>
+                </value>
+                <value>
+                    <fullName>Quoting and Payment</fullName>
+                    <default>false</default>
+                    <label>Quoting and Payment</label>
+                </value>
+                <value>
+                    <fullName>Requests / Projects</fullName>
+                    <default>false</default>
+                    <label>Requests / Projects</label>
+                </value>
+                <value>
+                    <fullName>Site Feedback</fullName>
+                    <default>false</default>
+                    <label>Site Feedback</label>
+                </value>
+                <value>
+                    <fullName>Mobile</fullName>
+                    <default>false</default>
+                    <label>Mobile</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>DefaultHelpCenterFeedbackL1__c</fullName>
+        <externalId>false</externalId>
+        <label>Default Help Center Feedback L1</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>DefaultHelpCenterFeedbackL0__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Travel Preferences</fullName>
+                    <default>false</default>
+                    <label>Travel Preferences</label>
+                </value>
+                <value>
+                    <fullName>Notifications</fullName>
+                    <default>false</default>
+                    <label>Notifications</label>
+                </value>
+                <value>
+                    <fullName>Profile Social Media links</fullName>
+                    <default>false</default>
+                    <label>Profile Social Media links</label>
+                </value>
+                <value>
+                    <fullName>Profile credentials</fullName>
+                    <default>false</default>
+                    <label>Profile credentials</label>
+                </value>
+                <value>
+                    <fullName>General Profile Feedback</fullName>
+                    <default>false</default>
+                    <label>General Profile Feedback</label>
+                </value>
+                <value>
+                    <fullName>Reviews</fullName>
+                    <default>false</default>
+                    <label>Reviews</label>
+                </value>
+                <value>
+                    <fullName>Quote Flow</fullName>
+                    <default>false</default>
+                    <label>Quote Flow</label>
+                </value>
+                <value>
+                    <fullName>Cost to quote</fullName>
+                    <default>false</default>
+                    <label>Cost to quote</label>
+                </value>
+                <value>
+                    <fullName>Payment Methods</fullName>
+                    <default>false</default>
+                    <label>Payment Methods</label>
+                </value>
+                <value>
+                    <fullName>Filtering / Sorting Quotes</fullName>
+                    <default>false</default>
+                    <label>Filtering / Sorting Quotes</label>
+                </value>
+                <value>
+                    <fullName>Getting feedback from customers</fullName>
+                    <default>false</default>
+                    <label>Getting feedback from customers</label>
+                </value>
+                <value>
+                    <fullName>Quality of Requests</fullName>
+                    <default>false</default>
+                    <label>Quality of Requests</label>
+                </value>
+                <value>
+                    <fullName>General Request / Project Feedback</fullName>
+                    <default>false</default>
+                    <label>General Request / Project Feedback</label>
+                </value>
+                <value>
+                    <fullName>Filtering / Sorting Requests</fullName>
+                    <default>false</default>
+                    <label>Filtering / Sorting Requests</label>
+                </value>
+                <value>
+                    <fullName>Thumbtack expansion</fullName>
+                    <default>false</default>
+                    <label>Thumbtack expansion</label>
+                </value>
+                <value>
+                    <fullName>Grammar/Spelling/Layout</fullName>
+                    <default>false</default>
+                    <label>Grammar/Spelling/Layout</label>
+                </value>
+                <value>
+                    <fullName>Support / Help Center</fullName>
+                    <default>false</default>
+                    <label>Support / Help Center</label>
+                </value>
+                <value>
+                    <fullName>Things we advertise</fullName>
+                    <default>false</default>
+                    <label>Things we advertise</label>
+                </value>
+                <value>
+                    <fullName>Positive Feedback</fullName>
+                    <default>false</default>
+                    <label>Positive Feedback</label>
+                </value>
+                <value>
+                    <fullName>Search engine pages / Spotlight</fullName>
+                    <default>false</default>
+                    <label>Search engine pages / Spotlight</label>
+                </value>
+                <value>
+                    <fullName>Mobile Apps</fullName>
+                    <default>false</default>
+                    <label>Mobile Apps</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Account / Profile</controllingFieldValue>
+                <valueName>Travel Preferences</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account / Profile</controllingFieldValue>
+                <valueName>Notifications</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account / Profile</controllingFieldValue>
+                <valueName>Profile Social Media links</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account / Profile</controllingFieldValue>
+                <valueName>Profile credentials</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account / Profile</controllingFieldValue>
+                <valueName>General Profile Feedback</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account / Profile</controllingFieldValue>
+                <valueName>Reviews</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Quoting and Payment</controllingFieldValue>
+                <valueName>Quote Flow</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Quoting and Payment</controllingFieldValue>
+                <valueName>Cost to quote</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Quoting and Payment</controllingFieldValue>
+                <valueName>Payment Methods</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Quoting and Payment</controllingFieldValue>
+                <valueName>Filtering / Sorting Quotes</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Quoting and Payment</controllingFieldValue>
+                <valueName>Getting feedback from customers</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Quoting and Payment</controllingFieldValue>
+                <controllingFieldValue>Site Feedback</controllingFieldValue>
+                <controllingFieldValue>Mobile</controllingFieldValue>
+                <valueName>Other</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Requests / Projects</controllingFieldValue>
+                <valueName>Quality of Requests</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Requests / Projects</controllingFieldValue>
+                <valueName>General Request / Project Feedback</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Requests / Projects</controllingFieldValue>
+                <valueName>Filtering / Sorting Requests</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Site Feedback</controllingFieldValue>
+                <valueName>Thumbtack expansion</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Site Feedback</controllingFieldValue>
+                <valueName>Grammar/Spelling/Layout</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Site Feedback</controllingFieldValue>
+                <valueName>Support / Help Center</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Site Feedback</controllingFieldValue>
+                <valueName>Things we advertise</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Site Feedback</controllingFieldValue>
+                <valueName>Positive Feedback</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Site Feedback</controllingFieldValue>
+                <valueName>Search engine pages / Spotlight</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Mobile</controllingFieldValue>
+                <valueName>Mobile Apps</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>ValueType__c</fullName>
+        <externalId>false</externalId>
+        <label>Value Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Category</fullName>
+                    <default>false</default>
+                    <label>Category</label>
+                </value>
+                <value>
+                    <fullName>Level 2</fullName>
+                    <default>true</default>
+                    <label>Level 2</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>rca_active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Request Category Active</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>rca_delete_time__c</fullName>
+        <externalId>false</externalId>
+        <label>Request Category Delete Time</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>rca_keywords__c</fullName>
+        <externalId>false</externalId>
+        <label>Request Category Keywords</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>rca_request_category_id__c</fullName>
+        <externalId>true</externalId>
+        <label>Request Category Id</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>true</unique>
+    </fields>
+    <label>Product Value</label>
     <listViews>
         <fullName>All</fullName>
         <columns>NAME</columns>
@@ -124,4 +515,155 @@
             <role>SharedServicesUserTSL</role>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Value</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Product Values</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>true</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>ProductFeedback</fullName>
+        <active>true</active>
+        <description>Record type used to manage Product Feedback categories and levels.</description>
+        <label>Product Feedback</label>
+        <picklistValues>
+            <picklist>DefaultHelpCenterFeedbackL0__c</picklist>
+            <values>
+                <fullName>Account %2F Profile</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quoting and Payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Requests %2F Projects</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Site Feedback</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>DefaultHelpCenterFeedbackL1__c</picklist>
+            <values>
+                <fullName>Cost to quote</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Filtering %2F Sorting Quotes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Filtering %2F Sorting Requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>General Profile Feedback</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>General Request %2F Project Feedback</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Getting feedback from customers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Grammar%2FSpelling%2FLayout</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile Apps</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Notifications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment Methods</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Positive Feedback</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Profile Social Media links</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Profile credentials</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quality of Requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quote Flow</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reviews</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Search engine pages %2F Spotlight</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Support %2F Help Center</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Things we advertise</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Thumbtack expansion</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Travel Preferences</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ValueType__c</picklist>
+            <values>
+                <fullName>Category</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Level 2</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>ValueType__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>rca_request_category_id__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CREATED_DATE</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>ValueType__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>RECORDTYPE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATEDBY_USER</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATED_DATE</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

@@ -1,5 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>Channel__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Channel</label>
+        <referenceTo>HCConfigChannel__c</referenceTo>
+        <relationshipLabel>Channel Assignments</relationshipLabel>
+        <relationshipName>ChannelAssignmentLookup</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Experience__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Experience</label>
+        <referenceTo>HCConfigExperience__c</referenceTo>
+        <relationshipLabel>Channel Assignments</relationshipLabel>
+        <relationshipName>ExperienceChannelLookup</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SortOrder__c</fullName>
+        <description>Number field indicating the order the channels would be displayed in.</description>
+        <externalId>false</externalId>
+        <label>Sort Order</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Subtopic__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Subtopic</label>
+        <referenceTo>HCConfigSubtopic__c</referenceTo>
+        <relationshipLabel>Channel Assignments</relationshipLabel>
+        <relationshipName>SubtopicChannelAssignment</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>VisibleOnDesktop__c</fullName>
+        <description>Formula field to display the Channel records desktop visibility setting; used in related list views.</description>
+        <externalId>false</externalId>
+        <formula>Channel__r.AvailableOnDesktop__c</formula>
+        <label>Visible on Desktop</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>VisibleOnMobile__c</fullName>
+        <description>Formula field to display the mobile visibility setting for the channel; used in related list views.</description>
+        <externalId>false</externalId>
+        <formula>Channel__r.AvailableOnMobile__c</formula>
+        <label>Visible on Mobile</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>HC Config: Channel Assignment</label>
     <listViews>
         <fullName>All</fullName>
         <columns>SortOrder__c</columns>
@@ -10,4 +130,138 @@
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Channel Assignments</pluralLabel>
+    <recordTypes>
+        <fullName>ExperienceChannelAssignment</fullName>
+        <active>true</active>
+        <description>Record type used to manage the help center experience channel assignments.</description>
+        <label>Experience Channel Assignment</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>SubtopicChannelAssignment</fullName>
+        <active>true</active>
+        <description>Record type used to manage help center experience channel assignments specific to subtopics.</description>
+        <label>Subtopic Channel Assignment</label>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>AssignEmail</fullName>
+        <availability>online</availability>
+        <description>Custom button to assign the email channel to the subtopic.</description>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Assign Email</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/a0k/e?CF00N3100000H6biN={!HCConfigSubtopic__c.Name}&amp;CF00N3100000H6biN_lkid={!HCConfigSubtopic__c.Id}&amp;RecordType=01231000000y2yx&amp;Name=Email%20Channel%20Assignment&amp;CF00N3100000H6biK=Email%20Us%20&amp;CF00N3100000H6biK_lkid=a0l3100000CofRz&amp;retURL={!HCConfigSubtopic__c.Id}&amp;saveURL={!HCConfigSubtopic__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>AssignExpertPro</fullName>
+        <availability>online</availability>
+        <description>Quick button that prepopulates the new assignment record.</description>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Assign Expert Pro</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>/a0k/e?CF00N3100000H6biN={!HCConfigSubtopic__c.Name}&amp;CF00N3100000H6biN_lkid={!HCConfigSubtopic__c.Id}&amp;RecordType=01231000000y2yx&amp;Name=Ask%20a%20Pro%20Expert%20Channel%20Assignment&amp;CF00N3100000H6biK=Ask%20a%20Pro%20Expert&amp;CF00N3100000H6biK_lkid=a0l0Z00000Equck&amp;retURL={!HCConfigSubtopic__c.Id}&amp;saveURL={!HCConfigSubtopic__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>AssignLiveChat</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Assign Live Chat</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>/a0k/e?CF00N3100000H6biN={!HCConfigSubtopic__c.Name}&amp;CF00N3100000H6biN_lkid={!HCConfigSubtopic__c.Id}&amp;RecordType=01231000000y2yx&amp;Name=Live%20Chat%20Channel%20Assignment&amp;CF00N3100000H6biK=Live%20Chat%20&amp;CF00N3100000H6biK_lkid=a0l3100000CofRf&amp;retURL={!HCConfigSubtopic__c.Id}&amp;saveURL={!HCConfigSubtopic__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>AssignMessenger</fullName>
+        <availability>online</availability>
+        <description>Custom button to assign the messenger channel to the subtopic.</description>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Assign Messenger</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/a0k/e?CF00N3100000H6biN={!HCConfigSubtopic__c.Name}&amp;CF00N3100000H6biN_lkid={!HCConfigSubtopic__c.Id}&amp;RecordType=01231000000y2yx&amp;Name=Messenger%20Channel%20Assignment&amp;CF00N3100000H6biK=Messenger&amp;CF00N3100000H6biK_lkid=a0l3100000CofRa&amp;retURL={!HCConfigSubtopic__c.Id}&amp;saveURL={!HCConfigSubtopic__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>AssignPhone</fullName>
+        <availability>online</availability>
+        <description>Custom button to assign the Call us phone channel card to this subtopic.</description>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Assign Phone</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/a0k/e?CF00N3100000H6biN={!HCConfigSubtopic__c.Name}&amp;CF00N3100000H6biN_lkid={!HCConfigSubtopic__c.Id}&amp;RecordType=01231000000y2yx&amp;Name=Phone%20Channel%20Assignment&amp;CF00N3100000H6biK=Call%20Us&amp;CF00N3100000H6biK_lkid=a0l3100000CofS4&amp;retURL={!HCConfigSubtopic__c.Id}&amp;saveURL={!HCConfigSubtopic__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>AssignText</fullName>
+        <availability>online</availability>
+        <description>Custom button that will prepopulate the Text Us channel card assignment.</description>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Assign Text</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>/a0k/e?CF00N3100000H6biN={!HCConfigSubtopic__c.Name}&amp;CF00N3100000H6biN_lkid={!HCConfigSubtopic__c.Id}&amp;RecordType=01231000000y2yx&amp;Name=Text%20Channel%20Assignment&amp;CF00N3100000H6biK=Text%20Us&amp;CF00N3100000H6biK_lkid=a0l3100000CofRQ&amp;retURL={!HCConfigSubtopic__c.Id}&amp;saveURL={!HCConfigSubtopic__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>NewExperienceChannelAssignment</fullName>
+        <availability>online</availability>
+        <description>New button override for Related List views; prepopulates information</description>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>New Channel Assignment</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>/a0k/e?CF00N3100000H6biL={!HCConfigExperience__c.Name}&amp;CF00N3100000H6biL_lkid={!HCConfigExperience__c.Id}&amp;RecordType=01231000000y2yw&amp;Name=Channel%20Assignment&amp;retURL={!HCConfigExperience__c.Id}&amp;saveURL={!HCConfigExperience__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>NewSubtopicChannelAssignment</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>New Subtopic Channel Assignment</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>/a12/e?CF00Ng0000001skAP={!HCConfigSubtopic__c.Name}&amp;CF00Ng0000001skAP_lkid={!HCConfigSubtopic__c.Id}&amp;RecordType=012g00000005LSS&amp;Name=Channel%20Assignment&amp;retURL={!HCConfigSubtopic__c.Id}&amp;saveURL={!HCConfigSubtopic__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>NewTopicChannelAssignment</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>New Topic Channel Assignment</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>/a12/e?CF00Ng0000001skAQ={!HCConfigTopic__c.Name}&amp;CF00Ng0000001skAQ_lkid={!HCConfigTopic__c.Id}&amp;RecordType=012g00000005LST&amp;Name=Channel%20Assignment&amp;retURL={!HCConfigTopic__c.Id}</url>
+    </webLinks>
 </CustomObject>

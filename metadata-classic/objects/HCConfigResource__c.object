@@ -1,5 +1,191 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AvailableForHeader__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Available for Header</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Badge__c</fullName>
+        <description>Text area to store the text used for a clarifier message in the upper right hand corner of the resource card.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Text area to store the text used for a clarifier message in the upper right hand corner of the resource card.</inlineHelpText>
+        <label>Badge</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Icon__c</fullName>
+        <description>Text field to store the code of the icon used on the help center resource card.</description>
+        <externalId>false</externalId>
+        <label>Icon</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LinkText__c</fullName>
+        <description>The callout text that shows up in blue on the resource tile.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The callout text that shows up in blue on the resource tile.</inlineHelpText>
+        <label>Link Text</label>
+        <length>255</length>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>The publication status of the help center resource (e.g., video library, suggestion box)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Draft: resource card is being built out 
+Needs approval: resource card needs final approval before making it visible to site visitors 
+Publish: resource is made available for use on the public help center 
+Archive: resource card is no longer visible</inlineHelpText>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Draft</fullName>
+                    <default>false</default>
+                    <label>Draft</label>
+                </value>
+                <value>
+                    <fullName>Needs approval</fullName>
+                    <default>false</default>
+                    <label>Needs approval</label>
+                </value>
+                <value>
+                    <fullName>Published</fullName>
+                    <default>false</default>
+                    <label>Published</label>
+                </value>
+                <value>
+                    <fullName>Archived</fullName>
+                    <default>false</default>
+                    <label>Archived</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Summary__c</fullName>
+        <description>Long text area to store the summary / instructional text for the resource card.</description>
+        <externalId>false</externalId>
+        <label>Summary</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Title__c</fullName>
+        <description>The title of the resource tile on the help center</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The title of the resource tile on the help center.</inlineHelpText>
+        <label>Title</label>
+        <length>255</length>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>URL__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>URL navigated to when the resource card is clicked.  Internal URLs should be like &quot;/videos&quot; and external links should be full URLs with domain like &quot;https://www.thumbtak.com/blah/blah&quot;</inlineHelpText>
+        <label>URL</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Version__c</fullName>
+        <description>Open text field to store the version history of the record.</description>
+        <externalId>false</externalId>
+        <label>Version</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>HC Config: Resource</label>
     <listViews>
         <fullName>AllResources</fullName>
         <columns>NAME</columns>
@@ -10,6 +196,7 @@
         <columns>URL__c</columns>
         <columns>LinkText__c</columns>
         <columns>UPDATEDBY_USER</columns>
+        <columns>AvailableForHeader__c</columns>
         <filterScope>Everything</filterScope>
         <filters>
             <field>RECORDTYPE</field>
@@ -97,4 +284,39 @@
             <role>SystemLevelAccess</role>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Resources</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>ResourceCard</fullName>
+        <active>true</active>
+        <description>Record type used to manage help center more resources cards.</description>
+        <label>Resource Card</label>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Archived</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Draft</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Needs approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

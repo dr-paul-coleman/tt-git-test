@@ -1,5 +1,691 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to store records pertaining to quoting service requests.  Records store parsed email data from the request email sent to the professional enrolled in quoting service.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AdminLinktoQuote__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(
+NOT(ISBLANK(EmailSendQuoteLinkPart1__c)),
+HYPERLINK(&quot;https://www.thumbtack.com/admin/login?service_id=&quot;&amp;EmailServiceId__c&amp;&quot;&amp;return_url=/request/&quot;&amp;EmailRequestId__c&amp;&quot;&quot;, &quot;Request ID &quot;&amp;EmailRequestId__c),
+&quot;Link Not Available&quot;
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Admin Link to Quote</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BalanceState__c</fullName>
+        <description>1 = Payment on pros account is in good standing, 2 = Payment on pros account is not in good standing and/or no longer valid. This field is a formula that pulls the current balance state from the related account. The Request trigger handler uses this field to auto update the status.</description>
+        <externalId>false</externalId>
+        <formula>IF( 
+ISPICKVAL(Service__r.ProAccount__r.BillingType__c, &apos;PPC - Manual Invoicing&apos;), 1,
+IF( 
+ISPICKVAL(Service__r.ProAccount__r.BillingType__c, &apos;Pay Per Appointment&apos;), 1,
+IF(
+NOT(ISBLANK(Service__c)), Service__r.ProAccount__r.uct_balance_state__c, 
+NULL 
+)))</formula>
+        <inlineHelpText>1 = Payment on pros account is in good standing, 2 = Payment on pros account is not in good standing and/or no longer valid. Accounts where Billing Type = PPC - Manual Invoicing or Pay Per Appointment will NOT auto pass requests.</inlineHelpText>
+        <label>Balance State</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetFlag__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This check box is used to indicate when a  request was passed on because the budget amount was exceeded.</description>
+        <externalId>false</externalId>
+        <label>Budget Flag</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ContactBudgetPercentage__c</fullName>
+        <externalId>false</externalId>
+        <formula>Service__r.ProAccount__r.ContactBudgetPercentage__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contact Budget Percentage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>CreatedDateTime__c</fullName>
+        <description>Formula field to display the created date and time for the Request__c object; used for reporting and list views.</description>
+        <externalId>false</externalId>
+        <formula>CreatedDate</formula>
+        <label>Created Date/Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>CreditBalance__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(
+NOT(ISBLANK(Service__c)), Service__r.ProAccount__r.CreditBalance__c,
+NULL
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Credit Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EmailFromAddressText__c</fullName>
+        <description>Text field to store the full FROM: address (if over 80 characters).</description>
+        <externalId>false</externalId>
+        <label>Email From Address Text</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EmailFromAddress__c</fullName>
+        <description>Incoming email From address</description>
+        <externalId>false</externalId>
+        <label>Email From Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EmailHTMLBodyLong__c</fullName>
+        <externalId>false</externalId>
+        <label>Email HTML Body Long</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>EmailHTMLBody__c</fullName>
+        <description>The HTML/Text body of the incoming email</description>
+        <externalId>false</externalId>
+        <label>Email HTML Body</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>EmailHeaders__c</fullName>
+        <description>The headers of the incoming email.</description>
+        <externalId>false</externalId>
+        <label>Email Headers</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>EmailMessageId__c</fullName>
+        <description>The Message-ID—the incoming email&apos;s unique identifier.</description>
+        <externalId>false</externalId>
+        <label>Email Message Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>EmailRequestId__c</fullName>
+        <description>Formula field to display the Request ID as found in the Send Quote URL link.</description>
+        <externalId>false</externalId>
+        <formula>EncodedRequestID__c</formula>
+        <label>Email Request Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EmailSendQuoteLinkPart1__c</fullName>
+        <externalId>false</externalId>
+        <label>Email Send Quote Link Part 1</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EmailSendQuoteLinkPart2__c</fullName>
+        <externalId>false</externalId>
+        <label>Email Send Quote Link Part 2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EmailSendQuoteLinkPart3__c</fullName>
+        <externalId>false</externalId>
+        <label>Email Send Quote Link Part 3</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EmailSendQuoteLinkPart4__c</fullName>
+        <externalId>false</externalId>
+        <label>Email Send Quote Link Part 4</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EmailSendQuoteLink__c</fullName>
+        <description>The &quot;Send Quote&quot; URL link as stored in the incoming email body.</description>
+        <externalId>false</externalId>
+        <label>Email &quot;Send Quote&quot; Link</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>EmailServiceId__c</fullName>
+        <externalId>false</externalId>
+        <formula>EncodedServiceID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Email Service Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EmailSubject__c</fullName>
+        <description>The subject of the incoming email.</description>
+        <externalId>false</externalId>
+        <label>Email Subject</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>EmailTextBodyLong__c</fullName>
+        <description>Long text area to store the scrubbed HTML Email Body to remove HTML tagging; field is populated via apex class.</description>
+        <externalId>false</externalId>
+        <label>Email Text Body Long</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>EmailToAddressText__c</fullName>
+        <description>Text field to store the full TO: address (if over 80 characters).</description>
+        <externalId>false</externalId>
+        <label>Email To Address Text</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EmailToAddress__c</fullName>
+        <description>Incoming email To: address</description>
+        <externalId>false</externalId>
+        <label>Email To Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EncodedRequestID__c</fullName>
+        <externalId>false</externalId>
+        <label>Encoded Request ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EncodedServiceID__c</fullName>
+        <description>The encoded serviced ID parsed from the html email body.</description>
+        <externalId>false</externalId>
+        <label>Encoded Service ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FreeTrialStatus__c</fullName>
+        <externalId>false</externalId>
+        <formula>Service__r.FreeTrialStatus__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Free Trial Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LastStatusChange__c</fullName>
+        <description>The date/time the status field changed last.  Used for reporting.</description>
+        <externalId>false</externalId>
+        <label>Last Status Change</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>LastSyncedWithDataPlatform__c</fullName>
+        <externalId>false</externalId>
+        <label>LastSyncedWithDataPlatform</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Notification__c</fullName>
+        <description>Used to display a notification to the user as an alternative to a validation rule.</description>
+        <externalId>false</externalId>
+        <formula>IF(Owner:Queue.Id = &apos;00G31000004pyCq&apos;, IMAGE (&quot;resource/TakeOwnerRequest&quot;, &quot;Ownership&quot;,40,175),
+IF(OwnerId &lt;&gt; $User.Id, IMAGE (&quot;resource/IncorrectRequestOwnerWarning&quot;, &quot;Incorrect&quot;,45,260), 
+NULL 
+))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Notification</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PricingCalculator__c</fullName>
+        <description>Formula field to display a hyperlink to the Pro&apos;s pricing calculator.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK( Service__r.PricingCalculator__c ), &quot;Link not Available&quot;,
+HYPERLINK( Service__r.PricingCalculator__c , &quot;Pricing Calculator for &quot; +  Service__r.Name )
+)</formula>
+        <label>Pricing Calculator</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PurchasedBalance__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+NOT(ISBLANK(Service__c)),  Service__r.ProAccount__r.TotalThumbtackBalance__c, 
+NULL 
+)</formula>
+        <label>Purchased Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>QuotingServiceStatus__c</fullName>
+        <description>Formula field to bring over the quoting service status onto the Request record.  Used in list views and for process builder.</description>
+        <externalId>false</externalId>
+        <formula>TEXT(Service__r.QuotingServiceStatus__c)</formula>
+        <label>Quoting Service Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ReqExternalID__c</fullName>
+        <description>Field to store the Thumbtack product external ID of the Request.  (Note: will not be populated on records created via the email handler).</description>
+        <externalId>true</externalId>
+        <label>Req External ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RequestChargeStatus__c</fullName>
+        <description>The pros balance state when the request was created.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The pros balance state when the request was created.</inlineHelpText>
+        <label>Request Charge Status</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RequestPurchasedBalance__c</fullName>
+        <description>Balance the pro has on their account at the time of request creation, amount is in cents.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Balance the pro has on their account at the time of request creation, amount is in cents.</inlineHelpText>
+        <label>Request Purchased Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SendQuoteLink__c</fullName>
+        <description>Formula field to combine the parts of the long URL for the request.  Used in list views.</description>
+        <externalId>false</externalId>
+        <formula>IF(
+ISBLANK(EmailSendQuoteLinkPart1__c),&quot;Link not available&quot;,
+HYPERLINK(
+  SUBSTITUTE(EmailSendQuoteLinkPart1__c, &quot;&amp;amp;&quot;,&quot;&amp;&quot;) +  
+  SUBSTITUTE(EmailSendQuoteLinkPart2__c, &quot;&amp;amp;&quot;,&quot;&amp;&quot;) +  
+  SUBSTITUTE(EmailSendQuoteLinkPart3__c, &quot;&amp;amp;&quot;,&quot;&amp;&quot;) + 
+  SUBSTITUTE(EmailSendQuoteLinkPart4__c, &quot;&amp;amp;&quot;,&quot;&amp;&quot;), 
+IMAGE(&quot;resource/SendQuoteLinkImage&quot;,&quot;Send Quote&quot;, 20,80))
+)</formula>
+        <label>Send Quote Link</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Service__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the Pro Assistant Profile (aka Service) record.</description>
+        <externalId>false</externalId>
+        <label>Service</label>
+        <referenceTo>Service__c</referenceTo>
+        <relationshipLabel>Requests</relationshipLabel>
+        <relationshipName>Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>StatusNotes__c</fullName>
+        <description>Used for notes about why a status was selected.</description>
+        <externalId>false</externalId>
+        <label>Status Notes</label>
+        <length>5000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>Picklist whose values indicate the status of the request record.</description>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>New</fullName>
+                    <default>true</default>
+                    <label>New</label>
+                </value>
+                <value>
+                    <fullName>Quoted</fullName>
+                    <default>false</default>
+                    <label>Quoted</label>
+                </value>
+                <value>
+                    <fullName>Passed</fullName>
+                    <default>false</default>
+                    <label>Passed</label>
+                </value>
+                <value>
+                    <fullName>Forward (Sent to Pro)</fullName>
+                    <default>false</default>
+                    <label>Forward (Sent to Pro)</label>
+                </value>
+                <value>
+                    <fullName>No Action Needed</fullName>
+                    <default>false</default>
+                    <label>No Action Needed</label>
+                </value>
+                <value>
+                    <fullName>Pro Already Quoted</fullName>
+                    <default>false</default>
+                    <label>Pro Already Quoted</label>
+                </value>
+                <value>
+                    <fullName>Pricing Calculator Error</fullName>
+                    <default>false</default>
+                    <label>Pricing Calculator Error</label>
+                </value>
+                <value>
+                    <fullName>Pro Paused</fullName>
+                    <default>false</default>
+                    <label>Pro Paused</label>
+                </value>
+                <value>
+                    <fullName>Max Contact Reached</fullName>
+                    <default>false</default>
+                    <label>Max Contact Reached</label>
+                </value>
+                <value>
+                    <fullName>DNQ In Pricing Calculator</fullName>
+                    <default>false</default>
+                    <label>DNQ In Pricing Calculator</label>
+                </value>
+                <value>
+                    <fullName>No PC Template For Category</fullName>
+                    <default>false</default>
+                    <label>No PC Template For Category</label>
+                </value>
+                <value>
+                    <fullName>Expired/Inactive Request</fullName>
+                    <default>false</default>
+                    <label>Expired/Inactive Request</label>
+                </value>
+                <value>
+                    <fullName>No Credits - Cant Quote</fullName>
+                    <default>false</default>
+                    <label>No Credits - Cant Quote</label>
+                </value>
+                <value>
+                    <fullName>No Balance - Cant Quote</fullName>
+                    <default>false</default>
+                    <label>No Balance - Cant Quote</label>
+                </value>
+                <value>
+                    <fullName>Weekly Budget Limit Hit - Passed</fullName>
+                    <default>false</default>
+                    <label>Weekly Budget Limit Hit - Passed</label>
+                </value>
+                <value>
+                    <fullName>Other - Passed</fullName>
+                    <default>false</default>
+                    <label>Other - Passed</label>
+                </value>
+                <value>
+                    <fullName>Negative Balance</fullName>
+                    <default>false</default>
+                    <label>Negative Balance</label>
+                </value>
+                <value>
+                    <fullName>No Related Service</fullName>
+                    <default>false</default>
+                    <label>No Related Service</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>SubscriptionType__c</fullName>
+        <description>Formula to bring over the Service subscription type to the Request record.  Used in list views and workflows/process.</description>
+        <externalId>false</externalId>
+        <formula>TEXT(Service__r.ProAssistantSubscriptionType__c)</formula>
+        <label>Subscription Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TimetoQuoteInHours__c</fullName>
+        <description>The time from created date to the time the status changed  (in hours).</description>
+        <externalId>false</externalId>
+        <formula>(LastStatusChange__c - CreatedDate)*24</formula>
+        <label>Time to Quote (in Hours)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TimetoQuoteinMinutes__c</fullName>
+        <description>Formula field to calculate the time difference between the create date and the last status change date.  Displayed in minutes.</description>
+        <externalId>false</externalId>
+        <formula>(LastStatusChange__c - CreatedDate)*1440</formula>
+        <label>Time to Quote (in Minutes)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>UrlParms__c</fullName>
+        <description>A debug field holding JSON version of Pro Request URL query string parms</description>
+        <externalId>false</externalId>
+        <label>Url Parms</label>
+        <length>2000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <label>Request</label>
     <listViews>
         <fullName>All</fullName>
         <columns>NAME</columns>
@@ -504,4 +1190,226 @@
             <roleAndSubordinatesInternal>SAM_Managing_User</roleAndSubordinatesInternal>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Request Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Requests</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>ProAssistanceRequest</fullName>
+        <active>true</active>
+        <description>Record type used to manage the requests for Pro&apos;s who are enrolled in the Pro Assistance or Quoting Service programs.</description>
+        <label>Pro Assistance Request</label>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>DNQ In Pricing Calculator</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Expired%2FInactive Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Forward %28Sent to Pro%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Max Contact Reached</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Negative Balance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>No Balance - Cant Quote</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Credits - Cant Quote</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No PC Template For Category</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Related Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other - Passed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pricing Calculator Error</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro Already Quoted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro Paused</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quoted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Weekly Budget Limit Hit - Passed</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <listViewButtons>TakeaRequest</listViewButtons>
+        <searchResultsAdditionalFields>EncodedServiceID__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Service__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATED_DATE</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>PreventStatusChangeInQueue</fullName>
+        <active>true</active>
+        <description>Prevents someone from updating the status of a request if it is owned by the Pro Assistance queue.</description>
+        <errorConditionFormula>AND(
+Owner:Queue.Id = &apos;00G31000004pyCq&apos;,
+ISCHANGED(Status__c)
+)</errorConditionFormula>
+        <errorDisplayField>Status__c</errorDisplayField>
+        <errorMessage>You cannot change the status of a Request when it is owned by the Pro Assistance queue. Please take ownership of this request, then update the Status.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>NextRequest</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Next Request</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/35.0/connection.js&quot;)}
+var reqObj = new sforce.SObject(&quot;Request__c&quot;);
+var result = sforce.connection.query(&quot;SELECT id, ownerid,service__r.ProAssistantManagedBy__c FROM Request__c WHERE ownerid = &apos;00G31000004pyCq&apos; AND service__r.ProAssistantManagedBy__c = &apos;Enterprise&apos; ORDER BY createddate ASC LIMIT 1&quot;);
+var records = result.getArray(&quot;records&quot;);
+if (records.length &gt; 0){
+    var id = records[0].Id;
+    reqObj.Id = id;
+    reqObj.OwnerId = &apos;{!$User.Id}&apos;;
+    var result = sforce.connection.update([reqObj]);
+    window.open(&quot;/&quot; + id, &quot;_self&quot;);
+    
+} else {
+    var result = sforce.connection.query(&quot;SELECT id, ownerid FROM Request__c WHERE ownerid = &apos;00G31000004pyCq&apos; ORDER BY createddate ASC LIMIT 1&quot;);
+    
+    var records = result.getArray(&quot;records&quot;);
+    if (records.length &gt; 0){
+        var id = records[0].Id;
+        reqObj.Id = id;
+        reqObj.OwnerId = &apos;{!$User.Id}&apos;;
+        var result = sforce.connection.update([reqObj]);
+        window.open(&quot;/&quot; + id, &quot;_self&quot;);
+        
+
+    }else {        
+    /// This needs to be better
+        alert (&quot;No request to take&quot;);}
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Status_Passed</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Status Passed</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/35.0/connection.js&quot;)} 
+
+var reqObj = new sforce.SObject(&apos;Request__c&apos;); 
+reqObj.Id = &apos;{!Request__c.Id}&apos;; 
+reqObj.Status__c = &apos;Passed&apos;; 
+var result = sforce.connection.update([reqObj]); 
+
+if (result[0].success==&apos;false&apos;) { 
+alert(result[0].errors.message); 
+} else { 
+location.reload(true); 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Status_Quoted</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Status Quoted</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/35.0/connection.js&quot;)} 
+
+var reqObj = new sforce.SObject(&apos;Request__c&apos;); 
+reqObj.Id = &apos;{!Request__c.Id}&apos;; 
+reqObj.Status__c = &apos;Quoted&apos;;
+var result = sforce.connection.update([reqObj]); 
+
+if (result[0].success==&apos;false&apos;) { 
+alert(result[0].errors.message); 
+} else {
+location.reload(true); 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>TakeOwnership</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Take Ownership</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/35.0/connection.js&quot;)} 
+
+var reqObj = new sforce.SObject(&apos;Request__c&apos;); 
+reqObj.Id = &apos;{!Request__c.Id}&apos;; 
+reqObj.OwnerId = &apos;{!$User.Id}&apos;; 
+var result = sforce.connection.update([reqObj]); 
+
+if (result[0].success==&apos;false&apos;) { 
+alert(result[0].errors.message); 
+} else { 
+location.reload(true); 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>TakeaRequest</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Take a Request</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/35.0/connection.js&quot;)}
+var reqObj = new sforce.SObject(&quot;Request__c&quot;);
+var result = sforce.connection.query(&quot;SELECT id, ownerid FROM Request__c WHERE ownerid = &apos;00G31000004pyCq&apos; ORDER BY createddate ASC LIMIT 1&quot;);
+var records = result.getArray(&quot;records&quot;);
+if (records.length &gt; 0){
+var id = records[0].Id;
+reqObj.Id = id;
+reqObj.OwnerId = &apos;{!$User.Id}&apos;;
+var result = sforce.connection.update([reqObj]);
+window.open(&quot;/&quot; + id, &quot;_self&quot;);
+} else {
+/// This needs to be better
+alert (&quot;No request to take&quot;);
+}</url>
+    </webLinks>
 </CustomObject>

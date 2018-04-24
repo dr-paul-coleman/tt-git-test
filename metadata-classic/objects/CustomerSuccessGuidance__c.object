@@ -1,6 +1,420 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to store records guiding customer success in the support of Thumbtack Pro&apos;s and Customers (e.g., User Flags).</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
     <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the Pro or Customer account.</description>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Customer Success Guidance</relationshipLabel>
+        <relationshipName>CustomerSuccessGuidance</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ApprovedBy__c</fullName>
+        <description>Name of the manager who approved the flag being added.</description>
+        <externalId>false</externalId>
+        <label>Approved By</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ApprovedDate__c</fullName>
+        <description>Date the user flag was approved by the manager.</description>
+        <externalId>false</externalId>
+        <label>Approved Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>CSFlagType__c</fullName>
+        <description>Picklist of values to indicate the type of flag the contact should have.  Used by customer support agents.</description>
+        <externalId>false</externalId>
+        <label>CS Flag Type</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Banned from Facebook Page</fullName>
+                    <default>false</default>
+                    <label>Banned from Facebook Page</label>
+                </value>
+                <value>
+                    <fullName>Circumventing Customer Contact</fullName>
+                    <default>false</default>
+                    <label>Circumventing Customer Contact</label>
+                </value>
+                <value>
+                    <fullName>Customer Contact Program</fullName>
+                    <default>false</default>
+                    <label>Customer Contact Program</label>
+                </value>
+                <value>
+                    <fullName>Fake Requests</fullName>
+                    <default>false</default>
+                    <label>Fake Requests</label>
+                </value>
+                <value>
+                    <fullName>Frequent Caller</fullName>
+                    <default>false</default>
+                    <label>Frequent Caller</label>
+                </value>
+                <value>
+                    <fullName>Instant Match Early Enrollment</fullName>
+                    <default>false</default>
+                    <label>Instant Match Early Enrollment</label>
+                </value>
+                <value>
+                    <fullName>Instant Match Program</fullName>
+                    <default>false</default>
+                    <label>Instant Match Program</label>
+                </value>
+                <value>
+                    <fullName>Managed Account</fullName>
+                    <default>false</default>
+                    <label>Managed Account</label>
+                </value>
+                <value>
+                    <fullName>Non-Discrimination Policy Notice</fullName>
+                    <default>false</default>
+                    <label>Non-Discrimination Policy Notice</label>
+                </value>
+                <value>
+                    <fullName>Potential Managed Account</fullName>
+                    <default>false</default>
+                    <label>Potential Managed Account</label>
+                </value>
+                <value>
+                    <fullName>Pro Assistant Program</fullName>
+                    <default>false</default>
+                    <label>Pro Assistant Program</label>
+                </value>
+                <value>
+                    <fullName>Pro Success</fullName>
+                    <default>false</default>
+                    <label>Pro Success</label>
+                </value>
+                <value>
+                    <fullName>Quoting Service Program</fullName>
+                    <default>false</default>
+                    <label>Quoting Service Program</label>
+                </value>
+                <value>
+                    <fullName>Repeated Refund Requests</fullName>
+                    <default>false</default>
+                    <label>Repeated Refund Requests</label>
+                </value>
+                <value>
+                    <fullName>Security Code</fullName>
+                    <default>false</default>
+                    <label>Security Code</label>
+                </value>
+                <value>
+                    <fullName>Top Pro</fullName>
+                    <default>false</default>
+                    <label>Top Pro</label>
+                </value>
+                <value>
+                    <fullName>Unprofessional Behavior</fullName>
+                    <default>false</default>
+                    <label>Unprofessional Behavior</label>
+                </value>
+                <value>
+                    <fullName>Unprofessional Behavior towards Agent</fullName>
+                    <default>false</default>
+                    <label>Unprofessional Behavior towards Agent</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the case that the flag originated from.</description>
+        <externalId>false</externalId>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>Customer Success Guidance</relationshipLabel>
+        <relationshipName>CustomerSuccessGuidance</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the contact.</description>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Customer Success Guidance</relationshipLabel>
+        <relationshipName>CustomerSuccessGuidance</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>FlagExplanation__c</fullName>
+        <description>Open text for Customer Success agents to enter relevant contact-level notes.</description>
+        <externalId>false</externalId>
+        <label>Flag Explanation</label>
+        <length>2000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>FlagInstruction__c</fullName>
+        <defaultValue>&quot;A User Flag will be added to the Pro or Customer&apos;s account.  Do not use this feature as a Case Post.&quot;</defaultValue>
+        <description>Read only text area used for instructional purposes.</description>
+        <externalId>false</externalId>
+        <label>Flag Instruction</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FlagType__c</fullName>
+        <description>Formula field to display the overall flag type; used in list views.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(TEXT(MIFlagType__c)), TEXT(CSFlagType__c), TEXT(MIFlagType__c))</formula>
+        <label>Flag Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flag__c</fullName>
+        <description>Formula field to display a flag image.</description>
+        <externalId>false</externalId>
+        <formula>IF( NOT ISBLANK(TEXT(MIFlagType__c)), IMAGE (&quot;/resource/MIShieldIcon&quot;, &quot;MTS Flag&quot;, 15,15), 
+IF( ISPICKVAL( CSFlagType__c, &quot;Top Pro&quot;), IMAGE (&quot;/resource/TopProBannerFlag&quot;, &quot;Top Pro Flag&quot;, 15,40), 
+IF( ISPICKVAL( CSFlagType__c, &quot;Instant Match Early Enrollment&quot;), IMAGE (&quot;/resource/EarlyEnrollmentUserFlag&quot;, &quot;Early Enrollment Flag&quot;, 15,15),
+IF( ISPICKVAL( CSFlagType__c, &quot;Frequent Caller&quot;),IMAGE (&quot;/resource/ContactYellowUserFlag&quot;, &quot;User Flag&quot;,15,15), 
+IF( ISPICKVAL( CSFlagType__c, &quot;Pro Assistant Program&quot;),IMAGE(&quot;/resource/ContactOrangeUserFlag&quot;, &quot;Pro Assistant Program&quot;,15,15), 
+IF( ISPICKVAL( CSFlagType__c, &quot;Pro Success&quot;),IMAGE(&quot;/resource/ProSuccess&quot;, &quot;Pro Success&quot;,15,15), 
+IF( ISPICKVAL( CSFlagType__c, &quot;Security Code&quot;),IMAGE(&quot;/resource/SecurityLockIcon&quot;, &quot;Security Code&quot;,15,15), 
+IF( ISPICKVAL( CSFlagType__c, &quot;Managed Account&quot;),IMAGE(&quot;/resource/ManagedAccountIcon&quot;, &quot;Managed Account&quot;,20,20),
+IF( ISPICKVAL( MIFlagType__c, &quot;Low Dollar Compensation&quot;),IMAGE(&quot;/resource/DollarSymbolGreen1&quot;, &quot;Thumbtack Compensation&quot;,15,10),
+IF( NOT ISBLANK(TEXT(CSFlagType__c)), 
+IMAGE(&quot;/resource/CaseAddUserFlagActionIcon&quot;, &quot;User Flag&quot;, 15,15), 
+Null))))))))))</formula>
+        <label>Flag</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MIFlagType__c</fullName>
+        <description>Picklist of values to indicate the type of flag the contact should have.  Used by marketplace integrity agents.</description>
+        <externalId>false</externalId>
+        <label>MI Flag Type</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Concerning Review</fullName>
+                    <default>false</default>
+                    <label>Concerning Review</label>
+                </value>
+                <value>
+                    <fullName>Disputed Charges</fullName>
+                    <default>false</default>
+                    <label>Disputed Charges</label>
+                </value>
+                <value>
+                    <fullName>Fake Requests</fullName>
+                    <default>false</default>
+                    <label>Fake Requests</label>
+                </value>
+                <value>
+                    <fullName>Fake Reviews</fullName>
+                    <default>false</default>
+                    <label>Fake Reviews</label>
+                </value>
+                <value>
+                    <fullName>Low Average Reviews Warning</fullName>
+                    <default>false</default>
+                    <label>Low Average Reviews Warning</label>
+                </value>
+                <value>
+                    <fullName>Minor Infraction</fullName>
+                    <default>false</default>
+                    <label>Minor Infraction</label>
+                </value>
+                <value>
+                    <fullName>Non-Discrimination Policy Notice</fullName>
+                    <default>false</default>
+                    <label>Non-Discrimination Policy Notice</label>
+                </value>
+                <value>
+                    <fullName>Open MI Dispute</fullName>
+                    <default>false</default>
+                    <label>Open MI Dispute</label>
+                </value>
+                <value>
+                    <fullName>Repeated Refund Requests</fullName>
+                    <default>false</default>
+                    <label>Repeated Refund Requests</label>
+                </value>
+                <value>
+                    <fullName>Low Dollar Compensation</fullName>
+                    <default>false</default>
+                    <label>Low Dollar Compensation</label>
+                </value>
+                <value>
+                    <fullName>Unprofessional Behavior towards Agent</fullName>
+                    <default>false</default>
+                    <label>Unprofessional Behavior towards Agent</label>
+                </value>
+                <value>
+                    <fullName>Unprofessional Conduct</fullName>
+                    <default>false</default>
+                    <label>Unprofessional Conduct</label>
+                </value>
+                <value>
+                    <fullName>Other (Explain)</fullName>
+                    <default>false</default>
+                    <label>Other (Explain)</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>ProCustomerWarned__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox to indicate true if the agent warned the customer or pro about the flag.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Did you warn the customer or pro about flagging their account?  Mark true if yes.</inlineHelpText>
+        <label>Pro / Customer Warned</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>SortOrder__c</fullName>
+        <description>Formula field used strictly for the related list view sort ordering.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(CSFlagType__c, &quot;Sales &amp; Account Management&quot;),&quot;2222&quot;,
+IF(NOT ISBLANK(TEXT(MIFlagType__c)), TEXT(DATEVALUE(CreatedDate)),
+IF(ISPICKVAL(CSFlagType__c, &quot;Top Pro&quot;),&quot;1111&quot;,
+&quot;0000&quot;)))</formula>
+        <label>Sort Order</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TEMP__c</fullName>
+        <description>TEMP account lookup</description>
+        <externalId>false</externalId>
+        <label>TEMP</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Temp2__c</fullName>
+        <externalId>false</externalId>
+        <formula>VALUE(TEMP__c)</formula>
+        <label>Temp2</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Customer Success Guidance</label>
     <listViews>
         <fullName>All</fullName>
         <columns>NAME</columns>
@@ -15,6 +429,11 @@
         <columns>ApprovedBy__c</columns>
         <columns>ApprovedDate__c</columns>
         <filterScope>Everything</filterScope>
+        <filters>
+            <field>CSFlagType__c</field>
+            <operation>equals</operation>
+            <value>Circumventing Customer Contact</value>
+        </filters>
         <label>All</label>
     </listViews>
     <listViews>
@@ -34,6 +453,10 @@
             <field>RECORDTYPE</field>
             <operation>equals</operation>
             <value>CustomerSuccessGuidance__c.CustomerSuccessFlag</value>
+        </filters>
+        <filters>
+            <field>Case__c</field>
+            <operation>notEqual</operation>
         </filters>
         <label>All CS Flags</label>
         <sharedTo>
@@ -62,4 +485,214 @@
             <role>CSManagingUserTSL</role>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Customer Success Guidance</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>CustomerSuccessFlag</fullName>
+        <active>true</active>
+        <description>Record type used to manage Thumbtack user-specific customer success notes.</description>
+        <label>Customer Success Flag</label>
+        <picklistValues>
+            <picklist>CSFlagType__c</picklist>
+            <values>
+                <fullName>Banned from Facebook Page</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Circumventing Customer Contact</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Contact Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fake Requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Frequent Caller</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instant Match Early Enrollment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Managed Account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-Discrimination Policy Notice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Potential Managed Account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro Assistant Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quoting Service Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Repeated Refund Requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Security Code</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Top Pro</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>MIFlagType__c</picklist>
+            <values>
+                <fullName>Concerning Review</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disputed Charges</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fake Requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fake Reviews</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low Average Reviews Warning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low Dollar Compensation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Minor Infraction</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-Discrimination Policy Notice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open MI Dispute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other %28Explain%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Repeated Refund Requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unprofessional Behavior towards Agent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unprofessional Conduct</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>ManagerFlag</fullName>
+        <active>true</active>
+        <description>Flag type that is only visible to users with the CS Managing user permission set.</description>
+        <label>Manager Flag</label>
+        <picklistValues>
+            <picklist>CSFlagType__c</picklist>
+            <values>
+                <fullName>Non-Discrimination Policy Notice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro Success</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unprofessional Behavior</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unprofessional Behavior towards Agent</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>MIFlagType__c</picklist>
+            <values>
+                <fullName>Concerning Review</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disputed Charges</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fake Requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fake Reviews</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low Average Reviews Warning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low Dollar Compensation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Minor Infraction</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-Discrimination Policy Notice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open MI Dispute</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other %28Explain%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Repeated Refund Requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unprofessional Behavior towards Agent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unprofessional Conduct</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

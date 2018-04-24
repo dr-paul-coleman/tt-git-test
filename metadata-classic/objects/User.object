@@ -1,5 +1,716 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>CallHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>DeleteBannerPhotoAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EditUserAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EmailHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>FreezeUserAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>LinkToSetupUserDetailAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ManagePermSetsAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>PasswordUnlockAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ResetPasswordAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SmsHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>UpdateBannerPhotoAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>UserActivationAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AcceptIncomingEmail__c</fullName>
+        <description>Picklist that describes whether or not the user accepts incoming email for Customer Success.</description>
+        <externalId>false</externalId>
+        <label>Accept Incoming Email</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>true</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>AllowCaseTransfer__c</fullName>
+        <defaultValue>&quot;Person&quot;</defaultValue>
+        <description>Picklist to indicate if the user name should be visible in the case transfer page.</description>
+        <externalId>false</externalId>
+        <label>Allow Case Transfer</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Person</fullName>
+                    <default>true</default>
+                    <label>Person</label>
+                </value>
+                <value>
+                    <fullName>Escalation</fullName>
+                    <default>false</default>
+                    <label>Escalation</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>EnrollAProFilterJSON__c</fullName>
+        <externalId>false</externalId>
+        <label>Enroll a Pro Filter JSON</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>FeedbackSettings__c</fullName>
+        <description>Settings to store a users individual preferences for how their feedback screen will look.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Settings to store a users individual preferences for how their feedback screen will look.</inlineHelpText>
+        <label>Feedback Settings</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>HandleFirstName__c</fullName>
+        <description>Open text field that allows users to display an alternate first name in their email signature or other external communication to customers or pros.</description>
+        <externalId>false</externalId>
+        <label>Handle First Name</label>
+        <length>40</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HandleLastName__c</fullName>
+        <description>Open text field that allows users to display an alternate last name in their email signature or other external communication to customers or pros.</description>
+        <externalId>false</externalId>
+        <label>Handle Last Name</label>
+        <length>40</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsLeadershipOrMC__c</fullName>
+        <externalId>false</externalId>
+        <formula>OR(
+$Permission.Mastery_Certified_Specialist,
+$UserRole.Name = &quot;System Level Access&quot;,
+CONTAINS($UserRole.Name, &quot;Managing User&quot;),
+$Profile.Name = &quot;Product Support&quot;
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Is Leadership or MC</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ManagerId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Hierarchy</type>
+    </fields>
+    <fields>
+        <fullName>ManagersSalesforceUserId__c</fullName>
+        <externalId>false</externalId>
+        <formula>ManagerId</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Manager&apos;s Salesforce User Id</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SalesforceUserId__c</fullName>
+        <externalId>false</externalId>
+        <formula>Left(Id, 15)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>User&apos;s Salesforce User Id</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SpoofAsTeam__c</fullName>
+        <description>Custom picklist field, whose values should match User.Team__c values.  Used for senior managers to view reports, dashboards, and list views by spoofing a specific team.</description>
+        <externalId>false</externalId>
+        <label>Spoof as Team</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Correspondence</fullName>
+                    <default>false</default>
+                    <label>Correspondence</label>
+                </value>
+                <value>
+                    <fullName>Engagement 01</fullName>
+                    <default>false</default>
+                    <label>Engagement 01</label>
+                </value>
+                <value>
+                    <fullName>Engagement 02</fullName>
+                    <default>false</default>
+                    <label>Engagement 02</label>
+                </value>
+                <value>
+                    <fullName>Marketplace Integrity</fullName>
+                    <default>false</default>
+                    <label>Marketplace Integrity</label>
+                </value>
+                <value>
+                    <fullName>Promentor</fullName>
+                    <default>false</default>
+                    <label>Promentor</label>
+                </value>
+                <value>
+                    <fullName>Social Media</fullName>
+                    <default>false</default>
+                    <label>Social Media</label>
+                </value>
+                <value>
+                    <fullName>Support 01</fullName>
+                    <default>false</default>
+                    <label>Support 01</label>
+                </value>
+                <value>
+                    <fullName>Support 02</fullName>
+                    <default>false</default>
+                    <label>Support 02</label>
+                </value>
+                <value>
+                    <fullName>Support 03</fullName>
+                    <default>false</default>
+                    <label>Support 03</label>
+                </value>
+                <value>
+                    <fullName>Support 04</fullName>
+                    <default>false</default>
+                    <label>Support 04</label>
+                </value>
+                <value>
+                    <fullName>Support 05</fullName>
+                    <default>false</default>
+                    <label>Support 05</label>
+                </value>
+                <value>
+                    <fullName>Support 06</fullName>
+                    <default>false</default>
+                    <label>Support 06</label>
+                </value>
+                <value>
+                    <fullName>Support 07</fullName>
+                    <default>false</default>
+                    <label>Support 07</label>
+                </value>
+                <value>
+                    <fullName>Support 08</fullName>
+                    <default>false</default>
+                    <label>Support 08</label>
+                </value>
+                <value>
+                    <fullName>Support 09</fullName>
+                    <default>false</default>
+                    <label>Support 09</label>
+                </value>
+                <value>
+                    <fullName>Analyst</fullName>
+                    <default>false</default>
+                    <label>Analyst</label>
+                </value>
+                <value>
+                    <fullName>Nesting</fullName>
+                    <default>false</default>
+                    <label>Nesting</label>
+                </value>
+                <value>
+                    <fullName>TPH Analyst</fullName>
+                    <default>false</default>
+                    <label>TPH Analyst</label>
+                </value>
+                <value>
+                    <fullName>TPH Categorization</fullName>
+                    <default>false</default>
+                    <label>TPH Categorization</label>
+                </value>
+                <value>
+                    <fullName>TPH Tier 1</fullName>
+                    <default>false</default>
+                    <label>TPH Tier 1</label>
+                </value>
+                <value>
+                    <fullName>TPH Tier 2</fullName>
+                    <default>false</default>
+                    <label>TPH Tier 2</label>
+                </value>
+                <value>
+                    <fullName>TPH Tier 3</fullName>
+                    <default>false</default>
+                    <label>TPH Tier 3</label>
+                </value>
+                <value>
+                    <fullName>TPH Tier 4</fullName>
+                    <default>false</default>
+                    <label>TPH Tier 4</label>
+                </value>
+                <value>
+                    <fullName>TPH SME</fullName>
+                    <default>false</default>
+                    <label>TPH SME</label>
+                </value>
+                <value>
+                    <fullName>TPH Chat</fullName>
+                    <default>false</default>
+                    <label>TPH Chat</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Team__c</fullName>
+        <description>Custom picklist to indicate which internal team a support agent is on.</description>
+        <externalId>false</externalId>
+        <label>Team</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Analyst</fullName>
+                    <default>false</default>
+                    <label>Analyst</label>
+                </value>
+                <value>
+                    <fullName>Correspondence</fullName>
+                    <default>false</default>
+                    <label>Correspondence</label>
+                </value>
+                <value>
+                    <fullName>Engagement 01</fullName>
+                    <default>false</default>
+                    <label>Engagement 01</label>
+                </value>
+                <value>
+                    <fullName>Engagement 02</fullName>
+                    <default>false</default>
+                    <label>Engagement 02</label>
+                </value>
+                <value>
+                    <fullName>Engagement 03</fullName>
+                    <default>false</default>
+                    <label>Engagement 03</label>
+                </value>
+                <value>
+                    <fullName>Engagement 04</fullName>
+                    <default>false</default>
+                    <label>Engagement 04</label>
+                </value>
+                <value>
+                    <fullName>Marketplace Integrity</fullName>
+                    <default>false</default>
+                    <label>Marketplace Integrity</label>
+                </value>
+                <value>
+                    <fullName>Nesting</fullName>
+                    <default>false</default>
+                    <label>Nesting</label>
+                </value>
+                <value>
+                    <fullName>Pro Assistance 01</fullName>
+                    <default>false</default>
+                    <label>Pro Assistance 01</label>
+                </value>
+                <value>
+                    <fullName>Pro Assistance 02</fullName>
+                    <default>false</default>
+                    <label>Pro Assistance 02</label>
+                </value>
+                <value>
+                    <fullName>Recruiting</fullName>
+                    <default>false</default>
+                    <label>Recruiting</label>
+                </value>
+                <value>
+                    <fullName>Social Media</fullName>
+                    <default>false</default>
+                    <label>Social Media</label>
+                </value>
+                <value>
+                    <fullName>Support 01</fullName>
+                    <default>false</default>
+                    <label>Support 01</label>
+                </value>
+                <value>
+                    <fullName>Support 02</fullName>
+                    <default>false</default>
+                    <label>Support 02</label>
+                </value>
+                <value>
+                    <fullName>Support 03</fullName>
+                    <default>false</default>
+                    <label>Support 03</label>
+                </value>
+                <value>
+                    <fullName>Support 04</fullName>
+                    <default>false</default>
+                    <label>Support 04</label>
+                </value>
+                <value>
+                    <fullName>Support 05</fullName>
+                    <default>false</default>
+                    <label>Support 05</label>
+                </value>
+                <value>
+                    <fullName>Support 06</fullName>
+                    <default>false</default>
+                    <label>Support 06</label>
+                </value>
+                <value>
+                    <fullName>Support 07</fullName>
+                    <default>false</default>
+                    <label>Support 07</label>
+                </value>
+                <value>
+                    <fullName>Support 08</fullName>
+                    <default>false</default>
+                    <label>Support 08</label>
+                </value>
+                <value>
+                    <fullName>Support 09</fullName>
+                    <default>false</default>
+                    <label>Support 09</label>
+                </value>
+                <value>
+                    <fullName>Support 10</fullName>
+                    <default>false</default>
+                    <label>Support 10</label>
+                </value>
+                <value>
+                    <fullName>Support 11</fullName>
+                    <default>false</default>
+                    <label>Support 11</label>
+                </value>
+                <value>
+                    <fullName>Support 12</fullName>
+                    <default>false</default>
+                    <label>Support 12</label>
+                </value>
+                <value>
+                    <fullName>TPH Analyst</fullName>
+                    <default>false</default>
+                    <label>TPH Analyst</label>
+                </value>
+                <value>
+                    <fullName>TPH Categorization</fullName>
+                    <default>false</default>
+                    <label>TPH Categorization</label>
+                </value>
+                <value>
+                    <fullName>TPH Chat</fullName>
+                    <default>false</default>
+                    <label>TPH Chat</label>
+                </value>
+                <value>
+                    <fullName>TPH Labs</fullName>
+                    <default>false</default>
+                    <label>TPH Labs</label>
+                </value>
+                <value>
+                    <fullName>TPH Life</fullName>
+                    <default>false</default>
+                    <label>TPH Life</label>
+                </value>
+                <value>
+                    <fullName>TPH Ops</fullName>
+                    <default>false</default>
+                    <label>TPH Ops</label>
+                </value>
+                <value>
+                    <fullName>TPH SME</fullName>
+                    <default>false</default>
+                    <label>TPH SME</label>
+                </value>
+                <value>
+                    <fullName>TPH Text</fullName>
+                    <default>false</default>
+                    <label>TPH Text</label>
+                </value>
+                <value>
+                    <fullName>TPH Tier 1</fullName>
+                    <default>false</default>
+                    <label>TPH Tier 1</label>
+                </value>
+                <value>
+                    <fullName>TPH Tier 2</fullName>
+                    <default>false</default>
+                    <label>TPH Tier 2</label>
+                </value>
+                <value>
+                    <fullName>TPH Tier 3</fullName>
+                    <default>false</default>
+                    <label>TPH Tier 3</label>
+                </value>
+                <value>
+                    <fullName>TPH Tier 4</fullName>
+                    <default>false</default>
+                    <label>TPH Tier 4</label>
+                </value>
+                <value>
+                    <fullName>TSL Chat</fullName>
+                    <default>false</default>
+                    <label>TSL Chat</label>
+                </value>
+                <value>
+                    <fullName>TSL Labs 01</fullName>
+                    <default>false</default>
+                    <label>TSL Labs 01</label>
+                </value>
+                <value>
+                    <fullName>TSL Labs 02</fullName>
+                    <default>false</default>
+                    <label>TSL Labs 02</label>
+                </value>
+                <value>
+                    <fullName>TSL Labs 03</fullName>
+                    <default>false</default>
+                    <label>TSL Labs 03</label>
+                </value>
+                <value>
+                    <fullName>TSL Labs 04</fullName>
+                    <default>false</default>
+                    <label>TSL Labs 04</label>
+                </value>
+                <value>
+                    <fullName>Pro Services 01</fullName>
+                    <default>false</default>
+                    <label>Pro Services 01</label>
+                </value>
+                <value>
+                    <fullName>Pro Services 02</fullName>
+                    <default>false</default>
+                    <label>Pro Services 02</label>
+                </value>
+                <value>
+                    <fullName>Pro Services 03</fullName>
+                    <default>false</default>
+                    <label>Pro Services 03</label>
+                </value>
+                <value>
+                    <fullName>Pro Services Hourwise</fullName>
+                    <default>false</default>
+                    <label>Pro Services Hourwise</label>
+                </value>
+                <value>
+                    <fullName>TPH IBEX</fullName>
+                    <default>false</default>
+                    <label>TPH IBEX</label>
+                </value>
+                <value>
+                    <fullName>Sales&amp;AccountManagement</fullName>
+                    <default>false</default>
+                    <label>Sales &amp; Account Management</label>
+                </value>
+                <value>
+                    <fullName>TSL Special Projects</fullName>
+                    <default>false</default>
+                    <label>TSL Special Projects</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Temp__c</fullName>
+        <externalId>false</externalId>
+        <formula>Username &lt;&gt; Email</formula>
+        <label>Temp</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>dsfs__DSProSFMembershipStatus__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>DSProSFMembershipStatus</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>dsfs__DSProSFPassword__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>DSProSFPassword</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>dsfs__DSProSFUsername__c</fullName>
+        <deprecated>false</deprecated>
+        <description>DocuSign username</description>
+        <externalId>false</externalId>
+        <label>DSProSFUsername</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Login_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Specify Your Zoom Login Type</inlineHelpText>
+        <label>Login Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>API</fullName>
+                    <default>false</default>
+                    <label>API</label>
+                </value>
+                <value>
+                    <fullName>Facebook</fullName>
+                    <default>false</default>
+                    <label>Facebook</label>
+                </value>
+                <value>
+                    <fullName>Google</fullName>
+                    <default>false</default>
+                    <label>Google</label>
+                </value>
+                <value>
+                    <fullName>SSO</fullName>
+                    <default>false</default>
+                    <label>SSO</label>
+                </value>
+                <value>
+                    <fullName>Work Email</fullName>
+                    <default>true</default>
+                    <label>Work Email</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Secret_Token__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Secret Token</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Send_Email_to_Attendee__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Provides an interface to send email to attendees while Launching Zoom Meeting from Start Zoom Meeting button.</inlineHelpText>
+        <label>Send Email to Attendees at Launch</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>zoom_app__Webhook_URL__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Send a notification to Zoom IM Bot if the meeting that you have scheduled did not start within 3 mins of the start time</inlineHelpText>
+        <label>Webhook Notification URL</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zoom_app__isPMI_Enabled__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable it if you want to use your Zoom PMI for creating instant meetings.</inlineHelpText>
+        <label>PMI Enabled</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
     <listViews>
         <fullName>AdminUsers</fullName>
         <columns>FULL_NAME</columns>
@@ -38,27 +749,6 @@
             <value>1</value>
         </filters>
         <label>All Active Users</label>
-        <sharedTo>
-            <role>SystemLevelAccess</role>
-        </sharedTo>
-    </listViews>
-    <listViews>
-        <fullName>CustomerPortalUsers</fullName>
-        <columns>FULL_NAME</columns>
-        <columns>CORE.USERS.ALIAS</columns>
-        <columns>CORE.USERS.USERNAME</columns>
-        <columns>CORE.USERS.LAST_LOGIN</columns>
-        <columns>CORE.USER_ROLE.NAME</columns>
-        <columns>CORE.USERS.ACTIVE</columns>
-        <columns>CORE.PROFILE.NAME</columns>
-        <columns>MANAGER</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>CORE.PROFILE.NAME</field>
-            <operation>equals</operation>
-            <value>Thumbtack User</value>
-        </filters>
-        <label>Customer Portal Users</label>
         <sharedTo>
             <role>SystemLevelAccess</role>
         </sharedTo>
@@ -383,4 +1073,20 @@
         </filters>
         <label>DocuSign Inactive Users</label>
     </listViews>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>FULL_NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CORE.USER_ROLE.NAME</lookupDialogsAdditionalFields>
+        <lookupFilterFields>FULL_NAME</lookupFilterFields>
+        <lookupFilterFields>CORE.USER_ROLE.NAME</lookupFilterFields>
+        <lookupPhoneDialogsAdditionalFields>FULL_NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CORE.USER_ROLE.NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CORE.USERS.PHONE</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CORE.USERS.EXTENSION</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CORE.USERS.CELL</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>FULL_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.TITLE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.PHONE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.EMAIL</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Read</sharingModel>
 </CustomObject>

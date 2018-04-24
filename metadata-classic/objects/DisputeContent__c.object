@@ -1,5 +1,181 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to store meta data definitions of the content templates (e.g., tips, messages) used for the Solution Center.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>ArchiveDate__c</fullName>
+        <description>The date the Dispute Content definition record status was set to &quot;Archived.&quot; Set via workflow.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date the Dispute Content definition record status was set to &quot;Archived.&quot; Set via workflow.</inlineHelpText>
+        <label>Archive Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>MessageTemplate__c</fullName>
+        <description>The template text of a success tip or message that will be created for the initiator or responder of a solution center dispute.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The template text of a success tip or message that will be created for the initiator or responder of a solution center dispute.</inlineHelpText>
+        <label>Message Template</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PublishDate__c</fullName>
+        <description>The date the Dispute Content definition record status was set to &quot;Published.&quot; Set via workflow.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date the Dispute Content definition record status was set to &quot;Published.&quot; Set via workflow.</inlineHelpText>
+        <label>Publish Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>RecordNumber__c</fullName>
+        <description>Auto generated record number used for internal reference.</description>
+        <displayFormat>DCT-{00000}</displayFormat>
+        <externalId>false</externalId>
+        <inlineHelpText>Auto generated record number used for internal reference.</inlineHelpText>
+        <label>Record Number</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>Picklist whose values indicate the overall publication status of the Dispute Content record.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Picklist whose values indicate the overall publication status of the Dispute Content record.</inlineHelpText>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Draft</fullName>
+                    <default>false</default>
+                    <label>Draft</label>
+                </value>
+                <value>
+                    <fullName>Needs approval</fullName>
+                    <default>false</default>
+                    <label>Needs approval</label>
+                </value>
+                <value>
+                    <fullName>Published</fullName>
+                    <default>false</default>
+                    <label>Published</label>
+                </value>
+                <value>
+                    <fullName>Archived</fullName>
+                    <default>false</default>
+                    <label>Archived</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Title__c</fullName>
+        <description>The title of the dispute content template; currently only being used for list views and content management.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The title of the dispute content template; currently only being used for list views and content management.</inlineHelpText>
+        <label>Title</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <description>Field whose values describe the type of success tip content.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Field whose values describe the type of success tip content.</inlineHelpText>
+        <label>Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Automated tip</fullName>
+                    <default>false</default>
+                    <label>Automated tip</label>
+                </value>
+                <value>
+                    <fullName>Manual tip</fullName>
+                    <default>false</default>
+                    <label>Manual tip</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Dispute Content</label>
     <listViews>
         <fullName>PublishedDisputeContent</fullName>
         <columns>RecordNumber__c</columns>
@@ -21,4 +197,50 @@
             <role>SystemLevelAccess</role>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Dispute Content</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>ContentTemplate</fullName>
+        <active>true</active>
+        <description>Record type used to manage the content of the Success Tips and Thumbtack Messages used in the Solution Center.</description>
+        <label>Content Template</label>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Archived</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Draft</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Needs approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Automated tip</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Manual tip</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

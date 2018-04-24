@@ -1,5 +1,481 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom Object for Solution Center to capture &apos;Resolution&apos; related to a Dispute with information on Resolution Type, Status and other information</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>ContactCreatedByFirstName__c</fullName>
+        <description>Contact (Created By) First Name</description>
+        <externalId>false</externalId>
+        <formula>ContactCreatedBy__r.FirstName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contact (Created By) First Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ContactCreatedByLastName__c</fullName>
+        <description>Contact (Created By) Last Name</description>
+        <externalId>false</externalId>
+        <formula>ContactCreatedBy__r.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contact (Created By) Last Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ContactCreatedBy__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The portal user contact that created the dispute offer.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The portal user contact that created the dispute offer.</inlineHelpText>
+        <label>Contact (Created By)</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Dispute Offers (Created By)</relationshipLabel>
+        <relationshipName>DisputeOffersCreatedBy</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ContactSharedWithFirstName__c</fullName>
+        <description>Contact (Shared With) First Name</description>
+        <externalId>false</externalId>
+        <formula>ContactSharedWith__r.FirstName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Contact (Shared With) First Name</inlineHelpText>
+        <label>Contact (Shared With) First Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ContactSharedWithLastName__c</fullName>
+        <description>Contact (Shared With) Last Name</description>
+        <externalId>false</externalId>
+        <formula>ContactSharedWith__r.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contact (Shared With) Last Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ContactSharedWith__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The pro or customer contact that is the responding party to the dispute offer.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The pro or customer contact that is the responding party to the dispute offer.</inlineHelpText>
+        <label>Contact (Shared With)</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Dispute Offers (Shared With)</relationshipLabel>
+        <relationshipName>DisputeOffers</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CreateDateTime__c</fullName>
+        <description>The combined date and time the dispute was created; used in list views and reports.</description>
+        <externalId>false</externalId>
+        <formula>CreatedDate</formula>
+        <label>Created Date/Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>CreatedByHash__c</fullName>
+        <description>A unique key to obfuscate the &quot;real&quot; Contact record id (18-byte variety) for Solution Center purposes.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>A unique key to obfuscate the &quot;real&quot; Contact record id (18-byte variety) for Solution Center purposes.</inlineHelpText>
+        <label>Created By Hash</label>
+        <length>128</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DesiredRefundAmount__c</fullName>
+        <description>This is the amount of refund desired to be compensated in the current dispute offer.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The desired amount of money to be compensated.</inlineHelpText>
+        <label>Desired Refund Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>DesiredResolution__c</fullName>
+        <description>This is the desired resolution for the particular dispute offer record.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the desired resolution for the particular dispute offer record.</inlineHelpText>
+        <label>Desired Resolution</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DisputeHash__c</fullName>
+        <description>A unique key to obfuscate the &quot;real&quot; Dispute record id (18-byte variety) for Solution Center purposes.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>A unique key to obfuscate the &quot;real&quot; Dispute record id (18-byte variety) for Solution Center purposes.</inlineHelpText>
+        <label>Dispute Hash</label>
+        <length>128</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DisputeInitiatorFirstName__c</fullName>
+        <description>Formula to bring over the Initiator&apos;s first name; used in email templates.</description>
+        <externalId>false</externalId>
+        <formula>Dispute__r.InitiatorFirstName__c</formula>
+        <inlineHelpText>Formula to bring over the Initiator&apos;s first name; used in email templates.</inlineHelpText>
+        <label>Dispute Initiator First Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DisputeInitiatorLastName__c</fullName>
+        <description>Formula to bring over the Initiator&apos;s last name; used in email templates.</description>
+        <externalId>false</externalId>
+        <formula>Dispute__r.InitiatorLastName__c</formula>
+        <inlineHelpText>Formula to bring over the Initiator&apos;s last name; used in email templates.</inlineHelpText>
+        <label>Dispute Initiator Last Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DisputeOfferExpirationDateText__c</fullName>
+        <description>Formula field to display the offer expiration date in text format; used in email templates.</description>
+        <externalId>false</externalId>
+        <formula>CASE(
+MONTH( DATEVALUE(DisputeOfferExpirationDate__c )),
+1, &quot;January&quot;,
+2, &quot;February&quot;,
+3, &quot;March&quot;,
+4, &quot;April&quot;,
+5, &quot;May&quot;,
+6, &quot;June&quot;,
+7, &quot;July&quot;,
+8, &quot;August&quot;,
+9, &quot;September&quot;,
+10, &quot;October&quot;,
+11, &quot;November&quot;,
+&quot;December&quot;
+)
+&amp; &quot; &quot; &amp; TEXT(DAY(DATEVALUE(DisputeOfferExpirationDate__c))) &amp; &quot;, &quot; &amp; TEXT(YEAR(DATEVALUE(DisputeOfferExpirationDate__c)))</formula>
+        <inlineHelpText>Formula field to display the offer expiration date in text format; used in email templates.</inlineHelpText>
+        <label>Dispute Offer Expiration Date (Text)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DisputeOfferExpirationDate__c</fullName>
+        <description>This is the set time and date when a offer will expire and is no longer able to be edited by either party</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the set time and date when a offer will expire and is no longer able to be edited by either party</inlineHelpText>
+        <label>Dispute Offer Expiration Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>DisputeResponderFirstName__c</fullName>
+        <description>Formula to bring over the Responder&apos;s first name; used in email templates.</description>
+        <externalId>false</externalId>
+        <formula>Dispute__r.ResponderFirstName__c</formula>
+        <inlineHelpText>Formula to bring over the Responder&apos;s first name; used in email templates.</inlineHelpText>
+        <label>Dispute Responder First Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DisputeResponderLastName__c</fullName>
+        <description>Formula to bring over the Responder&apos;s last name; used in email templates.</description>
+        <externalId>false</externalId>
+        <formula>Dispute__r.ResponderLastName__c</formula>
+        <inlineHelpText>Formula to bring over the Responder&apos;s last name; used in email templates.</inlineHelpText>
+        <label>Dispute Responder Last Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Dispute__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The parent record that drives the workflow and timers of the dispute offer.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The parent dispute record.</inlineHelpText>
+        <label>Dispute</label>
+        <referenceTo>Dispute__c</referenceTo>
+        <relationshipLabel>Dispute Offers</relationshipLabel>
+        <relationshipName>DisputeOffers</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>IdHash__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <description>A unique key to obfuscate the &quot;real&quot; record id (18-byte variety) for Solution Center purposes.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>A unique key to obfuscate the &quot;real&quot; record id (18-byte variety) for Solution Center purposes.</inlineHelpText>
+        <label>Id Hash</label>
+        <length>128</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>InitiatorMessageCount__c</fullName>
+        <description>A count of the number of related messages that the initiator created.  Populated via trigger.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>A count of the number of related messages that the initiator created.  Populated via trigger.</inlineHelpText>
+        <label>Initiator Message Count</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsTestData__c</fullName>
+        <description>Formula to indicate if the offer record is related to a test dispute.</description>
+        <externalId>false</externalId>
+        <formula>Dispute__r.IsTestData__c</formula>
+        <inlineHelpText>Formula to indicate if the offer record is related to a test dispute.</inlineHelpText>
+        <label>Is Test Data</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LastStatusChangeDate__c</fullName>
+        <description>The date/time the status was last changed.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date/time the status was last changed.</inlineHelpText>
+        <label>Last Status Change Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Note__c</fullName>
+        <description>Open text area to store the notes entered by the creating party.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The notes added by the person proposing the offer.</inlineHelpText>
+        <label>Note</label>
+        <length>1000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>OfferedByParty__c</fullName>
+        <description>Formula to quickly indicate if the party that created the offer is the initiator (aka customer) or responder (aka pro) of the dispute.</description>
+        <externalId>false</externalId>
+        <formula>IF(ContactCreatedBy__c = Dispute__r.InitiatorContact__c, &quot;Initiator&quot;,
+IF(ContactCreatedBy__c = Dispute__r.ResponderContact__c, &quot;Responder&quot;,
+NULL))</formula>
+        <inlineHelpText>Formula to quickly indicate if the party that created the offer is the initiator (aka customer) or responder (aka pro) of the dispute.</inlineHelpText>
+        <label>Offered by Party</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PriorStatus__c</fullName>
+        <description>The status the offer was in prior to the current status.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The status the offer was in prior to the current status.</inlineHelpText>
+        <label>Prior Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ResolutionCompleteByDate__c</fullName>
+        <description>Date the responding party agrees to complete the work or refund the money by.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date the responding party agrees to complete the work or refund the money by.</inlineHelpText>
+        <label>Resolution Complete By Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>ResponderMessageCount__c</fullName>
+        <description>A count of the number of related messages that the responder created.  Populated via trigger.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>A count of the number of related messages that the responder created.  Populated via trigger.</inlineHelpText>
+        <label>Responder Message Count</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SharedWithHash__c</fullName>
+        <description>A unique key to obfuscate the &quot;real&quot; Contact record id (18-byte variety) for Solution Center purposes.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>A unique key to obfuscate the &quot;real&quot; Contact record id (18-byte variety) for Solution Center purposes.</inlineHelpText>
+        <label>Shared With Hash</label>
+        <length>128</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SolutionCenterLink__c</fullName>
+        <externalId>false</externalId>
+        <formula>Dispute__r.SolutionCenterLink__c</formula>
+        <label>Solution Center Link</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>The overall status of the dispute offer.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The overall status of the dispute offer.</inlineHelpText>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>DisputeOfferStatus</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>TotalMessageCount__c</fullName>
+        <description>The total number of messages related to this offer - adds together the initiator message count and the responder message count.</description>
+        <externalId>false</externalId>
+        <formula>InitiatorMessageCount__c + ResponderMessageCount__c</formula>
+        <inlineHelpText>The total number of messages related to this offer - adds together the initiator message count and the responder message count.</inlineHelpText>
+        <label>Total Message Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Dispute Offer</label>
     <listViews>
         <fullName>AcceptedOffers</fullName>
         <columns>NAME</columns>
@@ -21,6 +497,11 @@
             <operation>equals</operation>
             <value>Accepted</value>
         </filters>
+        <filters>
+            <field>IsTestData__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
         <label>03. Accepted Offers</label>
         <sharedTo>
             <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
@@ -30,6 +511,7 @@
         <fullName>All</fullName>
         <columns>NAME</columns>
         <columns>Status__c</columns>
+        <columns>IsTestData__c</columns>
         <columns>Dispute__c</columns>
         <columns>DesiredResolution__c</columns>
         <columns>DesiredRefundAmount__c</columns>
@@ -128,4 +610,84 @@
             <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Dispute Offers</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Confidential</fullName>
+        <active>true</active>
+        <description>Record type used to manage highly sensitive disputes. Strict record sharing for this record type.</description>
+        <label>Confidential</label>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Countered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Expired</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stopped</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Withdrawn</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>SolutionCenterOffer</fullName>
+        <active>true</active>
+        <description>Record type used to manage the offers or counter offers as part of the dispute resolution process.</description>
+        <label>Solution Center Offer</label>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Countered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Expired</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stopped</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Withdrawn</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

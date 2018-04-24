@@ -1,5 +1,381 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to store product updates and other information relating to ongoing enhancements and experiments to be shared internally with agents.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>ArchiveDate__c</fullName>
+        <externalId>false</externalId>
+        <label>Archived Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <description>Detailed information about the Operations Update record.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Detailed information about the Operations Update record.</inlineHelpText>
+        <label>Description</label>
+        <length>32768</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>InternalNotes__c</fullName>
+        <description>Notes for the Ops team to add internal notes.</description>
+        <externalId>false</externalId>
+        <label>Internal Notes</label>
+        <length>50000</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>InternalShareableLink__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(
+      CONTAINS($Api.Partner_Server_URL_260, &apos;visual&apos;), 
+      &apos;https://&apos;+
+      MID($Api.Partner_Server_URL_260, FIND( &apos;visual&apos;, $Api.Partner_Server_URL_260)-4,4)
+      +&apos;salesforce.com/console#%2F&apos;,
+      LEFT($Api.Partner_Server_URL_260, FIND( &apos;/services&apos;, $Api.Partner_Server_URL_260))
+  ) + Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Internal Shareable Link</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>KnowledgeArticleId__c</fullName>
+        <externalId>false</externalId>
+        <formula>If (
+ISBLANK(KnowledgeArticle__c),&quot;&quot;,
+LEFT($Api.Partner_Server_URL_260, FIND( &apos;/services&apos;, $Api.Partner_Server_URL_260)) &amp; Mid(KnowledgeArticle__c,Find(&quot;id=&quot;, KnowledgeArticle__c)+3,15)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Knowledge Article Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>KnowledgeArticle__c</fullName>
+        <description>Link to the supporting Knowledge Article.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Link to the supporting Knowledge Article.</inlineHelpText>
+        <label>Knowledge Article</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>KnowledgeArticles__c</fullName>
+        <externalId>false</externalId>
+        <label>Knowledge Articles</label>
+        <length>5000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>LaunchDate__c</fullName>
+        <externalId>false</externalId>
+        <label>Launch Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>LaunchStatusLabels__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( RecordType.Name = &quot;Product Update&quot;, IMAGE (&quot;/resource/ProductUpdateIcon&quot;, &quot;Product Update&quot;, 40, 219),
+IF( RecordType.Name = &quot;Experiment&quot;, IMAGE (&quot;/resource/ExperimentIcon&quot;, &quot;Experiment&quot;, 40, 161),
+Null))
+&amp; &quot; &quot; &amp;
+IF( ISPICKVAL( LaunchStatus__c, &quot;Coming Soon&quot;), IMAGE (&quot;/resource/ComingSoonIcon&quot;, &quot;Coming Soon&quot;, 40, 185),
+IF( ISPICKVAL( LaunchStatus__c, &quot;Live&quot;), IMAGE (&quot;/resource/LiveIcon&quot;, &quot;Live&quot;, 40, 60),
+IF( ISPICKVAL( LaunchStatus__c, &quot;Delayed&quot;), IMAGE (&quot;/resource/DelayedIcon&quot;, &quot;Delayed&quot;, 40, 116),
+IF( ISPICKVAL( LaunchStatus__c, &quot;Canceled&quot;), IMAGE (&quot;/resource/CanceledIcon&quot;, &quot;Canceled&quot;, 40, 135),
+Null))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Launch Status Labels</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LaunchStatus__c</fullName>
+        <externalId>false</externalId>
+        <label>Launch Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Coming Soon</fullName>
+                    <default>false</default>
+                    <label>Coming Soon</label>
+                </value>
+                <value>
+                    <fullName>Live</fullName>
+                    <default>false</default>
+                    <label>Live</label>
+                </value>
+                <value>
+                    <fullName>Delayed</fullName>
+                    <default>false</default>
+                    <label>Delayed</label>
+                </value>
+                <value>
+                    <fullName>Canceled</fullName>
+                    <default>false</default>
+                    <label>Canceled</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>ProductsImpacted__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Products__c, &quot;Web&quot;), IMAGE (&quot;/resource/OperationsUpdatesiconsWebv2&quot;, &quot;thumbtack.com&quot;, 70, 70), Null) &amp;
+IF(INCLUDES( Products__c, &quot;iOS Pro App&quot;), IMAGE (&quot;/resource/OperationsUpdatesiconsiOSProv2&quot;, &quot;iOS Pro App&quot;, 70, 70), Null) &amp;
+IF(INCLUDES( Products__c, &quot;iOS Customer App&quot;), IMAGE (&quot;/resource/OperationsUpdatesiconsiOSCustomerv2&quot;, &quot;iOS Customer App&quot;, 70, 70), Null) &amp;
+IF(INCLUDES( Products__c, &quot;Android Pro App&quot;), IMAGE (&quot;/resource/OperationsUpdatesiconsAndroidProv2&quot;, &quot;Android Pro App&quot;, 70, 70), Null) &amp;
+IF(INCLUDES( Products__c, &quot;Android Customer App&quot;), IMAGE (&quot;/resource/OperationsUpdatesiconsAndroidCustv2&quot;, &quot;Android Customer App&quot;, 70, 70), Null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Products Impacted</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Products__c</fullName>
+        <externalId>false</externalId>
+        <label>Products</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Web</fullName>
+                    <default>false</default>
+                    <label>Web</label>
+                </value>
+                <value>
+                    <fullName>iOS Pro App</fullName>
+                    <default>false</default>
+                    <label>iOS Pro App</label>
+                </value>
+                <value>
+                    <fullName>iOS Customer App</fullName>
+                    <default>false</default>
+                    <label>iOS Customer App</label>
+                </value>
+                <value>
+                    <fullName>Android Pro App</fullName>
+                    <default>false</default>
+                    <label>Android Pro App</label>
+                </value>
+                <value>
+                    <fullName>Android Customer App</fullName>
+                    <default>false</default>
+                    <label>Android Customer App</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PublishedDate__c</fullName>
+        <description>The date the Operations Update was first changed to published status.</description>
+        <externalId>false</externalId>
+        <label>Published Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>StatusLabels__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL( Status__c, &quot;Draft&quot;), IMAGE (&quot;/resource/DraftIcon&quot;, &quot;Draft&quot;, 25, 54),
+IF( ISPICKVAL( Status__c, &quot;Published&quot;), IMAGE (&quot;/resource/PublishedIcon&quot;, &quot;Published&quot;, 25, 88),
+IF( ISPICKVAL( Status__c, &quot;Archived&quot;), IMAGE (&quot;/resource/ArchivedIcon&quot;, &quot;Archived&quot;, 25, 82),
+Null)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status Labels</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>The current status of the Operations Update record. This also determines record visibility.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Archived records will only be visible to creators/editors of records.</inlineHelpText>
+        <label>Status</label>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Draft</fullName>
+                    <default>true</default>
+                    <label>Draft</label>
+                </value>
+                <value>
+                    <fullName>Published</fullName>
+                    <default>false</default>
+                    <label>Published</label>
+                </value>
+                <value>
+                    <fullName>Archived</fullName>
+                    <default>false</default>
+                    <label>Archived</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>TargetGroup__c</fullName>
+        <externalId>false</externalId>
+        <label>Target Group</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Pro</fullName>
+                    <default>false</default>
+                    <label>Pro</label>
+                </value>
+                <value>
+                    <fullName>Customer</fullName>
+                    <default>false</default>
+                    <label>Customer</label>
+                </value>
+                <value>
+                    <fullName>Pro and Customer</fullName>
+                    <default>false</default>
+                    <label>Pro and Customer</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>ToBePublishedOn__c</fullName>
+        <description>The date which the article will be published, which uses a workflow to update the Article Status field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Add a date here to have the Article status automatically changed to &apos;Published&apos; on the specified date/hour. Please note that minutes/seconds are ignored by this automated process. The Article Status must currently be in &apos;Draft&apos; for this to work.</inlineHelpText>
+        <label>To Be Published On</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>RecordType.Name &amp; &quot; &quot; &amp; 
+If(
+Today() - PublishedDate__c &lt;=7,
+IMAGE (&quot;/resource/NewIcon&quot;, &quot;New&quot;, 12, 28),
+&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Product Updates</label>
     <listViews>
         <fullName>All_Android_Customer_App</fullName>
         <columns>NAME</columns>
@@ -582,4 +958,482 @@
         </filters>
         <label>Recently Added</label>
     </listViews>
+    <nameField>
+        <label>Product Update Name</label>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Product Updates</pluralLabel>
+    <recordTypeTrackHistory>true</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Announcements</fullName>
+        <active>false</active>
+        <label>Announcement</label>
+        <picklistValues>
+            <picklist>LaunchStatus__c</picklist>
+            <values>
+                <fullName>Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Coming Soon</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Delayed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Live</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Products__c</picklist>
+            <values>
+                <fullName>Android Customer App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Android Pro App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Customer App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Pro App</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Archived</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Draft</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TargetGroup__c</picklist>
+            <values>
+                <fullName>Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro and Customer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Category_Updates</fullName>
+        <active>true</active>
+        <label>Category Updates</label>
+        <picklistValues>
+            <picklist>LaunchStatus__c</picklist>
+            <values>
+                <fullName>Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Coming Soon</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Delayed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Live</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Products__c</picklist>
+            <values>
+                <fullName>Android Customer App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Android Pro App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Customer App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Pro App</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Archived</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Draft</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TargetGroup__c</picklist>
+            <values>
+                <fullName>Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro and Customer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>ExperimentExperiment</fullName>
+        <active>true</active>
+        <label>Experiment</label>
+        <picklistValues>
+            <picklist>LaunchStatus__c</picklist>
+            <values>
+                <fullName>Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Coming Soon</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Delayed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Live</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Products__c</picklist>
+            <values>
+                <fullName>Android Customer App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Android Pro App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Customer App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Pro App</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Archived</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Draft</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TargetGroup__c</picklist>
+            <values>
+                <fullName>Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro and Customer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Internal_Tools</fullName>
+        <active>true</active>
+        <label>Internal Tools</label>
+        <picklistValues>
+            <picklist>LaunchStatus__c</picklist>
+            <values>
+                <fullName>Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Coming Soon</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Delayed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Live</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Products__c</picklist>
+            <values>
+                <fullName>Android Customer App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Android Pro App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Customer App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Pro App</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Archived</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Draft</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TargetGroup__c</picklist>
+            <values>
+                <fullName>Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro and Customer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Marketing_Updates</fullName>
+        <active>true</active>
+        <label>Marketing Updates</label>
+        <picklistValues>
+            <picklist>LaunchStatus__c</picklist>
+            <values>
+                <fullName>Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Coming Soon</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Delayed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Live</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Products__c</picklist>
+            <values>
+                <fullName>Android Customer App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Android Pro App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Customer App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Pro App</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Archived</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Draft</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TargetGroup__c</picklist>
+            <values>
+                <fullName>Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro and Customer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Product_Updates</fullName>
+        <active>true</active>
+        <label>Product Update</label>
+        <picklistValues>
+            <picklist>LaunchStatus__c</picklist>
+            <values>
+                <fullName>Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Coming Soon</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Delayed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Live</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Products__c</picklist>
+            <values>
+                <fullName>Android Customer App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Android Pro App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Customer App</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Pro App</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Archived</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Draft</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TargetGroup__c</picklist>
+            <values>
+                <fullName>Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro and Customer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <searchResultsAdditionalFields>Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LaunchDate__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LaunchStatus__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>TargetGroup__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Products__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

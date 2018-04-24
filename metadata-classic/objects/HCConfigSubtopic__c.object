@@ -1,5 +1,574 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AvailableForCustomers__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox indicating if the subtopic is visible for customers.</description>
+        <externalId>false</externalId>
+        <label>Available for Customers</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>AvailableForProfessionals__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox indicating if the subtopic is visible for professionals.</description>
+        <externalId>false</externalId>
+        <label>Available for Professionals</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>EighthArticleId__c</fullName>
+        <description>The ID of the knowledge article that should be displayed eighth for the subtopic.</description>
+        <externalId>false</externalId>
+        <label>08: Article ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EighthArticleURL__c</fullName>
+        <description>Formula hyperlink field; when clicked will take user to the public help center article.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(EighthArticleId__c),NULL, 
+HYPERLINK(&quot;https://help.thumbtack.com?ar=&quot;&amp;EighthArticleId__c,&quot;View Article&quot;) 
+)</formula>
+        <label>08: Article URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EleventhArticleId__c</fullName>
+        <description>The ID of the knowledge article that should be displayed eleventh for the subtopic.</description>
+        <externalId>false</externalId>
+        <label>11: Article ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EleventhArticleURL__c</fullName>
+        <description>Formula hyperlink field; when clicked will take user to the public help center article.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(EleventhArticleId__c),NULL, 
+HYPERLINK(&quot;https://help.thumbtack.com?ar=&quot;&amp;EleventhArticleId__c,&quot;View Article&quot;) 
+)</formula>
+        <label>11: Article URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FifteenthArticleId__c</fullName>
+        <description>The ID of the knowledge article that should be displayed fifteenth for the subtopic.</description>
+        <externalId>false</externalId>
+        <label>15: Article ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FifteenthArticleURL__c</fullName>
+        <description>Formula hyperlink field; when clicked will take user to the public help center article.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(FifteenthArticleId__c),NULL, 
+HYPERLINK(&quot;https://help.thumbtack.com?ar=&quot;&amp;FifteenthArticleId__c,&quot;View Article&quot;) 
+)</formula>
+        <label>15: Article URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FifthArticleId__c</fullName>
+        <description>The ID of the knowledge article that should be displayed fifth for the subtopic.</description>
+        <externalId>false</externalId>
+        <label>05: Article ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FifthArticleURL__c</fullName>
+        <description>Formula hyperlink field; when clicked will take user to the public help center article.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(FifthArticleId__c),NULL, 
+HYPERLINK(&quot;https://help.thumbtack.com?ar=&quot;&amp;FifthArticleId__c,&quot;View Article&quot;) 
+)</formula>
+        <label>05: Article URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FirstArticleId__c</fullName>
+        <description>The ID of the knowledge article that should be displayed first for the subtopic.</description>
+        <externalId>false</externalId>
+        <label>01: Article ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FirstArticleURL__c</fullName>
+        <description>Formula hyperlink field; when clicked will take user to the public help center article.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(FirstArticleId__c),NULL, 
+HYPERLINK(&quot;https://help.thumbtack.com?ar=&quot;&amp;FirstArticleId__c,&quot;View Article&quot;) 
+)</formula>
+        <label>01: Article URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FourteenthArticleId__c</fullName>
+        <description>The ID of the knowledge article that should be displayed fourteenth for the subtopic.</description>
+        <externalId>false</externalId>
+        <label>14: Article ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FourteenthArticleURL__c</fullName>
+        <description>Formula hyperlink field; when clicked will take user to the public help center article.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(FourteenthArticleId__c),NULL, 
+HYPERLINK(&quot;https://help.thumbtack.com?ar=&quot;&amp;FourteenthArticleId__c,&quot;View Article&quot;) 
+)</formula>
+        <label>14: Article URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FourthArticleID__c</fullName>
+        <description>Text field to store the public knowledge article ID associated with the subtopic.</description>
+        <externalId>false</externalId>
+        <label>04: Article ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FourthArticleURL__c</fullName>
+        <description>Formula hyperlink field; when clicked will take user to the public help center article.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(FourthArticleID__c),NULL, 
+HYPERLINK(&quot;https://help.thumbtack.com?ar=&quot;&amp;FourthArticleID__c,&quot;View Article&quot;) 
+)</formula>
+        <label>04: Article URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NinthArticleId__c</fullName>
+        <description>The ID of the knowledge article that should be displayed ninth for the subtopic.</description>
+        <externalId>false</externalId>
+        <label>09: Article ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NinthArticleURL__c</fullName>
+        <description>Formula hyperlink field; when clicked will take user to the public help center article.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(NinthArticleId__c),NULL, 
+HYPERLINK(&quot;https://help.thumbtack.com?ar=&quot;&amp;NinthArticleId__c,&quot;View Article&quot;) 
+)</formula>
+        <label>09: Article URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NumberOfArticles__c</fullName>
+        <description>Formula field to count the number of related articles on the subtopic; used for list views.</description>
+        <externalId>false</externalId>
+        <formula>CASE(FirstArticleId__c, null, 0,1)
++
+CASE(SecondArticleId__c,null,0,1)
++
+CASE(ThirdArticleId__c,null,0,1)
++
+CASE(FourthArticleID__c,null,0,1)
++
+CASE(FifthArticleId__c,null,0,1)
++
+CASE(SixthArticleId__c,null,0,1)
++
+CASE(SeventhArticleId__c,null,0,1)
++
+CASE(EighthArticleId__c,null,0,1)
++
+CASE(NinthArticleId__c,null,0,1)
++
+CASE(TenthArticleId__c,null,0,1)
++
+CASE(EleventhArticleId__c,null,0,1)
++
+CASE(TwelfthArticleId__c,null,0,1)
++
+CASE(ThirteenthArticleId__c,null,0,1)
++
+CASE(FourteenthArticleId__c,null,0,1)
++
+CASE(FifteenthArticleId__c,null,0,1)</formula>
+        <label>Number of Articles</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SecondArticleId__c</fullName>
+        <description>The ID of the knowledge article that should be displayed second for the subtopic.</description>
+        <externalId>false</externalId>
+        <label>02: Article ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SecondArticleURL__c</fullName>
+        <description>Formula hyperlink field; when clicked will take user to the public help center article.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(SecondArticleId__c),NULL, 
+HYPERLINK(&quot;https://help.thumbtack.com?ar=&quot;&amp;SecondArticleId__c,&quot;View Article&quot;) 
+)</formula>
+        <label>02: Article URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SeventhArticleId__c</fullName>
+        <description>The ID of the knowledge article that should be displayed seventh for the subtopic.</description>
+        <externalId>false</externalId>
+        <label>07: Article ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SeventhArticleURL__c</fullName>
+        <description>Formula hyperlink field; when clicked will take user to the public help center article.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(SeventhArticleId__c),NULL, 
+HYPERLINK(&quot;https://help.thumbtack.com?ar=&quot;&amp;SeventhArticleId__c,&quot;View Article&quot;) 
+)</formula>
+        <label>07: Article URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SixthArticleId__c</fullName>
+        <description>The ID of the knowledge article that should be displayed sixth for the subtopic.</description>
+        <externalId>false</externalId>
+        <label>06: Article ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SixthArticleURL__c</fullName>
+        <description>Formula hyperlink field; when clicked will take user to the public help center article.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(SixthArticleId__c),NULL, 
+HYPERLINK(&quot;https://help.thumbtack.com?ar=&quot;&amp;SixthArticleId__c,&quot;View Article&quot;) 
+)</formula>
+        <label>06: Article URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>The publication status of the subtopic for the help center experience.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Draft: subtopic is being built out
+Needs approval: subtopic needs final approval before making it visible to site visitors
+Publish: subtopic is made available for use on the public help center
+Archive: subtopic is archived and no longer visible</inlineHelpText>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Draft</fullName>
+                    <default>false</default>
+                    <label>Draft</label>
+                </value>
+                <value>
+                    <fullName>Needs approval</fullName>
+                    <default>false</default>
+                    <label>Needs approval</label>
+                </value>
+                <value>
+                    <fullName>Published</fullName>
+                    <default>false</default>
+                    <label>Published</label>
+                </value>
+                <value>
+                    <fullName>Archived</fullName>
+                    <default>false</default>
+                    <label>Archived</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>TenthArticleId__c</fullName>
+        <description>The ID of the knowledge article that should be displayed tenth for the subtopic.</description>
+        <externalId>false</externalId>
+        <label>10: Article ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TenthArticleURL__c</fullName>
+        <description>Formula hyperlink field; when clicked will take user to the public help center article.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(TenthArticleId__c),NULL, 
+HYPERLINK(&quot;https://help.thumbtack.com?ar=&quot;&amp;TenthArticleId__c,&quot;View Article&quot;) 
+)</formula>
+        <label>10: Article URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ThirdArticleId__c</fullName>
+        <description>The ID of the knowledge article that should be displayed third for the subtopic.</description>
+        <externalId>false</externalId>
+        <label>03: Article ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ThirdArticleURL__c</fullName>
+        <description>Formula hyperlink field; when clicked will take user to the public help center article.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(ThirdArticleId__c),NULL, 
+HYPERLINK(&quot;https://help.thumbtack.com?ar=&quot;&amp;ThirdArticleId__c,&quot;View Article&quot;) 
+)</formula>
+        <label>03: Article URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ThirteenthArticleId__c</fullName>
+        <description>The ID of the knowledge article that should be displayed thirteenth for the subtopic.</description>
+        <externalId>false</externalId>
+        <label>13: Article ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ThirteenthArticleURL__c</fullName>
+        <description>Formula hyperlink field; when clicked will take user to the public help center article.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(ThirteenthArticleId__c),NULL, 
+HYPERLINK(&quot;https://help.thumbtack.com?ar=&quot;&amp;ThirteenthArticleId__c,&quot;View Article&quot;) 
+)</formula>
+        <label>13: Article URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Title__c</fullName>
+        <description>The title of the subtopic.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The title of the subtopic as displayed in the help center.</inlineHelpText>
+        <label>Title</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>TwelfthArticleId__c</fullName>
+        <description>The ID of the knowledge article that should be displayed twelfth for the subtopic.</description>
+        <externalId>false</externalId>
+        <label>12: Article ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TwelfthArticleURL__c</fullName>
+        <description>Formula hyperlink field; when clicked will take user to the public help center article.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(TwelfthArticleId__c),NULL, 
+HYPERLINK(&quot;https://help.thumbtack.com?ar=&quot;&amp;TwelfthArticleId__c,&quot;View Article&quot;) 
+)</formula>
+        <label>12: Article URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Version__c</fullName>
+        <description>Open text field to enter in the version number for the subtopic.</description>
+        <externalId>false</externalId>
+        <label>Version</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>HC Config: Subtopic</label>
     <listViews>
         <fullName>SubtopicsAll</fullName>
         <columns>NAME</columns>
@@ -71,4 +640,44 @@
             <group>ContentUser</group>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Subtopics</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Subtopic</fullName>
+        <active>true</active>
+        <description>Record type used to manage the help center subtopics.</description>
+        <label>Subtopic</label>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Archived</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Draft</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Needs approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Title__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Status__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>AvailableForCustomers__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>AvailableForProfessionals__c</lookupDialogsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

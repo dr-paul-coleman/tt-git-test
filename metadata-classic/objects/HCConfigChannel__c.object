@@ -1,5 +1,324 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AssociatedForm__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the form (e.g., pre-chat form, email form) used when the contact channel is selected.</description>
+        <externalId>false</externalId>
+        <label>Associated Form</label>
+        <referenceTo>HCConfigForm__c</referenceTo>
+        <relationshipName>ContactChannels</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>AvailableOnDesktop__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox indicating if the contact channel is visible on desktop-like devices.</description>
+        <externalId>false</externalId>
+        <label>Available on Desktop</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>AvailableOnMobile__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox indicating if the contact channel is visible on mobile-like devices.</description>
+        <externalId>false</externalId>
+        <label>Available on Mobile</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Badge__c</fullName>
+        <description>Text area to store the text used for a clarifier message in the upper right hand corner of the channel card.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Text area to store the text used for a clarifier message in the upper right hand corner of the channel card.</inlineHelpText>
+        <label>Badge</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>ChannelUnavailableEndTime__c</fullName>
+        <description>The end date/time that the channel unavailable message should be removed.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set time to 1 hour after you want the channel to be turned back on.  A time-based workflow will turn the channel on 1 hour before the time set here.  For example, if the phones should be turned back on at 2:00 PM then set the start time to be 3:00 PM.</inlineHelpText>
+        <label>Channel Unavailable End Time</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>ChannelUnavailableStartTime__c</fullName>
+        <description>The start date/time that the channel unavailable message should be displayed.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set time to 1 hour after you want the channel to be turned off.  A time-based workflow will turn the channel off 1 hour before the time set here.  For example, if the phones should be turned off at 11:00 AM then set the start time to be 12:00 PM.</inlineHelpText>
+        <label>Channel Unavailable Start Time</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Disclaimer__c</fullName>
+        <description>Text field to store the display disclaimer text of the help center contact channel card (i.e., legal text disclaimer message).</description>
+        <externalId>false</externalId>
+        <label>Disclaimer</label>
+        <length>5000</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Icon__c</fullName>
+        <description>Text field to store the code of the icon used on the help center contact channel card.</description>
+        <externalId>false</externalId>
+        <label>Icon</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LinkURL__c</fullName>
+        <description>The URL link of the channel.</description>
+        <externalId>false</externalId>
+        <label>LinkURL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>PhoneNumber__c</fullName>
+        <description>Phone field to indicate the number displayed when visitor selects the phone or text channel offering.</description>
+        <externalId>false</externalId>
+        <label>Phone Number</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>ResponseTime__c</fullName>
+        <description>Text field to store the display estimated response time text of the help center contact channel card.</description>
+        <externalId>false</externalId>
+        <label>Response Time</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>SocialMediaURL__c</fullName>
+        <description>URL field to store the link to the social media channel contact option</description>
+        <externalId>false</externalId>
+        <label>Social Media URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>The publication status of the channel offering for the help center.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Draft: channel is being built out 
+Needs approval: channel needs final approval before making it visible to site visitors 
+Publish: channel is made available for use on the public help center 
+Archive: channel is archived and no longer visible</inlineHelpText>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Draft</fullName>
+                    <default>false</default>
+                    <label>Draft</label>
+                </value>
+                <value>
+                    <fullName>Needs approval</fullName>
+                    <default>false</default>
+                    <label>Needs approval</label>
+                </value>
+                <value>
+                    <fullName>Published</fullName>
+                    <default>false</default>
+                    <label>Published</label>
+                </value>
+                <value>
+                    <fullName>Archived</fullName>
+                    <default>false</default>
+                    <label>Archived</label>
+                </value>
+                <value>
+                    <fullName>Hidden</fullName>
+                    <default>false</default>
+                    <label>Hidden</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Title__c</fullName>
+        <description>The title of the channel offering card.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The title of the channel offering card as displayed on the help center.</inlineHelpText>
+        <label>Title</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <description>Picklist whose values indicate the type of contact channel available on the help center.</description>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Chat</fullName>
+                    <default>false</default>
+                    <label>Chat</label>
+                </value>
+                <value>
+                    <fullName>Email</fullName>
+                    <default>false</default>
+                    <label>Email</label>
+                </value>
+                <value>
+                    <fullName>Phone</fullName>
+                    <default>false</default>
+                    <label>Phone</label>
+                </value>
+                <value>
+                    <fullName>Text</fullName>
+                    <default>false</default>
+                    <label>Text</label>
+                </value>
+                <value>
+                    <fullName>Messenger</fullName>
+                    <default>false</default>
+                    <label>Messenger</label>
+                </value>
+                <value>
+                    <fullName>ExpertPro</fullName>
+                    <default>false</default>
+                    <label>ExpertPro</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>UnavailableMessage__c</fullName>
+        <description>Text area to enter an informational message that will display on the channel card when / if the channel is unavailable.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Text area to enter an informational message that will display on the channel card when / if the channel is unavailable.</inlineHelpText>
+        <label>Channel Unavailable Message</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Unavailable__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox to indicate if the channel is currently unavailable.  Used for emergency purposes, town halls, etc.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Checkbox to indicate if the channel is currently unavailable.  Used for emergency purposes, town halls, etc.</inlineHelpText>
+        <label>Channel Unavailable</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Version__c</fullName>
+        <description>Open text field to store the version number of the contact channel.</description>
+        <externalId>false</externalId>
+        <label>Version</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>HC Config: Channel</label>
     <listViews>
         <fullName>AllChannels</fullName>
         <columns>NAME</columns>
@@ -141,4 +460,80 @@
             <role>SystemLevelAccess</role>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Channels</pluralLabel>
+    <recordTypeTrackHistory>true</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>ContactChannel</fullName>
+        <active>true</active>
+        <description>Record type used to manage the help center contact channels.</description>
+        <label>Contact Channel</label>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Archived</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Draft</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hidden</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Needs approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Chat</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ExpertPro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Messenger</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Text</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>RequiredMessageForChannelUnavailable</fullName>
+        <active>true</active>
+        <description>Validation rule to require a channel unavailable message if the channel is marked as unavailable.</description>
+        <errorConditionFormula>RecordType.Name = &apos;Contact Channel&apos; &amp;&amp;
+Unavailable__c  &amp;&amp;
+ISBLANK(UnavailableMessage__c)</errorConditionFormula>
+        <errorDisplayField>UnavailableMessage__c</errorDisplayField>
+        <errorMessage>A message is required when marking a channel unavailable.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
 </CustomObject>

@@ -1,5 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>Experience__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the Experience object.</description>
+        <externalId>false</externalId>
+        <label>Experience</label>
+        <referenceTo>HCConfigExperience__c</referenceTo>
+        <relationshipLabel>Resource Assignments</relationshipLabel>
+        <relationshipName>ResourceAssignments</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Resource__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the Resource object</description>
+        <externalId>false</externalId>
+        <label>Resource</label>
+        <referenceTo>HCConfigResource__c</referenceTo>
+        <relationshipLabel>Resource Assignments</relationshipLabel>
+        <relationshipName>ResourceAssignments2</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SortOrder__c</fullName>
+        <externalId>false</externalId>
+        <label>Sort Order</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>HC Config: Resource Assignment</label>
     <listViews>
         <fullName>All</fullName>
         <columns>NAME</columns>
@@ -14,4 +105,30 @@
             <group>ContentUser</group>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Resource Assignments</pluralLabel>
+    <recordTypes>
+        <fullName>ResourceAssignment</fullName>
+        <active>true</active>
+        <description>Record type used to manage help center experience resource assignments.</description>
+        <label>Resource Assignment</label>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>NewResourceAssignment</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>New Resource Assignment</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>/a0p/e?CF00N3100000H6bj0={!HCConfigExperience__c.Name}&amp;CF00N3100000H6bj0_lkid={!HCConfigExperience__c.Id}&amp;RecordType=01231000000y2z3&amp;Name=Resource%20Assignment&amp;retURL={!HCConfigExperience__c.Id}&amp;saveURL={!HCConfigExperience__c.Id}</url>
+    </webLinks>
 </CustomObject>

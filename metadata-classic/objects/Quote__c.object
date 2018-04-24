@@ -1,5 +1,1205 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to store record data for the pro assistance and quoting service quotes.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AdminLinkLoginasPro__c</fullName>
+        <description>Hyperlink formula field that when clicked will take the user to the Pro&apos;s Admin.</description>
+        <externalId>false</externalId>
+        <formula>ProAccount__r.AdminLinkLoginAsUser__c</formula>
+        <inlineHelpText>Clicking this link will open the Pro&apos;s account in the Admin tool.</inlineHelpText>
+        <label>Admin Link Login as Pro</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AdminLinkQuote__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK(bid_usr_user_id__c)), 
+HYPERLINK(&apos;https://www.thumbtack.com/admin/login?usr_user_id=&apos; &amp; Text(bid_usr_user_id__c) &amp; &apos;&amp;return_url=/bid/&apos;&amp;bid_url_code__c, &apos;View quote (&apos;&amp; TEXT(bid_bid_id__c) &amp;&apos;) as &apos; &amp;  ProAccount__r.Name, &apos;_blank&apos;), &apos;Link not available&apos;
+)</formula>
+        <label>Admin Link Quote</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AdminLinkRequest__c</fullName>
+        <description>Hyperlink formula field that when clicked will take the user to the Pro&apos;s Admin.</description>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK( req_url_code__c )), 
+HYPERLINK(&apos;https://www.thumbtack.com/admin/requests/request?req=&apos; &amp; req_url_code__c, &apos;View Request&apos;, &apos;_blank&apos;), &apos;Link not available&apos;
+)</formula>
+        <inlineHelpText>Clicking this link will open the Pro&apos;s account in the Admin tool.</inlineHelpText>
+        <label>Admin Link Request</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CustomerID__c</fullName>
+        <description>Open text area to store the Customer ID number</description>
+        <externalId>false</externalId>
+        <label>Customer ID</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer__c</fullName>
+        <description>Request User First and Last name.</description>
+        <externalId>false</externalId>
+        <formula>req_usr_first_name__c +&quot; &quot;+ req_usr_last_name__c</formula>
+        <label>Customer</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DaysSinceLastCommunication__c</fullName>
+        <description>Formula to calculate, in days, the amount of time since the last communication date/time.</description>
+        <externalId>false</externalId>
+        <formula>(NOW()-  LastCommunicationDate__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Days Since Last Communication</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DayssinceLastStatusChange__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(LastStatusChangeDate__c), Now() - CreatedDate, Now()-LastStatusChangeDate__c)</formula>
+        <label>Days since Last Status Change</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DaysuntilRequestedEvent__c</fullName>
+        <description>Formula to calculate, in days, the amount of time until requested job date.</description>
+        <externalId>false</externalId>
+        <formula>IF( (DATEVALUE( req_needed_time__c)  - TODAY() ) &lt; 0, 0, DATEVALUE(req_needed_time__c) - TODAY())</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Days until Requested Event</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FollowUpDate__c</fullName>
+        <description>Date to follow up with customer on quote.</description>
+        <externalId>false</externalId>
+        <label>Follow Up Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>HoursSinceBuyerFirstSeenTime__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(FLOOR((NOW() - bid_buyer_first_seen_time__c)*24)) &amp;&apos; Hours &apos;&amp; 
+TEXT(FLOOR(((((NOW() - bid_buyer_first_seen_time__c)*24) -
+FLOOR((NOW() - bid_buyer_first_seen_time__c)*24))*60)))&amp;&apos; Mins&apos;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Hours Since Buyer First Seen Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>InitialQuoteDate__c</fullName>
+        <description>The date and time the quote was made via Thumbtack.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date and time the quote was made via Thumbtack.</inlineHelpText>
+        <label>Initial Quote Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>InitialQuotePriceType__c</fullName>
+        <description>Describes the type of pricing model that the Pro quoted.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Describes the type of pricing model that the Pro quoted.</inlineHelpText>
+        <label>Initial Quote Price Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Hourly</fullName>
+                    <default>false</default>
+                    <label>Hourly</label>
+                </value>
+                <value>
+                    <fullName>Fixed</fullName>
+                    <default>false</default>
+                    <label>Fixed</label>
+                </value>
+                <value>
+                    <fullName>Per person</fullName>
+                    <default>false</default>
+                    <label>Per person</label>
+                </value>
+                <value>
+                    <fullName>Need More Info</fullName>
+                    <default>false</default>
+                    <label>Need More Info</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>InitialQuotePrice__c</fullName>
+        <description>The initial price quoted in the request.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The initial price quoted in the request.</inlineHelpText>
+        <label>Initial Quote Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>LastCommunicationChannel__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Communication Channel</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Email</fullName>
+                    <default>false</default>
+                    <label>Email</label>
+                </value>
+                <value>
+                    <fullName>Text Message</fullName>
+                    <default>false</default>
+                    <label>Text Message</label>
+                </value>
+                <value>
+                    <fullName>Phone Call</fullName>
+                    <default>false</default>
+                    <label>Phone Call</label>
+                </value>
+                <value>
+                    <fullName>Messenger</fullName>
+                    <default>false</default>
+                    <label>Messenger</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>LastCommunicationDate__c</fullName>
+        <description>The last date and time that the Pro Assistant communicated with the customer.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The last date and time that the Pro Assistant communicated with the customer.</inlineHelpText>
+        <label>Last Communication Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>LastCommunicationSubject__c</fullName>
+        <description>Last communication selection</description>
+        <externalId>false</externalId>
+        <label>Last Communication Subject</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1st Follow Up Sent</fullName>
+                    <default>false</default>
+                    <label>1st Follow Up Sent</label>
+                </value>
+                <value>
+                    <fullName>2nd Follow Up Sent</fullName>
+                    <default>false</default>
+                    <label>2nd Follow Up Sent</label>
+                </value>
+                <value>
+                    <fullName>Experience Verification</fullName>
+                    <default>false</default>
+                    <label>Experience Verification</label>
+                </value>
+                <value>
+                    <fullName>Job Specifications</fullName>
+                    <default>false</default>
+                    <label>Job Specifications</label>
+                </value>
+                <value>
+                    <fullName>Last Attempt Follow Up Sent</fullName>
+                    <default>false</default>
+                    <label>Last Attempt Follow Up Sent</label>
+                </value>
+                <value>
+                    <fullName>Payment</fullName>
+                    <default>false</default>
+                    <label>Payment</label>
+                </value>
+                <value>
+                    <fullName>Pricing</fullName>
+                    <default>false</default>
+                    <label>Pricing</label>
+                </value>
+                <value>
+                    <fullName>Requesting Customer Information</fullName>
+                    <default>false</default>
+                    <label>Requesting Customer Information</label>
+                </value>
+                <value>
+                    <fullName>Scheduling (Job)</fullName>
+                    <default>false</default>
+                    <label>Scheduling (Job)</label>
+                </value>
+                <value>
+                    <fullName>Scheduling (On-Site Estimate)</fullName>
+                    <default>false</default>
+                    <label>Scheduling (On-Site Estimate)</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>LastStatusChangeDate__c</fullName>
+        <description>The date/time stamp of the last status change made on this record.</description>
+        <externalId>false</externalId>
+        <label>Last Status Change Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>LinkToThumbtackRequest__c</fullName>
+        <description>Link to the Thumbtack Request; used for Conga statements.</description>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK(bid_usr_user_id__c)), 
+HYPERLINK(&apos;https://www.thumbtack.com/admin/login?usr_user_id=&apos; &amp; Text(bid_usr_user_id__c) &amp; &apos;&amp;return_url=/bid/&apos;&amp;bid_url_code__c, &apos;https://www.thumbtack.com/admin/login?usr_user_id=&apos; &amp; Text(bid_usr_user_id__c) &amp; &apos;&amp;return_url=/bid/&apos;&amp;bid_url_code__c , &apos;_blank&apos;), &apos;Link not available&apos; 
+)</formula>
+        <label>Link to Thumbtack Request</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NumberofDaystoClosed__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISBLANK(OriginalPALeadCreatedDate__c), QuoteClosedDate__c - DATEVALUE(CreatedDate),
+QuoteClosedDate__c - DATEVALUE(OriginalPALeadCreatedDate__c)
+)</formula>
+        <inlineHelpText>Lead Closed Date - Created Date</inlineHelpText>
+        <label>Number of Days to Closed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OriginalPALeadCreatedDate__c</fullName>
+        <description>Date field used to historical purposes.  This is the original record create date from the Pro Assistant Lead (object converted over to Quote__c).</description>
+        <externalId>false</externalId>
+        <label>Original PA Lead Created Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>PASFDCUserID__c</fullName>
+        <externalId>false</externalId>
+        <formula>ProAccount__r.ProAssistant__r.Id</formula>
+        <label>PA SFDC User ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PricePerContact__c</fullName>
+        <description>The price per warm contact based on the request category, request pricing question, and answer.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter in the the appropriate price per warm contact as found on the google sheet reference.</inlineHelpText>
+        <label>Price per Contact</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>ProAccount__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The pro business/name the request is related to.</description>
+        <externalId>false</externalId>
+        <label>Pro Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>Quotes</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ProAssistanceCalculatedStatus__c</fullName>
+        <description>Calculates the pro assistant status field based on rules defined by that team. This field is used in the quoteTrigger.</description>
+        <externalId>false</externalId>
+        <formula>/*IF($RecordType.Id = &apos;012310000011t8A&apos;, 
+
+IF(OR(ISPICKVAL(Status__c, &quot;Inactive&quot;), 
+ISPICKVAL(Status__c, &quot;Cancelled&quot;), 
+ISPICKVAL(Status__c, &quot;Job Completed - Follow Up Completed&quot;) 
+), 
+TEXT(Status__c), 
+
+IF(AND(ISPICKVAL(Status__c, &quot;Booked Job - Hired&quot;), 
+LastInititalJobDate__c &lt; TODAY()), 
+&quot;Job Completed - Follow Up Pending&quot;, 
+
+IF( 
+AND( 
+ISPICKVAL(Status__c, &quot;Quoted&quot;), 
+OR( AND( ISBLANK(req_needed_time__c), 
+TODAY() - DATEVALUE(CreatedDate) &gt; 14 
+), 
+TODAY() - DATEVALUE( LastCommunicationDate__c ) &gt; 14 
+) 
+), 
+&quot;Inactive&quot;, 
+
+IF(AND(ISPICKVAL(Status__c, &quot;Job Completed - Follow Up Pending&quot;), 
+ISPICKVAL(RecurringFrequency__c,&quot;Non Recurring&quot;), 
+bid_status__c = 5, 
+NOT ISBLANK(bid_review_ask_time__c), 
+NOT ISBLANK( ReviewRequestedDatesentbyPA__c ), 
+NOT ISBLANK( RequestedRepeatJobDate__c ), 
+NumberofRepeatJobs__c = 0 
+), 
+&quot;Job Completed - Follow Up Completed&quot;, 
+
+IF(AND(ISPICKVAL(Status__c, &quot;Recurring Scheduled&quot;), 
+NOT ISBLANK(DateofLastRepeatJob__c), 
+DateofLastRepeatJob__c &lt; TODAY()), 
+&quot;Recurring Completed&quot;, 
+
+IF(AND(NOT ISBLANK(bid_bid_id__c), 
+ISBLANK(TEXT(Status__c))), 
+&quot;Quoted&quot;, 
+
+IF(AND(ISPICKVAL(Status__c, &quot;Quoted&quot;), 
+NOT ISBLANK(bid_buyer_first_seen_time__c)), 
+&quot;Viewed&quot;, 
+
+IF(AND(NOT ISBLANK(ScheduledApptDate__c), 
+ISBLANK( LastInititalJobDate__c ), 
+bid_status__c = 4), 
+&quot;Booked Appointment&quot;, 
+
+IF(AND(bid_status__c = 5, 
+ISBLANK(LastInititalJobDate__c)), 
+&quot;Booked Job - Hired w/o Lead Job&quot;, 
+
+IF(AND(bid_status__c = 5, 
+NOT ISBLANK(LastInititalJobDate__c)), 
+&quot;Booked Job - Hired&quot;, 
+
+IF(AND(bid_status__c = 3), 
+&quot;Cancelled&quot;, 
+
+TEXT(Status__c)))))))))))), */ 
+
+TEXT(Status__c)</formula>
+        <label>ProAssistanceCalculatedStatus</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ProAssistantManagedBy__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Service__r.ProAssistantManagedBy__c)</formula>
+        <label>Pro Assistant Managed By</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ProThumbtackUserID__c</fullName>
+        <description>Pro Thumbtack User ID</description>
+        <externalId>false</externalId>
+        <formula>Service__r.ThumbtackUserID__c</formula>
+        <label>Pro Thumbtack User ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>QuoteClosedDate__c</fullName>
+        <description>The date the lead was won or lost.</description>
+        <externalId>false</externalId>
+        <label>Quote Closed Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>QuoteNotes__c</fullName>
+        <description>Open text area for notes about quote.</description>
+        <externalId>false</externalId>
+        <label>Quote Notes</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>QuotePosition__c</fullName>
+        <description>A number between 1-5 that indicates the bid number per customer request. 1 means they were the first to bid, 5 means they were the last to bid.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>A number between 1-5 that indicates the bid number per customer request. 1 means they were the first to bid, 5 means they were the last to bid.</inlineHelpText>
+        <label>Quote Position</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>QuotingCalculatedStatus__c</fullName>
+        <description>Formula field to calculate the status of the record; used in quoteTrigger to set status.</description>
+        <externalId>false</externalId>
+        <formula>IF($RecordType.DeveloperName = &apos;QuotingServiceRecordType&apos;, 
+    
+   IF(OR(ISPICKVAL(Status__c, &quot;Inactive&quot;),
+         ISPICKVAL(Status__c, &quot;Cancelled&quot;),
+         ISPICKVAL(Status__c, &quot;Contact Fee Collected&quot;),
+         ISPICKVAL(Status__c, &quot;Contacted but Unverified&quot;),
+         ISPICKVAL(Status__c, &quot;Contacted but No Intent&quot;),
+         ISPICKVAL(Status__c, &quot;Contacted and Verified&quot;)
+      ),
+      TEXT(Status__c),
+    IF(AND(ISPICKVAL(Status__c,&quot;Invoiced&quot;),
+           WarmContactFeeCollected__c &gt;= WarmContactFee__c),
+      &quot;Contact Fee Collected&quot;,
+
+    IF(bid_status__c = 3, 
+      &quot;Cancelled&quot;,    
+
+    IF(AND(NOT ISBLANK(bid_bid_id__c), 
+           ISBLANK(TEXT(Status__c))), 
+       &quot;Quoted&quot;,
+    
+
+    TEXT(Status__c))))),
+
+TEXT(Status__c))</formula>
+        <label>Quoting Calculated Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>QuotingServiceStatus__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Service__r.QuotingServiceStatus__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Quoting Service Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>QuotingStatusMismatch__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF((RecordType.Name = &apos;Quoting Service Record Type&apos;  &amp;&amp;  (QuotingCalculatedStatus__c &lt;&gt;  TEXT(Status__c))), true, false )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Quoting Status Mismatch</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>RecurringFrequency__c</fullName>
+        <description>Select recurring frequency.</description>
+        <externalId>false</externalId>
+        <label>Recurring Frequency</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>As Needed</fullName>
+                    <default>false</default>
+                    <label>As Needed</label>
+                </value>
+                <value>
+                    <fullName>Weekly</fullName>
+                    <default>false</default>
+                    <label>Weekly</label>
+                </value>
+                <value>
+                    <fullName>Biweekly</fullName>
+                    <default>false</default>
+                    <label>Biweekly</label>
+                </value>
+                <value>
+                    <fullName>Every 3 Weeks</fullName>
+                    <default>false</default>
+                    <label>Every 3 Weeks</label>
+                </value>
+                <value>
+                    <fullName>Monthly</fullName>
+                    <default>false</default>
+                    <label>Monthly</label>
+                </value>
+                <value>
+                    <fullName>Non Recurring</fullName>
+                    <default>false</default>
+                    <label>Non Recurring</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>RequestPricingAnswer__c</fullName>
+        <description>The answer to the request pricing question that helps determine the price per contact.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The answer to the request pricing question that helps determine the price per contact.</inlineHelpText>
+        <label>Request Pricing Answer</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RequestPricingQuestion__c</fullName>
+        <description>The question from the request form that helped determine the price per contact.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The question from the request form that helped determine the price per contact.</inlineHelpText>
+        <label>Request Pricing Question</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RequestedRepeatJobDate__c</fullName>
+        <externalId>false</externalId>
+        <label>Requested Repeat Job Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>ReviewRequestedDatesentbyPA__c</fullName>
+        <description>Review requested via PA (date)</description>
+        <externalId>false</externalId>
+        <label>Review Requested Date (sent by PA)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>ScheduledApptDate__c</fullName>
+        <description>The date the job or service is scheduled with the customer.</description>
+        <externalId>false</externalId>
+        <label>Scheduled Appt Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Service__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Service</label>
+        <referenceTo>Service__c</referenceTo>
+        <relationshipName>Quotes</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>Picklist of values that indicate the status of the request.</description>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Quoted</fullName>
+                    <default>false</default>
+                    <label>Quoted</label>
+                </value>
+                <value>
+                    <fullName>In Communication - Pending Customer</fullName>
+                    <default>false</default>
+                    <label>In Communication - Pending Customer</label>
+                </value>
+                <value>
+                    <fullName>In Communication - Pending Pro</fullName>
+                    <default>false</default>
+                    <label>In Communication - Pending Pro</label>
+                </value>
+                <value>
+                    <fullName>Booked Appointment</fullName>
+                    <default>false</default>
+                    <label>Booked Appointment</label>
+                </value>
+                <value>
+                    <fullName>Booked Job - Hired</fullName>
+                    <default>false</default>
+                    <label>Booked Job - Hired</label>
+                </value>
+                <value>
+                    <fullName>Booked Job - Hired w/o Lead Job</fullName>
+                    <default>false</default>
+                    <label>Booked Job - Hired w/o Lead Job</label>
+                </value>
+                <value>
+                    <fullName>Job Completed - Follow Up Pending</fullName>
+                    <default>false</default>
+                    <label>Job Completed - Follow Up Pending</label>
+                </value>
+                <value>
+                    <fullName>Recurring Scheduled</fullName>
+                    <default>false</default>
+                    <label>Recurring Scheduled</label>
+                </value>
+                <value>
+                    <fullName>Recurring Completed</fullName>
+                    <default>false</default>
+                    <label>Recurring Completed</label>
+                </value>
+                <value>
+                    <fullName>Job Completed - Follow Up Completed</fullName>
+                    <default>false</default>
+                    <label>Job Completed - Follow Up Completed</label>
+                </value>
+                <value>
+                    <fullName>Contacted but Unverified</fullName>
+                    <default>false</default>
+                    <label>Contacted but Unverified</label>
+                </value>
+                <value>
+                    <fullName>Contacted but No Intent</fullName>
+                    <default>false</default>
+                    <label>Contacted but No Intent</label>
+                </value>
+                <value>
+                    <fullName>Contacted and Verified</fullName>
+                    <default>false</default>
+                    <label>Contacted and Verified</label>
+                </value>
+                <value>
+                    <fullName>Invoiced</fullName>
+                    <default>false</default>
+                    <label>Invoiced</label>
+                </value>
+                <value>
+                    <fullName>Contact Fee Collected</fullName>
+                    <default>false</default>
+                    <label>Contact Fee Collected</label>
+                </value>
+                <value>
+                    <fullName>Cancelled</fullName>
+                    <default>false</default>
+                    <label>Cancelled</label>
+                </value>
+                <value>
+                    <fullName>Inactive</fullName>
+                    <default>false</default>
+                    <label>Inactive</label>
+                </value>
+                <value>
+                    <fullName>Viewed</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Viewed</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>WarmContactFeeCollected__c</fullName>
+        <description>The fee amount collected for the warm contact.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter in the amount you collected for the warm contact made.</inlineHelpText>
+        <label>Warm Contact Fee Collected</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>WarmContactFeeInvoiceDate__c</fullName>
+        <description>The date of the invoice in which the fee was charged.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date of the invoice in which the fee was charged.</inlineHelpText>
+        <label>Warm Contact Fee Invoice Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>WarmContactFee__c</fullName>
+        <description>Formula field to display the fee that is to be charged to the Pro for the warm contact made.</description>
+        <externalId>false</externalId>
+        <label>Warm Contact Fee</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>WarmContactMade__c</fullName>
+        <description>Picklist whose value determines if the customer made warm contact with the pro, indicating intent.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select &apos;Yes&apos; if the customer made warm contact indicating intent.</inlineHelpText>
+        <label>Warm Contact Made</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>WarmContactMessageDate__c</fullName>
+        <description>The date of the message that was used to determine the warm contact.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date of the message that was used to determine the warm contact.</inlineHelpText>
+        <label>Warm Contact Message Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>WarmContactPhoneDate__c</fullName>
+        <description>The date of the phone call/click event that was used to determine the warm contact.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date of the phone call/click event that was used to determine the warm contact.</inlineHelpText>
+        <label>Warm Contact Phone Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>bid_bid_id__c</fullName>
+        <externalId>true</externalId>
+        <label>Bid ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>bid_bid_pk__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <description>Bid PK ID that comes from the data platform, website.bid_bids</description>
+        <externalId>true</externalId>
+        <label>Bid PK ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>bid_buyer_first_seen_time__c</fullName>
+        <externalId>false</externalId>
+        <label>Bid Buyer First Seen Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>bid_create_time__c</fullName>
+        <externalId>false</externalId>
+        <label>Bid Create Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>bid_estimate_price_per_unit__c</fullName>
+        <externalId>false</externalId>
+        <label>Bid Estimate Price Per Unit</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>bid_estimate_type__c</fullName>
+        <externalId>false</externalId>
+        <label>Bid Estimate Type</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>bid_last_message_time__c</fullName>
+        <externalId>false</externalId>
+        <label>Bid Last Message Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>bid_req_request_id__c</fullName>
+        <externalId>true</externalId>
+        <label>Bid Request ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>bid_review_ask_time__c</fullName>
+        <externalId>false</externalId>
+        <label>Bid Review Ask Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>bid_sav_available_service_id__c</fullName>
+        <externalId>false</externalId>
+        <label>Bid Service ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>bid_sent_time__c</fullName>
+        <externalId>false</externalId>
+        <label>Bid Sent Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>bid_status__c</fullName>
+        <externalId>false</externalId>
+        <label>Bid Status</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>bid_status_time__c</fullName>
+        <externalId>false</externalId>
+        <label>Bid Status Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>bid_status_usr_user_id__c</fullName>
+        <externalId>false</externalId>
+        <label>Bid Status User ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>bid_url_code__c</fullName>
+        <externalId>false</externalId>
+        <label>Bid URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>bid_usr_user_id__c</fullName>
+        <externalId>false</externalId>
+        <label>Bid User ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>rca_name__c</fullName>
+        <externalId>false</externalId>
+        <label>Request Category Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>req_needed_time__c</fullName>
+        <externalId>false</externalId>
+        <label>Request Needed Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>req_phn_phone_number__c</fullName>
+        <externalId>false</externalId>
+        <label>Request Phone Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>req_schedule_description__c</fullName>
+        <externalId>false</externalId>
+        <label>Request Schedule Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>req_status__c</fullName>
+        <externalId>false</externalId>
+        <label>Request Status</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>req_url_code__c</fullName>
+        <externalId>false</externalId>
+        <label>Request URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>req_usr_first_name__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer First Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>req_usr_last_name__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer Last Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>rev_rating__c</fullName>
+        <externalId>false</externalId>
+        <label>Review Rating</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Quote</label>
     <listViews>
         <fullName>All</fullName>
         <columns>NAME</columns>
@@ -676,4 +1876,415 @@
             <roleAndSubordinatesInternal>ProServicesManaging_User</roleAndSubordinatesInternal>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Quote ID</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Quotes</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>ProAssistanceRecordType</fullName>
+        <active>true</active>
+        <description>Used for pros who have subscribed to the Pro Assistance subscription</description>
+        <label>Pro Assistance Record Type</label>
+        <picklistValues>
+            <picklist>InitialQuotePriceType__c</picklist>
+            <values>
+                <fullName>Fixed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hourly</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Need More Info</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Per person</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LastCommunicationChannel__c</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Messenger</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Text Message</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LastCommunicationSubject__c</picklist>
+            <values>
+                <fullName>1st Follow Up Sent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2nd Follow Up Sent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Experience Verification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Specifications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Last Attempt Follow Up Sent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pricing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Requesting Customer Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduling %28Job%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduling %28On-Site Estimate%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>RecurringFrequency__c</picklist>
+            <values>
+                <fullName>As Needed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biweekly</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Every 3 Weeks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non Recurring</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Weekly</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Booked Appointment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Booked Job - Hired</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Booked Job - Hired w%2Fo Lead Job</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contact Fee Collected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contacted and Verified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contacted but No Intent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contacted but Unverified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Communication - Pending Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Communication - Pending Pro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoiced</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Completed - Follow Up Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Completed - Follow Up Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quoted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recurring Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recurring Scheduled</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>WarmContactMade__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>QuotingServiceRecordType</fullName>
+        <active>true</active>
+        <description>Used for pros who have subscribed to Quoting Service only subscription</description>
+        <label>Quoting Service Record Type</label>
+        <picklistValues>
+            <picklist>InitialQuotePriceType__c</picklist>
+            <values>
+                <fullName>Fixed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hourly</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Need More Info</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Per person</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LastCommunicationChannel__c</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Messenger</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Text Message</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LastCommunicationSubject__c</picklist>
+            <values>
+                <fullName>1st Follow Up Sent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2nd Follow Up Sent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Experience Verification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Specifications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Last Attempt Follow Up Sent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pricing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Requesting Customer Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduling %28Job%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduling %28On-Site Estimate%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>RecurringFrequency__c</picklist>
+            <values>
+                <fullName>As Needed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biweekly</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Every 3 Weeks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non Recurring</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Weekly</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Booked Appointment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Booked Job - Hired</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Booked Job - Hired w%2Fo Lead Job</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contact Fee Collected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contacted and Verified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contacted but No Intent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contacted but Unverified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Communication - Pending Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Communication - Pending Pro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoiced</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Completed - Follow Up Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Job Completed - Follow Up Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quoted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recurring Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recurring Scheduled</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>WarmContactMade__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <searchResultsAdditionalFields>ProAccount__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Service__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Customer__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>req_needed_time__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>AdminLinkQuote__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>RECORDTYPE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATED_DATE</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

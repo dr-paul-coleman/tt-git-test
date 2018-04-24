@@ -1,5 +1,810 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>Custom Object that holds wise.io predictions.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>CaseWisePredictionAccuracy__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(wisespt__CaseID__r.WisePredictionAccuracy__c)</formula>
+        <label>Case Wise Prediction Accuracy</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CategoryMatching__c</fullName>
+        <description>Formula field to indicate if the wise predicted category matches the parent case set category.</description>
+        <externalId>false</externalId>
+        <formula>IF( wisethumbtack__WiseTag_Category__c =  ParentCaseCategory__c,&quot;Match&quot;,
+IF( wisethumbtack__WiseTag_Category__c != ParentCaseCategory__c, &quot;Does not match&quot;,
+Null))</formula>
+        <label>Category Matching</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CreatedDateTime__c</fullName>
+        <externalId>false</externalId>
+        <formula>CreatedDate</formula>
+        <label>Created Date/Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>IsNoise__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( wisethumbtack__WiseTag_Noise__c = &apos;noise&apos; &amp;&amp; wisethumbtack__WiseTag_Noise_confident__c = true, true, false)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>IsNoise</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ParentCaseCategory__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(wisespt__CaseID__r.Category__c)</formula>
+        <label>ParentCaseCategory</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ParentCaseIncomingEmailToAddress__c</fullName>
+        <description>Formula to bring down the parent case &quot;Incoming Email Message To Address&quot; value.  Used for auto response evaluation.</description>
+        <externalId>false</externalId>
+        <formula>wisespt__CaseID__r.IncomingEmailMessageToAddress__c</formula>
+        <label>Parent Case Incoming Email To Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ParentCaseIsNoise__c</fullName>
+        <externalId>false</externalId>
+        <formula>Text(wisespt__CaseID__r.Category__c) = &apos;Other&apos; &amp;&amp; Text(wisespt__CaseID__r.SubCategory__c) = &apos;Noise&apos;</formula>
+        <label>Parent Case Is Noise</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ParentCaseOrigin__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(wisespt__CaseID__r.Origin)</formula>
+        <label>Parent Case Origin</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ParentCaseProcessedByWise__c</fullName>
+        <externalId>false</externalId>
+        <formula>wisespt__CaseID__r.WisePredictionProcessed__c</formula>
+        <label>ParentCaseProcessedByWise</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ParentCaseQueueName__c</fullName>
+        <externalId>false</externalId>
+        <formula>wisespt__CaseID__r.Owner:Queue.QueueName</formula>
+        <label>Parent Case Queue Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ParentCaseStatus__c</fullName>
+        <externalId>false</externalId>
+        <formula>Text(wisespt__CaseID__r.Status)</formula>
+        <label>Parent Case Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ParentCaseSubCategory__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT( wisespt__CaseID__r.SubCategory__c )</formula>
+        <label>ParentCaseSubCategory</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ParentCaseSubject__c</fullName>
+        <externalId>false</externalId>
+        <formula>wisespt__CaseID__r.Subject</formula>
+        <label>Parent Case Subject</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ParentCaseTeam__c</fullName>
+        <externalId>false</externalId>
+        <formula>wisespt__CaseID__r.Team__c</formula>
+        <label>Parent Case Team</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PredictedOriginalQueue__c</fullName>
+        <description>Formula field to indicate which queue the case should be routed to.</description>
+        <externalId>false</externalId>
+        <formula>If(IsNoise__c,&apos;Noise&apos;,
+
+IF(ParentCaseIncomingEmailToAddress__c = &apos;no-reply-tsc@thumbtack.com&apos;, &apos;Marketplace Integrity&apos;, 
+
+IF(OR(ParentCaseIncomingEmailToAddress__c = &apos;proassist@thumbtack.com&apos;,ParentCaseIncomingEmailToAddress__c = &apos;quotingservice@thumbtack.com&apos;), &apos;Customer Support - Email&apos;,
+
+IF(ParentCaseIncomingEmailToAddress__c = &apos;customerreviews@thumbtack.com&apos;, &apos;Marketplace Integrity&apos;, 
+
+IF( ThumbtackAutoResponseRule__c &lt;&gt; &apos;n/a&apos;,&apos;Auto Response&apos;, 
+
+&apos;Customer Support - Email&apos; 
+)))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PredictedOriginalQueue</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PredictedOwnerId__c</fullName>
+        <description>Formula field to indicate the id of the queue that the case should be routed to.</description>
+        <externalId>false</externalId>
+        <formula>IF(IsNoise__c,&apos;00G31000004TPrq&apos;,
+
+IF(ParentCaseIncomingEmailToAddress__c = &apos;no-reply-tsc@thumbtack.com&apos;, &apos;00Gi0000004Fb9R&apos;, 
+
+IF(OR(ParentCaseIncomingEmailToAddress__c = &apos;instantmatch@thumbtack.com&apos;,ParentCaseIncomingEmailToAddress__c = &apos;quotingservice@thumbtack.com&apos;), &apos;00G31000004xkX9&apos;,
+
+IF(ParentCaseIncomingEmailToAddress__c = &apos;customerreviews@thumbtack.com&apos;, &apos;00Gi0000004Fb9R&apos;, 
+
+IF( ThumbtackAutoResponseRule__c &lt;&gt; &apos;n/a&apos;,&apos;00G31000004bLR0&apos;,
+    
+&apos;00G31000004xkX9&apos;
+
+)))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PredictedOwnerId</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ReEvaluateWorkflow__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Used to manually update the wise prediction records in list views. This will re-evaluate the workflows which update the parent case.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Only use this to re-fire the workflow to update parent cases.</inlineHelpText>
+        <label>Re-Evaluate Workflow</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ShouldBeProcessed__c</fullName>
+        <description>Formula field to indicate whether or not the parent case should be processed by the WisePrediction trigger.</description>
+        <externalId>false</externalId>
+        <formula>IF( ISBLANK(wisethumbtack__WiseTag_Category__c),False,
+IF(ISBLANK(wisethumbtack__WiseTag_SubCategory__c),False,
+IF(
+  AND(
+      NOT ISBLANK(wisethumbtack__WiseTag_Noise__c),
+      NOT ISBLANK(wisethumbtack__WiseTag_Tier__c),
+      OR (ISPICKVAL(wisespt__CaseID__r.Origin, &apos;Web&apos;),
+          ISPICKVAL(wisespt__CaseID__r.Origin, &apos;Email&apos;)
+          ),
+      wisespt__CaseID__r.Owner:Queue.Id = &apos;00Gi0000004GIHN&apos;,
+      wisespt__CaseID__r.ManualCaseCreation__c = False,
+      wisespt__CaseID__r.RecordTypeId = &apos;012i0000000xvJS&apos;,
+      wisespt__CaseID__r.WisePredictionProcessed__c = False
+      ),
+True,False)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ShouldBeProcessed</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>SubcategoryMatching__c</fullName>
+        <description>Formula field to indicate if the wise predicted subcategory matches the parent case set category.</description>
+        <externalId>false</externalId>
+        <formula>IF( wisethumbtack__WiseTag_SubCategory__c =  ParentCaseSubCategory__c,&quot;Match&quot;,
+IF( wisethumbtack__WiseTag_SubCategory__c != ParentCaseSubCategory__c, &quot;Does not match&quot;,
+Null))</formula>
+        <label>Subcategory Matching</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Test__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( AND(wisethumbtack__WiseTag_Noise__c = &apos;noise&apos;, 
+            wisethumbtack__WiseTag_Noise_confident__c), true, 
+IF( AND(wisethumbtack__WiseTag_Noise__c =&apos;noise&apos;, 
+             wisethumbtack__WiseTag_Tier__c = &apos;noise&apos;, 
+             wisethumbtack__WiseTag_Category__c = &apos;Other&apos;, 
+             wisethumbtack__WiseTag_SubCategory__c = &apos;Noise&apos;),true, 
+false
+))</formula>
+        <label>Test</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ThumbtackAutoResponseRule__c</fullName>
+        <description>Formula field used by the WisePrediction trigger to dictate which auto response rule to use when replying from the parent case.</description>
+        <externalId>false</externalId>
+        <formula>IF( OR(IsNoise__c, 
+wisethumbtack__WiseTag_Category_confident__c = false), &apos;n/a&apos;, 
+IF(OR(ParentCaseIncomingEmailToAddress__c = &apos;instantmatch@thumbtack.com&apos;,ParentCaseIncomingEmailToAddress__c = &apos;quotingservice@thumbtack.com&apos;, ParentCaseIncomingEmailToAddress__c = &apos;no-reply-tsc@thumbtack.com&apos;,ParentCaseIncomingEmailToAddress__c = &apos;customerreviews@thumbtack.com&apos;), &apos;n/a&apos;, 
+IF(AND(ISPICKVAL(wisespt__CaseID__r.Origin, &apos;Email&apos;), 
+ParentCaseIncomingEmailToAddress__c = &apos;do-not-reply@thumbtack.com&apos;, 
+wisethumbtack__WiseTag_SubCategory__c &lt;&gt; &apos;MI CASE&apos;, 
+wisethumbtack__WiseTag_SubCategory__c &lt;&gt; &apos;MI INCIDENT&apos;, 
+wisethumbtack__WiseTag_SubCategory__c &lt;&gt; &apos;Incident&apos;,
+wisethumbtack__WiseTag_SubCategory__c &lt;&gt; &apos;Scam / fake&apos;, 
+wisethumbtack__WiseTag_SubCategory__c &lt;&gt; &apos;Proactive - no response&apos;), 
+
+IF( AND(wisethumbtack__WiseTag_SubCategory_confident__c, 
+wisethumbtack__WiseTag_SubCategory__c = &apos;Message intended for pro&apos;),&apos;Message intended for pro&apos;, 
+IF( AND(wisethumbtack__WiseTag_SubCategory_confident__c,  
+wisethumbtack__WiseTag_SubCategory__c = &apos;Message intended for customer&apos;),&apos;Message intended for customer&apos;, 
+IF( AND(wisethumbtack__WiseTag_SubCategory_confident__c, 
+wisethumbtack__WiseTag_SubCategory__c = &apos;Quote intended for customer&apos;),&apos;Quote intended for customer&apos;, 
+IF( wisethumbtack__WiseTag_Category__c = &apos;Account / Profile&apos;, &apos;Product Auto Response for Account/Profile&apos;, 
+IF( wisethumbtack__WiseTag_Category__c = &apos;Pricing and Payments&apos;, &apos;Product Auto Response for Pricing and Payments&apos;, 
+IF( wisethumbtack__WiseTag_Category__c = &apos;Dispute&apos;, &apos;Product Auto Response for Dispute&apos;, 
+IF( wisethumbtack__WiseTag_Category__c = &apos;Feedback&apos;,&apos;Product Auto Response for Feedback&apos;, 
+IF( wisethumbtack__WiseTag_Category__c = &apos;Getting Started&apos;,&apos;Product Auto Response for Getting Started&apos;, 
+IF( wisethumbtack__WiseTag_Category__c = &apos;Notifications&apos;,&apos;Product Auto Response for Notifications&apos;, 
+IF( wisethumbtack__WiseTag_Category__c = &apos;Quotes&apos;,&apos;Product Auto Response for Quotes&apos;, 
+IF( wisethumbtack__WiseTag_Category__c = &apos;Refunds&apos;, &apos;Product Auto Response for Refunds&apos;, 
+IF( wisethumbtack__WiseTag_Category__c = &apos;Requests&apos;,&apos;Product Auto Response for Requests&apos;, 
+IF( wisethumbtack__WiseTag_Category__c = &apos;Reviews&apos;,&apos;Product Auto Response for Reviews&apos;, 
+IF( wisethumbtack__WiseTag_Category__c = &apos;Other&apos;,&apos;Product Auto Response for Other&apos;, 
+&apos;n/a&apos;)))))))))))))), 
+&apos;n/a&apos;)))</formula>
+        <label>Thumbtack Auto Response Rule</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wisespt__CaseID__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The case that the prediction references.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>ID of the Case.</inlineHelpText>
+        <label>CaseID</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>WisePredictions</relationshipLabel>
+        <relationshipName>WisePredictions</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>wisespt__WiseAutoRespondedAt__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>WiseAutoRespondedAt</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>wisespt__WiseAutoResponseEligible__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Is this Case eligible for auto-response given the confidence in the top prediction?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Is this Case eligible for auto-response given the confidence in the top prediction?</inlineHelpText>
+        <label>WiseAutoResponseEligible</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>wisespt__WiseAutoResponseFailedAt__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>WiseAutoResponseFailedAt</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>wisespt__WiseAutoResponseFailureReason__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>WiseAutoResponseFailureReason</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wisespt__WiseAutoResponseFailure__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>WiseAutoResponseFailure</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wisespt__WiseAutoResponseMacro__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>WiseAutoResponseMacro</label>
+        <referenceTo>Macro</referenceTo>
+        <relationshipLabel>WisePredictions</relationshipLabel>
+        <relationshipName>WisePredictions</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>wisespt__WiseAutoResponseToSend__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>WiseAutoResponseToSend</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>wisespt__WiseConfidentResponse__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Is this response confident?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Is this response confident?</inlineHelpText>
+        <label>WiseConfidentResponse</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>wisespt__WiseID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <description>Internal Wise.io prediction reference.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>Internal Wise.io prediction reference.</inlineHelpText>
+        <label>WiseID</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>wisespt__WiseResponseCreatedAt__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Creation time of the Wise.io Responses.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Creation time of the Wise.io Responses.</inlineHelpText>
+        <label>WiseResponseCreatedAt</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>wisespt__WiseResponse__c</fullName>
+        <defaultValue>&quot;{ }&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>JSON with the Wise.io responses</description>
+        <externalId>false</externalId>
+        <label>WiseResponse</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>wisespt__WiseTagsCreatedAt__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Creation time of the tag records.</description>
+        <externalId>false</externalId>
+        <label>WiseTagsCreatedAt</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>wisespt__WiseTags__c</fullName>
+        <defaultValue>&quot;{ }&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>JSON of the wise.io tag predictions</description>
+        <externalId>false</externalId>
+        <label>WiseTags</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>wisespt__WiseTopResponse_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Salesforce Id of the top response recommendation for the Case.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Salesforce Id of the top response recommendation for the Case.</inlineHelpText>
+        <label>WiseTopResponse_Id</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wisespt__WiseTopResponse_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The type of the recommended response Id (e.g. EmailTemplate)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The type of the recommended response Id (e.g. EmailTemplate)</inlineHelpText>
+        <label>WiseTopResponse_Type</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wisespt__Wise_ParseJSON_Response_Error_Text__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Text of any JSON Response parse error</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Text of any JSON Response parse error</inlineHelpText>
+        <label>Wise_ParseJSON_Response_Error_Text</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wisespt__Wise_ParseJSON_Response_Error__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Was there an error parsing the JSON response?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Was there an error parsing the JSON response?</inlineHelpText>
+        <label>Wise_ParseJSON_Response_Error</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>wisethumbtack__Case_Description__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Case Description</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Case Description</inlineHelpText>
+        <label>Case Description</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wisethumbtack__Case_subject__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Subject of the Case</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Subject of the Case</inlineHelpText>
+        <label>Case Subject</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wisethumbtack__Top_Macro__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Top Macro recommended</description>
+        <externalId>false</externalId>
+        <label>Top Macro</label>
+        <referenceTo>Macro</referenceTo>
+        <relationshipLabel>WisePredictions (Top Macro)</relationshipLabel>
+        <relationshipName>WisePredictions</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>wisethumbtack__WiseSentiment__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Numerical representation of sentiment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Numerical representation of sentiment</inlineHelpText>
+        <label>WiseSentiment</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wisethumbtack__WiseTag_Category__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Category prediction</description>
+        <externalId>false</externalId>
+        <label>WiseTag_Category</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wisethumbtack__WiseTag_Category_confident__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Is the Category prediction confident or not?</description>
+        <externalId>false</externalId>
+        <label>WiseTag_Category_confident</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>wisethumbtack__WiseTag_Noise__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Wise prediction for Tag = Noise</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Wise prediction for Tag = Noise</inlineHelpText>
+        <label>WiseTag_Noise</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wisethumbtack__WiseTag_Noise_confident__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Wise is confident in this prediction?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Wise is confident in this prediction?</inlineHelpText>
+        <label>WiseTag_Noise_confident</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>wisethumbtack__WiseTag_Noise_score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Score for Wise Prediction for Noise</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Score for Wise Prediction for Noise</inlineHelpText>
+        <label>WiseTag_Noise_score</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wisethumbtack__WiseTag_SubCategory__c</fullName>
+        <deprecated>false</deprecated>
+        <description>SubCategory prediction</description>
+        <externalId>false</externalId>
+        <label>WiseTag_SubCategory</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wisethumbtack__WiseTag_SubCategory_confident__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Is the SubCategory prediction confident or not?</description>
+        <externalId>false</externalId>
+        <label>WiseTag_SubCategory_confident</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>wisethumbtack__WiseTag_Tier__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Prediction for Wise Tag = Tier</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Prediction for Wise Tag = Tier</inlineHelpText>
+        <label>WiseTag_Tier</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wisethumbtack__WiseTag_Tier_confident__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Wise is confident in this prediction?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Wise is confident in this prediction?</inlineHelpText>
+        <label>WiseTag_Tier_confident</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>wisethumbtack__WiseTag_Tier_score__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Score for Wise Prediction on Tier</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Score for Wise Prediction on Tier</inlineHelpText>
+        <label>WiseTag_Tier_score</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wisethumbtack__Wise_ParseJSON_Tag_Error_Text__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Error message when parsing</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Error message when parsing</inlineHelpText>
+        <label>Wise_ParseJSON_Tag_Error_Text</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>wisethumbtack__Wise_ParseJSON_Tag_Error__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Was there an error parsing the JSON for WiseTags?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Was there an error parsing the JSON for WiseTags?</inlineHelpText>
+        <label>Wise_ParseJSON_Tag_Error</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>WisePrediction</label>
     <listViews>
         <fullName>All</fullName>
         <columns>CreatedDateTime__c</columns>
@@ -290,4 +1095,14 @@
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
+    <nameField>
+        <displayFormat>Wise-{0000}</displayFormat>
+        <label>WisePrediction Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>WisePredictions</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

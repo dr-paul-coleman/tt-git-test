@@ -1,10 +1,1319 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object, visible to external users, to store information about a dispute between a customer and professional on thumbtack.com site.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AgreementMadeResolution__c</fullName>
+        <description>Formula field used in email templates.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(FinalResolution__c), NULL,
+&quot;The agreement between &quot; + InitiatorFirstName__c +&quot; &quot;+ InitiatorLastName__c + &quot; and &quot; + ResponderFirstName__c + &quot; &quot; + ResponderLastName__c + &quot; is: &quot; +
+IF(FinalResolution__c = &apos;Complete&apos;, &apos;Complete the work.&apos;,
+IF(FinalResolution__c = &apos;Complete or redo the work&apos;, &apos;Complete or redo the work.&apos;,
+IF(FinalResolution__c = &apos;Refund&apos;, &apos;Refund in the amount of $&apos; + TEXT(FinalResolutionAmount__c) +&apos;.&apos;,
+IF(FinalResolution__c = &apos;CompleteAndRefund&apos;, &apos;Complete the work and provide a refund in the amount of $&apos;+ TEXT(FinalResolutionAmount__c) +&apos;.&apos;,
+IF(FinalResolution__c = &apos;Complete And Refund&apos;, &apos;Complete the work and provide a refund in the amount of$ &apos;+ TEXT(FinalResolutionAmount__c) + &apos;.&apos;,
+IF(FinalResolution__c = &apos;Complete or redo the work and refund&apos;, &apos;Complete the work and provide a refund in the amount of &apos;+ TEXT(FinalResolutionAmount__c) + &apos;.&apos;,
+FinalResolution__c + &apos; $&apos; + Text(FinalResolutionAmount__c)
+))))))
+)</formula>
+        <inlineHelpText>Formula field used in email templates.</inlineHelpText>
+        <label>Agreement Made Resolution</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CreatedDateTime__c</fullName>
+        <description>The combined date and time the dispute was created; used in list views and reports.</description>
+        <externalId>false</externalId>
+        <formula>CreatedDate</formula>
+        <inlineHelpText>The combined date and time the dispute was created; used in list views and reports.</inlineHelpText>
+        <label>Created Date/Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>DefaultDisputeSettingsOverridden__c</fullName>
+        <description>Checkbox to indicate true if the dispute defaults do not match the related experience defaults indicating they have been overridden by an agent.</description>
+        <externalId>false</externalId>
+        <formula>IF(MaxofDaysforOffer__c &lt;&gt; DisputeExperience__r.MaxofDaysforOffer__c, True,
+IF(MaxOfDaysForInitiatorToConfirm__c &lt;&gt; DisputeExperience__r.MaxOfDaysForInitiatorToConfirm__c, True,
+IF(MaxOfInitiatorOffersAllowed__c &lt;&gt; DisputeExperience__r.MaxOfInitiatorOffersAllowed__c, True,
+IF(MaxOfResponderOffersAllowed__c &lt;&gt; DisputeExperience__r.MaxOfResponderOffersAllowed__c, True,
+IF(MaxOfInitiatorMessagesAllowed__c &lt;&gt; DisputeExperience__r.MaxOfInitiatorMessagesAllowed__c, True,
+IF(MaxOfResponderMessagesAllowed__c &lt;&gt; DisputeExperience__r.MaxOfResponderMessagesAllowed__c, True,
+IF(MaxOfDaysForInitiatorToReply__c &lt;&gt; DisputeExperience__r.MaxOfDaysForInitiatorToReply__c, True,
+IF(MaxOfDaysForResponderToReply__c &lt;&gt; DisputeExperience__r.MaxOfDaysForResponderToReply__c, True,
+IF(MaxOfDaysForResponderFirstAction__c &lt;&gt; DisputeExperience__r.MaxOfDaysForResponderFirstAction__c, True,
+IF(MaxOfDaysAllowedForDispute__c &lt;&gt; DisputeExperience__r.MaxOfDaysAllowedForDispute__c, True,
+IF(MaxDaysForCalendarPicker__c &lt;&gt; DisputeExperience__r.MaxDaysForCalendarPicker__c, True,
+False)))))))))))</formula>
+        <inlineHelpText>Checkbox to indicate true if the dispute defaults do not match the related experience defaults indicating they have been overridden by an agent.</inlineHelpText>
+        <label>Default Dispute Settings Overridden</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <description>Summary description of the dispute.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Summary description of the dispute.</inlineHelpText>
+        <label>Description</label>
+        <length>1000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>DisputeClosedDate__c</fullName>
+        <description>The date the dispute status was set to a closed-like state.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date the dispute closed.</inlineHelpText>
+        <label>Dispute Closed Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>DisputeExperience__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the Dispute Experience where the default values are derived from.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The dispute experience referenced to set default timers.</inlineHelpText>
+        <label>Dispute Experience</label>
+        <lookupFilter>
+            <active>true</active>
+            <errorMessage>The experience you selected is currently not active/published.</errorMessage>
+            <filterItems>
+                <field>DisputeExperience__c.Status__c</field>
+                <operation>equals</operation>
+                <value>Published</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>DisputeExperience__c</referenceTo>
+        <relationshipLabel>Disputes</relationshipLabel>
+        <relationshipName>Disputes</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>DisputeExpirationDate__c</fullName>
+        <description>The date the dispute is set to expire from no action.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date the dispute is set to expire from no action.</inlineHelpText>
+        <label>Dispute Expiration Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>DisputeLastView__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the Dispute Last View object to see when the initiator and/or responder viewed the dispute in the solution center.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Lookup to the Dispute Last View object to see when the initiator and/or responder viewed the dispute in the solution center.</inlineHelpText>
+        <label>Dispute Last View</label>
+        <referenceTo>DisputeLastView__c</referenceTo>
+        <relationshipLabel>Disputes</relationshipLabel>
+        <relationshipName>Disputes</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>DisputeNumber__c</fullName>
+        <description>Auto-number to display a record number; used for easy reference.</description>
+        <displayFormat>D-{000000}</displayFormat>
+        <externalId>false</externalId>
+        <inlineHelpText>The reference number for the dispute.</inlineHelpText>
+        <label>Dispute Number</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>DisputeResolutionDueDate__c</fullName>
+        <description>The date a resolution is due by, otherwise dispute will close or expire.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date a resolution is due by, otherwise dispute will close or expire.</inlineHelpText>
+        <label>Dispute Resolution Due Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>DisputeStartDate__c</fullName>
+        <description>The start date of the dispute or the date when the record stage is set to &quot;Initiator confirmation needed.&quot;  Populated via trigger.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The start date of the dispute.  Populated via trigger.</inlineHelpText>
+        <label>Dispute Start Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>ExpirationDateText__c</fullName>
+        <description>This is a text version of the DisputeExpirationDate__c field.</description>
+        <externalId>false</externalId>
+        <formula>CASE(
+MONTH( DATEVALUE(DisputeExpirationDate__c )),
+1, &quot;January&quot;,
+2, &quot;February&quot;,
+3, &quot;March&quot;,
+4, &quot;April&quot;,
+5, &quot;May&quot;,
+6, &quot;June&quot;,
+7, &quot;July&quot;,
+8, &quot;August&quot;,
+9, &quot;September&quot;,
+10, &quot;October&quot;,
+11, &quot;November&quot;,
+&quot;December&quot;
+)
+&amp; &quot; &quot; &amp; TEXT(DAY(DATEVALUE(DisputeExpirationDate__c))) &amp; &quot;, &quot; &amp; TEXT(YEAR(DATEVALUE(DisputeExpirationDate__c)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Expiration Date (Text)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FinalResolutionAmount__c</fullName>
+        <description>The final agreed upon refund amount.  Populated via trigger based on the last offer.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The final agreed upon refund amount.  Populated via trigger based on the last offer.</inlineHelpText>
+        <label>Final Resolution Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>FinalResolution__c</fullName>
+        <description>The final resolution agreed upon, if any.  Populated via trigger based on the last offer.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The final resolution agreed upon, if any.  Populated via trigger based on the last offer.</inlineHelpText>
+        <label>Final Resolution</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IdHash__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <description>A unique key to obfuscate the &quot;real&quot; record id (18-byte variety) for Solution Center purposes.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>A unique key to obfuscate the &quot;real&quot; record id (18-byte variety) for Solution Center purposes.</inlineHelpText>
+        <label>Id Hash</label>
+        <length>128</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>InitiatorAccount__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the salesforce account for the initiating party involved in the dispute.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Lookup to the salesforce account for the initiating party involved in the dispute.</inlineHelpText>
+        <label>Initiator Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Disputes (Initiator)</relationshipLabel>
+        <relationshipName>InitiatorDispute</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>InitiatorConfirmationDate__c</fullName>
+        <description>The date the initiating party confirmed the dispute details.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date the initiating party confirmed the dispute details.</inlineHelpText>
+        <label>Initiator Confirmation Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>InitiatorConfirmationDueDateText__c</fullName>
+        <description>This is a text version of the InitiatorConfirmationDueDate__c field.</description>
+        <externalId>false</externalId>
+        <formula>CASE(
+MONTH( DATEVALUE(InitiatorConfirmationDueDate__c)),
+1, &quot;January&quot;,
+2, &quot;February&quot;,
+3, &quot;March&quot;,
+4, &quot;April&quot;,
+5, &quot;May&quot;,
+6, &quot;June&quot;,
+7, &quot;July&quot;,
+8, &quot;August&quot;,
+9, &quot;September&quot;,
+10, &quot;October&quot;,
+11, &quot;November&quot;,
+&quot;December&quot;
+)
+&amp; &quot; &quot; &amp; TEXT(DAY(DATEVALUE(InitiatorConfirmationDueDate__c))) &amp; &quot;, &quot; &amp; TEXT(YEAR(DATEVALUE(InitiatorConfirmationDueDate__c)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Initiator Confirmation Due Date (Text)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>InitiatorConfirmationDueDate__c</fullName>
+        <description>The date the initiating party has to confirm the dispute details by.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date the initiating party has to confirm the dispute details by.</inlineHelpText>
+        <label>Initiator Confirmation Due Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>InitiatorContact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the salesforce contact of the initiating party involved in the dispute.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Lookup to the salesforce contact of the initiating party involved in the dispute.</inlineHelpText>
+        <label>Initiator Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Disputes (Initiator)</relationshipLabel>
+        <relationshipName>InitiatorDispute</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>InitiatorFirstName__c</fullName>
+        <description>The first name of the initiator; used in email templates and on the Front end UI</description>
+        <externalId>false</externalId>
+        <formula>InitiatorContact__r.FirstName</formula>
+        <inlineHelpText>The first name of the initiator; used in email templates and on the Front end UI</inlineHelpText>
+        <label>Initiator First Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>InitiatorHash__c</fullName>
+        <description>A unique key to obfuscate the &quot;real&quot; Contact record id (18-byte variety) for Solution Center purposes.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>A unique key to obfuscate the &quot;real&quot; Contact record id (18-byte variety) for Solution Center purposes.</inlineHelpText>
+        <label>Initiator Hash</label>
+        <length>128</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>InitiatorLastName__c</fullName>
+        <description>The last name of the initiator of the dispute; used in email templates and front end UI.</description>
+        <externalId>false</externalId>
+        <formula>InitiatorContact__r.LastName</formula>
+        <inlineHelpText>The last name of the initiator of the dispute; used in email templates and front end UI.</inlineHelpText>
+        <label>Initiator Last Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>InitiatorLastViewed__c</fullName>
+        <description>The date and time the initiator last viewed the dispute in the solution center.</description>
+        <externalId>false</externalId>
+        <formula>DisputeLastView__r.InitiatorLastViewedDate__c</formula>
+        <inlineHelpText>The date and time the initiator last viewed the dispute in the solution center.</inlineHelpText>
+        <label>Initiator Last Viewed</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>InitiatorPkId__c</fullName>
+        <description>Stamp of the Initiator&apos;s thumbtack user PKID</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Stamp of the Initiator&apos;s thumbtack user PKID</inlineHelpText>
+        <label>Initiator PkId</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>InitiatorTimeToConfirmDetails__c</fullName>
+        <description>Formula to calculate the time between the dispute start date and the date the initiator confirmed details.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(InitiatorConfirmationDate__c), NULL,(InitiatorConfirmationDate__c - DisputeStartDate__c)*24)</formula>
+        <inlineHelpText>The time, in hours, it took the initiator to confirm their dispute details after the dispute was started.</inlineHelpText>
+        <label>Initiator Time to Confirm Details</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>InitiatorTotalMessageCount__c</fullName>
+        <description>This is the total number of messages that have been created by the Initiator of the Dispute for all Dispute Offers.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the total number of messages that have been created by the Initiator of the Dispute for all Dispute Offers.</inlineHelpText>
+        <label>Initiator Total Message Count</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>InitiatorTotalOfferCount__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>This is the total number of offers that have been created by the Initiator of the Dispute</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the total number of offers that have been created by the Initiator of the Dispute</inlineHelpText>
+        <label>Initiator Total Offer Count</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>InternalLinkInitiator__c</fullName>
+        <description>Formula field to present a hyperlink to the agent to view the solution center as the initiator.</description>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;/apex/solutioncenter?hash=&quot;+IdHash__c, &quot;View as Initiator&quot;, &quot;_blank&quot;)</formula>
+        <inlineHelpText>Formula field to present a hyperlink to the agent to view the solution center as the initiator.</inlineHelpText>
+        <label>Internal Link Initiator</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>InternalLinkResponder__c</fullName>
+        <description>Formula to present a hyperlink to the agent that allows them to view the dispute as the responder.</description>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;/apex/solutioncenter?hash=&quot;+IdHash__c+&quot;&amp;viewAsResponder=1&quot;, &quot;View as Responder&quot;, &quot;_blank&quot;)</formula>
+        <inlineHelpText>Formula to present a hyperlink to the agent that allows them to view the dispute as the responder.</inlineHelpText>
+        <label>Internal Link Responder</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsMessagingEnabled__c</fullName>
+        <description>Formula field that drives the solution center UI messaging experience.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(Status__c, &apos;Awaiting&apos;), True, 
+IF(ISPICKVAL(Status__c, &apos;In progress&apos;), True, 
+IF(AND(ISPICKVAL(Status__c, &apos;Under review&apos;), ISPICKVAL(Stage__c, &apos;Agreement made&apos;)), True, 
+False)))</formula>
+        <inlineHelpText>If true, the initiator and pro are able to send each other messages through the solution center.</inlineHelpText>
+        <label>Is Messaging Enabled</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>IsTestData__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox to indicate true if this record is test data and should be deleted.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Checkbox to indicate true if this record is test data and should be deleted.</inlineHelpText>
+        <label>Is Test Data</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LastStageChangeDate__c</fullName>
+        <description>The most recent date of the latest stage change.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The most recent date of the latest stage change.</inlineHelpText>
+        <label>Last Stage Change Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>LastStatusChangeDate__c</fullName>
+        <description>The date/time of the last status change.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date/time of the last status change.</inlineHelpText>
+        <label>Last Status Change Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>LinkToOriginalQuote__c</fullName>
+        <description>Formula field for easy Admin access to the Quote.</description>
+        <externalId>false</externalId>
+        <formula>IF (NOT ISBLANK(bid_pk__c), HYPERLINK(&quot;https://www.thumbtack.com/admin/bids/bid?bid=&quot;+  bid_pk__c, &quot;View Quote&quot;, &quot;_blank&quot;),
+NULL)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Formula field for easy Admin access to the Quote.</inlineHelpText>
+        <label>Link to Original Quote</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LoggedinUserisIncidentOwner__c</fullName>
+        <description>Formula checkbox to indicate true if the logged in user is the same user as the owner of the related incident.</description>
+        <externalId>false</externalId>
+        <formula>IF($User.Id = MIIncident__r.OwnerId, True, False)</formula>
+        <inlineHelpText>Formula checkbox to indicate true if the logged in user is the same user as the owner of the related incident.</inlineHelpText>
+        <label>Logged in User is Incident Owner</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>MIIncidentOwner__c</fullName>
+        <description>Formula field used in list views and reports to display the agent associated with the dispute.</description>
+        <externalId>false</externalId>
+        <formula>MIIncident__r.Owner:User.FirstName + &quot; &quot; + MIIncident__r.Owner:User.LastName</formula>
+        <inlineHelpText>The agent working the incident related to this dispute.</inlineHelpText>
+        <label>MI Incident Owner</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MIIncident__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the related MI incident if any.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Lookup to the related MI incident if any.</inlineHelpText>
+        <label>MI Incident</label>
+        <referenceTo>MIIncident__c</referenceTo>
+        <relationshipLabel>Disputes</relationshipLabel>
+        <relationshipName>Disputes</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>MaxDaysForCalendarPicker__c</fullName>
+        <description>The max number of days allowed for the responder to select from a calendar picker.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max number of days allowed for the responder to select from a calendar picker.</inlineHelpText>
+        <label>Max # of Days for Calendar Picker</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfDaysAllowedForDispute__c</fullName>
+        <description>This is a timer for a countdown that the dispute needs to be resolved by.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is a timer for a countdown that the dispute needs to be resolved by.</inlineHelpText>
+        <label>Max # of Days Allowed for Dispute</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfDaysForInitiatorToConfirm__c</fullName>
+        <description>The max number of days allowed for the initiator to confirm their dispute details.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max number of days allowed for the initiator to confirm their dispute details.</inlineHelpText>
+        <label>Max # of Days for Initiator to Confirm</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfDaysForInitiatorToReply__c</fullName>
+        <description>The max number of days allowed for the initiator to reply to a message.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max number of days allowed for the initiator to reply to a message.</inlineHelpText>
+        <label>Max # of Days for Initiator to Reply</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfDaysForResponderFirstAction__c</fullName>
+        <description>The max number of days allowed for the responder to take their first action (accept, counter, or ask a question).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max number of days allowed for the responder to take their first action (accept, counter, or ask a question).</inlineHelpText>
+        <label>Max # of Days for Responder First Action</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfDaysForResponderToReply__c</fullName>
+        <description>The max number of days allowed for the responder to reply to a message.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max number of days allowed for the responder to reply to a message.</inlineHelpText>
+        <label>Max # of Days for Responder to Reply</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfInitiatorMessagesAllowed__c</fullName>
+        <description>The max number of related dispute messages allowed by the initiator.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max number of related dispute messages allowed by the initiator.</inlineHelpText>
+        <label>Max # of Initiator Messages Allowed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfInitiatorOffersAllowed__c</fullName>
+        <description>The maximum number of offers created by the initiator.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The maximum number of offers created by the initiator.</inlineHelpText>
+        <label>Max # of Initiator Offers Allowed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfResponderMessagesAllowed__c</fullName>
+        <description>The maximum number of messages allowed created by the responder.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The maximum number of messages allowed created by the responder.</inlineHelpText>
+        <label>Max # of Responder Messages Allowed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfResponderOffersAllowed__c</fullName>
+        <description>The max number of related dispute offers allowed by the responder..</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max number of related dispute offers allowed by the responder..</inlineHelpText>
+        <label>Max # of Responder Offers Allowed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxofDaysforOffer__c</fullName>
+        <description>This is the maximum number of days that an offer can be available.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the maximum number of days that an offer can be available.</inlineHelpText>
+        <label>Max # of Days for Offer</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OverallDisputeTimeInDays__c</fullName>
+        <description>Formula to calculate the number of days the dispute spent in an open-like status.</description>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL(Status__c, &quot;Awaiting&quot;),  NOW() - DisputeStartDate__c,
+IF( ISPICKVAL(Status__c, &quot;In progress&quot;), NOW() - DisputeStartDate__c,
+IF( ISPICKVAL(Status__c, &quot;Closed&quot;),  DisputeClosedDate__c - DisputeStartDate__c,
+IF( ISPICKVAL(Status__c, &quot;Expired&quot;),  DisputeExpirationDate__c - DisputeStartDate__c,
+IF( ISPICKVAL(Status__c, &quot;Stopped&quot;), NOW() - DisputeStartDate__c,
+NULL)))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>The number of days the dispute was in an open-like status.</inlineHelpText>
+        <label>Overall Dispute Time (in Days)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OverallMessageCount__c</fullName>
+        <description>Overall message count for both initiator and responder messages.</description>
+        <externalId>false</externalId>
+        <formula>InitiatorTotalMessageCount__c + ResponderTotalMessageCount__c</formula>
+        <inlineHelpText>Overall message count for both initiator and responder messages.</inlineHelpText>
+        <label>Overall Message Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OverallOfferCount__c</fullName>
+        <description>Overall offer count for both initiator and responder offers and counter offers.</description>
+        <externalId>false</externalId>
+        <formula>InitiatorTotalOfferCount__c + ResponderTotalOfferCount__c</formula>
+        <inlineHelpText>Overall offer count for both initiator and responder offers and counter offers.</inlineHelpText>
+        <label>Overall Offer Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PrePopulatedDesiredResolution__c</fullName>
+        <description>The initial desired resolution as entered by an MTS agent; this is used for pre-populating the confirmation details for the initiating party.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The initial desired resolution as entered by an MTS agent; this is used for pre-populating the confirmation details for the initiating party.</inlineHelpText>
+        <label>Pre Populated Desired Resolution</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PrePopulatedResolutionAmount__c</fullName>
+        <description>This is the desired refund amount that a customer is declaring in a dispute as populated via an incident or MTS agent.  Used to pre-populate the confirmation details for the initiating party.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the desired refund amount that a customer is declaring in a dispute as populated via an incident or MTS agent.  Used to pre-populate the confirmation details for the initiating party.</inlineHelpText>
+        <label>Pre Populated Resolution Amount</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>PriorStage__c</fullName>
+        <description>The stage the dispute was in prior to the current stage.  Used in trigger code.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The stage the dispute was in prior to the current stage.  Used in trigger code.</inlineHelpText>
+        <label>Prior Stage</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PriorStatus__c</fullName>
+        <description>The status the dispute was in prior to the current status.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The status the dispute was in prior to the current status.</inlineHelpText>
+        <label>Prior Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ResponderAccount__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the Account of the responding party involved in the dispute.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Lookup to the Account of the responding party involved in the dispute.</inlineHelpText>
+        <label>Responder Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Disputes (Responder)</relationshipLabel>
+        <relationshipName>Disputes</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ResponderContact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the salesforce contact of the responding party involved in the dispute.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Lookup to the salesforce contact of the responding party involved in the dispute.</inlineHelpText>
+        <label>Responder Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Disputes (Responder)</relationshipLabel>
+        <relationshipName>Disputes</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ResponderFirstActionDate__c</fullName>
+        <description>The date the responding party either accepted, countered, or asked a question.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date the responding party either accepted, countered, or asked a question.</inlineHelpText>
+        <label>Responder First Action Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>ResponderFirstActionDueDate__c</fullName>
+        <description>The responder needs to take their first action by this date, otherwise the dispute will expire (first action is accept, counter, or ask a question).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The responder needs to take their first action by this date, otherwise the dispute will expire (first action is accept, counter, or ask a question).</inlineHelpText>
+        <label>Responder First Action Due Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>ResponderFirstActionDueDateinText__c</fullName>
+        <description>This is a text version of the ResponderFirstActionDueDate__c field.</description>
+        <externalId>false</externalId>
+        <formula>CASE(
+MONTH( DATEVALUE(ResponderFirstActionDueDate__c )),
+1, &quot;January&quot;,
+2, &quot;February&quot;,
+3, &quot;March&quot;,
+4, &quot;April&quot;,
+5, &quot;May&quot;,
+6, &quot;June&quot;,
+7, &quot;July&quot;,
+8, &quot;August&quot;,
+9, &quot;September&quot;,
+10, &quot;October&quot;,
+11, &quot;November&quot;,
+&quot;December&quot;
+)
+&amp; &quot; &quot; &amp; TEXT(DAY(DATEVALUE(ResponderFirstActionDueDate__c))) &amp; &quot;, &quot; &amp; TEXT(YEAR(DATEVALUE(ResponderFirstActionDueDate__c)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Responder First Action Due Date (Text)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ResponderFirstName__c</fullName>
+        <description>The first name of the responder of the dispute; used in email templates and front end UI.</description>
+        <externalId>false</externalId>
+        <formula>ResponderContact__r.FirstName</formula>
+        <inlineHelpText>The first name of the responder of the dispute; used in email templates and front end UI.</inlineHelpText>
+        <label>Responder First Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ResponderHash__c</fullName>
+        <description>A unique key to obfuscate the &quot;real&quot; Contact record id (18-byte variety) for Solution Center purposes.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>A unique key to obfuscate the &quot;real&quot; Contact record id (18-byte variety) for Solution Center purposes.</inlineHelpText>
+        <label>Responder Hash</label>
+        <length>128</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ResponderLastName__c</fullName>
+        <description>The last name of the responder of the dispute; used in email templates and front end UI.</description>
+        <externalId>false</externalId>
+        <formula>ResponderContact__r.LastName</formula>
+        <inlineHelpText>The last name of the responder of the dispute; used in email templates and front end UI.</inlineHelpText>
+        <label>Responder Last Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ResponderLastViewed__c</fullName>
+        <description>The date and time the responder last viewed the dispute in the solution center.</description>
+        <externalId>false</externalId>
+        <formula>DisputeLastView__r.ResponderLastViewedDate__c</formula>
+        <inlineHelpText>The date and time the responder last viewed the dispute in the solution center.</inlineHelpText>
+        <label>Responder Last Viewed</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>ResponderPkId__c</fullName>
+        <description>Stamp of the Responder&apos;s thumbtack user PKID</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Stamp of the Responder&apos;s thumbtack user PKID</inlineHelpText>
+        <label>Responder PkId</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ResponderTimetoTakeFirstAction__c</fullName>
+        <description>The time, in hours, between the initiator confirmation date and the responder first action date; used in reporting.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(ResponderFirstActionDate__c), NULL,(ResponderFirstActionDate__c - InitiatorConfirmationDate__c)*24)</formula>
+        <inlineHelpText>The time, in hours, between the initiator confirmation date and the responder first action date.</inlineHelpText>
+        <label>Responder Time to Take First Action</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ResponderTotalMessageCount__c</fullName>
+        <description>This is the total number of messages that have been created by the Responder of the Dispute for all Dispute Offers.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the total number of messages that have been created by the Responder of the Dispute for all Dispute Offers.</inlineHelpText>
+        <label>Responder Total Message Count</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ResponderTotalOfferCount__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>This is the total number of offers that have been created by the Responder of the Dispute</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the total number of offers that have been created by the Responder of the Dispute</inlineHelpText>
+        <label>Responder Total Offer Count</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SolutionCenterLink__c</fullName>
+        <description>Agent link for easy access to the view of the dispute in the solution center.</description>
+        <externalId>false</externalId>
+        <formula>$Label.SiteURL +&apos;solutioncenter/&apos; + IdHash__c</formula>
+        <inlineHelpText>Agent link for easy access to the view of the dispute in the solution center.</inlineHelpText>
+        <label>Solution Center Link</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SolutionCenterStatusLabel__c</fullName>
+        <description>Formula to be used to display the text in the status pill at the top of the solution center.</description>
+        <externalId>false</externalId>
+        <formula>IF(AND(ISPICKVAL(Status__c, &apos;Under review&apos;), ISPICKVAL(Stage__c, &apos;Withdrawn&apos;)), &quot;Dispute withdrawn.&quot;, 
+IF(AND(ISPICKVAL(Status__c, &apos;Under review&apos;), ISPICKVAL(Stage__c, &apos;Expired&apos;)), &quot;Time ran out. An agent will reach out soon.&quot;, 
+IF(AND(ISPICKVAL(Status__c, &apos;Under review&apos;), ISPICKVAL(Stage__c, &apos;Agreement made&apos;)), &quot;Success! You&apos;ve reached an agreement.&quot;, 
+IF(AND(ISPICKVAL(Status__c, &apos;Under review&apos;), ISPICKVAL(Stage__c, &apos;Offer pending&apos;)), &quot;This dispute is under review. An agent will reach out soon.&quot;, 
+IF(AND(ISPICKVAL(Status__c, &apos;In progress&apos;), ISPICKVAL(Stage__c, &apos;Offer pending&apos;)), &quot;Dispute active.&quot;, 
+IF(AND(ISPICKVAL(Status__c, &apos;Awaiting&apos;), ISPICKVAL(Stage__c, &quot;Initiator confirmation needed&quot;)), &quot;Dispute active.&quot;, 
+IF(AND(ISPICKVAL(Status__c, &apos;Awaiting&apos;), ISPICKVAL(Stage__c, &quot;Responder first action needed&quot;)), &quot;Dispute active.&quot;, 
+IF(AND(ISPICKVAL(Status__c, &apos;Under review&apos;), ISPICKVAL(Stage__c, &apos;Stopped&apos;)), &quot;This dispute is under review. An agent will reach out soon.&quot;,
+IF(ISPICKVAL(Status__c, &apos;Closed&apos;), &quot;This dispute is closed.&quot;, 
+&apos;Dispute active&apos; 
+)))))))))</formula>
+        <inlineHelpText>The public-friendly status text to be displayed in the Solution Center.</inlineHelpText>
+        <label>Solution Center Status Label</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Stage__c</fullName>
+        <description>Represents the series of steps in the dispute process.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Represents the series of steps in the dispute process.</inlineHelpText>
+        <label>Stage</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Status__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetName>DisputeStage</valueSetName>
+            <valueSettings>
+                <controllingFieldValue>Awaiting</controllingFieldValue>
+                <valueName>Initiator confirmation needed</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Awaiting</controllingFieldValue>
+                <controllingFieldValue>Under review</controllingFieldValue>
+                <valueName>Responder first action needed</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>In progress</controllingFieldValue>
+                <controllingFieldValue>Under review</controllingFieldValue>
+                <valueName>Offer pending</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Closed</controllingFieldValue>
+                <controllingFieldValue>Under review</controllingFieldValue>
+                <valueName>Agreement made</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Closed</controllingFieldValue>
+                <controllingFieldValue>Under review</controllingFieldValue>
+                <valueName>Expired</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Closed</controllingFieldValue>
+                <controllingFieldValue>Under review</controllingFieldValue>
+                <valueName>Withdrawn</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Closed</controllingFieldValue>
+                <valueName>Changed resolution platform</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Under review</controllingFieldValue>
+                <valueName>Stopped</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>The overall status of the dispute.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The overall status of the dispute.</inlineHelpText>
+        <label>Status</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>DisputeStatus</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>WithdrawalDate__c</fullName>
+        <description>The date the initiator withdrew their dispute.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date the initiator withdrew their dispute.</inlineHelpText>
+        <label>Withdrawal Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>WithdrawalNotes__c</fullName>
+        <description>Notes added by the initiator of why they withdrew the dispute.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Notes added by the initiator of why they withdrew the dispute.</inlineHelpText>
+        <label>Withdrawal Notes</label>
+        <length>1000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>WithdrawalReason__c</fullName>
+        <description>The reason the initiator withdrew their dispute.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The reason the initiator withdrew their dispute.</inlineHelpText>
+        <label>Withdrawal Reason</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>bid_pk__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <description>The foreign primary key of the quote/bid (from the Thumback.com database).</description>
+        <externalId>true</externalId>
+        <inlineHelpText>The foreign primary key of the quote/bid.</inlineHelpText>
+        <label>Bid PkId</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>request_category__c</fullName>
+        <description>The Thumbtack.com category of the initial request related to the dispute.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Thumbtack.com category of the initial request related to the dispute.</inlineHelpText>
+        <label>Request Category</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>request_city__c</fullName>
+        <description>City location of the initial request by the customer.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>City location of the initial request by the customer.</inlineHelpText>
+        <label>Request City</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>request_state__c</fullName>
+        <description>U.S. State location of the initial project request from the customer.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>U.S. State location of the initial project request from the customer.</inlineHelpText>
+        <label>Request State</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>request_zip__c</fullName>
+        <description>The zip code of the request location as entered by the customer.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The zip code of the request location as entered by the customer.</inlineHelpText>
+        <label>Request Zip</label>
+        <length>10</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Dispute</label>
     <listViews>
         <fullName>AgreementsMade</fullName>
         <columns>DisputeNumber__c</columns>
         <columns>NAME</columns>
         <columns>Status__c</columns>
+        <columns>IsTestData__c</columns>
         <columns>OverallDisputeTimeInDays__c</columns>
         <columns>OverallMessageCount__c</columns>
         <columns>OverallOfferCount__c</columns>
@@ -131,7 +1440,7 @@
         <filters>
             <field>Stage__c</field>
             <operation>equals</operation>
-            <value>Initiator confirmation needed</value>
+            <value>Responder first action needed</value>
         </filters>
         <filters>
             <field>Status__c</field>
@@ -265,4 +1574,151 @@
             <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Disputes</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Confidential</fullName>
+        <active>true</active>
+        <description>Record type used to manage highly sensitive disputes. Strict record sharing for this record type.</description>
+        <label>Confidential</label>
+        <picklistValues>
+            <picklist>Stage__c</picklist>
+            <values>
+                <fullName>Agreement made</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Changed resolution platform</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Expired</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Initiator confirmation needed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Offer pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Responder first action needed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stopped</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Withdrawn</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Awaiting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In progress</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Under review</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>SolutionCenterDispute</fullName>
+        <active>true</active>
+        <description>Record type used to manage a dispute in the Solution Center between a Thumbtack pro and customer.</description>
+        <label>Solution Center Dispute</label>
+        <picklistValues>
+            <picklist>Stage__c</picklist>
+            <values>
+                <fullName>Agreement made</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Changed resolution platform</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Expired</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Initiator confirmation needed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Offer pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Responder first action needed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stopped</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Withdrawn</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Awaiting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Under review</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>RequireRequestData</fullName>
+        <active>true</active>
+        <description>Validation rule that requires a new record to have the Request Category, Request City, Request State, and Request Zip before initial confirmation gets sent to the initiator.</description>
+        <errorConditionFormula>ISPICKVAL(Stage__c, &apos;Initiator confirmation needed&apos;) &amp;&amp;
+OR(ISBLANK(request_category__c),
+     ISBLANK(request_city__c),
+     ISBLANK(request_state__c),
+     ISBLANK(request_zip__c))</errorConditionFormula>
+        <errorMessage>Please add a Request Category, Request City, Request State, and Request Zip before setting the stage to &apos;Initiator confirmation needed&apos;.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
 </CustomObject>

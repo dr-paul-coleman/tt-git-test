@@ -1,5 +1,383 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Object fed by Categorization Definition that acts as a junction object (without actual lookups between it and the metadata object) between it and work data objects like Case. Stores data that helps classify its parent records.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Categorization</relationshipLabel>
+        <relationshipName>Categorization</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CSATEligible__c</fullName>
+        <description>CSAT Eligibility for this individual Categorization Selection.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CSAT Eligibility for this individual Categorization Selection.</inlineHelpText>
+        <label>CSAT Eligible</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Eligible</fullName>
+                    <default>false</default>
+                    <label>Eligible</label>
+                </value>
+                <value>
+                    <fullName>Ineligible</fullName>
+                    <default>false</default>
+                    <label>Ineligible</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Related case for the category</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Related case for the category</inlineHelpText>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>Categorization</relationshipLabel>
+        <relationshipName>Categorization</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CategoryAudit__c</fullName>
+        <description>Used for auditing purposes - if a category selected by an agent looks wrong, the more correct category can be marked here for comparison.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used for auditing purposes - if a category selected by an agent looks wrong, the more correct category can be marked here for comparison.</inlineHelpText>
+        <label>Category Audit</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Category__c</fullName>
+        <description>Name of the category</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the category</inlineHelpText>
+        <label>Category</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DefinitionKey__c</fullName>
+        <description>The unique key from the CategorizationDefinition__c record that this Categorization__c record was created from.</description>
+        <externalId>false</externalId>
+        <label>Definition Key</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Deleted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Marks a record for deletion on the data platform.</description>
+        <externalId>false</externalId>
+        <label>Deleted</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enrollment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Enrollment the category is related to</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enrollment the category is related to</inlineHelpText>
+        <label>Enrollment</label>
+        <referenceTo>Enrollment__c</referenceTo>
+        <relationshipLabel>Categorization</relationshipLabel>
+        <relationshipName>Categorization</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Feedback__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Used to indicate if the records contains feedback</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used to indicate if the records contains feedback</inlineHelpText>
+        <label>Feedback</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Level3Category__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Level 3 Category</label>
+        <referenceTo>ProductValue__c</referenceTo>
+        <relationshipLabel>Categorization</relationshipLabel>
+        <relationshipName>Categorization</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Notes__c</fullName>
+        <description>Notes related to the category/ subcategory</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Notes related to the category/ subcategory</inlineHelpText>
+        <label>Notes</label>
+        <length>400</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Origin__c</fullName>
+        <externalId>false</externalId>
+        <label>Origin</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>App Integration</fullName>
+                    <default>false</default>
+                    <label>App Integration</label>
+                </value>
+                <value>
+                    <fullName>Concerning Review</fullName>
+                    <default>false</default>
+                    <label>Concerning Review</label>
+                </value>
+                <value>
+                    <fullName>Directly Question</fullName>
+                    <default>false</default>
+                    <label>Directly Question</label>
+                </value>
+                <value>
+                    <fullName>Dispute form</fullName>
+                    <default>false</default>
+                    <label>Dispute form</label>
+                </value>
+                <value>
+                    <fullName>Email</fullName>
+                    <default>false</default>
+                    <label>Email</label>
+                </value>
+                <value>
+                    <fullName>Engagement Outbound Call</fullName>
+                    <default>false</default>
+                    <label>Engagement Outbound Call</label>
+                </value>
+                <value>
+                    <fullName>In-Product</fullName>
+                    <default>false</default>
+                    <label>In-Product</label>
+                </value>
+                <value>
+                    <fullName>Live Chat</fullName>
+                    <default>false</default>
+                    <label>Live Chat</label>
+                </value>
+                <value>
+                    <fullName>LiveOps Inbound Support Call</fullName>
+                    <default>false</default>
+                    <label>LiveOps Inbound Support Call</label>
+                </value>
+                <value>
+                    <fullName>Social Media</fullName>
+                    <default>false</default>
+                    <label>Social Media</label>
+                </value>
+                <value>
+                    <fullName>Suggestion Box</fullName>
+                    <default>false</default>
+                    <label>Suggestion Box</label>
+                </value>
+                <value>
+                    <fullName>Text Message</fullName>
+                    <default>false</default>
+                    <label>Text Message</label>
+                </value>
+                <value>
+                    <fullName>Voicemail</fullName>
+                    <default>false</default>
+                    <label>Voicemail</label>
+                </value>
+                <value>
+                    <fullName>Web</fullName>
+                    <default>false</default>
+                    <label>Web</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>ParentDefinitionKey__c</fullName>
+        <externalId>false</externalId>
+        <label>Parent Definition Key</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Primary__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Used to indicate if the category is the primary category on the case or enrollment.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used to indicate if the category is the primary category on the case or enrollment.</inlineHelpText>
+        <label>Primary</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ProductUpdate__c</fullName>
+        <description>The name of the Product Update</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the Product Update that this filled in from.</inlineHelpText>
+        <label>Product Update</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sentiment__c</fullName>
+        <description>Number to rank the sentiment value</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number to rank the sentiment value</inlineHelpText>
+        <label>Sentiment</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SubProductUpdate__c</fullName>
+        <externalId>false</externalId>
+        <label>Sub Product Update</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SubcategoryAudit__c</fullName>
+        <description>Used for auditing purposes - if a subcategory selected by an agent looks wrong, the more correct category can be marked here for comparison.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used for auditing purposes - if a subcategory selected by an agent looks wrong, the more correct category can be marked here for comparison.</inlineHelpText>
+        <label>Subcategory Audit</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Subcategory__c</fullName>
+        <description>Name of the sub category</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the sub category</inlineHelpText>
+        <label>Subcategory</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Categorization</label>
     <listViews>
         <fullName>AllCategorizationSelections</fullName>
         <columns>NAME</columns>
@@ -87,4 +465,163 @@
             <roleAndSubordinates>SpecialProjectsTSL</roleAndSubordinates>
         </sharedTo>
     </listViews>
+    <nameField>
+        <displayFormat>CAT-{0000}</displayFormat>
+        <label>Name</label>
+        <trackHistory>true</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Categorization</pluralLabel>
+    <recordTypeTrackHistory>true</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Category</fullName>
+        <active>true</active>
+        <description>Record Categorization - Categories + Subcategories</description>
+        <label>Category</label>
+        <picklistValues>
+            <picklist>Origin__c</picklist>
+            <values>
+                <fullName>App Integration</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Concerning Review</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Directly Question</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dispute form</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engagement Outbound Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In-Product</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Live Chat</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LiveOps Inbound Support Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Social Media</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Suggestion Box</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Text Message</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voicemail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>ProductUpdate</fullName>
+        <active>true</active>
+        <description>Used when a recent update to the Product is mentioned in a conversation with someone who contacted us.</description>
+        <label>Product Update</label>
+        <picklistValues>
+            <picklist>Origin__c</picklist>
+            <values>
+                <fullName>App Integration</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Concerning Review</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Directly Question</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dispute form</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engagement Outbound Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In-Product</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Live Chat</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LiveOps Inbound Support Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Social Media</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Suggestion Box</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Text Message</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Voicemail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>CategoryDontModify</fullName>
+        <active>true</active>
+        <description>When Category__c is manually modified, triggers an error warning to only make changes within the interface. (The interface will never modify the value in Categorization__c.Category__c)</description>
+        <errorConditionFormula>ISCHANGED(Category__c)</errorConditionFormula>
+        <errorDisplayField>Category__c</errorDisplayField>
+        <errorMessage>Please make changes to Categorization in the Categorization Interface.
+If you&apos;re performing an audit, please use the &apos;Categorization Audit&apos; field.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>SubcategoryDontModify</fullName>
+        <active>true</active>
+        <description>When Subcategory__c is manually modified, triggers an error warning to only make changes within the interface. (The interface will never modify the value in Categorization__c.Subcategory__c)</description>
+        <errorConditionFormula>ISCHANGED(Subcategory__c)</errorConditionFormula>
+        <errorDisplayField>Subcategory__c</errorDisplayField>
+        <errorMessage>Please make changes to Categorization in the Categorization Interface.
+If you&apos;re performing an audit, please use the &apos;Subcategorization Audit&apos; field.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
 </CustomObject>

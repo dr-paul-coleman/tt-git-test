@@ -1,5 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom junction object to relate Risk Factors to MI Incidents.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>Factor__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the Marketplace Factor object record.</description>
+        <externalId>false</externalId>
+        <label>Factor</label>
+        <referenceTo>IncidentFactor__c</referenceTo>
+        <relationshipLabel>Incident Factor Assignments</relationshipLabel>
+        <relationshipName>MarketplaceFactorAssignments</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Incident__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the MI Incident object record.</description>
+        <externalId>false</externalId>
+        <label>Incident</label>
+        <referenceTo>MIIncident__c</referenceTo>
+        <relationshipName>MarketplaceFactorAssignments</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>IsDeleted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox marked true when the record should be deleted; used as a record indicating field in Data Platform.</description>
+        <externalId>false</externalId>
+        <label>Is Deleted</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Incident Factor Assignment</label>
     <listViews>
         <fullName>All</fullName>
         <columns>NAME</columns>
@@ -14,4 +103,19 @@
             <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
         </sharedTo>
     </listViews>
+    <nameField>
+        <displayFormat>{000000}</displayFormat>
+        <label>Record Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Incident Factor Assignments</pluralLabel>
+    <recordTypes>
+        <fullName>FactorAssignment</fullName>
+        <active>true</active>
+        <description>Record type used to manage the marketplace trust and safety factor assignments.</description>
+        <label>Factor Assignment</label>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

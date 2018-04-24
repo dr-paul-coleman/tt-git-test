@@ -1,5 +1,998 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object used to store records pertaining to actions taken for the resolution of an MI dispute / incident between pro and customer.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>AdjustedTotalPayout__c</fullName>
+        <externalId>false</externalId>
+        <formula>AdjusterTotalAmountPaid__c - ApolloCovered__c</formula>
+        <label>Adjusted Total Payout</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>AdjusterStatus__c</fullName>
+        <description>Picklist to indicate the status of the 3rd party insurance adjuster process.</description>
+        <externalId>false</externalId>
+        <label>Adjuster Status</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Submitted</fullName>
+                    <default>false</default>
+                    <label>Submitted</label>
+                </value>
+                <value>
+                    <fullName>Completed report</fullName>
+                    <default>false</default>
+                    <label>Completed report</label>
+                </value>
+                <value>
+                    <fullName>Waiting for approval</fullName>
+                    <default>false</default>
+                    <label>Waiting for approval</label>
+                </value>
+                <value>
+                    <fullName>Approved</fullName>
+                    <default>false</default>
+                    <label>Approved</label>
+                </value>
+                <value>
+                    <fullName>Denied/Further review needed</fullName>
+                    <default>false</default>
+                    <label>Denied/Further review needed</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>AdjusterTotalAmountPaid__c</fullName>
+        <description>The total amount paid to the Insurance Adjustment company for the related incident.</description>
+        <externalId>false</externalId>
+        <label>Adjuster Total Amount Paid</label>
+        <summarizedField>IncidentInsuranceClaim__c.Amount__c</summarizedField>
+        <summaryFilterItems>
+            <field>IncidentInsuranceClaim__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Adjuster Invoice</value>
+        </summaryFilterItems>
+        <summaryForeignKey>IncidentInsuranceClaim__c.IncidentAction__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Amount__c</fullName>
+        <description>The dollar amount of the action (i.e., amount charged to card, amount to collect, amount to payout).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The dollar amount of the action (i.e., amount charged to card, amount to collect, amount to payout).</inlineHelpText>
+        <label>Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>ApolloCovered__c</fullName>
+        <externalId>false</externalId>
+        <label>Apollo Covered</label>
+        <summarizedField>IncidentInsuranceClaim__c.Amount__c</summarizedField>
+        <summaryFilterItems>
+            <field>IncidentInsuranceClaim__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Apollo Payment</value>
+        </summaryFilterItems>
+        <summaryForeignKey>IncidentInsuranceClaim__c.IncidentAction__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>ApprovedBy__c</fullName>
+        <description>Picklist to indicate which manager approved the payout.</description>
+        <externalId>false</externalId>
+        <label>Approved By</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Ashley Powell</fullName>
+                    <default>false</default>
+                    <label>Ashley Powell</label>
+                </value>
+                <value>
+                    <fullName>Jody Kershaw</fullName>
+                    <default>false</default>
+                    <label>Jody Kershaw</label>
+                </value>
+                <value>
+                    <fullName>Jonathan Bushnell</fullName>
+                    <default>false</default>
+                    <label>Jonathan Bushnell</label>
+                </value>
+                <value>
+                    <fullName>Lindsay Harrop</fullName>
+                    <default>false</default>
+                    <label>Lindsay Harrop</label>
+                </value>
+                <value>
+                    <fullName>Robyn Jeserick</fullName>
+                    <default>false</default>
+                    <label>Robyn Jeserick</label>
+                </value>
+                <value>
+                    <fullName>Simon Fullerton</fullName>
+                    <default>false</default>
+                    <label>Simon Fullerton</label>
+                </value>
+                <value>
+                    <fullName>Tyler Bailey</fullName>
+                    <default>false</default>
+                    <label>Tyler Bailey</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>AptSuite__c</fullName>
+        <description>The apartment or suite number related to the street address.</description>
+        <externalId>false</externalId>
+        <label>Apt/Suite</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>CityStateZip__c</fullName>
+        <description>The city state and zip code related to the street address.</description>
+        <externalId>false</externalId>
+        <label>City, State, Zip</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Closed__c</fullName>
+        <description>Formula to represent if the MI Incident action is in a closed status based on Record Type; used in trigger code to populate &quot;Completed On&quot; and &quot;Completed By&quot; time stamps.</description>
+        <externalId>false</externalId>
+        <formula>IF(AND(RecordType.Name = &quot;Task&quot;, 
+NOT ISPICKVAL(Status__c, &quot;Open&quot;)),True, 
+IF(AND(RecordType.Name = &quot;Payout&quot;, 
+OR(ISPICKVAL(Status__c,&quot;Payment Sent&quot;), 
+ISPICKVAL(Status__c,&quot;Rejected&quot;))),True, 
+IF(AND(RecordType.Name = &quot;Guarantee&quot;, 
+OR(ISPICKVAL(Status__c, &quot;Completed&quot;), 
+ISPICKVAL(Status__c, &quot;Paid (under Property Damage Guarantee)&quot;), 
+ISPICKVAL(Status__c, &quot;Paid (under Money Back Guarantee)&quot;), 
+ISPICKVAL(Status__c, &quot;Paid (under Satisfaction)&quot;), 
+ISPICKVAL(Status__c, &quot;Not paid&quot;))),True, 
+IF(AND(RecordType.Name = &quot;Charge Card&quot;, 
+NOT ISPICKVAL(Status__c, &quot;Open&quot;)),True, 
+False))))</formula>
+        <label>Closed</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CollectionsAmountRecovered__c</fullName>
+        <description>The dollar amount of money recovered after pursuing collections.</description>
+        <externalId>false</externalId>
+        <label>Collections Amount Recovered</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>CollectionsPursued__c</fullName>
+        <description>Indicates if we have or will pursue collections.</description>
+        <externalId>false</externalId>
+        <label>Collections Pursued</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CompletedBy__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The user who completed the action.</description>
+        <externalId>false</externalId>
+        <label>Completed By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>MIIncidentActions</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CompletedOn__c</fullName>
+        <description>The date/time when the action was completed.</description>
+        <externalId>false</externalId>
+        <label>Completed On</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>DueDate__c</fullName>
+        <description>The date the action is due.</description>
+        <externalId>false</externalId>
+        <label>Due Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>EligibilityFactors__c</fullName>
+        <description>Picklist whose values describe why a property damage or money back guarantee were not eligible.</description>
+        <externalId>false</externalId>
+        <label>Eligibility Factors</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>GuaranteeType__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Meets all criteria</fullName>
+                    <default>false</default>
+                    <label>Meets all criteria</label>
+                </value>
+                <value>
+                    <fullName>60 day documentation overdue</fullName>
+                    <default>false</default>
+                    <label>60 day documentation overdue</label>
+                </value>
+                <value>
+                    <fullName>Contract terms met, customer still dissatisfied</fullName>
+                    <default>false</default>
+                    <label>Contract terms met, customer still dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>Damage is to excluded property</fullName>
+                    <default>false</default>
+                    <label>Damage is to excluded property</label>
+                </value>
+                <value>
+                    <fullName>Damage not caused by Thumbtack Pro</fullName>
+                    <default>false</default>
+                    <label>Damage not caused by Thumbtack Pro</label>
+                </value>
+                <value>
+                    <fullName>Damage was not accidental/unintentional</fullName>
+                    <default>false</default>
+                    <label>Damage was not accidental/unintentional</label>
+                </value>
+                <value>
+                    <fullName>Insufficient documentation</fullName>
+                    <default>false</default>
+                    <label>Insufficient documentation</label>
+                </value>
+                <value>
+                    <fullName>Job not requested on TT</fullName>
+                    <default>false</default>
+                    <label>Job not requested on TT</label>
+                </value>
+                <value>
+                    <fullName>No damage from original project request</fullName>
+                    <default>false</default>
+                    <label>No damage from original project request</label>
+                </value>
+                <value>
+                    <fullName>No proof of hire</fullName>
+                    <default>false</default>
+                    <label>No proof of hire</label>
+                </value>
+                <value>
+                    <fullName>Not covered in TOU</fullName>
+                    <default>false</default>
+                    <label>Not covered in TOU</label>
+                </value>
+                <value>
+                    <fullName>Not physical damage</fullName>
+                    <default>false</default>
+                    <label>Not physical damage</label>
+                </value>
+                <value>
+                    <fullName>Not reported within timeline (14 days)</fullName>
+                    <default>false</default>
+                    <label>Not reported within timeline (14 days)</label>
+                </value>
+                <value>
+                    <fullName>Other (leave notes)</fullName>
+                    <default>false</default>
+                    <label>Other (leave notes)</label>
+                </value>
+                <value>
+                    <fullName>Other - Eligible (leave notes)</fullName>
+                    <default>false</default>
+                    <label>Other - Eligible (leave notes)</label>
+                </value>
+                <value>
+                    <fullName>Other - Not eligible (leave notes)</fullName>
+                    <default>false</default>
+                    <label>Other - Not eligible (leave notes)</label>
+                </value>
+                <value>
+                    <fullName>Outside 6 month reporting time</fullName>
+                    <default>false</default>
+                    <label>Outside 6 month reporting time</label>
+                </value>
+                <value>
+                    <fullName>Proof of hire not established within 30 days of request</fullName>
+                    <default>false</default>
+                    <label>Proof of hire not established within 30 days of request</label>
+                </value>
+                <value>
+                    <fullName>Request made before Guarantee effective date</fullName>
+                    <default>false</default>
+                    <label>Request made before Guarantee effective date</label>
+                </value>
+                <value>
+                    <fullName>Request was made prior to MBG program start date</fullName>
+                    <default>false</default>
+                    <label>Request was made prior to MBG program start date</label>
+                </value>
+                <value>
+                    <fullName>Theft</fullName>
+                    <default>false</default>
+                    <label>Theft</label>
+                </value>
+                <value>
+                    <fullName>Unresponsive Customer</fullName>
+                    <default>false</default>
+                    <label>Unresponsive Customer</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Property damage guarantee</controllingFieldValue>
+                <controllingFieldValue>Money back guarantee</controllingFieldValue>
+                <valueName>Meets all criteria</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Property damage guarantee</controllingFieldValue>
+                <valueName>60 day documentation overdue</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Property damage guarantee</controllingFieldValue>
+                <valueName>Damage is to excluded property</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Property damage guarantee</controllingFieldValue>
+                <valueName>Damage not caused by Thumbtack Pro</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Property damage guarantee</controllingFieldValue>
+                <valueName>Damage was not accidental/unintentional</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Property damage guarantee</controllingFieldValue>
+                <valueName>No damage from original project request</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Property damage guarantee</controllingFieldValue>
+                <valueName>No proof of hire</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Property damage guarantee</controllingFieldValue>
+                <valueName>Not physical damage</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Property damage guarantee</controllingFieldValue>
+                <controllingFieldValue>Money back guarantee</controllingFieldValue>
+                <valueName>Not reported within timeline (14 days)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Property damage guarantee</controllingFieldValue>
+                <valueName>Other (leave notes)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Property damage guarantee</controllingFieldValue>
+                <valueName>Other - Eligible (leave notes)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Property damage guarantee</controllingFieldValue>
+                <valueName>Other - Not eligible (leave notes)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Property damage guarantee</controllingFieldValue>
+                <valueName>Outside 6 month reporting time</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Property damage guarantee</controllingFieldValue>
+                <valueName>Request made before Guarantee effective date</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Property damage guarantee</controllingFieldValue>
+                <valueName>Theft</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Money back guarantee</controllingFieldValue>
+                <valueName>Contract terms met, customer still dissatisfied</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Money back guarantee</controllingFieldValue>
+                <valueName>Insufficient documentation</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Money back guarantee</controllingFieldValue>
+                <valueName>Job not requested on TT</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Money back guarantee</controllingFieldValue>
+                <valueName>Not covered in TOU</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Money back guarantee</controllingFieldValue>
+                <valueName>Proof of hire not established within 30 days of request</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Money back guarantee</controllingFieldValue>
+                <valueName>Request was made prior to MBG program start date</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Money back guarantee</controllingFieldValue>
+                <valueName>Unresponsive Customer</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>FullName__c</fullName>
+        <description>The full name of the person receiving payout.</description>
+        <externalId>false</externalId>
+        <label>Full Name</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>GuaranteeType__c</fullName>
+        <externalId>false</externalId>
+        <label>Guarantee Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Property damage guarantee</fullName>
+                    <default>false</default>
+                    <label>Property damage guarantee</label>
+                </value>
+                <value>
+                    <fullName>Money back guarantee</fullName>
+                    <default>false</default>
+                    <label>Money back guarantee</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>IncidentAmountinDispute__c</fullName>
+        <description>Formula field to bring over the amount of dispute from the related Incident; used in list views and reporting.</description>
+        <externalId>false</externalId>
+        <formula>MIIncident__r.AmountInDispute__c</formula>
+        <label>Incident Amount in Dispute</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>IsTestData__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Boolean to indicate if the record is test or sample data that can be deleted.</description>
+        <externalId>false</externalId>
+        <label>Is Test Data</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>IsVisibleToCS__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox indicating true if the note should be visible to CS agents, used in code to update case.</description>
+        <externalId>false</externalId>
+        <label>Is Visible to CS</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Last4ofCard__c</fullName>
+        <description>The last 4 digits of the card we attempted to charge.</description>
+        <externalId>false</externalId>
+        <label>Last 4 of Card</label>
+        <length>4</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MIIncidentNumber__c</fullName>
+        <description>Formula to display the MI Incident number on the MI Incident action record; used for pdf rendering.</description>
+        <externalId>false</externalId>
+        <formula>MIIncident__r.IncidentNumber__c</formula>
+        <label>MI Incident Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MIIncident__c</fullName>
+        <description>Lookup to the parent MI Incident record.</description>
+        <externalId>false</externalId>
+        <label>MI Incident</label>
+        <referenceTo>MIIncident__c</referenceTo>
+        <relationshipName>MIIncidentActions</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Notes__c</fullName>
+        <description>Open text area to store notes about the action.</description>
+        <externalId>false</externalId>
+        <label>Notes</label>
+        <length>5000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PDGEligibility__c</fullName>
+        <description>Formula field to calculate the eligibility of the property damage guarantee.</description>
+        <externalId>false</externalId>
+        <formula>IF(OR(
+ISPICKVAL(EligibilityFactors__c, &quot;Contract terms met, customer still dissatisfied&quot;),
+ISPICKVAL(EligibilityFactors__c, &quot;Damage is to excluded property&quot;), 
+ISPICKVAL(EligibilityFactors__c, &quot;Damage not caused by Thumbtack Pro&quot;), 
+ISPICKVAL(EligibilityFactors__c, &quot;Damage was not accidental/unintentional&quot;), 
+ISPICKVAL(EligibilityFactors__c, &quot;Excluded category&quot;), 
+ISPICKVAL(EligibilityFactors__c, &quot;Insufficient documentation&quot;),
+ISPICKVAL(EligibilityFactors__c, &quot;Job not requested on TT&quot;),
+ISPICKVAL(EligibilityFactors__c, &quot;No proof of hire&quot;),
+ISPICKVAL(EligibilityFactors__c, &quot;Not damage from original project requested&quot;), 
+ISPICKVAL(EligibilityFactors__c, &quot;Not covered in TOU&quot;),
+ISPICKVAL(EligibilityFactors__c, &quot;Not marked as hired&quot;), 
+ISPICKVAL(EligibilityFactors__c, &quot;Not physical damage&quot;), 
+ISPICKVAL(EligibilityFactors__c, &quot;Not reported within timeline (14 days)&quot;),
+ISPICKVAL(EligibilityFactors__c, &quot;Not reported within timeframe&quot;), 
+ISPICKVAL(EligibilityFactors__c, &quot;Other - Not eligible (leave notes)&quot;), 
+ISPICKVAL(EligibilityFactors__c, &quot;Other (leave notes)&quot;), 
+ISPICKVAL(EligibilityFactors__c, &quot;Outside 6 month reporting time&quot;),
+ISPICKVAL(EligibilityFactors__c, &quot;Proof of hire not established within 30 days of request&quot;),
+ISPICKVAL(EligibilityFactors__c, &quot;Request made before Guarantee effective date&quot;),
+ISPICKVAL(EligibilityFactors__c, &quot;Theft&quot;), 
+ISPICKVAL(EligibilityFactors__c, &quot;Unresponsive Customer&quot;),
+ISPICKVAL(EligibilityFactors__c, &quot;60 day documentation overdue&quot;)
+ ),&quot;Not Eligible&quot;, 
+
+IF(OR( 
+ISPICKVAL(EligibilityFactors__c, &quot;Meets all criteria&quot;), 
+ISPICKVAL(EligibilityFactors__c, &quot;Other - Eligible (leave notes)&quot;) 
+),&quot;Eligible&quot;, 
+
+IF(AND(
+MIIncident__r.quotes_hired__c = True, 
+MIIncident__r.ElapsedReportedTimeDays__c &lt;= 72, 
+DATETIMEVALUE(MIIncident__r.request_create_time__c) &gt;= DATETIMEVALUE( &apos;2016-07-11 12:00:00&apos; ) 
+),&quot;May Be Eligible&quot;, 
+
+&quot; Not Eligible &quot; 
+)))</formula>
+        <label>Eligibility</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ReferenceNumber__c</fullName>
+        <description>The case or other reference number to the third party resolution platform.</description>
+        <externalId>false</externalId>
+        <label>Reference Number</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>The overall status of the incident action.</description>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Open</fullName>
+                    <default>false</default>
+                    <label>Open</label>
+                </value>
+                <value>
+                    <fullName>Completed</fullName>
+                    <default>false</default>
+                    <label>Completed</label>
+                </value>
+                <value>
+                    <fullName>Reopened</fullName>
+                    <default>false</default>
+                    <label>Reopened</label>
+                </value>
+                <value>
+                    <fullName>In progress</fullName>
+                    <default>false</default>
+                    <label>In progress</label>
+                </value>
+                <value>
+                    <fullName>Soft decline</fullName>
+                    <default>false</default>
+                    <label>Soft decline</label>
+                </value>
+                <value>
+                    <fullName>Hard decline</fullName>
+                    <default>false</default>
+                    <label>Hard decline</label>
+                </value>
+                <value>
+                    <fullName>No charge possible</fullName>
+                    <default>false</default>
+                    <label>No charge possible</label>
+                </value>
+                <value>
+                    <fullName>Successful</fullName>
+                    <default>false</default>
+                    <label>Successful</label>
+                </value>
+                <value>
+                    <fullName>Refunded</fullName>
+                    <default>false</default>
+                    <label>Refunded</label>
+                </value>
+                <value>
+                    <fullName>Pre-adjuster resolution process</fullName>
+                    <default>false</default>
+                    <label>Pre-adjuster resolution process</label>
+                </value>
+                <value>
+                    <fullName>Claim sent to adjuster</fullName>
+                    <default>false</default>
+                    <label>Claim sent to adjuster</label>
+                </value>
+                <value>
+                    <fullName>Claim in process</fullName>
+                    <default>false</default>
+                    <label>Claim in process</label>
+                </value>
+                <value>
+                    <fullName>Paid (under Property Damage Guarantee)</fullName>
+                    <default>false</default>
+                    <label>Paid (under Property Damage Guarantee)</label>
+                </value>
+                <value>
+                    <fullName>Paid (under Money Back Guarantee)</fullName>
+                    <default>false</default>
+                    <label>Paid (under Money Back Guarantee)</label>
+                </value>
+                <value>
+                    <fullName>Paid (under Satisfaction)</fullName>
+                    <default>false</default>
+                    <label>Paid (under Satisfaction)</label>
+                </value>
+                <value>
+                    <fullName>Not paid</fullName>
+                    <default>false</default>
+                    <label>Not paid</label>
+                </value>
+                <value>
+                    <fullName>Approved</fullName>
+                    <default>false</default>
+                    <label>Approved</label>
+                </value>
+                <value>
+                    <fullName>Payment sent</fullName>
+                    <default>false</default>
+                    <label>Payment sent</label>
+                </value>
+                <value>
+                    <fullName>Pending</fullName>
+                    <default>false</default>
+                    <label>Pending</label>
+                </value>
+                <value>
+                    <fullName>Rejected</fullName>
+                    <default>false</default>
+                    <label>Rejected</label>
+                </value>
+                <value>
+                    <fullName>Sent for approval</fullName>
+                    <default>false</default>
+                    <label>Sent for approval</label>
+                </value>
+                <value>
+                    <fullName>No card on file</fullName>
+                    <default>false</default>
+                    <label>No card on file</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>StreetAddress__c</fullName>
+        <description>Text area to store the street address of the person to whom the payout should be sent.</description>
+        <externalId>false</externalId>
+        <label>Street Address</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>TransactionID__c</fullName>
+        <description>External transaction ID number from 3rd party vendor (e.g., cc charge).</description>
+        <externalId>false</externalId>
+        <label>Transaction ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <description>Picklist whose values indicate the type of incident action.</description>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Credit card charge payout</fullName>
+                    <default>false</default>
+                    <label>Credit card charge payout</label>
+                </value>
+                <value>
+                    <fullName>Arbitration only</fullName>
+                    <default>false</default>
+                    <label>Arbitration only</label>
+                </value>
+                <value>
+                    <fullName>Arbitration with chat</fullName>
+                    <default>false</default>
+                    <label>Arbitration with chat</label>
+                </value>
+                <value>
+                    <fullName>Chat only</fullName>
+                    <default>false</default>
+                    <label>Chat only</label>
+                </value>
+                <value>
+                    <fullName>Money Back Guarantee (above $500)</fullName>
+                    <default>false</default>
+                    <label>Money Back Guarantee (above $500)</label>
+                </value>
+                <value>
+                    <fullName>Property damage (above $500)</fullName>
+                    <default>false</default>
+                    <label>Property damage (above $500)</label>
+                </value>
+                <value>
+                    <fullName>Satisfaction payout (above $1000)</fullName>
+                    <default>false</default>
+                    <label>Satisfaction payout (above $1000)</label>
+                </value>
+                <value>
+                    <fullName>Collections on customer&apos;s behalf (above $1000)</fullName>
+                    <default>false</default>
+                    <label>Collections on customer&apos;s behalf (above $1000)</label>
+                </value>
+                <value>
+                    <fullName>Customer satisfaction</fullName>
+                    <default>false</default>
+                    <label>Customer satisfaction</label>
+                </value>
+                <value>
+                    <fullName>Customer satisfaction - low dollar</fullName>
+                    <default>false</default>
+                    <label>Customer satisfaction - low dollar</label>
+                </value>
+                <value>
+                    <fullName>Property damage guarantee</fullName>
+                    <default>false</default>
+                    <label>Property damage guarantee</label>
+                </value>
+                <value>
+                    <fullName>Settlement</fullName>
+                    <default>false</default>
+                    <label>Settlement</label>
+                </value>
+                <value>
+                    <fullName>Successful card charge</fullName>
+                    <default>false</default>
+                    <label>Successful card charge</label>
+                </value>
+                <value>
+                    <fullName>Follow-up</fullName>
+                    <default>false</default>
+                    <label>Follow-up</label>
+                </value>
+                <value>
+                    <fullName>Note</fullName>
+                    <default>false</default>
+                    <label>Note</label>
+                </value>
+                <value>
+                    <fullName>High dollar</fullName>
+                    <default>false</default>
+                    <label>High dollar</label>
+                </value>
+                <value>
+                    <fullName>MI concern</fullName>
+                    <default>false</default>
+                    <label>MI concern</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+                <value>
+                    <fullName>Money back guarantee</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Money back guarantee</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>MI Incident Action</label>
     <listViews>
         <fullName>AllCompletedActions</fullName>
         <columns>NAME</columns>
@@ -583,4 +1576,618 @@
             <roleAndSubordinatesInternal>MIManagingUser</roleAndSubordinatesInternal>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>MI Incident Actions</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>ChargeCard</fullName>
+        <active>true</active>
+        <description>Record type used to manage the actions associated with charging a Pro&apos;s credit card.</description>
+        <label>Charge Card</label>
+        <picklistValues>
+            <picklist>AdjusterStatus__c</picklist>
+            <values>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Denied%2FFurther review needed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Waiting for approval</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ApprovedBy__c</picklist>
+            <values>
+                <fullName>Jody Kershaw</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Jonathan Bushnell</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lindsay Harrop</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Robyn Jeserick</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Simon Fullerton</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tyler Bailey</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>EligibilityFactors__c</picklist>
+            <values>
+                <fullName>Damage is to excluded property</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Damage not caused by Thumbtack Pro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Damage was not accidental%2Funintentional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Meets all criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No damage from original project request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not physical damage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other %28leave notes%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other - Eligible %28leave notes%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other - Not eligible %28leave notes%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request made before Guarantee effective date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Theft</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>GuaranteeType__c</picklist>
+            <values>
+                <fullName>Money back guarantee</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property damage guarantee</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Hard decline</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No card on file</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No charge possible</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Refunded</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Soft decline</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Successful</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Credit card charge payout</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Guarantee</fullName>
+        <active>true</active>
+        <description>Record type used to manage the actions associated with the TT property damage or money back guarantees.</description>
+        <label>Guarantee</label>
+        <picklistValues>
+            <picklist>AdjusterStatus__c</picklist>
+            <values>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed report</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Denied%2FFurther review needed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submitted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Waiting for approval</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ApprovedBy__c</picklist>
+            <values>
+                <fullName>Ashley Powell</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Jody Kershaw</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Jonathan Bushnell</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lindsay Harrop</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Robyn Jeserick</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Simon Fullerton</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tyler Bailey</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>EligibilityFactors__c</picklist>
+            <values>
+                <fullName>60 day documentation overdue</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Damage is to excluded property</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Damage not caused by Thumbtack Pro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Damage was not accidental%2Funintentional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Meets all criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No damage from original project request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not physical damage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other %28leave notes%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other - Eligible %28leave notes%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other - Not eligible %28leave notes%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request made before Guarantee effective date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Theft</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>GuaranteeType__c</picklist>
+            <values>
+                <fullName>Money back guarantee</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property damage guarantee</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Claim in process</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Claim sent to adjuster</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not paid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paid %28under Money Back Guarantee%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paid %28under Property Damage Guarantee%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paid %28under Satisfaction%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pre-adjuster resolution process</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Credit card charge payout</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Payout</fullName>
+        <active>true</active>
+        <description>Record type used to manage the actions associated with the MI Incident compensation payouts.</description>
+        <label>Payout</label>
+        <picklistValues>
+            <picklist>AdjusterStatus__c</picklist>
+            <values>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Denied%2FFurther review needed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Waiting for approval</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ApprovedBy__c</picklist>
+            <values>
+                <fullName>Jody Kershaw</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Jonathan Bushnell</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lindsay Harrop</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Robyn Jeserick</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Simon Fullerton</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tyler Bailey</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>EligibilityFactors__c</picklist>
+            <values>
+                <fullName>Damage is to excluded property</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Damage not caused by Thumbtack Pro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Damage was not accidental%2Funintentional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Meets all criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No damage from original project request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not physical damage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other %28leave notes%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other - Eligible %28leave notes%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other - Not eligible %28leave notes%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request made before Guarantee effective date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Theft</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>GuaranteeType__c</picklist>
+            <values>
+                <fullName>Money back guarantee</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property damage guarantee</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment sent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sent for approval</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Credit card charge payout</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer satisfaction</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer satisfaction - low dollar</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property damage guarantee</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Settlement</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Task</fullName>
+        <active>true</active>
+        <description>Record type used to manage the actions associated with follow-up tasks.</description>
+        <label>Task</label>
+        <picklistValues>
+            <picklist>AdjusterStatus__c</picklist>
+            <values>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Denied%2FFurther review needed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Waiting for approval</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ApprovedBy__c</picklist>
+            <values>
+                <fullName>Jody Kershaw</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Jonathan Bushnell</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lindsay Harrop</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Robyn Jeserick</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Simon Fullerton</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tyler Bailey</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>EligibilityFactors__c</picklist>
+            <values>
+                <fullName>Damage is to excluded property</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Damage not caused by Thumbtack Pro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Damage was not accidental%2Funintentional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Meets all criteria</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No damage from original project request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not physical damage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other %28leave notes%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other - Eligible %28leave notes%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other - Not eligible %28leave notes%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request made before Guarantee effective date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Theft</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>GuaranteeType__c</picklist>
+            <values>
+                <fullName>Money back guarantee</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property damage guarantee</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Follow-up</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Note</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>PayoutPDF</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>page</linkType>
+        <masterLabel>Payout PDF</masterLabel>
+        <openType>replace</openType>
+        <page>MIPayoutsPDF</page>
+        <protected>false</protected>
+    </webLinks>
 </CustomObject>

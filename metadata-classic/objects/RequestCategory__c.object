@@ -1,5 +1,185 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>All available category.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>CategoryNamesMatch__c</fullName>
+        <description>Checks whether or not the Record Name is equal to Category Name (rca_name__c). These should always be the same, but sometimes they don&apos;t get updated.</description>
+        <externalId>false</externalId>
+        <formula>rca_name__c = Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Category Names Match</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>EnrollAProEnabled__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Enroll A Pro Enabled</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>OutreachTypeChangeTS__c</fullName>
+        <description>Timestamp of when outreach type change happens.</description>
+        <externalId>false</externalId>
+        <label>Outreach Type Change TS</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>OutreachTypeChanged__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Outreach Type Changed</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>outreach_type__c</fullName>
+        <externalId>false</externalId>
+        <label>Outreach Type</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>OutreachType</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>rca_active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Defines if the request category is active</description>
+        <externalId>false</externalId>
+        <label>Category Active</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>rca_core_category__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Defines whether or not it is a core request category</description>
+        <externalId>false</externalId>
+        <label>Core Category</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>rca_delete_time__c</fullName>
+        <description>Date/time the request category was deleted</description>
+        <externalId>false</externalId>
+        <label>Delete Time</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>rca_keywords__c</fullName>
+        <description>Keywords related to the request category</description>
+        <externalId>false</externalId>
+        <label>Keywords</label>
+        <length>1000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>rca_name__c</fullName>
+        <externalId>false</externalId>
+        <label>Category Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>rca_request_category_id__c</fullName>
+        <externalId>true</externalId>
+        <label>Category Id</label>
+        <length>20</length>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Request Category</label>
     <listViews>
         <fullName>ActiveRequestCategories</fullName>
         <columns>NAME</columns>
@@ -169,4 +349,37 @@
             <role>SystemLevelAccess</role>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Request Category Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Request Categories</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>rca_active__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>rca_request_category_id__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>rca_core_category__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>outreach_type__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>rca_active__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>rca_request_category_id__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>rca_core_category__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>outreach_type__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>rca_active__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>rca_request_category_id__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>rca_core_category__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>outreach_type__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>rca_active__c</searchFilterFields>
+        <searchFilterFields>rca_request_category_id__c</searchFilterFields>
+        <searchFilterFields>rca_core_category__c</searchFilterFields>
+        <searchFilterFields>outreach_type__c</searchFilterFields>
+        <searchResultsAdditionalFields>rca_active__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>rca_request_category_id__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>rca_core_category__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>outreach_type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>EnrollAProEnabled__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

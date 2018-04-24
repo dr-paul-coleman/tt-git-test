@@ -1,5 +1,191 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Junction object between dispute experience and dispute experience options to assign an option to a dispute experience.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AcceptedFileFormats__c</fullName>
+        <description>Formula field that will allow the accepted file formats from the option record to be visible on related list views.</description>
+        <externalId>false</externalId>
+        <formula>DisputeExperienceOption__r.AcceptedFileFormats__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Formula field that will allow the accepted file formats from the option record to be visible on related list views.</inlineHelpText>
+        <label>Accepted File Formats</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DisputeExperienceOption__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The option that should be assigned to the dispute experience.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The option that should be assigned to the dispute experience.</inlineHelpText>
+        <label>Dispute Experience Option</label>
+        <referenceTo>DisputeExperienceOption__c</referenceTo>
+        <relationshipLabel>Dispute Experience Option Assignments</relationshipLabel>
+        <relationshipName>DisputeExperienceOptionAssignments</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>DisputeExperience__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the dispute experience that the option should be assigned to.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Lookup to the dispute experience that the option should be assigned to.</inlineHelpText>
+        <label>Dispute Experience</label>
+        <referenceTo>DisputeExperience__c</referenceTo>
+        <relationshipLabel>Dispute Experience Option Assignments</relationshipLabel>
+        <relationshipName>DisputeExperienceOptionAssignments</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>IsDefault__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Is Default</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>IsRequired__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox to indicate if the option is required; this would have to be selected by one of the solution center parties before they can move on.  Reserved for attachments.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Checkbox to indicate if the option is required; this would have to be selected by one of the solution center parties before they can move on.  Reserved for attachments.</inlineHelpText>
+        <label>Is Required</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LinkURL__c</fullName>
+        <description>The hyperlink to navigate to when the option is selected.</description>
+        <externalId>false</externalId>
+        <formula>DisputeExperienceOption__r.LinkURL__c</formula>
+        <inlineHelpText>The hyperlink to navigate to when the option is selected.</inlineHelpText>
+        <label>LinkURL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OptionLabel__c</fullName>
+        <description>Formula to bring over the option label; used in list views and related list views.</description>
+        <externalId>false</externalId>
+        <formula>DisputeExperienceOption__r.OptionLabel__c</formula>
+        <inlineHelpText>Formula to bring over the option label; used in list views and related list views.</inlineHelpText>
+        <label>Option Label</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OptionName__c</fullName>
+        <description>Formula field that will allow the name from the option record to be visible on related list views.   This is the record name which is used to determine the path of modals in controller code.</description>
+        <externalId>false</externalId>
+        <formula>DisputeExperienceOption__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Formula field that will allow the name from the option record to be visible on related list views.   This is the record name which is used to determine the path of modals in controller code.</inlineHelpText>
+        <label>Option Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OptionType__c</fullName>
+        <description>Formula to bring over the option record type name; used in list views and related list views.</description>
+        <externalId>false</externalId>
+        <formula>DisputeExperienceOption__r.RecordType.Name</formula>
+        <inlineHelpText>Formula to bring over the option record type name; used in list views and related list views.</inlineHelpText>
+        <label>Option Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SortOrder__c</fullName>
+        <description>The sort order of the available options.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The sort order of the available options.  Note: sort order is per Record Type.</inlineHelpText>
+        <label>Sort Order</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Dispute Experience Option Assignment</label>
     <listViews>
         <fullName>AllOptionAssignments</fullName>
         <columns>NAME</columns>
@@ -23,4 +209,20 @@
             <role>SystemLevelAccess</role>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Dispute Experience Option Assignments</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>OptionAssignment</fullName>
+        <active>true</active>
+        <description>Record type used to manage the available options for the dispute experience.</description>
+        <label>Option Assignment</label>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

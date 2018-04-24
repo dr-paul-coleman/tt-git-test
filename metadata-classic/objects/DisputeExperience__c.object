@@ -1,5 +1,407 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object that will store the Solution Center dispute experience configuration records.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>ArchiveDate__c</fullName>
+        <description>The date the Dispute Experience status was set to &quot;Archived.&quot;  Set via workflow.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date the Dispute Experience status was set to &quot;Archived.&quot;  Set via workflow.</inlineHelpText>
+        <label>Archive Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>DefaultExperience__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox to indicate if the record is used as the default dispute experience.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates if this dispute experience is the default experience for the Solution Center.</inlineHelpText>
+        <label>Default Experience</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>DisputeType__c</fullName>
+        <description>Picklist whose values indicate the type of dispute to help drive what the experience should be configured as.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The type of dispute to help drive what the experience should be configured as.</inlineHelpText>
+        <label>Dispute Type</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>DisputeType</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>HCExperienceInitiator__c</fullName>
+        <description>The help center experience that will be the default for the &quot;Get Help&quot; link on the Dispute Experience.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The help center experience that will be the default for the &quot;Get Help&quot; link on the Dispute Experience.</inlineHelpText>
+        <label>HC Experience Initiator</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HCExperienceResponder__c</fullName>
+        <description>Text area to store the string ID of the help center experience that should be used when the Solution Center &quot;Get Help&quot; link is clicked.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter in the Salesforce 15 digit ID of the help center experience that should be used when the Solution Center &quot;Get Help&quot; link is clicked.</inlineHelpText>
+        <label>HC Experience Responder</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LabelsandInstructions__c</fullName>
+        <description>This field contains all of the json for labels and instructions for Solution Center Dispute Experiences.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Use this field to update labels and instructions based on this Solution Center Dispute Experience.</inlineHelpText>
+        <label>Labels and Instructions</label>
+        <length>131072</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>MaxDaysForCalendarPicker__c</fullName>
+        <description>The max number of days allowed for the responder to select from a calendar picker.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max number of days allowed for the responder to select from a calendar picker.</inlineHelpText>
+        <label>Max # of Days for Calendar Picker</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxFileSize__c</fullName>
+        <description>The max file size allowed for image uploads.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max file size allowed for image uploads (in MB).</inlineHelpText>
+        <label>Max File Size (in MB)</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfDaysAllowedForDispute__c</fullName>
+        <description>Number field to store the default setting for the max number of days allowed for the overall dispute.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter in the overall max number of days the dispute experience should be allowed to be open/in progress for (e.g., 365 days).</inlineHelpText>
+        <label>Max # of Days Allowed for Dispute</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfDaysForInitiatorToConfirm__c</fullName>
+        <description>The max number of days allowed for the initiator to confirm their dispute details.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max number of days allowed for the initiator to confirm their dispute details.</inlineHelpText>
+        <label>Max # of Days for Initiator to Confirm</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfDaysForInitiatorToReply__c</fullName>
+        <description>The max number of days allowed for the initiator to reply to a message.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max number of days allowed for the initiator to reply to a message.</inlineHelpText>
+        <label>Max # of Days for Initiator to Reply</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfDaysForResponderFirstAction__c</fullName>
+        <description>The max number of days allowed for the responder to take their first action (accept, counter, or ask a question).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max number of days allowed for the responder to take their first action (accept, counter, or ask a question).</inlineHelpText>
+        <label>Max # of Days for Responder First Action</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfDaysForResponderToReply__c</fullName>
+        <description>The max number of days allowed for the responder to reply to a message.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max number of days allowed for the responder to reply to a message.</inlineHelpText>
+        <label>Max # of Days for Responder to Reply</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfDaystoAcceptOrCounterOffer__c</fullName>
+        <description>The max number of days allowed for the offer to remain open.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max number of days allowed for the offer to remain open.</inlineHelpText>
+        <label>Max # of Days to Accept or Counter Offer</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfInitiatorMessagesAllowed__c</fullName>
+        <description>The max number of related dispute messages allowed by the initiator.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max number of related dispute messages allowed by the initiator.</inlineHelpText>
+        <label>Max # of Initiator Messages Allowed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfInitiatorOffersAllowed__c</fullName>
+        <description>The max number of dispute offers allowed by the initiator.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max number of dispute offers allowed by the initiator.</inlineHelpText>
+        <label>Max # of Initiator Offers Allowed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfResponderMessagesAllowed__c</fullName>
+        <description>The max number of related dispute messages allowed by the responder..</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max number of related dispute messages allowed by the responder..</inlineHelpText>
+        <label>Max # of Responder Messages Allowed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxOfResponderOffersAllowed__c</fullName>
+        <description>The max number of related dispute offers allowed by the responder..</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The max number of related dispute offers allowed by the responder..</inlineHelpText>
+        <label>Max # of Responder Offers Allowed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxofDaysforOffer__c</fullName>
+        <description>This is the maximum number of days that an offer can be available.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the maximum number of days that an offer can be available.</inlineHelpText>
+        <label>Max # of Days for Offer</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PublishDate__c</fullName>
+        <description>The date the Dispute Experience status was set to &quot;Published.&quot; Set via workflow.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date the Dispute Experience status was set to &quot;Published.&quot; Set via workflow.</inlineHelpText>
+        <label>Publish Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>RecordNumber__c</fullName>
+        <description>Auto-number field to display a record number; used for easy reference.</description>
+        <displayFormat>SCC-{00000}</displayFormat>
+        <externalId>false</externalId>
+        <inlineHelpText>Auto-number field to display a record number; used for easy reference.</inlineHelpText>
+        <label>Record Number</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>ResolutionOptions__c</fullName>
+        <description>The available resolution options for an agent to select from when creating a dispute.  Used in lightning component.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The available resolution options for an agent to select from when creating a dispute.</inlineHelpText>
+        <label>Resolution Options (Agent facing)</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Complete or redo the work</fullName>
+                    <default>false</default>
+                    <label>Complete or redo the work</label>
+                </value>
+                <value>
+                    <fullName>Complete or redo the work and refund</fullName>
+                    <default>false</default>
+                    <label>Complete or redo the work and refund</label>
+                </value>
+                <value>
+                    <fullName>Refund</fullName>
+                    <default>false</default>
+                    <label>Refund</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>Picklist whose values indicate the overall publication status of the Dispute Experience.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Publication status of the dispute experience.</inlineHelpText>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Draft</fullName>
+                    <default>false</default>
+                    <label>Draft</label>
+                </value>
+                <value>
+                    <fullName>Needs approval</fullName>
+                    <default>false</default>
+                    <label>Needs approval</label>
+                </value>
+                <value>
+                    <fullName>Published</fullName>
+                    <default>false</default>
+                    <label>Published</label>
+                </value>
+                <value>
+                    <fullName>Archived</fullName>
+                    <default>false</default>
+                    <label>Archived</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Dispute Experience</label>
     <listViews>
         <fullName>AllDisputeExperiences</fullName>
         <columns>RecordNumber__c</columns>
@@ -13,4 +415,61 @@
             <group>SolutionCenterAdminUser</group>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Dispute Experiences</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>DisputeExperience</fullName>
+        <active>true</active>
+        <description>Record type used to manage the solution center dispute default settings.</description>
+        <label>Dispute Experience</label>
+        <picklistValues>
+            <picklist>DisputeType__c</picklist>
+            <values>
+                <fullName>Standard</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ResolutionOptions__c</picklist>
+            <values>
+                <fullName>Complete or redo the work</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Complete or redo the work and refund</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Refund</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Archived</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Draft</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Needs approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

@@ -1,6 +1,2461 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to store data records pertaining to bugs as reported by the customer or professional.  This object has a master-detail relationship with Cases.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
     <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Account lookup field for Thumbtack User account related to bug report</description>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>Bug_Reports</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>AdditionalInfo__c</fullName>
+        <description>Any additional info (brought in from multiple slides of getfeedback bug report)</description>
+        <externalId>false</externalId>
+        <label>Additional Info</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>AdminLinkViewUser__c</fullName>
+        <description>Formula field to display the Admin Link View User from case on the Bug Report.</description>
+        <externalId>false</externalId>
+        <formula>Case__r.AdminLinkViewUser__c</formula>
+        <label>Admin Link View User</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AdminLink_del__c</fullName>
+        <description>Link to the pro/customer&apos;s admin page</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please paste the pro/customer&apos;s admin link here.</inlineHelpText>
+        <label>Admin Link</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>AgentNotes__c</fullName>
+        <externalId>false</externalId>
+        <label>Agent Notes</label>
+        <length>75000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>AppVersion__c</fullName>
+        <description>Version of the Thumbtack app (getfeedback mapped)</description>
+        <externalId>false</externalId>
+        <label>App Version</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ApprovedReason__c</fullName>
+        <description>These are the reasons why a review would be removed</description>
+        <externalId>false</externalId>
+        <label>Approved Reason</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Manager_Decision__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Review bug</fullName>
+                    <default>false</default>
+                    <label>Review bug</label>
+                </value>
+                <value>
+                    <fullName>No interaction</fullName>
+                    <default>false</default>
+                    <label>No interaction</label>
+                </value>
+                <value>
+                    <fullName>Duplicate update</fullName>
+                    <default>false</default>
+                    <label>Duplicate update</label>
+                </value>
+                <value>
+                    <fullName>Fake reviews</fullName>
+                    <default>false</default>
+                    <label>Fake reviews</label>
+                </value>
+                <value>
+                    <fullName>Personal identifiable info/pictures</fullName>
+                    <default>false</default>
+                    <label>Personal identifiable info/pictures</label>
+                </value>
+                <value>
+                    <fullName>Blacklisted words</fullName>
+                    <default>false</default>
+                    <label>Blacklisted words</label>
+                </value>
+                <value>
+                    <fullName>Review/update posted outside reasonable amount of time</fullName>
+                    <default>false</default>
+                    <label>Review/update posted outside reasonable amount of time</label>
+                </value>
+                <value>
+                    <fullName>Review intended for TT/Not related</fullName>
+                    <default>false</default>
+                    <label>Review intended for TT/Not related</label>
+                </value>
+                <value>
+                    <fullName>Request violates user guidelines</fullName>
+                    <default>false</default>
+                    <label>Request violates user guidelines</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Removed Review</controllingFieldValue>
+                <controllingFieldValue>Edited Review</controllingFieldValue>
+                <valueName>Review bug</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Removed Review</controllingFieldValue>
+                <controllingFieldValue>Edited Review</controllingFieldValue>
+                <valueName>No interaction</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Removed Review</controllingFieldValue>
+                <controllingFieldValue>Edited Review</controllingFieldValue>
+                <valueName>Duplicate update</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Removed Review</controllingFieldValue>
+                <controllingFieldValue>Edited Review</controllingFieldValue>
+                <valueName>Fake reviews</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Removed Review</controllingFieldValue>
+                <controllingFieldValue>Edited Review</controllingFieldValue>
+                <valueName>Personal identifiable info/pictures</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Removed Review</controllingFieldValue>
+                <controllingFieldValue>Edited Review</controllingFieldValue>
+                <valueName>Blacklisted words</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Removed Review</controllingFieldValue>
+                <controllingFieldValue>Edited Review</controllingFieldValue>
+                <valueName>Review/update posted outside reasonable amount of time</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Removed Review</controllingFieldValue>
+                <controllingFieldValue>Edited Review</controllingFieldValue>
+                <valueName>Review intended for TT/Not related</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Removed Review</controllingFieldValue>
+                <controllingFieldValue>Edited Review</controllingFieldValue>
+                <valueName>Request violates user guidelines</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>AreTextsBeingSent__c</fullName>
+        <externalId>false</externalId>
+        <label>Are Texts Being Sent?</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>AssigneeEmailAddress__c</fullName>
+        <externalId>false</externalId>
+        <label>Assignee Email Address</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Assignee__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The Bugs Team Agent who is handling this bug report.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Bugs Team Agent who is handling this bug report.</inlineHelpText>
+        <label>Assignee</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>BugReports</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>AutoClosed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Auto Closed</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>BrowserVersion__c</fullName>
+        <description>Please record the browser and version below. (ex. Chrome 43.0.2357.124 64-bit)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please record the browser and version below. (ex. Chrome 43.0.2357.124 64-bit)</inlineHelpText>
+        <label>Browser Version</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>BugFixedNotificationSent__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Marks to TRUE when the parent bug has been resolved and the subsequent email notification has been sent. Prevents recursion of the email.</description>
+        <externalId>false</externalId>
+        <label>Bug Fixed Notification Sent</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>BugReportLink__c</fullName>
+        <externalId>false</externalId>
+        <formula>&quot;https://thumbtack.my.salesforce.com/&quot;&amp;Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Bug Report Link</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BugType_del__c</fullName>
+        <description>The type of bug as reported by the agent.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The type of bug as reported by the agent.</inlineHelpText>
+        <label>Bug Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Not receiving request emails</fullName>
+                    <default>false</default>
+                    <label>Not receiving request emails</label>
+                </value>
+                <value>
+                    <fullName>Not receiving text notifications</fullName>
+                    <default>false</default>
+                    <label>Not receiving text notifications</label>
+                </value>
+                <value>
+                    <fullName>Payment declines</fullName>
+                    <default>false</default>
+                    <label>Payment declines</label>
+                </value>
+                <value>
+                    <fullName>Not receiving enough requests</fullName>
+                    <default>false</default>
+                    <label>Not receiving enough requests</label>
+                </value>
+                <value>
+                    <fullName>Social media issue</fullName>
+                    <default>false</default>
+                    <label>Social media issue</label>
+                </value>
+                <value>
+                    <fullName>iOS apps</fullName>
+                    <default>false</default>
+                    <label>iOS apps</label>
+                </value>
+                <value>
+                    <fullName>Android app</fullName>
+                    <default>false</default>
+                    <label>Android app</label>
+                </value>
+                <value>
+                    <fullName>Mobile browser</fullName>
+                    <default>false</default>
+                    <label>Mobile browser</label>
+                </value>
+                <value>
+                    <fullName>Receiving zero requests</fullName>
+                    <default>false</default>
+                    <label>Receiving zero requests</label>
+                </value>
+                <value>
+                    <fullName>Zip Code doesn&apos;t match address</fullName>
+                    <default>false</default>
+                    <label>Zip Code doesn&apos;t match address</label>
+                </value>
+                <value>
+                    <fullName>Error with linking to social media</fullName>
+                    <default>false</default>
+                    <label>Error with linking to social media</label>
+                </value>
+                <value>
+                    <fullName>Instant Match</fullName>
+                    <default>false</default>
+                    <label>Instant Match</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>BugURL__c</fullName>
+        <description>The URL of the area of the site on which the bug occurred.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The URL of the area of the site on which the bug occurred.</inlineHelpText>
+        <label>Bug URL</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Bug__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the record for the bug that the report is reporting.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Bug as identified by the bugs team.</inlineHelpText>
+        <label>Bug</label>
+        <referenceTo>Bug__c</referenceTo>
+        <relationshipName>BugReports</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CaseAction__c</fullName>
+        <description>Formula field to display the Case__r.BugReportAction__c field value.  Used in list views.</description>
+        <externalId>false</externalId>
+        <formula>TEXT(Case__r.BugReportAction__c)</formula>
+        <label>Case Action</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CaseConsoleLink__c</fullName>
+        <description>Console URL link to the associated case.  Used in email template notifications.</description>
+        <externalId>false</externalId>
+        <formula>Case__r.CaseConsoleLink__c</formula>
+        <label>Case Console Link</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CaseOwnerManagerEmail__c</fullName>
+        <description>The email address of the case owner manager.</description>
+        <externalId>false</externalId>
+        <label>Case Owner Manager Email</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CaseOwnerName__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case__r.CaseOwnerFullName__c</formula>
+        <label>Case Owner Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <description>Master-detail relationship to Case.  Case is the parent and Bug Reports are the children.  This represents the customer support case that originated the bug report.</description>
+        <externalId>false</externalId>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipName>BugReports</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>CategoriesNotReceiving__c</fullName>
+        <description>The specific request categories the pro is not receiving</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The specific request categories the pro is not receiving</inlineHelpText>
+        <label>Categories Not Receiving</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Comments</label>
+        <referenceTo>Comments__c</referenceTo>
+        <relationshipLabel>Support Processes</relationshipLabel>
+        <relationshipName>Support_Processes</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ConfirmedinLooker__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Confirmed in Looker?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CreatedDateTime__c</fullName>
+        <description>Formula to bring over the date/time of when the record was created.  Used in reporting.</description>
+        <externalId>false</externalId>
+        <formula>CreatedDate</formula>
+        <label>Created Date/Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>CreditRefundAmount__c</fullName>
+        <description>The number of credits to be refunded.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The number of credits to be refunded.</inlineHelpText>
+        <label>Credit Refund Amount</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DateBugFixed__c</fullName>
+        <description>The date the Bug was fixed for the associated bug report.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date the Bug was fixed for the associated bug report.</inlineHelpText>
+        <label>Date Bug Fixed</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>DateObserved__c</fullName>
+        <description>Date the problem was observed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date the problem was observed</inlineHelpText>
+        <label>Date Observed</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>DateTimeClosed__c</fullName>
+        <description>Date/time that the bug report status changed to Closed.</description>
+        <externalId>false</externalId>
+        <label>Date/Time Closed</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>DeviceType__c</fullName>
+        <description>Mobile device type question (getfeedback mapped)</description>
+        <externalId>false</externalId>
+        <label>Mobile Device Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>iPhone</fullName>
+                    <default>false</default>
+                    <label>iPhone</label>
+                </value>
+                <value>
+                    <fullName>Android</fullName>
+                    <default>false</default>
+                    <label>Android</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Dispute_Reason__c</fullName>
+        <description>Picklist to further classify the disputes.</description>
+        <externalId>false</externalId>
+        <label>Dispute Reason</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Review bug</fullName>
+                    <default>false</default>
+                    <label>Review bug</label>
+                </value>
+                <value>
+                    <fullName>No interaction</fullName>
+                    <default>false</default>
+                    <label>No interaction</label>
+                </value>
+                <value>
+                    <fullName>Duplicate update</fullName>
+                    <default>false</default>
+                    <label>Duplicate update</label>
+                </value>
+                <value>
+                    <fullName>Personal identifiable info/pictures</fullName>
+                    <default>false</default>
+                    <label>Personal identifiable info/pictures</label>
+                </value>
+                <value>
+                    <fullName>Blacklisted words</fullName>
+                    <default>false</default>
+                    <label>Blacklisted words</label>
+                </value>
+                <value>
+                    <fullName>Review/update posted outside reasonable amount of time</fullName>
+                    <default>false</default>
+                    <label>Review/update posted outside reasonable amount of time</label>
+                </value>
+                <value>
+                    <fullName>Request violates user guidelines</fullName>
+                    <default>false</default>
+                    <label>Request violates user guidelines</label>
+                </value>
+                <value>
+                    <fullName>Review intended for TT/Not related</fullName>
+                    <default>false</default>
+                    <label>Review intended for TT/Not related</label>
+                </value>
+                <value>
+                    <fullName>Fake reviews</fullName>
+                    <default>false</default>
+                    <label>Fake reviews</label>
+                </value>
+                <value>
+                    <fullName>Review Intended for Thumbtack</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Review Intended for Thumbtack</label>
+                </value>
+                <value>
+                    <fullName>Review Violates Thumbtack Content Policy</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Review Violates Thumbtack Content Policy</label>
+                </value>
+                <value>
+                    <fullName>Review is Unrelated to the Pros Work Provided or Professionalism</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Review is Unrelated to the Pros Work Provided or Professionalism</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>DurationofBug__c</fullName>
+        <description>Duration the bug has occurred (brought in from multiple getfeedback fields)</description>
+        <externalId>false</externalId>
+        <label>Duration of Bug</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>EmailAddress__c</fullName>
+        <description>The email address of the affected pro/customer</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The email address of the affected pro/customer</inlineHelpText>
+        <label>Email Address</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EmailNotificationSent__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Email Notification Sent</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>EmailProvider__c</fullName>
+        <description>The domain / email provider</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The domain / email provider</inlineHelpText>
+        <label>Email Provider</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EmailsNotReceiving__c</fullName>
+        <description>Types of emails the pro is not receiving</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Types of emails the pro is not receiving</inlineHelpText>
+        <label>Emails Not Receiving</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Requests</fullName>
+                    <default>false</default>
+                    <label>Requests</label>
+                </value>
+                <value>
+                    <fullName>Activation</fullName>
+                    <default>false</default>
+                    <label>Activation</label>
+                </value>
+                <value>
+                    <fullName>Verification</fullName>
+                    <default>false</default>
+                    <label>Verification</label>
+                </value>
+                <value>
+                    <fullName>Pro Messenger notifications</fullName>
+                    <default>false</default>
+                    <label>Pro Messenger notifications</label>
+                </value>
+                <value>
+                    <fullName>Support</fullName>
+                    <default>false</default>
+                    <label>Support</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ErrorReceived__c</fullName>
+        <description>The error message the pro received</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The error message the pro received</inlineHelpText>
+        <label>Error Received</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Escalated_Date__c</fullName>
+        <description>The date/time the case was escalated. Populated via workflow.</description>
+        <externalId>false</externalId>
+        <label>Escalated Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>FirstResponseDate__c</fullName>
+        <description>The date/time that the Bug Report changed from a New status.</description>
+        <externalId>false</externalId>
+        <label>First Response Date</label>
+        <summarizedField>BugReportUpdateHistory__c.ToDate__c</summarizedField>
+        <summaryFilterItems>
+            <field>BugReportUpdateHistory__c.BugReportPreviousStatus__c</field>
+            <operation>equals</operation>
+            <value>New</value>
+        </summaryFilterItems>
+        <summaryForeignKey>BugReportUpdateHistory__c.BugReport__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>FromTelephony__c</fullName>
+        <externalId>false</externalId>
+        <label>Pro&apos;s # in Telephony Log</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GeneralCategoryType__c</fullName>
+        <externalId>false</externalId>
+        <label>General Category Type</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>General_Comments__c</fullName>
+        <description>Comment field use for anytime general comments are needed.</description>
+        <externalId>false</externalId>
+        <label>General Comments</label>
+        <length>5000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>HowLongProHadPhone__c</fullName>
+        <externalId>false</externalId>
+        <label>How Long Pro Had Phone</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>InternalNotes__c</fullName>
+        <description>Internal notes visible only to the bugs team.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Internal notes visible only to the bugs team.</inlineHelpText>
+        <label>Internal Notes</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>IsSyndicated__c</fullName>
+        <description>Is the Pro&apos;s Service Syndicated?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Is the Pro&apos;s Service Syndicated?</inlineHelpText>
+        <label>Is Syndicated</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>IssueCreated__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Issue Created</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>IssueSentToJiraStatus__c</fullName>
+        <externalId>false</externalId>
+        <label>Issue Sent To Jira Status</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>JIRAAlertEmailTarget__c</fullName>
+        <externalId>false</externalId>
+        <label>JIRA Alert Email Target</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>JIRAComments__c</fullName>
+        <externalId>false</externalId>
+        <label>JIRA Comments</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>JIRAEscalationNotes__c</fullName>
+        <description>Text field sent to JIRA ticket body</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please enter the notes to be sent to the team in San Francisco here. This will be the body of the JIRA ticket created.</inlineHelpText>
+        <label>JIRA Escalation Notes</label>
+        <length>10000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>JIRAID__c</fullName>
+        <externalId>false</externalId>
+        <label>JIRA ID</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>JIRALink__c</fullName>
+        <externalId>false</externalId>
+        <label>JIRA Link</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>JIRARecipient__c</fullName>
+        <description>The team or individual which should receive the JIRA ticket.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The team or individual which should receive the JIRA ticket.</inlineHelpText>
+        <label>JIRA Recipient</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>CatMan - home@</fullName>
+                    <default>false</default>
+                    <label>CatMan - home@</label>
+                </value>
+                <value>
+                    <fullName>CatMan - events@</fullName>
+                    <default>false</default>
+                    <label>CatMan - events@</label>
+                </value>
+                <value>
+                    <fullName>CatMan - lessons@</fullName>
+                    <default>false</default>
+                    <label>CatMan - lessons@</label>
+                </value>
+                <value>
+                    <fullName>CatMan - wellness@</fullName>
+                    <default>false</default>
+                    <label>CatMan - wellness@</label>
+                </value>
+                <value>
+                    <fullName>CatMan - pets@</fullName>
+                    <default>false</default>
+                    <label>CatMan - pets@</label>
+                </value>
+                <value>
+                    <fullName>CatMan - weddings@</fullName>
+                    <default>false</default>
+                    <label>CatMan - weddings@</label>
+                </value>
+                <value>
+                    <fullName>CatMan-general</fullName>
+                    <default>false</default>
+                    <label>CatMan - general</label>
+                </value>
+                <value>
+                    <fullName>Press</fullName>
+                    <default>false</default>
+                    <label>Press</label>
+                </value>
+                <value>
+                    <fullName>Accounts Payable</fullName>
+                    <default>false</default>
+                    <label>Accounts Payable</label>
+                </value>
+                <value>
+                    <fullName>User Research</fullName>
+                    <default>false</default>
+                    <label>User Research</label>
+                </value>
+                <value>
+                    <fullName>LegalTylerBailey</fullName>
+                    <default>false</default>
+                    <label>Legal (Tyler Bailey)</label>
+                </value>
+                <value>
+                    <fullName>Top Pro</fullName>
+                    <default>false</default>
+                    <label>Top Pro</label>
+                </value>
+                <value>
+                    <fullName>Stories</fullName>
+                    <default>false</default>
+                    <label>Stories</label>
+                </value>
+                <value>
+                    <fullName>MI Support Reporting</fullName>
+                    <default>false</default>
+                    <label>MI Support Reporting</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>JIRASummary__c</fullName>
+        <description>The ticket title for JIRA</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The ticket title for the JIRA escalation. Be brief (under 255 characters)</inlineHelpText>
+        <label>JIRA Summary</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LandingPageURL__c</fullName>
+        <externalId>false</externalId>
+        <label>Landing Page URL</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Last4DigitsofCC__c</fullName>
+        <description>Last Four Digits of Credit Card</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Last Four Digits of Credit Card</inlineHelpText>
+        <label>Last 4 Digits of CC</label>
+        <length>10</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LastStatusChangeDate__c</fullName>
+        <description>The most recent date that the Bug Report Status field value changed.</description>
+        <externalId>false</externalId>
+        <label>Last Status Change Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>LimitedorZeroRequests__c</fullName>
+        <externalId>false</externalId>
+        <label>Limited or Zero Requests</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Limited Requests</fullName>
+                    <default>false</default>
+                    <label>Limited Requests</label>
+                </value>
+                <value>
+                    <fullName>Zero Requests</fullName>
+                    <default>false</default>
+                    <label>Zero Requests</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Location__c</fullName>
+        <description>The pro&apos;s location</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The pro&apos;s location</inlineHelpText>
+        <label>Location</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>LoggedInuserIsReporter__c</fullName>
+        <description>Formula field to display true if the logged in user is the same person as the Reporter.</description>
+        <externalId>false</externalId>
+        <formula>IF( ReportingAgent__r.Id = $User.Id , True, False )</formula>
+        <label>Logged in User is Reporter</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LoggedinUserisAssignee__c</fullName>
+        <description>Formula field to indicate true if the logged in user is the same user as the assignee.</description>
+        <externalId>false</externalId>
+        <formula>IF( Assignee__r.Id = $User.Id , True, False )</formula>
+        <inlineHelpText>Formula field to indicate true if the logged in user is the same user as the assignee.</inlineHelpText>
+        <label>Logged in User is Assignee</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>MainRequestCategory__c</fullName>
+        <externalId>false</externalId>
+        <label>Main Request Category</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Manager_Comments__c</fullName>
+        <description>Open text area to allow managers to enter notes about their decision surrounding the dispute.</description>
+        <externalId>false</externalId>
+        <label>Manager Comments</label>
+        <length>5000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Manager_Decision__c</fullName>
+        <description>Picklist to indicate whether or not the Manager agrees with the dispute.</description>
+        <externalId>false</externalId>
+        <label>Manager Decision</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Awaiting Decision</fullName>
+                    <default>false</default>
+                    <label>Awaiting Decision</label>
+                </value>
+                <value>
+                    <fullName>Removed Review</fullName>
+                    <default>false</default>
+                    <label>Removed Review</label>
+                </value>
+                <value>
+                    <fullName>Edited Review</fullName>
+                    <default>false</default>
+                    <label>Edited Review</label>
+                </value>
+                <value>
+                    <fullName>Leave Review #Loveit</fullName>
+                    <default>false</default>
+                    <label>Leave Review #Loveit</label>
+                </value>
+                <value>
+                    <fullName>Leave Review #CBB</fullName>
+                    <default>false</default>
+                    <label>Leave Review #CBB</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>MobileCarrier__c</fullName>
+        <externalId>false</externalId>
+        <label>Mobile Carrier</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Verizon</fullName>
+                    <default>false</default>
+                    <label>Verizon</label>
+                </value>
+                <value>
+                    <fullName>Sprint</fullName>
+                    <default>false</default>
+                    <label>Sprint</label>
+                </value>
+                <value>
+                    <fullName>AT&amp;T</fullName>
+                    <default>false</default>
+                    <label>AT&amp;T</label>
+                </value>
+                <value>
+                    <fullName>T-Mobile</fullName>
+                    <default>false</default>
+                    <label>T-Mobile</label>
+                </value>
+                <value>
+                    <fullName>Cricket</fullName>
+                    <default>false</default>
+                    <label>Cricket</label>
+                </value>
+                <value>
+                    <fullName>Virgin</fullName>
+                    <default>false</default>
+                    <label>Virgin</label>
+                </value>
+                <value>
+                    <fullName>Family Wireless</fullName>
+                    <default>false</default>
+                    <label>Family Wireless</label>
+                </value>
+                <value>
+                    <fullName>Straight Talk</fullName>
+                    <default>false</default>
+                    <label>Straight Talk</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>MobileDeviceOS__c</fullName>
+        <description>OS or iOS the phone is using (getfeedback mapped)</description>
+        <externalId>false</externalId>
+        <label>Mobile Device OS</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>NameonCreditCard__c</fullName>
+        <description>Pro&apos;s name (exactly as it appears on their card)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Pro&apos;s name (exactly as it appears on their card)</inlineHelpText>
+        <label>Name on Credit Card</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NewlySplitCategory__c</fullName>
+        <externalId>false</externalId>
+        <label>Newly Split Category?</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>OSVersion__c</fullName>
+        <description>Operating system version the bug was experienced on (getfeedback mapped)</description>
+        <externalId>false</externalId>
+        <label>OS Version</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>OwnerFirstName__c</fullName>
+        <description>The first name of the bug reporter</description>
+        <externalId>false</externalId>
+        <formula>CreatedBy.FirstName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Owner First Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PaymentID__c</fullName>
+        <description>the GPA (payment ID) of the transaction in question</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The GPA (Payment ID) of the transaction in question.</inlineHelpText>
+        <label>Payment ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PaymentMethod__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Method</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Credit Card / Debit Card</fullName>
+                    <default>false</default>
+                    <label>Credit Card / Debit Card</label>
+                </value>
+                <value>
+                    <fullName>Paypal</fullName>
+                    <default>false</default>
+                    <label>Paypal</label>
+                </value>
+                <value>
+                    <fullName>Both</fullName>
+                    <default>false</default>
+                    <label>Both</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>PaypalEmail__c</fullName>
+        <description>The email address on the pro&apos;s paypal account</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The email address on the pro&apos;s paypal account</inlineHelpText>
+        <label>Paypal Email</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PaypalName__c</fullName>
+        <description>The name on the Pro&apos;s paypal account.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name on the Pro&apos;s paypal account.</inlineHelpText>
+        <label>Paypal Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PhoneModel__c</fullName>
+        <description>The Pro&apos;s Phone model</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Pro&apos;s Phone model</inlineHelpText>
+        <label>Phone Model</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PlatformType__c</fullName>
+        <description>Mac or PC question (getfeedback mapped)</description>
+        <externalId>false</externalId>
+        <label>Platform Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Mac</fullName>
+                    <default>false</default>
+                    <label>Mac</label>
+                </value>
+                <value>
+                    <fullName>PC</fullName>
+                    <default>false</default>
+                    <label>PC</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Platform__c</fullName>
+        <description>TT product platform</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please select the platform the user accessed Thumbtack on.</inlineHelpText>
+        <label>Platform</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Desktop - Windows</fullName>
+                    <default>false</default>
+                    <label>Desktop - Windows</label>
+                </value>
+                <value>
+                    <fullName>Desktop - Mac</fullName>
+                    <default>false</default>
+                    <label>Desktop - Mac</label>
+                </value>
+                <value>
+                    <fullName>iOS Customer app</fullName>
+                    <default>false</default>
+                    <label>iOS Customer app</label>
+                </value>
+                <value>
+                    <fullName>iOS Pro app</fullName>
+                    <default>false</default>
+                    <label>iOS Pro app</label>
+                </value>
+                <value>
+                    <fullName>iOS Browser</fullName>
+                    <default>false</default>
+                    <label>iOS Browser</label>
+                </value>
+                <value>
+                    <fullName>Android Browser</fullName>
+                    <default>false</default>
+                    <label>Android Browser</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>7</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ProPhoneNumber__c</fullName>
+        <description>The pro&apos;s phone number</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The pro&apos;s phone number</inlineHelpText>
+        <label>Pro Phone Number</label>
+        <length>20</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ProgressPoints__c</fullName>
+        <description>How many progress points does the pro have?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How many progress points does the pro have?</inlineHelpText>
+        <label>Progress Points</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PurchaseAmount__c</fullName>
+        <description>Amount of Purchase</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Amount of Purchase</inlineHelpText>
+        <label>Purchase Amount</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PurchaseDate__c</fullName>
+        <externalId>false</externalId>
+        <label>Purchase Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>PurchaseTime__c</fullName>
+        <externalId>false</externalId>
+        <label>Purchase Time</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PurchaseType__c</fullName>
+        <description>What purchase are they making? (Which credit package)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What purchase are they making? (Which credit package)</inlineHelpText>
+        <label>Purchase Type</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>QuoteID__c</fullName>
+        <description>Quote ID, if applicable</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Quote ID, if applicable</inlineHelpText>
+        <label>Quote ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RecordConsoleLink__c</fullName>
+        <externalId>false</externalId>
+        <formula>&quot;https://thumbtack.my.salesforce.com/console#%2F&quot;&amp;Id</formula>
+        <label>Record Console Link</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RefundReason__c</fullName>
+        <externalId>false</externalId>
+        <label>Refund Reason</label>
+        <length>50000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ReportQuality__c</fullName>
+        <description>A rating of how well the CS agent documented the bug for the bugs team.</description>
+        <externalId>false</externalId>
+        <label>Report Quality</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Outstanding</fullName>
+                    <default>false</default>
+                    <label>Outstanding</label>
+                </value>
+                <value>
+                    <fullName>Good</fullName>
+                    <default>false</default>
+                    <label>Good</label>
+                </value>
+                <value>
+                    <fullName>Average</fullName>
+                    <default>false</default>
+                    <label>Average</label>
+                </value>
+                <value>
+                    <fullName>Could Be Better</fullName>
+                    <default>false</default>
+                    <label>Could Be Better</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>ReportingAgentTeam__c</fullName>
+        <description>Text field to display the team name of the reporting agent at the time the bug report was created.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The team name of the reporting agent at the time the bug report was created.</inlineHelpText>
+        <label>Reporting Agent Team</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ReportingAgent__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to User to indicate the person that reported the bug.</description>
+        <externalId>false</externalId>
+        <label>Reporting Agent</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>BugReportReporter</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ReproducedIssue__c</fullName>
+        <description>Could you reproduce the issue?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Could you reproduce the issue?</inlineHelpText>
+        <label>Reproduced Issue?</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>RequestCategoriesIncorrectlyAdded__c</fullName>
+        <description>The exact request categories incorrectly added</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The exact request categories incorrectly added</inlineHelpText>
+        <label>Request Categories Incorrectly Added</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>RequestID__c</fullName>
+        <description>Request, Quote, or Service ID</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please enter the Request, Quote, or Service ID if applicable.</inlineHelpText>
+        <label>Request ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RequestsNotReceiving__c</fullName>
+        <externalId>false</externalId>
+        <label>Requests Not Receiving</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>The pro has not received any requests</fullName>
+                    <default>false</default>
+                    <label>The pro has not received any requests</label>
+                </value>
+                <value>
+                    <fullName>The pro used to receive requests, but stopped receiving them</fullName>
+                    <default>false</default>
+                    <label>The pro used to receive requests, but stopped receiving them</label>
+                </value>
+                <value>
+                    <fullName>The pro is not receiving requests from only a certain category/categories</fullName>
+                    <default>false</default>
+                    <label>The pro is not receiving requests from only a certain category/categories</label>
+                </value>
+                <value>
+                    <fullName>The pro is not receiving requests for &quot;Phone or internet only&quot; travel preferences</fullName>
+                    <default>false</default>
+                    <label>The pro is not receiving requests for &quot;Phone or internet only&quot; travel preferences</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Review_Link__c</fullName>
+        <description>Field for agent to paste review link for the escalated review.</description>
+        <externalId>false</externalId>
+        <label>Review Link</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Reviewed_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the manager user who reviewed the case dispute.</description>
+        <externalId>false</externalId>
+        <label>Reviewed By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Support_Processes</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Reviewed_by_Date__c</fullName>
+        <description>The date/time that the manager made a decision on the dispute.</description>
+        <externalId>false</externalId>
+        <label>Reviewed by Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>RevisionReason__c</fullName>
+        <externalId>false</externalId>
+        <label>Revision Reason</label>
+        <length>50000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>SMSDelayTime__c</fullName>
+        <externalId>false</externalId>
+        <label>SMS Delay Time</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Screenshotcaptured__c</fullName>
+        <description>A screenshot was taken or received of the error (getfeedback mapped field)</description>
+        <externalId>false</externalId>
+        <label>Screenshot Captured</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>SocialMediaChannel__c</fullName>
+        <externalId>false</externalId>
+        <label>Social Media Channel</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Facebook</fullName>
+                    <default>false</default>
+                    <label>Facebook</label>
+                </value>
+                <value>
+                    <fullName>Twitter</fullName>
+                    <default>false</default>
+                    <label>Twitter</label>
+                </value>
+                <value>
+                    <fullName>LinkedIn</fullName>
+                    <default>false</default>
+                    <label>LinkedIn</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>Picklist field to indicate the status of the Bug Report.</description>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>New</fullName>
+                    <default>true</default>
+                    <label>New</label>
+                </value>
+                <value>
+                    <fullName>Viewed</fullName>
+                    <default>false</default>
+                    <label>Viewed</label>
+                </value>
+                <value>
+                    <fullName>Pending Input</fullName>
+                    <default>false</default>
+                    <label>Pending Input</label>
+                </value>
+                <value>
+                    <fullName>Pending Bugs Team</fullName>
+                    <default>false</default>
+                    <label>Pending Bugs Team</label>
+                </value>
+                <value>
+                    <fullName>Ready for Review</fullName>
+                    <default>false</default>
+                    <label>Ready for Review</label>
+                </value>
+                <value>
+                    <fullName>Pending Agent</fullName>
+                    <default>false</default>
+                    <label>Pending Agent</label>
+                </value>
+                <value>
+                    <fullName>Pending Aztec</fullName>
+                    <default>false</default>
+                    <label>Pending Aztec</label>
+                </value>
+                <value>
+                    <fullName>Completed - Pending New Bug</fullName>
+                    <default>false</default>
+                    <label>Completed - Pending New Bug</label>
+                </value>
+                <value>
+                    <fullName>Closed</fullName>
+                    <default>false</default>
+                    <label>Closed</label>
+                </value>
+                <value>
+                    <fullName>Reopened</fullName>
+                    <default>false</default>
+                    <label>Reopened</label>
+                </value>
+                <value>
+                    <fullName>Pending MC</fullName>
+                    <default>false</default>
+                    <label>Pending MC</label>
+                </value>
+                <value>
+                    <fullName>Pending SF/TSL</fullName>
+                    <default>false</default>
+                    <label>Pending SF/TSL</label>
+                </value>
+                <value>
+                    <fullName>Auto-closed</fullName>
+                    <default>false</default>
+                    <label>Auto-closed</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Stepstakentoreproduce__c</fullName>
+        <description>Please list any steps you took to reproduce the issue. List things like pages you visited, buttons you pushed, etc.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please list any steps you took to reproduce the issue. List things like pages you visited, buttons you pushed, etc.</inlineHelpText>
+        <label>Steps taken to reproduce</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>SupportResourceType__c</fullName>
+        <externalId>false</externalId>
+        <label>Support Resource Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Google refund</fullName>
+                    <default>false</default>
+                    <label>Google refund</label>
+                </value>
+                <value>
+                    <fullName>Snippet Revision</fullName>
+                    <default>false</default>
+                    <label>Snippet Revision</label>
+                </value>
+                <value>
+                    <fullName>Top Pro</fullName>
+                    <default>false</default>
+                    <label>Top Pro</label>
+                </value>
+                <value>
+                    <fullName>Not receiving enough requests</fullName>
+                    <default>false</default>
+                    <label>Not receiving enough requests</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>TelephonyLog__c</fullName>
+        <description>Status of telephony log</description>
+        <externalId>false</externalId>
+        <label>Telephony Log</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ThumbtackPhoneNumber__c</fullName>
+        <externalId>false</externalId>
+        <label>Thumbtack Phone #</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Thumbtack_User_ID__c</fullName>
+        <description>Thumbtack User ID (Admin ID)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The User ID of the Thumbtack user (their Admin ID)</inlineHelpText>
+        <label>Thumbtack User ID</label>
+        <length>10</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TimeInNewHours__c</fullName>
+        <description>The time the Bug Report spent in a New status (in hours).</description>
+        <externalId>false</externalId>
+        <label>Time in New (Hours)</label>
+        <summarizedField>BugReportUpdateHistory__c.DurationHours__c</summarizedField>
+        <summaryFilterItems>
+            <field>BugReportUpdateHistory__c.BugReportPreviousStatus__c</field>
+            <operation>equals</operation>
+            <value>New</value>
+        </summaryFilterItems>
+        <summaryForeignKey>BugReportUpdateHistory__c.BugReport__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>TimeInOtherOpenHours__c</fullName>
+        <description>The time the bug report spent in an open status that is not new, pending agent, or pending bugs team (in hours)</description>
+        <externalId>false</externalId>
+        <label>Time in Other Open (Hours)</label>
+        <summarizedField>BugReportUpdateHistory__c.DurationHours__c</summarizedField>
+        <summaryFilterItems>
+            <field>BugReportUpdateHistory__c.BugReportPreviousStatus__c</field>
+            <operation>equals</operation>
+            <value>Viewed, Pending Aztec, Completed - Pending New Bug, Reopened</value>
+        </summaryFilterItems>
+        <summaryForeignKey>BugReportUpdateHistory__c.BugReport__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>TimeInPendingAgentHours__c</fullName>
+        <description>The time the bug report spent in a Pending Agent status (in hours)</description>
+        <externalId>false</externalId>
+        <label>Time in Pending Agent (Hours)</label>
+        <summarizedField>BugReportUpdateHistory__c.DurationHours__c</summarizedField>
+        <summaryFilterItems>
+            <field>BugReportUpdateHistory__c.BugReportPreviousStatus__c</field>
+            <operation>equals</operation>
+            <value>Pending Agent</value>
+        </summaryFilterItems>
+        <summaryForeignKey>BugReportUpdateHistory__c.BugReport__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>TimeInPendingBugsTeamHours__c</fullName>
+        <description>The time the bug report spent in a Pending Bugs Team status (in hours)</description>
+        <externalId>false</externalId>
+        <label>Time In Pending Bugs Team (Hours)</label>
+        <summarizedField>BugReportUpdateHistory__c.DurationHours__c</summarizedField>
+        <summaryFilterItems>
+            <field>BugReportUpdateHistory__c.BugReportPreviousStatus__c</field>
+            <operation>equals</operation>
+            <value>Pending Bugs Team</value>
+        </summaryFilterItems>
+        <summaryForeignKey>BugReportUpdateHistory__c.BugReport__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>TimeToCompletionHours__c</fullName>
+        <description>The amount of time, in hours, the bug report spent in an Open status.</description>
+        <externalId>false</externalId>
+        <formula>(DateTimeClosed__c - CreatedDate)*24</formula>
+        <label>Time to Completion (Hours)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TimeToFirstResponseHours__c</fullName>
+        <description>The amount of time, in minutes, the bug report awaited first action.</description>
+        <externalId>false</externalId>
+        <formula>(FirstResponseDate__c - CreatedDate)*24</formula>
+        <inlineHelpText>The amount of time, in minutes, the bug report awaited first action.</inlineHelpText>
+        <label>Time to First Response (Hours)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TroubleshootingPerformed__c</fullName>
+        <externalId>false</externalId>
+        <label>Troubleshooting Complete</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>TroubleshootingSteps__c</fullName>
+        <description>Any steps the agent took to troubleshoot (for Other/Unknown Bugs only)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Any steps the agent took to troubleshoot (for Other/Unknown Bugs only)</inlineHelpText>
+        <label>Troubleshooting Steps</label>
+        <length>2000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>UserCode__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+ISPICKVAL(User__c, &apos;Other&apos;), &apos;SalesforceSystemIntegration&apos;, 
+IF( 
+ISPICKVAL(User__c, &apos;Alyssa Wilson&apos;), &apos;awilson&apos;, 
+IF( 
+ISPICKVAL(User__c, &apos;Deirdre Galluzzo&apos;), &apos;deirdre&apos;, 
+IF( 
+ISPICKVAL(User__c, &apos;Kyle Thorup&apos;), &apos;kyle&apos;, 
+IF( 
+ISPICKVAL(User__c, &apos;Kristine Ann Pielago&apos;), &apos;krpielago&apos;, 
+IF( 
+ISPICKVAL(User__c, &apos;Christina Caacoy&apos;), &apos;crcaacoy&apos;, 
+IF( 
+ISPICKVAL(User__c, &apos;Jeff Oviatt&apos;), &apos;joviatt&apos; 
+,&apos;&apos; )))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>User Code</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>User__c</fullName>
+        <externalId>false</externalId>
+        <label>User</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Alyssa Wilson</fullName>
+                    <default>false</default>
+                    <label>Alyssa Wilson</label>
+                </value>
+                <value>
+                    <fullName>Kevin Giltz</fullName>
+                    <default>false</default>
+                    <label>Kevin Giltz</label>
+                </value>
+                <value>
+                    <fullName>Deirdre Galluzzo</fullName>
+                    <default>false</default>
+                    <label>Deirdre Galluzzo</label>
+                </value>
+                <value>
+                    <fullName>Kyle Thorup</fullName>
+                    <default>false</default>
+                    <label>Kyle Thorup</label>
+                </value>
+                <value>
+                    <fullName>Kristine Ann Pielago</fullName>
+                    <default>false</default>
+                    <label>Kristine Ann Pielago</label>
+                </value>
+                <value>
+                    <fullName>Christina Caacoy</fullName>
+                    <default>false</default>
+                    <label>Christina Caacoy</label>
+                </value>
+                <value>
+                    <fullName>Jeff Oviatt</fullName>
+                    <default>false</default>
+                    <label>Jeff Oviatt</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>VerifiedCategories__c</fullName>
+        <externalId>false</externalId>
+        <label>Verified Categories?</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No -- I&apos;ll verify this before submitting.</fullName>
+                    <default>false</default>
+                    <label>No -- I&apos;ll verify this before submitting.</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>WorkaroundProvided__c</fullName>
+        <description>Was a workaround provided?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Was a workaround provided? If so, please describe in the notes below.</inlineHelpText>
+        <label>Workaround Provided?</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X1WeekFixed__c</fullName>
+        <externalId>false</externalId>
+        <label>1 Week Fixed</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>X2WeeksFixed__c</fullName>
+        <externalId>false</externalId>
+        <label>2 Weeks Fixed</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>X3WeeksFixed__c</fullName>
+        <externalId>false</externalId>
+        <label>3 Weeks Fixed</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Support Process</label>
     <listViews>
         <fullName>AllClosedBugReports</fullName>
         <columns>NAME</columns>
@@ -493,4 +2948,1747 @@
             <role>SharedServicesUserTSL</role>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Support Processes</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>BugReport</fullName>
+        <active>true</active>
+        <label>Bug Report</label>
+        <picklistValues>
+            <picklist>AreTextsBeingSent__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>BugType_del__c</picklist>
+            <values>
+                <fullName>Android app</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Error with linking to social media</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instant Match</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile browser</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not receiving enough requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not receiving request emails</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not receiving text notifications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment declines</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Receiving zero requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Social media issue</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Zip Code doesn%27t match address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS apps</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>DeviceType__c</picklist>
+            <values>
+                <fullName>Android</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iPhone</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>EmailsNotReceiving__c</picklist>
+            <values>
+                <fullName>Activation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro Messenger notifications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Support</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Verification</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>IsSyndicated__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LimitedorZeroRequests__c</picklist>
+            <values>
+                <fullName>Limited Requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Zero Requests</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>MobileCarrier__c</picklist>
+            <values>
+                <fullName>AT%26T</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cricket</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Wireless</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sprint</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Straight Talk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>T-Mobile</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Verizon</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Virgin</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>NewlySplitCategory__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PaymentMethod__c</picklist>
+            <values>
+                <fullName>Both</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card %2F Debit Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paypal</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PlatformType__c</picklist>
+            <values>
+                <fullName>Mac</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PC</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Platform__c</picklist>
+            <values>
+                <fullName>Android Browser</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Desktop - Mac</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Desktop - Windows</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Browser</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Customer app</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Pro app</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ReportQuality__c</picklist>
+            <values>
+                <fullName>Average</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Could Be Better</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Good</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Outstanding</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ReproducedIssue__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>RequestsNotReceiving__c</picklist>
+            <values>
+                <fullName>The pro has not received any requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>The pro is not receiving requests for %22Phone or internet only%22 travel preferences</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>The pro is not receiving requests from only a certain category%2Fcategories</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>The pro used to receive requests%2C but stopped receiving them</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Screenshotcaptured__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>SocialMediaChannel__c</picklist>
+            <values>
+                <fullName>Facebook</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LinkedIn</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Twitter</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Auto-closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed - Pending New Bug</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Pending Agent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Aztec</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Bugs Team</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Input</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Viewed</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TroubleshootingPerformed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>User__c</picklist>
+            <values>
+                <fullName>Alyssa Wilson</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Christina Caacoy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deirdre Galluzzo</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Jeff Oviatt</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Kevin Giltz</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Kristine Ann Pielago</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Kyle Thorup</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>VerifiedCategories__c</picklist>
+            <values>
+                <fullName>No -- I%27ll verify this before submitting%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>X1WeekFixed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>X2WeeksFixed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>X3WeeksFixed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Customer_Support</fullName>
+        <active>true</active>
+        <description>This is a RT for Customer Support</description>
+        <label>Customer Support</label>
+        <picklistValues>
+            <picklist>ApprovedReason__c</picklist>
+            <values>
+                <fullName>Blacklisted words</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Duplicate update</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fake reviews</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No interaction</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Personal identifiable info%2Fpictures</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request violates user guidelines</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Review bug</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Review intended for TT%2FNot related</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Review%2Fupdate posted outside reasonable amount of time</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>AreTextsBeingSent__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>BugType_del__c</picklist>
+            <values>
+                <fullName>Android app</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Error with linking to social media</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instant Match</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile browser</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not receiving enough requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not receiving request emails</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not receiving text notifications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment declines</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Receiving zero requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Social media issue</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Zip Code doesn%27t match address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS apps</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>DeviceType__c</picklist>
+            <values>
+                <fullName>Android</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iPhone</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Dispute_Reason__c</picklist>
+            <values>
+                <fullName>Blacklisted words</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Duplicate update</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fake reviews</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No interaction</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Personal identifiable info%2Fpictures</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request violates user guidelines</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Review bug</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Review intended for TT%2FNot related</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Review%2Fupdate posted outside reasonable amount of time</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>EmailsNotReceiving__c</picklist>
+            <values>
+                <fullName>Activation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro Messenger notifications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Support</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Verification</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>IsSyndicated__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>JIRARecipient__c</picklist>
+            <values>
+                <fullName>Accounts Payable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CatMan - events%40</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CatMan - home%40</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CatMan - lessons%40</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CatMan - pets%40</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CatMan - weddings%40</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CatMan - wellness%40</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CatMan-general</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LegalTylerBailey</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MI Support Reporting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Press</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stories</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Top Pro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>User Research</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LimitedorZeroRequests__c</picklist>
+            <values>
+                <fullName>Limited Requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Zero Requests</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Manager_Decision__c</picklist>
+            <values>
+                <fullName>Awaiting Decision</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Edited Review</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Leave Review %23CBB</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Leave Review %23Loveit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Removed Review</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>MobileCarrier__c</picklist>
+            <values>
+                <fullName>AT%26T</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cricket</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Wireless</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sprint</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Straight Talk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>T-Mobile</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Verizon</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Virgin</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>NewlySplitCategory__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PaymentMethod__c</picklist>
+            <values>
+                <fullName>Both</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card %2F Debit Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paypal</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PlatformType__c</picklist>
+            <values>
+                <fullName>Mac</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PC</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Platform__c</picklist>
+            <values>
+                <fullName>Android Browser</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Desktop - Mac</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Desktop - Windows</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Browser</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Customer app</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Pro app</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ReportQuality__c</picklist>
+            <values>
+                <fullName>Average</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Could Be Better</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Good</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Outstanding</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ReproducedIssue__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>RequestsNotReceiving__c</picklist>
+            <values>
+                <fullName>The pro has not received any requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>The pro is not receiving requests for %22Phone or internet only%22 travel preferences</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>The pro is not receiving requests from only a certain category%2Fcategories</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>The pro used to receive requests%2C but stopped receiving them</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Screenshotcaptured__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>SocialMediaChannel__c</picklist>
+            <values>
+                <fullName>Facebook</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LinkedIn</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Twitter</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Auto-closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed - Pending New Bug</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Pending Agent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Aztec</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Bugs Team</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Input</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending MC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending SF%2FTSL</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ready for Review</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reopened</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Viewed</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>SupportResourceType__c</picklist>
+            <values>
+                <fullName>Google refund</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not receiving enough requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Snippet Revision</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Top Pro</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TroubleshootingPerformed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>User__c</picklist>
+            <values>
+                <fullName>Alyssa Wilson</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Christina Caacoy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deirdre Galluzzo</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Jeff Oviatt</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Kevin Giltz</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Kristine Ann Pielago</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Kyle Thorup</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>VerifiedCategories__c</picklist>
+            <values>
+                <fullName>No -- I%27ll verify this before submitting%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>X1WeekFixed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>X2WeeksFixed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>X3WeeksFixed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>SupportResource</fullName>
+        <active>true</active>
+        <label>Support Resource</label>
+        <picklistValues>
+            <picklist>ApprovedReason__c</picklist>
+            <values>
+                <fullName>Fake reviews</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>AreTextsBeingSent__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>BugType_del__c</picklist>
+            <values>
+                <fullName>Android app</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Error with linking to social media</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instant Match</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile browser</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not receiving enough requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not receiving request emails</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not receiving text notifications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Payment declines</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Receiving zero requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Social media issue</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Zip Code doesn%27t match address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS apps</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>DeviceType__c</picklist>
+            <values>
+                <fullName>Android</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iPhone</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Dispute_Reason__c</picklist>
+            <values>
+                <fullName>Fake reviews</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>EmailsNotReceiving__c</picklist>
+            <values>
+                <fullName>Activation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pro Messenger notifications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Support</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Verification</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>IsSyndicated__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>JIRARecipient__c</picklist>
+            <values>
+                <fullName>Accounts Payable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CatMan - events%40</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CatMan - home%40</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CatMan - lessons%40</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CatMan - pets%40</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CatMan - weddings%40</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CatMan - wellness%40</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CatMan-general</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LegalTylerBailey</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MI Support Reporting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Press</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stories</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Top Pro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>User Research</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LimitedorZeroRequests__c</picklist>
+            <values>
+                <fullName>Limited Requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Zero Requests</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>MobileCarrier__c</picklist>
+            <values>
+                <fullName>AT%26T</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cricket</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Family Wireless</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sprint</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Straight Talk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>T-Mobile</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Verizon</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Virgin</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>NewlySplitCategory__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PaymentMethod__c</picklist>
+            <values>
+                <fullName>Both</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card %2F Debit Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paypal</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PlatformType__c</picklist>
+            <values>
+                <fullName>Mac</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PC</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Platform__c</picklist>
+            <values>
+                <fullName>Android Browser</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Desktop - Mac</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Desktop - Windows</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Browser</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Customer app</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>iOS Pro app</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ReportQuality__c</picklist>
+            <values>
+                <fullName>Average</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Could Be Better</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Good</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Outstanding</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ReproducedIssue__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>RequestsNotReceiving__c</picklist>
+            <values>
+                <fullName>The pro has not received any requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>The pro is not receiving requests for %22Phone or internet only%22 travel preferences</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>The pro is not receiving requests from only a certain category%2Fcategories</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>The pro used to receive requests%2C but stopped receiving them</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Screenshotcaptured__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>SocialMediaChannel__c</picklist>
+            <values>
+                <fullName>Facebook</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LinkedIn</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Twitter</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Pending Agent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending MC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending SF%2FTSL</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>SupportResourceType__c</picklist>
+            <values>
+                <fullName>Google refund</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not receiving enough requests</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Snippet Revision</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Top Pro</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>TroubleshootingPerformed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>User__c</picklist>
+            <values>
+                <fullName>Alyssa Wilson</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Christina Caacoy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deirdre Galluzzo</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Jeff Oviatt</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Kevin Giltz</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Kristine Ann Pielago</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Kyle Thorup</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>VerifiedCategories__c</picklist>
+            <values>
+                <fullName>No -- I%27ll verify this before submitting%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>X1WeekFixed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>X2WeeksFixed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>X3WeeksFixed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>CreatedDateTime__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Status__c</customTabListAdditionalFields>
+        <searchResultsAdditionalFields>BugType_del__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Case__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CreatedDateTime__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Assignee__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>BugReportCloseRequiresBugAgent</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISBLANK( Assignee__c )&amp;&amp; 
+ISPICKVAL(Status__c,&quot;Closed&quot;)&amp;&amp; RecordType.DeveloperName  &lt;&gt; &quot;Customer_Support&quot;</errorConditionFormula>
+        <errorDisplayField>Assignee__c</errorDisplayField>
+        <errorMessage>Please select an assignee prior to closing this report.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>BugReportCloseRequiresBugName</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISBLANK( Bug__c )&amp;&amp;
+RecordType.Name = &apos;Bug Report&apos; &amp;&amp;
+ISPICKVAL(Status__c,&quot;Closed&quot;)</errorConditionFormula>
+        <errorDisplayField>Bug__c</errorDisplayField>
+        <errorMessage>Please select a Bug prior to closing this report.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RequireApprovedReason</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( 
+ISPICKVAL(Manager_Decision__c, &apos;Removed Review&apos;)|| ISPICKVAL(Manager_Decision__c, &apos;Edited Review&apos;), 
+RecordType.DeveloperName=&apos;Customer_Support&apos;, 
+ISPICKVAL(ApprovedReason__c,&quot;&quot;) )</errorConditionFormula>
+        <errorMessage>Please enter an Approved Reason</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RequireReportQualityOnClose</fullName>
+        <active>true</active>
+        <description>Requires that ReportQuality__c is not null when closing a Support Process with recordType of Bug Report.</description>
+        <errorConditionFormula>RecordType.Name == &apos;Bug Report&apos; &amp;&amp; 
+ISBLANK(TEXT(ReportQuality__c)) &amp;&amp; 
+NOT ISPICKVAL(PRIORVALUE(Status__c),&apos;Closed&apos;) &amp;&amp; 
+ISPICKVAL(Status__c,&apos;Closed&apos;)</errorConditionFormula>
+        <errorDisplayField>ReportQuality__c</errorDisplayField>
+        <errorMessage>Please enter a Report Quality before closing this bug report</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>CreateIssueInJira</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Create Issue In Jira</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)}; 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)}; 
+
+sforce.apex.execute(&quot;JiraCallout&quot;,&quot;createSupportProcessIssue&quot;,{supportProcessId:&quot;{!SupportProcess__c.Id}&quot;});
+window.location.reload();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Escalate_To_JIRA</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Escalate To JIRA</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)}; 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)}; 
+
+sforce.apex.execute(&quot;JiraCallout&quot;,&quot;createSupportProcessIssue&quot;,{supportProcessId:&quot;{!SupportProcess__c.Id}&quot;});
+window.location.reload();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Get_Comments_From_JIRA</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Get Comments From JIRA</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)}; 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)}; 
+
+sforce.apex.execute(&quot;JiraCallout&quot;,&quot;getComments&quot;,{id:&quot;{!SupportProcess__c.Id}&quot;,jiraId:&quot;{!SupportProcess__c.JIRAID__c}&quot;,isBug:&quot;false&quot;}); 
+window.location.reload();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Get_JIRA_Updates</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Get JIRA Updates</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)}; 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)}; 
+
+sforce.apex.execute(&quot;JIRASupportProcessUpdate&quot;,&quot;getIssue&quot;,{spId:&quot;{!SupportProcess__c.Id}&quot;});
+window.location.reload();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Sync_Comments_From_Jira</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Sync Comments From Jira</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)}; 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)}; 
+
+sforce.apex.execute(&quot;JiraCallout&quot;,&quot;getComments&quot;,{id:&quot;{!SupportProcess__c.Id}&quot;,jiraId:&quot;{!SupportProcess__c.JIRAID__c}&quot;,isBug:&quot;false&quot;}); 
+window.location.reload();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>UpdateIssueFromJira</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Update Issue From Jira</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)}; 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)}; 
+
+sforce.apex.execute(&quot;JiraCallout&quot;,&quot;updateSupportProcessIssue&quot;,{supportProcessId:&quot;{!SupportProcess__c.Id}&quot;});
+window.location.reload();</url>
+    </webLinks>
 </CustomObject>

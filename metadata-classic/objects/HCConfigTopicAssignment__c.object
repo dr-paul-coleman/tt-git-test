@@ -1,5 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>Experience__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the experience object</description>
+        <externalId>false</externalId>
+        <label>Experience</label>
+        <referenceTo>HCConfigExperience__c</referenceTo>
+        <relationshipLabel>Topic Assignments</relationshipLabel>
+        <relationshipName>ExperienceTopicAssignment</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SortOrder__c</fullName>
+        <externalId>false</externalId>
+        <label>Sort Order</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Topic__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the Topic record.</description>
+        <externalId>false</externalId>
+        <label>Topic</label>
+        <referenceTo>HCConfigTopic__c</referenceTo>
+        <relationshipLabel>Topic Assignments</relationshipLabel>
+        <relationshipName>TopicAssignment2</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>VisibleForCustomers__c</fullName>
+        <description>Formula field to display the associated Topics customer visibility setting; used in related list views.</description>
+        <externalId>false</externalId>
+        <formula>Topic__r.AvailableForCustomers__c</formula>
+        <label>Visible for Customers</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>VisibleForProfessionals__c</fullName>
+        <description>Formula field to display the professional visibility setting for the associated topic; used in related list views.</description>
+        <externalId>false</externalId>
+        <formula>Topic__r.AvailableForProfessionals__c</formula>
+        <label>Visible for Professionals</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>HC Config: Topic Assignment</label>
     <listViews>
         <fullName>All</fullName>
         <columns>NAME</columns>
@@ -9,4 +118,30 @@
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Topic Assignments</pluralLabel>
+    <recordTypes>
+        <fullName>TopicAssignment</fullName>
+        <active>true</active>
+        <description>Record type used to manage the relationships between topics and help center experiences.</description>
+        <label>Topic Assignment</label>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>NewTopicAssignment</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>New Topic Assignment</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>/a0t/e?CF00N3100000H6bje={!HCConfigExperience__c.Name}&amp;CF00N3100000H6bje_lkid={!HCConfigExperience__c.Id}&amp;RecordType=01231000000y2z7&amp;Name=Topic%20Assignment&amp;retURL={!HCConfigExperience__c.Id}&amp;saveURL={!HCConfigExperience__c.Id}</url>
+    </webLinks>
 </CustomObject>

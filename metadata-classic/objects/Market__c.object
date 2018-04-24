@@ -1,5 +1,211 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>The category and cbsa combination. The market object is used for managing enrollments for each market.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>CatGeo__c</fullName>
+        <description>Formula field to display both the category and geo in a single field.
+
+rca_name__c + zip_cbsa_name__c</description>
+        <externalId>false</externalId>
+        <formula>TRIM(
+  IF(
+    ISBLANK(rca_name__c),
+    &quot;&quot;,
+    rca_name__c
+  ) + &quot; &quot; +
+  IF(
+    ISBLANK(zip_cbsa_name__c),
+    &quot;&quot;,
+    zip_cbsa_name__c
+  )
+)</formula>
+        <label>Cat/Geo</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Deprioritized__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox to indicate if the market has been deprioritized.</description>
+        <externalId>false</externalId>
+        <label>Deprioritized</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>EnrollAProEnabled__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Enroll A Pro Enabled</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>MarketID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>The ID of the market.</description>
+        <externalId>true</externalId>
+        <label>Market ID</label>
+        <length>255</length>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>RequestCategory__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Request Category</label>
+        <referenceTo>RequestCategory__c</referenceTo>
+        <relationshipLabel>Markets</relationshipLabel>
+        <relationshipName>Markets</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>TakeaLeadEnabled__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox to indicate true if the market should be accounted for in Take-A-Lead.</description>
+        <externalId>false</externalId>
+        <label>Take a Lead Enabled</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>outreach_type__c</fullName>
+        <externalId>false</externalId>
+        <label>Outreach Type</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>OutreachType</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>rca_name__c</fullName>
+        <description>The category related to the market launch.
+
+Data platform: rca_request_categories.rca_name</description>
+        <externalId>false</externalId>
+        <label>Category Name</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>rca_request_category_id__c</fullName>
+        <description>Data platform: rca_request_categories.rca_request_category_id</description>
+        <externalId>false</externalId>
+        <label>Category Id</label>
+        <length>20</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zip_cbsa_code__c</fullName>
+        <description>Data platform: zip_codes.zip_cbsa_code</description>
+        <externalId>false</externalId>
+        <label>CBSA Code</label>
+        <length>20</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>zip_cbsa_name__c</fullName>
+        <description>The geo (or CBSA) location of the market launch. 
+
+Data platform: website.zip_codes.zip_cbsa_name</description>
+        <externalId>false</externalId>
+        <label>CBSA Name</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <label>Market</label>
     <listViews>
         <fullName>All1</fullName>
         <columns>rca_name__c</columns>
@@ -66,4 +272,123 @@
         </filters>
         <label>NullCategory</label>
     </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Markets</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>MarketLaunch</fullName>
+        <active>true</active>
+        <description>Record type used to manage the Instant Match market launches.</description>
+        <label>Market Launch</label>
+        <picklistValues>
+            <picklist>outreach_type__c</picklist>
+            <values>
+                <fullName>early_enrollment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>lead_acquisition</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>managed_account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>pro_engagement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>pro_onboarding</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>pro_success</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>product_enabled</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Standard</fullName>
+        <active>true</active>
+        <description>The standard market record type.</description>
+        <label>Standard</label>
+        <picklistValues>
+            <picklist>outreach_type__c</picklist>
+            <values>
+                <fullName>early_enrollment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>lead_acquisition</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>managed_account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>pro_engagement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>pro_onboarding</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>pro_success</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>product_enabled</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>MarketID__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>RequestCategory__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>outreach_type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>rca_request_category_id__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>rca_name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>zip_cbsa_code__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>zip_cbsa_name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>EnrollAProEnabled__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>UPDATEDBY_USER</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>CatGeo__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>rca_request_category_id__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>rca_name__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>zip_cbsa_code__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>zip_cbsa_name__c</lookupDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>MarketID__c</searchFilterFields>
+        <searchFilterFields>RequestCategory__c</searchFilterFields>
+        <searchFilterFields>rca_request_category_id__c</searchFilterFields>
+        <searchFilterFields>rca_name__c</searchFilterFields>
+        <searchFilterFields>zip_cbsa_code__c</searchFilterFields>
+        <searchFilterFields>zip_cbsa_name__c</searchFilterFields>
+        <searchFilterFields>EnrollAProEnabled__c</searchFilterFields>
+        <searchFilterFields>outreach_type__c</searchFilterFields>
+        <searchFilterFields>UPDATEDBY_USER</searchFilterFields>
+        <searchResultsAdditionalFields>CatGeo__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>rca_request_category_id__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>rca_name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>zip_cbsa_name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>MarketID__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>EnrollAProEnabled__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>outreach_type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>RequestCategory__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

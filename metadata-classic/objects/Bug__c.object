@@ -1,6 +1,866 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to define actual Thumbtack.com product bugs, as opposed to bug reports which are actual reports of (potential/possible/thought to be) bugs and act as a junction object between Case and Bug</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
     <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>Affects__c</fullName>
+        <description>Who is affected by the bug: Pros, Customers, or both.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Who is affected by the bug: Pros, Customers, or both.</inlineHelpText>
+        <label>Affects</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Professionals</fullName>
+                    <default>false</default>
+                    <label>Professionals</label>
+                </value>
+                <value>
+                    <fullName>Customers</fullName>
+                    <default>false</default>
+                    <label>Customers</label>
+                </value>
+                <value>
+                    <fullName>Both</fullName>
+                    <default>false</default>
+                    <label>Both</label>
+                </value>
+                <value>
+                    <fullName>Agents</fullName>
+                    <default>false</default>
+                    <label>Agents</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Approved__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Approved ?</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Awaiting_Approval__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Awaiting Approval ?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>BugApprovalRecipient__c</fullName>
+        <externalId>false</externalId>
+        <label>Bug Approval Recipient</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BugDescription__c</fullName>
+        <description>if App Bug, include tracker link here</description>
+        <externalId>false</externalId>
+        <inlineHelpText>if App Bug, include tracker link here</inlineHelpText>
+        <label>Bug Description</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>BugOwner__c</fullName>
+        <description>This field is used for list views to display the full name of the owner.</description>
+        <externalId>false</externalId>
+        <formula>Owner:User.FirstName &amp; &apos; &apos; &amp; Owner:User.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Bug Owner</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Comments</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>DateFixed__c</fullName>
+        <description>The date on which the bug was fixed.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date on which the bug was fixed.</inlineHelpText>
+        <label>Date Fixed</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>DateLogged__c</fullName>
+        <description>The date on which the bug was first logged.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The date on which the bug was first logged.</inlineHelpText>
+        <label>Date Logged</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>ExistingBugs__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Existing Bugs</label>
+        <referenceTo>Bug__c</referenceTo>
+        <relationshipLabel>Bugs</relationshipLabel>
+        <relationshipName>Bugs</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>InformationRequiredforBugReport__c</fullName>
+        <externalId>false</externalId>
+        <label>Extra Info Required for Bug Report</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>IssueCreated__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Issue Created</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>IssueSentToJiraStatus__c</fullName>
+        <externalId>false</externalId>
+        <label>Jira Sync Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>IssueType__c</fullName>
+        <externalId>false</externalId>
+        <label>Issue Type</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Bug</fullName>
+                    <default>false</default>
+                    <label>Bug</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>JIRAComments__c</fullName>
+        <externalId>false</externalId>
+        <label>JIRA Comments</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>JIRALink__c</fullName>
+        <description>The URL to the JIRA card for this bug.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The URL to the JIRA card for this bug.</inlineHelpText>
+        <label>JIRA Link</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>JiraAttachmentList__c</fullName>
+        <externalId>false</externalId>
+        <label>JiraAttachmentList</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>JiraId__c</fullName>
+        <externalId>false</externalId>
+        <label>Jira Id</label>
+        <length>10</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>JiraStatus__c</fullName>
+        <externalId>false</externalId>
+        <label>Jira Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>New</fullName>
+                    <default>false</default>
+                    <label>New</label>
+                </value>
+                <value>
+                    <fullName>To Do</fullName>
+                    <default>false</default>
+                    <label>To Do</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Needs Design</fullName>
+                    <default>false</default>
+                    <label>Needs Design</label>
+                </value>
+                <value>
+                    <fullName>In Code Review</fullName>
+                    <default>false</default>
+                    <label>In Code Review</label>
+                </value>
+                <value>
+                    <fullName>Not Doing</fullName>
+                    <default>false</default>
+                    <label>Not Doing</label>
+                </value>
+                <value>
+                    <fullName>Done</fullName>
+                    <default>false</default>
+                    <label>Done</label>
+                </value>
+                <value>
+                    <fullName>Backlog</fullName>
+                    <default>false</default>
+                    <label>Backlog</label>
+                </value>
+                <value>
+                    <fullName>Tracking</fullName>
+                    <default>false</default>
+                    <label>Tracking</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Labels__c</fullName>
+        <externalId>false</externalId>
+        <label>Labels</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Customer-Support</fullName>
+                    <default>false</default>
+                    <label>Customer-Support</label>
+                </value>
+                <value>
+                    <fullName>Customer-Support-Non-Urgent</fullName>
+                    <default>false</default>
+                    <label>Customer-Support-Non-Urgent</label>
+                </value>
+                <value>
+                    <fullName>Customer-Support-Semi-Urgent</fullName>
+                    <default>false</default>
+                    <label>Customer-Support-Semi-Urgent</label>
+                </value>
+                <value>
+                    <fullName>Customer-Support-Urgent</fullName>
+                    <default>false</default>
+                    <label>Customer-Support-Urgent</label>
+                </value>
+                <value>
+                    <fullName>Customer-Support-Ongoing</fullName>
+                    <default>false</default>
+                    <label>Customer-Support-Ongoing</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Priority__c</fullName>
+        <externalId>false</externalId>
+        <label>Priority</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Highest / Emergency</fullName>
+                    <default>false</default>
+                    <label>Highest / Emergency</label>
+                </value>
+                <value>
+                    <fullName>High</fullName>
+                    <default>false</default>
+                    <label>High</label>
+                </value>
+                <value>
+                    <fullName>Medium</fullName>
+                    <default>false</default>
+                    <label>Medium</label>
+                </value>
+                <value>
+                    <fullName>Low</fullName>
+                    <default>false</default>
+                    <label>Low</label>
+                </value>
+                <value>
+                    <fullName>Lowest / Only track</fullName>
+                    <default>false</default>
+                    <label>Lowest / Only track</label>
+                </value>
+                <value>
+                    <fullName>Untriaged</fullName>
+                    <default>true</default>
+                    <label>Untriaged</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>ProjectId__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(Project__c, 
+&apos;Bowtie (iOS Customer App) (BT)&apos;,&apos;10203&apos;,
+&apos;Business Applications (SYS)&apos;,&apos;13702&apos;,
+&apos;Customer Growth (GR)&apos;,&apos;10806&apos;,
+&apos;Customer Project Experience (CPX)&apos;,&apos;13708&apos;,
+&apos;Daft (Android Pro App) (DAFT)&apos;,&apos;11100&apos;,
+&apos;Design Systems (DS)&apos;,&apos;13707&apos;,
+&apos;First Contact (FC)&apos;,&apos;13709&apos;,
+&apos;Marketplace (IR)&apos;,&apos;13200&apos;,
+&apos;Marketplace Trust &amp; Safety (MI)&apos;,&apos;12900&apos;,
+&apos;Needs Triage (TT)&apos;,&apos;10100&apos;,
+&apos;Payments (PAY)&apos;,&apos;12400&apos;,
+&apos;Pro Growth (PROG)&apos;,&apos;13714&apos;,
+&apos;Pro Project Experience (PPX)&apos;,&apos;13711&apos;,
+&apos;Punk (Android Consumer App) (PUNK)&apos;,&apos;12700&apos;,
+&apos;Reach &amp; Reporting (RR)&apos;,&apos;13712&apos;,
+&apos;StoreFurrront (STOR)&apos;,&apos;13713&apos;,
+&apos;Technical Infrastructure (TI)&apos;,&apos;13701&apos;,
+&apos;Tophat (TH)&apos;,&apos;11000&apos;,
+&apos;Wingtip (iOS Pro App) (WT)&apos;,&apos;10204&apos;,
+&apos;Customer Experience (PCX)&apos;,&apos;11400&apos;,
+&apos;Data Platform (DP)&apos;,&apos;10000&apos;,
+&apos;Foundation (FN)&apos;,&apos;10400&apos;,
+&apos;Front-End Engineering (FE)&apos;,&apos;10800&apos;,
+&apos;Marketplace Mechanics (MM)&apos;,&apos;10500&apos;,
+&apos;Monetization (M10N)&apos;,&apos;12800&apos;,
+&apos;Pro Success (PS)&apos;,&apos;13000&apos;,
+&apos;Pro Tools (PT)&apos;,&apos;13100&apos;,
+&apos;Procaptivate (PRO)&apos;,&apos;10900&apos;,
+&apos; &apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Project Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project__c</fullName>
+        <externalId>false</externalId>
+        <label>Project</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Bowtie (iOS Customer App) (BT)</fullName>
+                    <default>false</default>
+                    <label>Bowtie (iOS Customer App) (BT)</label>
+                </value>
+                <value>
+                    <fullName>Customer Growth (GR)</fullName>
+                    <default>false</default>
+                    <label>Customer Growth (GR)</label>
+                </value>
+                <value>
+                    <fullName>Customer Project Experience (CPX)</fullName>
+                    <default>false</default>
+                    <label>Customer Project Experience (CPX)</label>
+                </value>
+                <value>
+                    <fullName>Daft (Android Pro App) (DAFT)</fullName>
+                    <default>false</default>
+                    <label>Daft (Android Pro App) (DAFT)</label>
+                </value>
+                <value>
+                    <fullName>Design Systems (DS)</fullName>
+                    <default>false</default>
+                    <label>Design Systems (DS)</label>
+                </value>
+                <value>
+                    <fullName>First Contact (FC)</fullName>
+                    <default>false</default>
+                    <label>First Contact (FC)</label>
+                </value>
+                <value>
+                    <fullName>Marketplace (IR)</fullName>
+                    <default>false</default>
+                    <label>Marketplace (IR)</label>
+                </value>
+                <value>
+                    <fullName>Marketplace Trust &amp; Safety (MI)</fullName>
+                    <default>false</default>
+                    <label>Marketplace Trust &amp; Safety (MI)</label>
+                </value>
+                <value>
+                    <fullName>Needs Triage (TT)</fullName>
+                    <default>false</default>
+                    <label>Needs Triage (TT)</label>
+                </value>
+                <value>
+                    <fullName>Payments (PAY)</fullName>
+                    <default>false</default>
+                    <label>Payments (PAY)</label>
+                </value>
+                <value>
+                    <fullName>Pro Growth (PROG)</fullName>
+                    <default>false</default>
+                    <label>Pro Growth (PROG)</label>
+                </value>
+                <value>
+                    <fullName>Pro Project Experience (PPX)</fullName>
+                    <default>false</default>
+                    <label>Pro Project Experience (PPX)</label>
+                </value>
+                <value>
+                    <fullName>Punk (Android Consumer App) (PUNK)</fullName>
+                    <default>false</default>
+                    <label>Punk (Android Consumer App) (PUNK)</label>
+                </value>
+                <value>
+                    <fullName>Reach &amp; Reporting (RR)</fullName>
+                    <default>false</default>
+                    <label>Reach &amp; Reporting (RR)</label>
+                </value>
+                <value>
+                    <fullName>StoreFurrront (STOR)</fullName>
+                    <default>false</default>
+                    <label>StoreFurrront (STOR)</label>
+                </value>
+                <value>
+                    <fullName>Technical Infrastructure (TI)</fullName>
+                    <default>false</default>
+                    <label>Technical Infrastructure (TI)</label>
+                </value>
+                <value>
+                    <fullName>Tophat (TH)</fullName>
+                    <default>false</default>
+                    <label>Tophat (TH)</label>
+                </value>
+                <value>
+                    <fullName>Wingtip (iOS Pro App) (WT)</fullName>
+                    <default>false</default>
+                    <label>Wingtip (iOS Pro App) (WT)</label>
+                </value>
+                <value>
+                    <fullName>***Below are No Longer in Use***</fullName>
+                    <default>false</default>
+                    <label>***Below are No Longer in Use***</label>
+                </value>
+                <value>
+                    <fullName>Customer Experience (PCX)</fullName>
+                    <default>false</default>
+                    <label>Customer Experience (PCX)</label>
+                </value>
+                <value>
+                    <fullName>Data Platform (DP)</fullName>
+                    <default>false</default>
+                    <label>Data Platform (DP)</label>
+                </value>
+                <value>
+                    <fullName>Foundation (FN)</fullName>
+                    <default>false</default>
+                    <label>Foundation (FN)</label>
+                </value>
+                <value>
+                    <fullName>Front-End Engineering (FE)</fullName>
+                    <default>false</default>
+                    <label>Front-End Engineering (FE)</label>
+                </value>
+                <value>
+                    <fullName>Marketplace Mechanics (MM)</fullName>
+                    <default>false</default>
+                    <label>Marketplace Mechanics (MM)</label>
+                </value>
+                <value>
+                    <fullName>Monetization (M10N)</fullName>
+                    <default>false</default>
+                    <label>Monetization (M10N)</label>
+                </value>
+                <value>
+                    <fullName>Pro Success (PS)</fullName>
+                    <default>false</default>
+                    <label>Pro Success (PS)</label>
+                </value>
+                <value>
+                    <fullName>Pro Tools (PT)</fullName>
+                    <default>false</default>
+                    <label>Pro Tools (PT)</label>
+                </value>
+                <value>
+                    <fullName>Procaptivate (PRO)</fullName>
+                    <default>false</default>
+                    <label>Procaptivate (PRO)</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>TackLabels__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>if any of these are chosen, a JIRA issue will not be created</inlineHelpText>
+        <label>Tack Labels</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Not a Bug</fullName>
+                    <default>false</default>
+                    <label>Not a Bug</label>
+                </value>
+                <value>
+                    <fullName>Tracker Bug</fullName>
+                    <default>false</default>
+                    <label>Tracker Bug</label>
+                </value>
+                <value>
+                    <fullName>Polish - Suggestion</fullName>
+                    <default>false</default>
+                    <label>Polish - Suggestion</label>
+                </value>
+                <value>
+                    <fullName>Under Investigation</fullName>
+                    <default>false</default>
+                    <label>Under Investigation</label>
+                </value>
+                <value>
+                    <fullName>Eng Won’t Fix Tracker</fullName>
+                    <default>false</default>
+                    <label>Eng Won’t Fix Tracker</label>
+                </value>
+                <value>
+                    <fullName>Polish - Approved</fullName>
+                    <default>false</default>
+                    <label>Polish - Approved</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>TroubleshootingStepstoTake__c</fullName>
+        <externalId>false</externalId>
+        <label>Extra Troubleshooting Steps to Take</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Urgency__c</fullName>
+        <description>The Level of Urgency assigned to this Bug.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Level of Urgency assigned to this Bug.</inlineHelpText>
+        <label>Urgency</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Non-Urgent</fullName>
+                    <default>false</default>
+                    <label>Non-Urgent</label>
+                </value>
+                <value>
+                    <fullName>Semi-Urgent</fullName>
+                    <default>false</default>
+                    <label>Semi-Urgent</label>
+                </value>
+                <value>
+                    <fullName>Urgent/Severe</fullName>
+                    <default>false</default>
+                    <label>Urgent/Severe</label>
+                </value>
+                <value>
+                    <fullName>Android Customer App (Punk)</fullName>
+                    <default>false</default>
+                    <label>Android Customer App (Punk)</label>
+                </value>
+                <value>
+                    <fullName>Android Pro App (Daft)</fullName>
+                    <default>false</default>
+                    <label>Android Pro App (Daft)</label>
+                </value>
+                <value>
+                    <fullName>iOS Customer App (BowTie)</fullName>
+                    <default>false</default>
+                    <label>iOS Customer App (BowTie)</label>
+                </value>
+                <value>
+                    <fullName>iOS Pro App (WingTip)</fullName>
+                    <default>false</default>
+                    <label>iOS Pro App (WingTip)</label>
+                </value>
+                <value>
+                    <fullName>Polish - Approved</fullName>
+                    <default>false</default>
+                    <label>Polish - Approved</label>
+                </value>
+                <value>
+                    <fullName>Polish - Suggestion</fullName>
+                    <default>false</default>
+                    <label>Polish - Suggestion</label>
+                </value>
+                <value>
+                    <fullName>Not a Bug</fullName>
+                    <default>false</default>
+                    <label>Not a Bug</label>
+                </value>
+                <value>
+                    <fullName>Under Investigation</fullName>
+                    <default>false</default>
+                    <label>Under Investigation</label>
+                </value>
+                <value>
+                    <fullName>Tracker Bug</fullName>
+                    <default>false</default>
+                    <label>Tracker Bug</label>
+                </value>
+                <value>
+                    <fullName>Eng Won&apos;t Fix Tracker</fullName>
+                    <default>false</default>
+                    <label>Eng Won&apos;t Fix Tracker</label>
+                </value>
+                <value>
+                    <fullName>Instant Quote</fullName>
+                    <default>false</default>
+                    <label>Instant Quote</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>UserCode__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+ISPICKVAL(User__c, &apos;Other&apos;), &apos;SalesforceSystemIntegration&apos;, 
+IF( 
+ISPICKVAL(User__c, &apos;Alyssa Wilson&apos;), &apos;awilson&apos;, 
+IF( 
+ISPICKVAL(User__c, &apos;Deirdre Galluzzo&apos;), &apos;deirdre&apos;, 
+IF( 
+ISPICKVAL(User__c, &apos;Kyle Thorup&apos;), &apos;kyle&apos;, 
+IF( 
+ISPICKVAL(User__c, &apos;Kristine Ann Pielago&apos;), &apos;krpielago&apos;, 
+IF( 
+ISPICKVAL(User__c, &apos;Christina Caacoy&apos;), &apos;crcaacoy&apos;, 
+IF( 
+ISPICKVAL(User__c, &apos;Jeff Oviatt&apos;), &apos;joviatt&apos; 
+,&apos;SalesforceSystemIntegration&apos; )))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>User Code</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>User__c</fullName>
+        <externalId>false</externalId>
+        <label>User</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Alyssa Wilson</fullName>
+                    <default>false</default>
+                    <label>Alyssa Wilson</label>
+                </value>
+                <value>
+                    <fullName>Kevin Giltz</fullName>
+                    <default>false</default>
+                    <label>Kevin Giltz</label>
+                </value>
+                <value>
+                    <fullName>Deirdre Galluzzo</fullName>
+                    <default>false</default>
+                    <label>Deirdre Galluzzo</label>
+                </value>
+                <value>
+                    <fullName>Kyle Thorup</fullName>
+                    <default>false</default>
+                    <label>Kyle Thorup</label>
+                </value>
+                <value>
+                    <fullName>Kristine Ann Pielago</fullName>
+                    <default>false</default>
+                    <label>Kristine Ann Pielago</label>
+                </value>
+                <value>
+                    <fullName>Christina Caacoy</fullName>
+                    <default>false</default>
+                    <label>Christina Caacoy</label>
+                </value>
+                <value>
+                    <fullName>Jeff Oviatt</fullName>
+                    <default>false</default>
+                    <label>Jeff Oviatt</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>WatchersAdded__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Watchers Added</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Workaround__c</fullName>
+        <externalId>false</externalId>
+        <label>Workaround</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <label>Bug</label>
     <listViews>
         <fullName>All</fullName>
         <columns>NAME</columns>
@@ -786,4 +1646,151 @@
             <roleAndSubordinatesInternal>CustomerSuccessOrganization</roleAndSubordinatesInternal>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Bug Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Bugs</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Urgency__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>DateLogged__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>DateFixed__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Affects__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Project__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>BugDescription__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>DateFixed__c</lookupDialogsAdditionalFields>
+        <lookupFilterFields>NAME</lookupFilterFields>
+        <lookupFilterFields>Urgency__c</lookupFilterFields>
+        <lookupFilterFields>DateLogged__c</lookupFilterFields>
+        <lookupFilterFields>DateFixed__c</lookupFilterFields>
+        <lookupFilterFields>Affects__c</lookupFilterFields>
+        <lookupPhoneDialogsAdditionalFields>Urgency__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>DateLogged__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>DateFixed__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Affects__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Urgency__c</searchFilterFields>
+        <searchFilterFields>DateLogged__c</searchFilterFields>
+        <searchFilterFields>DateFixed__c</searchFilterFields>
+        <searchFilterFields>Affects__c</searchFilterFields>
+        <searchResultsAdditionalFields>DateFixed__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>BugDescription__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Project__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Affects__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>ProjectValidationRule</fullName>
+        <active>true</active>
+        <description>Do not allow the divider value to be selected as a valid project.</description>
+        <errorConditionFormula>ISPICKVAL(Project__c, &apos;***Below are No Longer in Use***&apos;)</errorConditionFormula>
+        <errorDisplayField>Project__c</errorDisplayField>
+        <errorMessage>Please select a valid project.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>AddWatchers</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Add Watchers To JIRA</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)}; 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)}; 
+
+sforce.apex.execute(&quot;JiraCallout&quot;,&quot;addWatchers&quot;,{bugId:&quot;{!Bug__c.Id}&quot;}); 
+window.location.reload();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Get_Jira_Updates</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Get Update From Jira</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)}; 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)}; 
+
+sforce.apex.execute(&quot;GetJiraIssue&quot;,&quot;getIssue&quot;,{bugId:&quot;{!Bug__c.Id}&quot;});
+window.location.reload();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Send_Attachments_To_Jira</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Send Attachments To Jira</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)};
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)};
+
+var myquery = &quot;SELECT Id FROM Attachment WHERE ParentId = &apos;{!Bug__c.Id}&apos;&quot;; 
+
+result = sforce.connection.query(myquery); 
+records = result.getArray(&quot;records&quot;); 
+
+if(records[0]){ 
+     
+} 
+for (i = 0; i &lt; records.length; i++) { 
+   var myObj = records[i];
+    sforce.connection.update([myObj]);
+}
+
+window.location.reload();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Take_Ownership</fullName>
+        <availability>online</availability>
+        <description>The person that clicks this button will be assigned ownership of the record</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Take Ownership</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/40.0/connection.js&quot;)}
+
+try{
+    var BugToUpdate = new sforce.SObject(&quot;Bug__c&quot;);
+
+    BugToUpdate.Id = &quot;{!Bug__c.Id}&quot;;
+    BugToUpdate.OwnerId = &quot;{!$User.Id}&quot;;
+
+    var result = sforce.connection.update([BugToUpdate]);
+
+    if(result[0].success == &quot;true&quot;){
+        location.reload();
+    }
+    else{
+        alert(
+            &quot;An Error has Occurred. Error: &quot; + 
+            result[0].errors.message
+        );
+    }
+}
+catch(e){
+    alert(
+        &quot;An Error has Occurred. Error: &quot; + 
+        e
+    );
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Update_Jira_Issue</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Send Updates To Jira</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)}; 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)}; 
+
+sforce.apex.execute(&quot;JiraCallout&quot;,&quot;updateIssue&quot;,{bugId:&quot;{!Bug__c.Id}&quot;}); 
+window.location.reload();</url>
+    </webLinks>
 </CustomObject>

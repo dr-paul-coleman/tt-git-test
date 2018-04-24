@@ -1,0 +1,15 @@
+staticresources/
+app.js
+app.json
+package.json
+Procfile
+.idea/
+IlluminatedCloud/
+.DS_Store
+npm-debug.log
+test/benchmarks/
+.project/
+.settings/
+.vscode/
+package-lock.json
+*.iml

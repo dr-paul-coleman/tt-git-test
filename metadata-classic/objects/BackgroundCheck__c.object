@@ -1,5 +1,370 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object whose records indicate a request, result, or other pertinent information pertaining to a background check.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the Account related to this background check.</description>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Background Checks</relationshipLabel>
+        <relationshipName>BackgroundChecks</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>AdminLinkViewUser__c</fullName>
+        <description>Formula field that will allow the specialist to easily navigate to the Admin link for the background check candidate.</description>
+        <externalId>false</externalId>
+        <formula>IF(NOT ISBLANK(EncodedId__c), 
+HYPERLINK(&quot;https://www.thumbtack.com/admin/users?searchterm=&quot;&amp;EncodedId__c, &quot;Encoded ID Search&quot;,&quot;_blank&quot;), 
+HYPERLINK(&quot;https://www.thumbtack.com/admin/users?searchterm=&quot;&amp;SuppliedEmail__c, &quot;Email Search&quot;,&quot;_blank&quot;) 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Admin Link View User</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AdverseItems__c</fullName>
+        <description>Long text area to store the adverse items section of the background check results as provided by the 3rd party application.</description>
+        <externalId>false</externalId>
+        <label>Adverse Items</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>BackgroundCheckComplete__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Checkbox that indicates the background check has been completed.  Used in code.</description>
+        <externalId>false</externalId>
+        <label>Background Check Complete</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CandidateId__c</fullName>
+        <description>Text field to store the ID of the background check candidate as provided by the 3rd party application.</description>
+        <externalId>false</externalId>
+        <label>Candidate Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CandidateName__c</fullName>
+        <description>Text field to store the name of the candidate as provided by the 3rd party background check application.</description>
+        <externalId>false</externalId>
+        <label>Candidate Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup field to the case that initiated the background check review.</description>
+        <externalId>false</externalId>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>Background Checks</relationshipLabel>
+        <relationshipName>BackgroundChecks</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CheckrDashboard__c</fullName>
+        <description>Formula field to display a hyperlink to the checkr dashboard for the selected report.</description>
+        <externalId>false</externalId>
+        <formula>IF( NOT ISBLANK(ReportId__c),
+HYPERLINK(&quot;https://dashboard.checkr.com/reports/&quot;&amp;ReportId__c, &quot;Checkr Dashboard Link&quot;, &quot;_blank&quot;),
+NULL)</formula>
+        <label>Checkr Dashboard</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the contact that is related to this background check.</description>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Background Checks</relationshipLabel>
+        <relationshipName>BackgroundChecks</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CountyCriminalSearchId__c</fullName>
+        <description>Text field to store the ID of the county criminal watchlist report as provided by the 3rd party background check application.</description>
+        <externalId>false</externalId>
+        <label>County Criminal Search Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CountyCriminalSearch__c</fullName>
+        <description>Long text area field to store the results of the county criminal report as provided by the 3rd party background check application.</description>
+        <externalId>false</externalId>
+        <label>County Criminal Search</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>DOB__c</fullName>
+        <description>Text field to store the candidates date of birth as provided by the 3rd party background check application.</description>
+        <externalId>false</externalId>
+        <label>D.O.B.</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EncodedId__c</fullName>
+        <description>Text field to store the custom encoded ID provided to and from the 3rd party background check application.</description>
+        <externalId>false</externalId>
+        <label>Encoded Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GlobalWatchlistSearchId__c</fullName>
+        <description>Global watchlist ID received from the third party background check application.</description>
+        <externalId>false</externalId>
+        <label>Global Watchlist Search Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GlobalWatchlistSearch__c</fullName>
+        <description>Long text area to store the results of the candidate&apos;s global watchlist check as reported by the 3rd party background check application.</description>
+        <externalId>false</externalId>
+        <label>Global Watchlist Search</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>NationalCriminalSearchId__c</fullName>
+        <description>Text area to store the ID of the national criminal database search as provided by the 3rd party background check application.</description>
+        <externalId>false</externalId>
+        <label>National Criminal Search Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NationalCriminalSearch__c</fullName>
+        <description>Long text area to store the results of the candidate&apos;s national criminal report as provided by the 3rd party background check application.</description>
+        <externalId>false</externalId>
+        <label>National Criminal Search</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ReportId__c</fullName>
+        <description>Text area to store the ID of the 3rd party background check report.  ID provided via email which is parsed out for obtaining results via API.</description>
+        <externalId>false</externalId>
+        <label>Report Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SexOffenderSearchId__c</fullName>
+        <description>Text area to store the ID of the national sex offender registry search as provided by the 3rd party background check application.</description>
+        <externalId>false</externalId>
+        <label>Sex Offender Search Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SexOffenderSearch__c</fullName>
+        <description>Long text area to store the results of the national sex offender registry search as provided by the 3rd party background check application.</description>
+        <externalId>false</externalId>
+        <label>Sex Offender Search</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>StateCriminalSearchId__c</fullName>
+        <description>Text field to store the ID of the state criminal watchlist report as provided by the 3rd party background check application.</description>
+        <externalId>false</externalId>
+        <label>State Criminal Search Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>StateCriminalSearch__c</fullName>
+        <description>Long text area to store the results of the state criminal search as provided by the 3rd party background check application.</description>
+        <externalId>false</externalId>
+        <label>State Criminal Search</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>Picklist whose values describe the agent&apos;s review status of the background check report.</description>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Consider</fullName>
+                    <default>false</default>
+                    <label>Consider</label>
+                </value>
+                <value>
+                    <fullName>Clear</fullName>
+                    <default>false</default>
+                    <label>Clear</label>
+                </value>
+                <value>
+                    <fullName>Not Clear</fullName>
+                    <default>false</default>
+                    <label>Not Clear</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>SuppliedEmail__c</fullName>
+        <description>Email field to store the candidate email address as provided by the 3rd party background check application.</description>
+        <externalId>false</externalId>
+        <label>Email</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <label>Background Check</label>
     <listViews>
         <fullName>All</fullName>
         <columns>NAME</columns>
@@ -95,4 +460,49 @@
             <group>MarketplaceIntegrityRestricted</group>
         </sharedTo>
     </listViews>
+    <nameField>
+        <label>Record Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Background Checks</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Checkr</fullName>
+        <active>true</active>
+        <description>Record type used to manage the information received from a Checkr background check report.</description>
+        <label>Checkr</label>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Clear</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Consider</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Clear</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>GetBackgroundCheckReports</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Get Background Check Reports</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)}; 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)}; 
+
+sforce.apex.execute(&quot;CheckrAPI&quot;,&quot;getReports&quot;,{bCheckId:&quot;{!BackgroundCheck__c.Id}&quot;}); 
+window.location.reload();</url>
+    </webLinks>
 </CustomObject>
